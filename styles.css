@@ -1123,12 +1123,27 @@ textarea:focus {
 @media (max-width: 980px) {
   .landing-band,
   .profile-builder,
-  .split-section {
+  .split-section,
+  .landing-hero,
+  .scholarship-preview {
     grid-template-columns: 1fr;
   }
 
   .rank-actions {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .editorial-visual {
+    min-height: 560px;
+  }
+
+  .hero-photo {
+    inset: 36px -5vw 0 40px;
+    border-top-left-radius: 170px;
+  }
+
+  .preview-intro {
+    position: static;
   }
 }
 
@@ -1168,9 +1183,82 @@ textarea:focus {
   }
 
   .landing-hero::before {
-    background:
-      linear-gradient(180deg, rgba(251, 252, 248, 0.98) 0%, rgba(251, 252, 248, 0.9) 54%, rgba(251, 252, 248, 0.42) 100%),
-      url("assets/hero-scholarship-match.png") center bottom / cover no-repeat;
+    inset: -8% -90% auto 0;
+  }
+
+  .editorial-hero h1 {
+    font-size: clamp(3.1rem, 15vw, 4.5rem);
+  }
+
+  .editorial-support {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .round-cta {
+    width: 96px;
+    height: 96px;
+  }
+
+  .editorial-visual {
+    min-height: 500px;
+  }
+
+  .status-pill {
+    top: 70px;
+    left: 12px;
+    font-size: 0.88rem;
+  }
+
+  .floating-stat {
+    width: 184px;
+    padding: 14px;
+  }
+
+  .stat-time {
+    left: 0;
+    bottom: 132px;
+  }
+
+  .stat-aid {
+    right: 8px;
+    bottom: 38px;
+  }
+
+  .scholarship-preview {
+    padding: 50px 18px 68px;
+  }
+
+  .preview-intro h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .scholarship-phone {
+    padding: 12px;
+    border-radius: 22px;
+  }
+
+  .preview-toggle {
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .preview-thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .preview-requirements {
+    padding: 0 14px 18px;
+  }
+
+  .preview-requirements li {
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+
+  .preview-requirements small {
+    grid-column: 2;
   }
 
   .result-meta,
