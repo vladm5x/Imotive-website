@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Profile | Grantly Lund</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Grantly Lund home">
+      <span class="brand-mark">G</span>
+      <span>Grantly Lund</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="results.html">Results</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="profile-page">
+      <div class="section-heading center-heading">
+        <p class="eyebrow">Create your profile</p>
+        <h1 class="page-title">Tell us who you are as a student.</h1>
+        <p class="hero-text narrow-text">We use this information to build a `profile` object that will later be matched against the scholarship database.</p>
+      </div>
+
+      <form class="profile-builder profile-page-form" id="profileForm">
+        <label>
+          <span>First name</span>
+          <input name="firstName" required placeholder="First name">
+        </label>
+        <label>
+          <span>Last name</span>
+          <input name="lastName" required placeholder="Last name">
+        </label>
+        <label>
+          <span>Email</span>
+          <input name="email" type="email" required placeholder="name@example.com">
+        </label>
+        <label>
+          <span>University</span>
+          <select name="university" required>
+            <option value="Lund University">Lund University</option>
+            <option value="Other Swedish university">Other Swedish university</option>
+          </select>
+        </label>
+        <label>
+          <span>Study level</span>
+          <select name="level" required>
+            <option value="Master">Master</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </label>
+        <label>
+          <span>Field of study</span>
+          <select name="field" required>
+            <option value="Engineering">Engineering</option>
+            <option value="Social sciences">Social sciences</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Law">Law</option>
+            <option value="Humanities">Humanities</option>
+            <option value="Any field">Any field</option>
+          </select>
+        </label>
+        <label>
+          <span>Nationality</span>
+          <select name="nationality" required>
+            <option value="International non-EU">International non-EU</option>
+            <option value="EU/EEA">EU/EEA</option>
+            <option value="Swedish">Swedish</option>
+            <option value="Any nationality">Any nationality</option>
+          </select>
+        </label>
+        <label>
+          <span>Year of study</span>
+          <select name="year" required>
+            <option value="1">Year 1</option>
+            <option value="2">Year 2</option>
+            <option value="3">Year 3</option>
+            <option value="4+">Year 4+</option>
+          </select>
+        </label>
+        <label>
+          <span>Funding need</span>
+          <select name="need" required>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </label>
+        <label>
+          <span>Main interest</span>
+          <select name="interest" required>
+            <option value="Sustainability">Sustainability</option>
+            <option value="Research">Research</option>
+            <option value="Leadership">Leadership</option>
+            <option value="Travel">Travel</option>
+            <option value="Any interest">Any interest</option>
+          </select>
+        </label>
+        <label>
+          <span>Need tuition support?</span>
+          <select name="tuitionSupport" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+        <label>
+          <span>Extra notes</span>
+          <textarea name="notes" rows="4" placeholder="Optional context about your situation, goals, or constraints"></textarea>
+        </label>
+        <button class="button primary profile-submit" type="submit">See my ranked scholarships</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Grantly Lund prototype</span>
+    <span>Profile step before ranking.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

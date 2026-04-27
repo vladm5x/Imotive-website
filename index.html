@@ -6,202 +6,55 @@
   <title>Grantly Lund | Scholarship Finder Prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#home" aria-label="Grantly Lund home">
+    <a class="brand" href="index.html" aria-label="Grantly Lund home">
       <span class="brand-mark">G</span>
       <span>Grantly Lund</span>
     </a>
     <nav class="nav" aria-label="Primary navigation">
-      <a href="#scholarships">Find matches</a>
-      <a href="#feedback">Feedback</a>
+      <a href="profile.html">Create profile</a>
+      <a href="results.html">View rankings</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero simple-hero" id="home">
+    <section class="hero landing-hero">
       <div class="hero-copy">
         <p class="eyebrow">Scholarship finder for students</p>
         <h1>Find the scholarships worth applying to first.</h1>
-        <p class="hero-text">A clean Lund University pilot that ranks funding opportunities one at a time, based on fit, deadline, and requirements.</p>
+        <p class="hero-text">A clean Lund University pilot that starts with a student profile, then ranks scholarships one at a time based on fit, urgency, and required information.</p>
         <div class="hero-actions">
-          <a class="button primary hero-cta" href="#profile">Find scholarships now</a>
+          <a class="button primary hero-cta" href="profile.html">Find scholarships today</a>
         </div>
       </div>
     </section>
 
-    <section class="profile-section" id="profile">
-      <div class="section-heading center-heading">
-        <p class="eyebrow">Create your profile</p>
-        <h2>Tell us what kind of student you are</h2>
-        <p>This is only a UI prototype for now. Later, these answers will power the matching logic.</p>
+    <section class="landing-band">
+      <div class="band-card">
+        <span class="band-label">Step 1</span>
+        <h2>Create a profile</h2>
+        <p>Students enter the key details we need to understand their background and funding needs.</p>
       </div>
-
-      <form class="profile-builder" id="profileForm">
-        <label>
-          <span>University</span>
-          <select name="university">
-            <option>Lund University</option>
-            <option>Other Swedish university</option>
-          </select>
-        </label>
-        <label>
-          <span>Study level</span>
-          <select name="level">
-            <option>Master</option>
-            <option>Bachelor</option>
-            <option>PhD</option>
-          </select>
-        </label>
-        <label>
-          <span>Field of study</span>
-          <select name="field">
-            <option>Engineering</option>
-            <option>Social sciences</option>
-            <option>Medicine</option>
-            <option>Law</option>
-            <option>Humanities</option>
-            <option>Any field</option>
-          </select>
-        </label>
-        <label>
-          <span>Nationality</span>
-          <select name="nationality">
-            <option>International non-EU</option>
-            <option>EU/EEA</option>
-            <option>Swedish</option>
-            <option>Any nationality</option>
-          </select>
-        </label>
-        <label>
-          <span>Funding need</span>
-          <select name="need">
-            <option>High</option>
-            <option>Medium</option>
-            <option>Low</option>
-          </select>
-        </label>
-        <label>
-          <span>Interest</span>
-          <select name="interest">
-            <option>Sustainability</option>
-            <option>Research</option>
-            <option>Leadership</option>
-            <option>Travel</option>
-            <option>Any interest</option>
-          </select>
-        </label>
-        <button class="button primary profile-submit" type="submit">Show my scholarships</button>
-      </form>
-    </section>
-
-    <section class="section-shell rank-section" id="scholarships">
-      <div class="section-heading center-heading">
-        <p class="eyebrow">Prototype ranking</p>
-        <h2>Review one scholarship at a time</h2>
-        <p>Use the filters as a rough student profile. The ranked card stays centered so the experience feels simple, focused, and fast.</p>
+      <div class="band-card">
+        <span class="band-label">Step 2</span>
+        <h2>Rank scholarships</h2>
+        <p>The platform turns scattered opportunities into a single focused ranking flow.</p>
       </div>
-
-      <div class="toolbar compact-toolbar" aria-label="Scholarship filters">
-        <label class="search-field">
-          <span>Search</span>
-          <input id="searchInput" type="search" placeholder="International, engineering, travel...">
-        </label>
-        <label>
-          <span>Study level</span>
-          <select id="levelFilter">
-            <option value="all">All levels</option>
-            <option value="Bachelor">Bachelor</option>
-            <option value="Master">Master</option>
-            <option value="PhD">PhD</option>
-          </select>
-        </label>
-        <label>
-          <span>Category</span>
-          <select id="categoryFilter">
-            <option value="all">All categories</option>
-            <option value="Tuition">Tuition</option>
-            <option value="Living costs">Living costs</option>
-            <option value="Research">Research</option>
-            <option value="Travel">Travel</option>
-          </select>
-        </label>
-        <label>
-          <span>Deadline</span>
-          <select id="deadlineFilter">
-            <option value="all">Any deadline</option>
-            <option value="soon">Next 45 days</option>
-            <option value="later">Later</option>
-          </select>
-        </label>
+      <div class="band-card">
+        <span class="band-label">Step 3</span>
+        <h2>Refine the product</h2>
+        <p>Student feedback tells us which scholarships matter and where the matching should improve.</p>
       </div>
-
-      <div class="result-meta ranked-meta">
-        <strong id="resultCount">0 results</strong>
-        <button class="text-button" id="resetFilters" type="button">Reset filters</button>
-      </div>
-      <div class="ranked-stage" id="scholarshipGrid"></div>
-    </section>
-
-    <section class="split-section feedback-panel" id="feedback">
-      <div class="section-heading compact">
-        <p class="eyebrow">Validate demand</p>
-        <h2>Was this useful?</h2>
-        <p>For now we only need to know whether this ranked format feels clear enough for students to use.</p>
-      </div>
-      <form class="stacked-form" id="feedbackForm">
-        <label>
-          <span>Usefulness rating</span>
-          <select name="rating" required>
-            <option value="5">5 - Very useful</option>
-            <option value="4">4 - Useful</option>
-            <option value="3">3 - Unsure</option>
-            <option value="2">2 - Not useful yet</option>
-            <option value="1">1 - Not useful</option>
-          </select>
-        </label>
-        <label>
-          <span>Would you return?</span>
-          <select name="returnIntent">
-            <option>Yes, during application season</option>
-            <option>Maybe, if results improve</option>
-            <option>No</option>
-          </select>
-        </label>
-        <label>
-          <span>What should improve?</span>
-          <textarea name="comment" rows="4" placeholder="Missing filters, scholarship quality, application help, reminders..."></textarea>
-        </label>
-        <button class="button primary" type="submit">Send feedback</button>
-        <p class="form-note" id="feedbackNote"></p>
-      </form>
-    </section>
-
-    <section class="prototype-utility" aria-label="Prototype utility forms">
-      <div id="matchResults"></div>
-      <form id="submitForm">
-        <input name="title">
-        <input name="source">
-        <textarea name="eligibility"></textarea>
-      </form>
-      <p id="submitNote"></p>
-      <button id="exportCsv" type="button">Export CSV</button>
-      <table><tbody id="dataTable"></tbody></table>
     </section>
   </main>
 
-  <dialog class="detail-dialog" id="detailDialog">
-    <article id="detailContent"></article>
-  </dialog>
-
   <footer class="footer">
     <span>Grantly Lund prototype</span>
-    <span>Clean UI first. Matching logic later.</span>
+    <span>Landing page, profile flow, and ranked results.</span>
   </footer>
-
-  <script src="app.js"></script>
 </body>
 </html>
