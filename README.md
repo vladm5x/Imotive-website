@@ -2,6 +2,10 @@
 
 Static scholarship finder prototype for validating demand with Lund University students.
 
+## Product Build Plan
+
+The larger scraper, Supabase, user profile, and application progress roadmap lives in `SCHOLARSHIP_PLATFORM_PLAN.md`.
+
 ## Open the Site
 
 Open `index.html` in a browser. No build step is required.
