@@ -1,119 +1,4 @@
-const scholarships = [
-  {
-    id: "lund-global-scholarship",
-    title: "Lund University Global Scholarship",
-    amount: "Partial tuition fee scholarship",
-    deadline: "2027-02-15",
-    category: "Tuition",
-    level: ["Bachelor", "Master"],
-    fields: ["Any field"],
-    nationality: ["International non-EU"],
-    interests: ["Leadership", "Any interest"],
-    need: ["Medium", "High"],
-    source: "Lund University source to verify",
-    url: "https://www.lunduniversity.lu.se",
-    eligibility: "High-achieving fee-paying applicants to Lund University bachelor's or master's programmes.",
-    documents: "Programme application, scholarship motivation, academic records.",
-    instructions: "Apply through Lund University's scholarship application during the admission period.",
-    requirementKeywords: ["fee-paying", "academic merit", "admitted programme", "motivation"],
-    requiredApplicantInfo: ["first name", "last name", "email", "programme", "study level", "nationality", "application number", "academic records"]
-  },
-  {
-    id: "lund-travel-grant",
-    title: "Lund Student Travel Grant",
-    amount: "SEK 5,000-25,000",
-    deadline: "2026-05-20",
-    category: "Travel",
-    level: ["Bachelor", "Master", "PhD"],
-    fields: ["Any field"],
-    nationality: ["Swedish", "EU/EEA", "International non-EU"],
-    interests: ["Travel", "Research"],
-    need: ["Low", "Medium", "High"],
-    source: "Prototype faculty/foundation record",
-    url: "https://www.lunduniversity.lu.se",
-    eligibility: "Students planning exchange, fieldwork, conference travel, or thesis-related study abroad.",
-    documents: "Budget, travel plan, transcript, supervisor or programme confirmation.",
-    instructions: "Check the relevant faculty call and submit before the travel period begins.",
-    requirementKeywords: ["travel", "exchange", "fieldwork", "conference", "thesis"],
-    requiredApplicantInfo: ["first name", "last name", "school", "subject", "travel dates", "destination", "budget", "transcript"]
-  },
-  {
-    id: "engineering-foundation-award",
-    title: "Engineering Advancement Foundation Award",
-    amount: "SEK 15,000",
-    deadline: "2026-06-01",
-    category: "Research",
-    level: ["Master", "PhD"],
-    fields: ["Engineering"],
-    nationality: ["Swedish", "EU/EEA", "International non-EU"],
-    interests: ["Research", "Sustainability"],
-    need: ["Medium", "High"],
-    source: "Prototype external foundation record",
-    url: "https://www.lth.se",
-    eligibility: "LTH students with a research or thesis project connected to technology, energy, or sustainability.",
-    documents: "Project summary, CV, budget, supervisor statement.",
-    instructions: "Submit a project proposal and budget to the foundation contact listed by the faculty.",
-    requirementKeywords: ["engineering", "research", "technology", "energy", "sustainability"],
-    requiredApplicantInfo: ["first name", "last name", "faculty", "subject", "project title", "supervisor", "CV", "budget"]
-  },
-  {
-    id: "social-impact-bursary",
-    title: "Social Impact Student Bursary",
-    amount: "SEK 8,000-18,000",
-    deadline: "2026-04-30",
-    category: "Living costs",
-    level: ["Bachelor", "Master"],
-    fields: ["Social sciences", "Law", "Humanities"],
-    nationality: ["Swedish", "EU/EEA", "International non-EU"],
-    interests: ["Leadership", "Sustainability"],
-    need: ["High"],
-    source: "Prototype donor fund record",
-    url: "https://www.lunduniversity.lu.se",
-    eligibility: "Students with demonstrated financial need and a project or study path connected to social impact.",
-    documents: "Personal statement, proof of enrolment, budget, reference.",
-    instructions: "Apply through the donor fund form and include a short statement about intended impact.",
-    requirementKeywords: ["financial need", "social impact", "leadership", "personal statement"],
-    requiredApplicantInfo: ["first name", "last name", "school", "field of study", "financial situation", "personal statement", "reference"]
-  },
-  {
-    id: "medicine-research-stipend",
-    title: "Medicine Research Stipend",
-    amount: "SEK 20,000",
-    deadline: "2026-09-10",
-    category: "Research",
-    level: ["Master", "PhD"],
-    fields: ["Medicine"],
-    nationality: ["Swedish", "EU/EEA", "International non-EU"],
-    interests: ["Research"],
-    need: ["Low", "Medium", "High"],
-    source: "Prototype faculty record",
-    url: "https://www.medicine.lu.se",
-    eligibility: "Medicine faculty students conducting clinical, public health, or lab-based research.",
-    documents: "Research plan, ethics note if applicable, CV, supervisor support.",
-    instructions: "Send the application package to the faculty scholarship administrator.",
-    requirementKeywords: ["medicine", "clinical research", "public health", "lab research", "supervisor"],
-    requiredApplicantInfo: ["first name", "last name", "faculty", "research area", "research plan", "CV", "supervisor", "ethics note"]
-  },
-  {
-    id: "international-student-emergency-grant",
-    title: "International Student Emergency Grant",
-    amount: "One-time support up to SEK 12,000",
-    deadline: "2026-12-15",
-    category: "Living costs",
-    level: ["Bachelor", "Master", "PhD"],
-    fields: ["Any field"],
-    nationality: ["International non-EU", "EU/EEA"],
-    interests: ["Any interest"],
-    need: ["High"],
-    source: "Prototype student support record",
-    url: "https://www.lunduniversity.lu.se",
-    eligibility: "Enrolled international students facing unexpected short-term financial difficulty.",
-    documents: "Explanation of situation, proof of enrolment, basic budget, supporting documentation.",
-    instructions: "Contact student support services and request the emergency funding application.",
-    requirementKeywords: ["international student", "emergency", "financial difficulty", "enrolled student"],
-    requiredApplicantInfo: ["first name", "last name", "email", "student ID", "nationality", "financial situation", "proof of enrolment", "supporting documents"]
-  }
-];
+let scholarships = [];
 
 const profileStorageKey = "grantlyProfile";
 const feedbackStorageKey = "grantlyFeedback";
@@ -422,7 +307,23 @@ function initFeedbackForm() {
   });
 }
 
-attachDialogHandlers();
-initProfileForm();
-initResultsPage();
-initFeedbackForm();
+async function loadScholarships() {
+  try {
+    const res = await fetch("data/scholarships.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    scholarships = await res.json();
+  } catch (err) {
+    console.error("Could not load scholarship data:", err);
+    scholarships = [];
+  }
+}
+
+async function init() {
+  await loadScholarships();
+  attachDialogHandlers();
+  initProfileForm();
+  initResultsPage();
+  initFeedbackForm();
+}
+
+init();
