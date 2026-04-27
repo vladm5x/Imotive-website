@@ -1,0 +1,242 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.site-frame {
+  border-radius: 0 0 18px 18px;
+}
+
+.logo-mark {
+  color: #080808;
+}
+
+.logo-mark::after {
+  display: block;
+  width: 32px;
+  height: 4px;
+  margin-top: -8px;
+  margin-left: 15px;
+  border-radius: 99px;
+  background: currentColor;
+  content: "";
+}
+
+.hero-video-stack {
+  animation: revealStack linear both;
+  animation-timeline: scroll(root);
+  animation-range: 0 45vh;
+}
+
+.purple-video {
+  transform: scale(1.06);
+  animation: purplePan linear both;
+  animation-timeline: scroll(root);
+  animation-range: 55vh 230vh;
+}
+
+.scroll-pill {
+  position: absolute;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  padding: 0 18px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0.9;
+  animation: floatNote 5.8s ease-in-out infinite;
+}
+
+.scroll-pill:nth-of-type(2) {
+  animation-delay: 0.4s;
+}
+
+.scroll-pill:nth-of-type(3) {
+  animation-delay: 0.8s;
+}
+
+.analytics-card {
+  border-radius: 28px;
+  background: #f7f7f7;
+  padding: clamp(24px, 4vw, 36px);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.045);
+}
+
+.tag-cloud {
+  position: relative;
+}
+
+.tag-cloud span {
+  position: absolute;
+  left: calc(8% + (var(--i) % 4) * 21%);
+  top: calc(18% + (var(--i) % 3) * 24%);
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  border: 1.4px solid #0a0a0a;
+  border-radius: 999px;
+  padding: 0 20px;
+  background: white;
+  font-size: clamp(14px, 1.3vw, 19px);
+  transform: rotate(calc((var(--i) - 4) * 8deg));
+  animation: tagDrift 4.8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.22s);
+}
+
+.metric-tile {
+  min-height: 118px;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.metric-tile span {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.metric-tile strong {
+  display: block;
+  margin-top: 24px;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}
+
+.chart-grid {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.16);
+  stroke-dasharray: 4 7;
+}
+
+.chart-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-faint {
+  stroke: rgba(255, 102, 173, 0.22);
+  stroke-width: 8;
+}
+
+.chart-hot {
+  stroke: #ff66ad;
+  stroke-width: 6;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawChart 4.2s ease-in-out infinite;
+}
+
+.chart-marker {
+  stroke: #ff66ad;
+  stroke-dasharray: 5 6;
+  opacity: 0.55;
+}
+
+.chart-dot {
+  fill: #ff66ad;
+  stroke: #ffd0e5;
+  stroke-width: 7;
+}
+
+.chart-label {
+  fill: white;
+  paint-order: stroke;
+  stroke: black;
+  stroke-width: 18px;
+  stroke-linejoin: round;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.mail-float {
+  animation: mailFloat 5.8s ease-in-out infinite;
+}
+
+@keyframes revealStack {
+  from {
+    transform: translateX(-50%) translateY(70px) rotate(0deg) scale(0.98);
+  }
+
+  to {
+    transform: translateX(-50%) translateY(-150px) rotate(0deg) scale(1.04);
+  }
+}
+
+@keyframes purplePan {
+  from {
+    transform: scale(1.24) translateY(-10%);
+  }
+
+  to {
+    transform: scale(1.24) translateY(-36%);
+  }
+}
+
+@keyframes floatNote {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes tagDrift {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 8px -12px;
+  }
+}
+
+@keyframes drawChart {
+  0% {
+    stroke-dashoffset: 800;
+  }
+
+  48%, 100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mailFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-18deg);
+  }
+
+  50% {
+    transform: translateY(-22px) rotate(-12deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .site-frame {
+    border-radius: 0;
+  }
+
+  .hero-video-stack {
+    top: 70%;
+    width: 110vw;
+  }
+
+  .tag-cloud span {
+    left: calc(4% + (var(--i) % 3) * 28%);
+    top: calc(12% + (var(--i) % 4) * 18%);
+    padding: 0 14px;
+  }
+}

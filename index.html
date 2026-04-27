@@ -1,97 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>imotive | Scholarship Finder Prototype</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="index.html" aria-label="imotive home">
-      <span class="brand-mark">i</span>
-      <span>imotive</span>
-    </a>
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="profile.html">Create profile</a>
-      <a href="results.html">View rankings</a>
-      <a href="social-media-platform.html">SMM landing</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero landing-hero editorial-hero">
-      <div class="editorial-copy">
-        <p class="eyebrow line-eyebrow">Your future, found faster</p>
-        <h1>
-          Find Your
-          <span>Scholarships</span>
-          Today
-        </h1>
-        <div class="editorial-support">
-          <a class="round-cta" href="profile.html">Start<br>matching</a>
-          <p class="hero-text">Skip the endless searching. Get matched with real scholarships so you can spend more time with friends, family, and the life you are building.</p>
-        </div>
-      </div>
-      <div class="editorial-visual" aria-hidden="true">
-        <div class="hero-photo"></div>
-        <div class="sun-glow"></div>
-        <span class="status-pill">Less searching. More living.</span>
-        <div class="floating-stat stat-time">
-          <strong>8hrs</strong>
-          <span>saved every week</span>
-        </div>
-        <div class="floating-stat stat-aid">
-          <strong>$4.2k</strong>
-          <span>average matched aid</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="scholarship-preview" aria-label="Scholarship search preview">
-      <div class="preview-intro">
-        <p class="eyebrow">Scholarship search menu</p>
-        <h2>Keep every application moving.</h2>
-        <p>See how close each scholarship is to done, expand the match, and finish the exact requirements without losing your place.</p>
-      </div>
-
-      <div class="scholarship-phone">
-        <div class="phone-top">
-          <h3>Your Scholarships</h3>
-          <a href="results.html">See all</a>
-        </div>
-        <div class="preview-list" id="landingScholarshipList">
-          <p class="preview-loading">Loading scholarship matches...</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="landing-band" id="how-it-works">
-      <div class="band-card">
-        <span class="band-label">01</span>
-        <h2>Make a student snapshot</h2>
-        <p>Add the few details that change which funding routes are worth your time.</p>
-      </div>
-      <div class="band-card">
-        <span class="band-label">02</span>
-        <h2>Get a focused first list</h2>
-        <p>See one match at a time, with the reason it fits and what you need next.</p>
-      </div>
-      <div class="band-card">
-        <span class="band-label">03</span>
-        <h2>Apply with less guessing</h2>
-        <p>Use deadlines, eligibility notes, and source links to move from browsing to action.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <span>imotive prototype</span>
-    <span>Landing page, profile flow, and ranked results.</span>
-  </footer>
-  <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>imotive | Scholarship Matching Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui"]
+            },
+            colors: {
+              ink: "#090909",
+              purple: "#4b16c9",
+              violet: "#321178",
+              pink: "#ff66ad",
+              yellow: "#ffd329"
+            },
+            borderRadius: {
+              panel: "28px"
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="src/main.js"></script>
+  </body>
 </html>
