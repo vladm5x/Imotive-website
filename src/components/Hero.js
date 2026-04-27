@@ -42,8 +42,8 @@ export function Hero() {
         { className: "m-0 overflow-hidden rounded-[34px] bg-white shadow-[0_38px_95px_rgba(26,18,55,0.18)] ring-1 ring-black/5" },
         e("img", {
           className: "block aspect-[3/2] w-full object-cover object-center",
-          src: "assets/hero-payments-illustration.png",
-          alt: "Purple product landing page illustration"
+          src: "assets/hero-scholarship-room.png",
+          alt: "Purple scholarship study room illustration"
         })
       )
     )
