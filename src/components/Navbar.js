@@ -20,13 +20,13 @@ export function Navbar() {
     e(
       "a",
       { href: "#home", className: "logo-mark text-[27px] font-black tracking-[-0.08em]" },
-      "imotive"
+      "iMotive"
     ),
     e(
       "nav",
       {
         className:
-          "hidden rounded-[8px] bg-white/88 px-6 py-4 shadow-[0_10px_35px_rgba(15,15,20,0.06)] backdrop-blur-xl md:flex md:gap-8"
+          "hidden rounded-[8px] bg-white px-7 py-4 text-black shadow-[0_10px_35px_rgba(15,15,20,0.08)] ring-1 ring-black/5 md:flex md:gap-8"
       },
       links.map(([href, label]) => e("a", { key: href, href, className: "transition hover:text-purple" }, label))
     ),
