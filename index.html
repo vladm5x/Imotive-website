@@ -28,24 +28,74 @@
         <h1>Find the scholarships worth applying to first.</h1>
         <p class="hero-text">A clean Lund University pilot that ranks funding opportunities one at a time, based on fit, deadline, and requirements.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#scholarships">Start ranking</a>
-          <a class="button secondary" href="#feedback">Give feedback</a>
+          <a class="button primary hero-cta" href="#profile">Find scholarships now</a>
         </div>
-        <dl class="hero-stats" aria-label="Prototype metrics">
-          <div>
-            <dt id="stat-count">0</dt>
-            <dd>sample listings</dd>
-          </div>
-          <div>
-            <dt>1 by 1</dt>
-            <dd>ranked review</dd>
-          </div>
-          <div>
-            <dt>Lund</dt>
-            <dd>first market</dd>
-          </div>
-        </dl>
       </div>
+    </section>
+
+    <section class="profile-section" id="profile">
+      <div class="section-heading center-heading">
+        <p class="eyebrow">Create your profile</p>
+        <h2>Tell us what kind of student you are</h2>
+        <p>This is only a UI prototype for now. Later, these answers will power the matching logic.</p>
+      </div>
+
+      <form class="profile-builder" id="profileForm">
+        <label>
+          <span>University</span>
+          <select name="university">
+            <option>Lund University</option>
+            <option>Other Swedish university</option>
+          </select>
+        </label>
+        <label>
+          <span>Study level</span>
+          <select name="level">
+            <option>Master</option>
+            <option>Bachelor</option>
+            <option>PhD</option>
+          </select>
+        </label>
+        <label>
+          <span>Field of study</span>
+          <select name="field">
+            <option>Engineering</option>
+            <option>Social sciences</option>
+            <option>Medicine</option>
+            <option>Law</option>
+            <option>Humanities</option>
+            <option>Any field</option>
+          </select>
+        </label>
+        <label>
+          <span>Nationality</span>
+          <select name="nationality">
+            <option>International non-EU</option>
+            <option>EU/EEA</option>
+            <option>Swedish</option>
+            <option>Any nationality</option>
+          </select>
+        </label>
+        <label>
+          <span>Funding need</span>
+          <select name="need">
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+        </label>
+        <label>
+          <span>Interest</span>
+          <select name="interest">
+            <option>Sustainability</option>
+            <option>Research</option>
+            <option>Leadership</option>
+            <option>Travel</option>
+            <option>Any interest</option>
+          </select>
+        </label>
+        <button class="button primary profile-submit" type="submit">Show my scholarships</button>
+      </form>
     </section>
 
     <section class="section-shell rank-section" id="scholarships">
@@ -131,14 +181,6 @@
     </section>
 
     <section class="prototype-utility" aria-label="Prototype utility forms">
-      <form id="profileForm">
-        <select name="university"><option>Lund University</option></select>
-        <select name="level"><option>Master</option></select>
-        <select name="field"><option>Engineering</option></select>
-        <select name="nationality"><option>International non-EU</option></select>
-        <select name="need"><option>High</option></select>
-        <select name="interest"><option>Sustainability</option></select>
-      </form>
       <div id="matchResults"></div>
       <form id="submitForm">
         <input name="title">

@@ -1,15 +1,15 @@
 :root {
-  --ink: #14213d;
-  --muted: #617085;
-  --line: #dce4ea;
+  --ink: #102033;
+  --muted: #66758a;
+  --line: #dde6ed;
   --paper: #ffffff;
-  --soft: #f7fafc;
-  --teal: #007f7a;
-  --teal-dark: #00615d;
-  --yellow: #f5c542;
-  --coral: #e8664f;
-  --blue: #315c9d;
-  --shadow: 0 18px 60px rgba(20, 33, 61, 0.11);
+  --soft: #f7f9fb;
+  --teal: #007f73;
+  --teal-dark: #005f57;
+  --yellow: #f2c94c;
+  --coral: #e76f51;
+  --blue: #3b6ea8;
+  --shadow: 0 18px 60px rgba(16, 32, 51, 0.1);
 }
 
 * {
@@ -163,6 +163,12 @@ h1 {
   background: var(--teal-dark);
 }
 
+.hero-cta {
+  min-height: 54px;
+  padding: 0 26px;
+  font-size: 1.02rem;
+}
+
 .button.secondary {
   border-color: var(--line);
   background: white;
@@ -174,6 +180,29 @@ h1 {
   gap: 12px;
   max-width: 570px;
   margin: 40px auto 0;
+}
+
+.profile-section {
+  padding: 78px 5vw;
+  background: white;
+}
+
+.profile-builder {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+}
+
+.profile-submit {
+  grid-column: 1 / -1;
+  justify-self: center;
+  min-width: 240px;
 }
 
 .hero-stats div {
@@ -884,6 +913,7 @@ textarea:focus {
 
   .hero,
   .section-shell,
+  .profile-section,
   .match-section,
   .split-section {
     padding: 44px 18px;
@@ -898,6 +928,7 @@ textarea:focus {
   }
 
   .hero-stats,
+  .profile-builder,
   .toolbar,
   .card-grid,
   .value-band,

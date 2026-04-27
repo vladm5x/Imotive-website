@@ -128,8 +128,6 @@ const resultCount = document.querySelector("#resultCount");
 const dialog = document.querySelector("#detailDialog");
 const detailContent = document.querySelector("#detailContent");
 
-document.querySelector("#stat-count").textContent = scholarships.length;
-
 function daysUntil(dateString) {
   const today = new Date("2026-04-27T00:00:00");
   const date = new Date(`${dateString}T00:00:00`);
@@ -389,6 +387,7 @@ document.querySelector("#profileForm").addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(event.currentTarget);
   renderMatches(Object.fromEntries(formData.entries()));
+  document.querySelector("#scholarships").scrollIntoView({ behavior: "smooth" });
 });
 
 document.querySelector("#matchResults").addEventListener("click", (event) => {
