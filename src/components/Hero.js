@@ -36,15 +36,15 @@ export function Hero() {
     ),
     e(
       "div",
-      { className: "hero-video-stack pointer-events-none relative left-1/2 mt-20 h-[36vw] min-h-[300px] w-[92vw] max-w-[1240px] -translate-x-1/2" },
-      e("div", { className: "absolute inset-x-8 top-10 h-[74%] rotate-[-2deg] rounded-[56px] bg-yellow" }),
-      e("div", { className: "absolute inset-x-4 top-16 h-[74%] rotate-[-5deg] rounded-[56px] bg-pink" }),
+      { className: "hero-image-frame pointer-events-none relative left-1/2 mt-16 w-[94vw] max-w-[1280px] -translate-x-1/2" },
       e(
-        "div",
-        { className: "absolute inset-0 overflow-hidden rounded-[56px] bg-purple shadow-[0_40px_90px_rgba(50,17,120,0.24)]" },
-        e("div", { className: "hero-abstract one" }),
-        e("div", { className: "hero-abstract two" }),
-        e("div", { className: "hero-abstract three" })
+        "figure",
+        { className: "m-0 overflow-hidden rounded-[34px] bg-white shadow-[0_38px_95px_rgba(26,18,55,0.18)] ring-1 ring-black/5" },
+        e("img", {
+          className: "block aspect-[3/2] w-full object-cover object-center",
+          src: "assets/hero-payments-illustration.png",
+          alt: "Purple product landing page illustration"
+        })
       )
     )
   );
