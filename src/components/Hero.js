@@ -21,16 +21,11 @@ export function Hero() {
       ),
       e(
         "div",
-        { className: "mt-8 flex flex-wrap justify-center gap-4" },
+        { className: "mt-8 flex justify-center" },
         e(
           "a",
-          { href: "profile.html", className: "rounded-[8px] bg-purple px-9 py-4 text-sm font-semibold text-white shadow-[0_18px_38px_rgba(75,22,201,0.25)] transition hover:-translate-y-0.5" },
-          "Start Matching"
-        ),
-        e(
-          "a",
-          { href: "results.html", className: "rounded-[8px] border border-black/10 bg-white px-9 py-4 text-sm font-semibold shadow-[0_10px_25px_rgba(20,20,30,0.06)] transition hover:-translate-y-0.5 hover:border-purple/40" },
-          "View Rankings"
+          { href: "profile.html", className: "rounded-[8px] bg-purple px-10 py-4 text-sm font-semibold text-white shadow-[0_18px_38px_rgba(75,22,201,0.25)] transition hover:-translate-y-0.5" },
+          "Find Scholarships!"
         )
       )
     ),

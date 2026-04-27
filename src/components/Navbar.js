@@ -19,7 +19,7 @@ export function Navbar() {
     },
     e(
       "a",
-      { href: "#home", className: "logo-mark text-[27px] font-black tracking-[-0.08em]" },
+      { href: "#home", className: "logo-mark rounded-[14px] bg-yellow px-5 py-3 text-[27px] font-black tracking-[-0.08em] text-black shadow-[0_14px_28px_rgba(255,211,41,0.22)]" },
       "iMotive"
     ),
     e(
