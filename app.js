@@ -119,7 +119,8 @@ const state = {
   search: "",
   level: "all",
   category: "all",
-  deadline: "all"
+  deadline: "all",
+  activeRank: 0
 };
 
 const grid = document.querySelector("#scholarshipGrid");
@@ -169,28 +170,44 @@ function matchesFilters(item) {
   return searchMatch && levelMatch && categoryMatch && deadlineMatch;
 }
 
-function scholarshipCard(item) {
+function scholarshipCard(item, index, total) {
   const days = daysUntil(item.deadline);
   const deadlineText = days < 0 ? "Past pilot date" : `${days} days left`;
   return `
-    <article class="card">
-      <div class="card-top">
-        <h3>${item.title}</h3>
+    <article class="rank-card">
+      <div class="rank-kicker">
+        <span>Rank ${index + 1} of ${total}</span>
         <span class="deadline">${deadlineText}</span>
       </div>
+      <h3>${item.title}</h3>
+      <p class="rank-summary">${item.eligibility}</p>
       <div class="pill-row">
         <span class="pill">${item.category}</span>
         <span class="pill">${item.level.join(" / ")}</span>
         <span class="pill">${item.fields[0]}</span>
       </div>
-      <p>${item.eligibility}</p>
-      <div class="keyword-block" aria-label="Requirement keywords">
-        ${item.requirementKeywords.slice(0, 4).map((keyword) => `<span class="keyword">${keyword}</span>`).join("")}
+      <div class="rank-details">
+        <div>
+          <span>Amount</span>
+          <strong>${item.amount}</strong>
+        </div>
+        <div>
+          <span>Deadline</span>
+          <strong>${formatDeadline(item.deadline)}</strong>
+        </div>
       </div>
-      <div class="amount">${item.amount}</div>
-      <div class="card-actions">
-        <button class="small-button" type="button" data-detail="${item.id}">Details</button>
+      <div class="keyword-block" aria-label="Requirement keywords">
+        ${item.requirementKeywords.slice(0, 5).map((keyword) => `<span class="keyword">${keyword}</span>`).join("")}
+      </div>
+      <div class="needed-info">
+        <span>Needed information</span>
+        <p>${item.requiredApplicantInfo.slice(0, 5).join(", ")}</p>
+      </div>
+      <div class="rank-actions">
+        <button class="small-button" type="button" data-rank-prev>Previous</button>
+        <button class="button primary" type="button" data-detail="${item.id}">View details</button>
         <button class="small-button" type="button" data-save="${item.id}">Save</button>
+        <button class="small-button" type="button" data-rank-next>Next</button>
       </div>
     </article>
   `;
@@ -198,9 +215,12 @@ function scholarshipCard(item) {
 
 function renderScholarships() {
   const results = scholarships.filter(matchesFilters);
-  resultCount.textContent = `${results.length} ${results.length === 1 ? "result" : "results"}`;
+  if (state.activeRank >= results.length) state.activeRank = 0;
+  resultCount.textContent = results.length
+    ? `${state.activeRank + 1} of ${results.length} ranked scholarships`
+    : "0 ranked scholarships";
   grid.innerHTML = results.length
-    ? results.map(scholarshipCard).join("")
+    ? scholarshipCard(results[state.activeRank], state.activeRank, results.length)
     : `<div class="empty-state"><h3>No scholarships match those filters.</h3><p>Try resetting filters or widening your profile.</p></div>`;
 }
 
@@ -208,6 +228,7 @@ function setFilter(id, key) {
   const element = document.querySelector(id);
   element.addEventListener("input", (event) => {
     state[key] = event.target.value;
+    state.activeRank = 0;
     renderScholarships();
   });
 }
@@ -222,6 +243,7 @@ document.querySelector("#resetFilters").addEventListener("click", () => {
   state.level = "all";
   state.category = "all";
   state.deadline = "all";
+  state.activeRank = 0;
   document.querySelector("#searchInput").value = "";
   document.querySelector("#levelFilter").value = "all";
   document.querySelector("#categoryFilter").value = "all";
@@ -232,6 +254,9 @@ document.querySelector("#resetFilters").addEventListener("click", () => {
 grid.addEventListener("click", (event) => {
   const detailButton = event.target.closest("[data-detail]");
   const saveButton = event.target.closest("[data-save]");
+  const nextButton = event.target.closest("[data-rank-next]");
+  const prevButton = event.target.closest("[data-rank-prev]");
+  const results = scholarships.filter(matchesFilters);
 
   if (detailButton) {
     openDetail(detailButton.dataset.detail);
@@ -240,6 +265,16 @@ grid.addEventListener("click", (event) => {
   if (saveButton) {
     saveScholarship(saveButton.dataset.save);
     saveButton.textContent = "Saved";
+  }
+
+  if (nextButton && results.length) {
+    state.activeRank = (state.activeRank + 1) % results.length;
+    renderScholarships();
+  }
+
+  if (prevButton && results.length) {
+    state.activeRank = (state.activeRank - 1 + results.length) % results.length;
+    renderScholarships();
   }
 });
 
