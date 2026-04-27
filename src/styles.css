@@ -1,5 +1,8 @@
 html {
   scroll-behavior: smooth;
+  --scroll-progress: 0;
+  --scroll-y: 0px;
+  --art-y: 0px;
 }
 
 body {
@@ -32,11 +35,33 @@ body {
   animation-range: 0 45vh;
 }
 
-.purple-video {
-  transform: scale(1.06);
-  animation: purplePan linear both;
-  animation-timeline: scroll(root);
-  animation-range: 55vh 230vh;
+.hero-art-window::before,
+.purple-art::before {
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/purple-scroll-composite.jpg");
+  background-repeat: no-repeat;
+  background-size: cover auto;
+  content: "";
+  will-change: transform, background-position;
+}
+
+.hero-art-window::before {
+  background-position: center 0;
+  transform: scale(1.05) translateY(calc(var(--scroll-progress) * -260px));
+}
+
+.purple-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.purple-art::before {
+  height: 430vh;
+  background-size: 100% auto;
+  background-position: center top;
+  transform: translate3d(0, var(--art-y), 0) scale(1.03);
 }
 
 .scroll-pill {
@@ -171,16 +196,6 @@ body {
 
   to {
     transform: translateX(-50%) translateY(-150px) rotate(0deg) scale(1.04);
-  }
-}
-
-@keyframes purplePan {
-  from {
-    transform: scale(1.24) translateY(-10%);
-  }
-
-  to {
-    transform: scale(1.24) translateY(-36%);
   }
 }
 
