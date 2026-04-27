@@ -13,9 +13,9 @@ export function Integrations() {
     ),
     e(
       "div",
-      { className: "relative flex flex-wrap items-center justify-center gap-5 text-center" },
+      { className: "relative flex items-center justify-center text-center" },
       e("h2", { className: "text-[clamp(3rem,8vw,7.2rem)] font-medium tracking-[-0.08em]" }, "Scholarships"),
-      e("div", { className: "rounded-[16px] bg-yellow px-5 py-2 text-[clamp(1.5rem,3.2vw,3rem)] font-black tracking-[-0.08em] text-white/65" }, "imotive")
+      e("div", { className: "absolute right-[-1.2rem] top-1/2 -translate-y-1/2 rounded-[16px] bg-yellow px-5 py-2 text-[clamp(1.5rem,3.2vw,3rem)] font-black tracking-[-0.08em] text-white/65 sm:right-[-3.2rem]" }, "imotive")
     )
   );
 }
