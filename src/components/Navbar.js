@@ -19,7 +19,7 @@ export function Navbar() {
     },
     e(
       "a",
-      { href: "#home", className: "logo-mark header-badge flex min-h-[52px] min-w-[140px] items-center justify-center rounded-[10px] bg-yellow px-5 text-[22px] font-black tracking-[-0.08em] text-black shadow-[0_14px_28px_rgba(255,211,41,0.22)]" },
+      { href: "#home", className: "logo-mark text-[27px] font-black tracking-[-0.08em]" },
       "iMotive"
     ),
     e(
@@ -32,14 +32,14 @@ export function Navbar() {
     ),
     e(
       "div",
-      { className: "flex items-center gap-5" },
+      { className: "flex min-w-[210px] items-center justify-end gap-5" },
       e("a", { href: "profile.html", className: "hidden transition hover:text-purple sm:inline" }, "Log in"),
       e(
         "a",
         {
           href: "profile.html",
           className:
-            "flex min-h-[52px] min-w-[140px] items-center justify-center rounded-[10px] bg-black px-5 text-[22px] font-black tracking-[-0.08em] text-white shadow-[0_14px_30px_rgba(0,0,0,0.14)] transition hover:-translate-y-0.5 hover:bg-purple"
+            "flex min-h-[52px] min-w-[140px] items-center justify-center rounded-[10px] bg-yellow px-5 text-[18px] font-black tracking-[-0.05em] text-black shadow-[0_14px_28px_rgba(255,211,41,0.22)] transition hover:-translate-y-0.5 hover:bg-yellow/90"
         },
         "Start Free Trial"
       )
