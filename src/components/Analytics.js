@@ -2,12 +2,23 @@ import React from "https://esm.sh/react@18.2.0";
 
 const e = React.createElement;
 
-const tags = ["#Engineering", "#Lund", "#NeedAid", "#Research", "#Travel", "#Merit", "#Sustainability", "#Tuition", "#Essay", "#STEM"];
+const tags = [
+  { label: "#Engineering", x: 4, y: 214, r: -10, delay: 0.05 },
+  { label: "#Lund", x: 35, y: 224, r: 6, delay: 0.24 },
+  { label: "#NeedAid", x: 60, y: 206, r: -7, delay: 0.14 },
+  { label: "#Research", x: 8, y: 166, r: 13, delay: 0.42 },
+  { label: "#Travel", x: 73, y: 224, r: 15, delay: 0.32 },
+  { label: "#Merit", x: 42, y: 156, r: -12, delay: 0.58 },
+  { label: "#Sustainability", x: 2, y: 190, r: -5, delay: 0.68 },
+  { label: "#Tuition", x: 43, y: 195, r: 4, delay: 0.78 },
+  { label: "#Essay", x: 76, y: 174, r: -15, delay: 0.9 },
+  { label: "#STEM", x: 26, y: 181, r: 17, delay: 1.02 }
+];
 
 export function Analytics() {
   return e(
     "section",
-    { id: "analytics", className: "relative -mt-[32vh] rounded-t-[42px] bg-white px-6 pb-24 pt-28 sm:px-10 lg:px-20" },
+    { id: "analytics", className: "relative bg-white px-6 pb-24 pt-24 sm:px-10 lg:px-20" },
     e(
       "div",
       { className: "mx-auto max-w-[1320px]" },
@@ -24,8 +35,23 @@ export function Analytics() {
             { className: "mt-7 rounded-[26px] bg-white p-6 shadow-inner" },
             e(
               "div",
-              { className: "tag-cloud min-h-[245px]" },
-              tags.map((tag, index) => e("span", { key: tag, style: { "--i": index } }, tag))
+              { className: "tag-cloud min-h-[285px]" },
+              tags.map((tag, index) =>
+                e(
+                  "span",
+                  {
+                    key: tag.label,
+                    style: {
+                      "--i": index,
+                      "--x": `${tag.x}%`,
+                      "--land-y": `${tag.y}px`,
+                      "--r": `${tag.r}deg`,
+                      "--delay": `${tag.delay}s`
+                    }
+                  },
+                  tag.label
+                )
+              )
             )
           ),
           e(

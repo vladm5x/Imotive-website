@@ -5,7 +5,7 @@ const e = React.createElement;
 export function Hero() {
   return e(
     "section",
-    { id: "home", className: "relative min-h-[101vh] overflow-hidden rounded-b-[18px] bg-white px-6 pb-0 pt-28 sm:px-10 lg:px-20" },
+    { id: "home", className: "relative min-h-[88vh] overflow-hidden rounded-b-[18px] bg-white px-6 pb-20 pt-28 sm:px-10 lg:px-20" },
     e(
       "div",
       { className: "mx-auto flex max-w-5xl flex-col items-center text-center" },
@@ -36,10 +36,16 @@ export function Hero() {
     ),
     e(
       "div",
-      { className: "hero-video-stack pointer-events-none absolute left-1/2 top-[62%] h-[54vw] min-h-[430px] w-[92vw] max-w-[1240px] -translate-x-1/2" },
+      { className: "hero-video-stack pointer-events-none relative left-1/2 mt-20 h-[36vw] min-h-[300px] w-[92vw] max-w-[1240px] -translate-x-1/2" },
       e("div", { className: "absolute inset-x-8 top-10 h-[74%] rotate-[-2deg] rounded-[56px] bg-yellow" }),
       e("div", { className: "absolute inset-x-4 top-16 h-[74%] rotate-[-5deg] rounded-[56px] bg-pink" }),
-      e("div", { className: "hero-art-window absolute inset-0 overflow-hidden rounded-[56px] bg-purple shadow-[0_40px_90px_rgba(50,17,120,0.28)]" })
+      e(
+        "div",
+        { className: "absolute inset-0 overflow-hidden rounded-[56px] bg-purple shadow-[0_40px_90px_rgba(50,17,120,0.24)]" },
+        e("div", { className: "hero-abstract one" }),
+        e("div", { className: "hero-abstract two" }),
+        e("div", { className: "hero-abstract three" })
+      )
     )
   );
 }
