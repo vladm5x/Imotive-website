@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grantly Lund | Scholarship Finder Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Grantly Lund home">
+      <span class="brand-mark">G</span>
+      <span>Grantly Lund</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#scholarships">Scholarships</a>
+      <a href="#match">Match</a>
+      <a href="#database">Data</a>
+      <a href="#submit">Submit</a>
+      <a href="#feedback">Feedback</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">Lund University pilot</p>
+        <h1>Find scholarships that actually fit your student profile.</h1>
+        <p class="hero-text">Grantly Lund turns scattered scholarship pages, PDFs, and foundation links into a faster student-first search and matching experience.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#scholarships">Browse scholarships</a>
+          <a class="button secondary" href="#match">Get matched</a>
+        </div>
+        <dl class="hero-stats" aria-label="Prototype metrics">
+          <div>
+            <dt id="stat-count">0</dt>
+            <dd>pilot listings</dd>
+          </div>
+          <div>
+            <dt>3 min</dt>
+            <dd>profile flow</dd>
+          </div>
+          <div>
+            <dt>Lund</dt>
+            <dd>first market</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="hero-media" aria-label="Students discovering scholarship opportunities">
+        <img src="assets/hero-scholarship-platform.png" alt="Students using laptops in a bright university study space">
+      </div>
+    </section>
+
+    <section class="value-band" aria-label="Platform value">
+      <div>
+        <span class="mini-icon">1</span>
+        <h2>Search in one place</h2>
+        <p>Bring university, foundation, and grant listings into a clear browseable library.</p>
+      </div>
+      <div>
+        <span class="mini-icon">2</span>
+        <h2>Match by profile</h2>
+        <p>Use study level, nationality, faculty, interests, and financial situation to rank results.</p>
+      </div>
+      <div>
+        <span class="mini-icon">3</span>
+        <h2>Improve with students</h2>
+        <p>Collect missing scholarships, outdated links, and usefulness ratings from early users.</p>
+      </div>
+    </section>
+
+    <section class="section-shell" id="scholarships">
+      <div class="section-heading">
+        <p class="eyebrow">Explore funding</p>
+        <h2>Scholarship search</h2>
+        <p>Filter prototype Lund-focused records by eligibility, deadline, and award type.</p>
+      </div>
+
+      <div class="toolbar" aria-label="Scholarship filters">
+        <label class="search-field">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Try international, engineering, travel...">
+        </label>
+        <label>
+          <span>Study level</span>
+          <select id="levelFilter">
+            <option value="all">All levels</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </label>
+        <label>
+          <span>Category</span>
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+            <option value="Tuition">Tuition</option>
+            <option value="Living costs">Living costs</option>
+            <option value="Research">Research</option>
+            <option value="Travel">Travel</option>
+          </select>
+        </label>
+        <label>
+          <span>Deadline</span>
+          <select id="deadlineFilter">
+            <option value="all">Any deadline</option>
+            <option value="soon">Next 45 days</option>
+            <option value="later">Later</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="result-meta">
+        <strong id="resultCount">0 results</strong>
+        <button class="text-button" id="resetFilters" type="button">Reset filters</button>
+      </div>
+      <div class="card-grid" id="scholarshipGrid"></div>
+    </section>
+
+    <section class="match-section" id="match">
+      <div class="section-heading">
+        <p class="eyebrow">Personalized prototype</p>
+        <h2>Basic matching profile</h2>
+        <p>Enter a lightweight student profile and the prototype ranks scholarships using transparent match reasons.</p>
+      </div>
+      <div class="match-layout">
+        <form class="profile-form" id="profileForm">
+          <label>
+            <span>University</span>
+            <select name="university">
+              <option>Lund University</option>
+              <option>Other Swedish university</option>
+            </select>
+          </label>
+          <label>
+            <span>Study level</span>
+            <select name="level">
+              <option>Master</option>
+              <option>Bachelor</option>
+              <option>PhD</option>
+            </select>
+          </label>
+          <label>
+            <span>Field of study</span>
+            <select name="field">
+              <option>Engineering</option>
+              <option>Social sciences</option>
+              <option>Medicine</option>
+              <option>Law</option>
+              <option>Humanities</option>
+              <option>Any field</option>
+            </select>
+          </label>
+          <label>
+            <span>Nationality</span>
+            <select name="nationality">
+              <option>International non-EU</option>
+              <option>EU/EEA</option>
+              <option>Swedish</option>
+              <option>Any nationality</option>
+            </select>
+          </label>
+          <label>
+            <span>Funding need</span>
+            <select name="need">
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </label>
+          <label>
+            <span>Interest</span>
+            <select name="interest">
+              <option>Sustainability</option>
+              <option>Research</option>
+              <option>Leadership</option>
+              <option>Travel</option>
+              <option>Any interest</option>
+            </select>
+          </label>
+          <button class="button primary" type="submit">Show matches</button>
+        </form>
+        <div class="match-results" id="matchResults" aria-live="polite">
+          <div class="empty-state">
+            <h3>Your ranked results will appear here.</h3>
+            <p>Default sample profile: international master student at Lund studying engineering with high funding need.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="split-section" id="submit">
+      <div class="section-heading compact">
+        <p class="eyebrow">Community data advantage</p>
+        <h2>Submit a scholarship we missed</h2>
+        <p>Student suggestions help the database grow faster and reveal which sources are worth tracking.</p>
+      </div>
+      <form class="stacked-form" id="submitForm">
+        <label>
+          <span>Scholarship name</span>
+          <input name="title" required placeholder="Foundation, grant, or award name">
+        </label>
+        <label>
+          <span>Link or source</span>
+          <input name="source" type="url" placeholder="https://...">
+        </label>
+        <label>
+          <span>Who is it for?</span>
+          <textarea name="eligibility" rows="4" placeholder="Eligibility, amount, deadline, or any useful notes"></textarea>
+        </label>
+        <button class="button primary" type="submit">Send suggestion</button>
+        <p class="form-note" id="submitNote"></p>
+      </form>
+    </section>
+
+    <section class="split-section feedback-panel" id="feedback">
+      <div class="section-heading compact">
+        <p class="eyebrow">Validate demand</p>
+        <h2>Was this useful?</h2>
+        <p>Feedback from Lund students tells us whether the product should become a larger Sweden-wide platform.</p>
+      </div>
+      <form class="stacked-form" id="feedbackForm">
+        <label>
+          <span>Usefulness rating</span>
+          <select name="rating" required>
+            <option value="5">5 - Very useful</option>
+            <option value="4">4 - Useful</option>
+            <option value="3">3 - Unsure</option>
+            <option value="2">2 - Not useful yet</option>
+            <option value="1">1 - Not useful</option>
+          </select>
+        </label>
+        <label>
+          <span>Would you return?</span>
+          <select name="returnIntent">
+            <option>Yes, during application season</option>
+            <option>Maybe, if results improve</option>
+            <option>No</option>
+          </select>
+        </label>
+        <label>
+          <span>What should improve?</span>
+          <textarea name="comment" rows="4" placeholder="Missing filters, scholarship quality, application help, reminders..."></textarea>
+        </label>
+        <button class="button primary" type="submit">Send feedback</button>
+        <p class="form-note" id="feedbackNote"></p>
+      </form>
+    </section>
+
+    <section class="section-shell database-section" id="database">
+      <div class="section-heading">
+        <p class="eyebrow">Manual database prototype</p>
+        <h2>Large scholarship list structure</h2>
+        <p>Each scholarship can store its source link, deadline, eligibility keywords, and the applicant information needed to apply.</p>
+      </div>
+      <div class="database-actions">
+        <button class="button primary" id="exportCsv" type="button">Export CSV</button>
+        <p>Use this format when collecting scholarships from Lund pages, PDFs, faculty pages, foundations, and student suggestions.</p>
+      </div>
+      <div class="table-wrap" aria-label="Scholarship data table">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Deadline</th>
+              <th>Source link</th>
+              <th>Requirement keywords</th>
+              <th>Needed applicant info</th>
+            </tr>
+          </thead>
+          <tbody id="dataTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="detail-dialog" id="detailDialog">
+    <article id="detailContent"></article>
+  </dialog>
+
+  <footer class="footer">
+    <span>Grantly Lund prototype</span>
+    <span>Manual data first. Student feedback next.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
