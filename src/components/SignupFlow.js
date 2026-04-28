@@ -2,7 +2,7 @@ import React from "https://esm.sh/react@18.2.0";
 
 const e = React.createElement;
 
-const STORAGE_KEY = "stipendio_signup_answers";
+const STORAGE_KEY = "imotive_signup_answers";
 
 const questions = [
   {
@@ -130,9 +130,9 @@ function getSavedAnswers() {
 function Logo() {
   return e(
     "a",
-    { href: "index.html", className: "signup-logo", "aria-label": "Stipendio home" },
+    { href: "index.html", className: "signup-logo", "aria-label": "iMotive home" },
     e("span", { className: "signup-logo-dot" }),
-    "Stipendio"
+    "iMotive"
   );
 }
 

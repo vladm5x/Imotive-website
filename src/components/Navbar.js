@@ -43,7 +43,7 @@ export function Navbar() {
         "div",
         { style: { display: "flex", alignItems: "center", gap: "20px" } },
         e("a", {
-          href: "/login",
+          href: "signup.html",
           style: { fontSize: "14px", color: "#555555", textDecoration: "none" },
           onMouseEnter: (ev) => { ev.target.style.color = "#1A1A1A"; },
           onMouseLeave: (ev) => { ev.target.style.color = "#555555"; }

@@ -38,7 +38,7 @@ export function CTA() {
           }
         }, "Start searching →"),
         e("a", {
-          href: "/scholarships",
+          href: "signup.html",
           style: {
             display: "inline-flex", alignItems: "center", height: "48px",
             padding: "0 28px", background: "transparent",

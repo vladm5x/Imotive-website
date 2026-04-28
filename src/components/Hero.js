@@ -58,9 +58,7 @@ export function Hero() {
 
   function handleSearch(ev) {
     ev.preventDefault();
-    if (query.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
-    }
+    window.location.href = "signup.html";
   }
 
   return e(
@@ -130,7 +128,7 @@ export function Hero() {
         e(
           "div",
           { style: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px", marginBottom: "36px" } },
-          e("a", { href: "/scholarships", className: "pill-btn" }, "Browse all 2,400+ →"),
+          e("a", { href: "signup.html", className: "pill-btn" }, "Browse all 2,400+ →"),
           e("span", { style: { fontSize: "13px", color: "#9CA3AF", fontStyle: "italic" } }, "or,"),
           e("a", { href: "signup.html", style: { fontSize: "13px", color: "#3B82F6", fontStyle: "italic", textDecoration: "none" } }, "sign up to get matches")
         ),

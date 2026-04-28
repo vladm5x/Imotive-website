@@ -6,7 +6,7 @@ const cols = [
   {
     label: "Product",
     links: [
-      ["/scholarships", "Browse scholarships"],
+      ["signup.html", "Browse scholarships"],
       ["#how-it-works", "How it works"],
       ["signup.html", "Sign up free"]
     ]

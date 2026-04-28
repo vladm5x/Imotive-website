@@ -50,7 +50,7 @@ function ScholarshipCard({ title, amount, daysLeft, progressPercent, effort, eli
     {
       className: "card-hard",
       style: { background: "white", padding: "24px", display: "flex", flexDirection: "column", gap: "14px", cursor: "pointer" },
-      onClick: () => { window.location.href = `/scholarships/${slug}`; }
+      onClick: () => { window.location.href = "signup.html"; }
     },
 
     // Top row: eligibility pill + amount
@@ -103,7 +103,7 @@ function ScholarshipCard({ title, amount, daysLeft, progressPercent, effort, eli
 
     // Apply button
     e("a", {
-      href: `/scholarships/${slug}`,
+      href: "signup.html",
       className: "apply-btn",
       onClick: (ev) => ev.stopPropagation()
     }, "Apply →")
@@ -137,7 +137,7 @@ export function FeaturedScholarships() {
           ),
           e("p", { style: { margin: 0, fontSize: "15px", color: "#6B7280" } }, "Sign up to see which ones fit you.")
         ),
-        e("a", { href: "/scholarships", style: { fontSize: "14px", fontStyle: "italic", color: "#1A1A1A", textDecoration: "none", whiteSpace: "nowrap" } }, "browse all 2,400+ →")
+        e("a", { href: "signup.html", style: { fontSize: "14px", fontStyle: "italic", color: "#1A1A1A", textDecoration: "none", whiteSpace: "nowrap" } }, "browse all 2,400+ →")
       ),
 
       // Cards grid
