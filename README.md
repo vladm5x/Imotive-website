@@ -60,13 +60,19 @@ To inspect all users and their onboarding data as an admin, paste `supabase/user
 
 ## Updating Scholarship Data
 
-The working sample records are in `app.js` in the `scholarships` array. Add or edit objects using the same fields. A standalone shape reference is available at `data/scholarships.example.json`.
+The working scholarship records are in `data/scholarships.json`. Add or edit objects using the same fields. A standalone shape reference is available at `data/scholarships.example.json`.
 
 Use `requirementKeywords` for eligibility terms found in the scholarship source, such as `financial need`, `engineering`, `international student`, or `academic merit`.
 
 Use `requiredApplicantInfo` for the information the applicant must provide, such as `first name`, `last name`, `school`, `subject`, `nationality`, `budget`, `CV`, or `deadline`.
 
 Before using this with real students, replace prototype records with verified Lund University, faculty, foundation, and grant sources.
+
+Run `npm run audit:data` to score the current JSON dataset before publishing. The audit reports entries that are publishable, need review, or should be hidden because they look stale, blocked, generic, or too thin.
+
+Matching logic lives in `src/lib/matching.js`. It applies hard eligibility blockers first, then ranks eligible scholarships by field, level, nationality, need, interests, tuition fit, deadline status, and scraper quality.
+
+Supabase-backed scholarship loading and saving lives in `src/lib/scholarships.js`. If Supabase is configured, the app reads from `scholarships_raw` and saves user bookmarks to `saved_scholarships`; otherwise it falls back to `data/scholarships.json`.
 
 ## Debugging Scrapes
 

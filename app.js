@@ -1,3 +1,6 @@
+import { daysUntil, rankScholarships } from "./src/lib/matching.js";
+import { fetchScholarships, saveScholarshipForUser } from "./src/lib/scholarships.js";
+
 let scholarships = [];
 
 const profileStorageKey = "grantlyProfile";
@@ -81,14 +84,10 @@ const defaultProfile = {
   notes: ""
 };
 
-function daysUntil(dateString) {
-  const today = new Date("2026-04-27T00:00:00");
-  const date = new Date(`${dateString}T00:00:00`);
-  return Math.ceil((date - today) / 86400000);
-}
-
 function formatDeadline(dateString) {
+  if (!dateString || dateString === "Unknown") return "Unknown";
   const date = new Date(`${dateString}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return "Unknown";
   return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
@@ -104,50 +103,13 @@ function saveProfile(profile) {
   localStorage.setItem(profileStorageKey, JSON.stringify(profile));
 }
 
-function scoreScholarship(item, profile) {
-  let score = 0;
-  const reasons = [];
-
-  if (item.level.includes(profile.level)) {
-    score += 25;
-    reasons.push(profile.level);
-  }
-  if (item.fields.includes(profile.field) || item.fields.includes("Any field")) {
-    score += 22;
-    reasons.push(item.fields.includes("Any field") ? "Any field eligible" : profile.field);
-  }
-  if (item.nationality.includes(profile.nationality) || profile.nationality === "Any nationality") {
-    score += 20;
-    reasons.push(profile.nationality);
-  }
-  if (item.need.includes(profile.need)) {
-    score += 18;
-    reasons.push(`${profile.need} funding need`);
-  }
-  if (item.interests.includes(profile.interest) || item.interests.includes("Any interest")) {
-    score += 10;
-    reasons.push(item.interests.includes("Any interest") ? "Broad interest fit" : profile.interest);
-  }
-  if (profile.tuitionSupport === "Yes" && item.category === "Tuition") {
-    score += 8;
-    reasons.push("Tuition support");
-  }
-  if (daysUntil(item.deadline) >= 0) {
-    score += 5;
-    reasons.push("Open deadline");
-  }
-
-  return { ...item, score, reasons };
-}
-
 function getRankedScholarships(profile) {
-  return scholarships
-    .map((item) => scoreScholarship(item, profile))
-    .sort((a, b) => b.score - a.score);
+  return rankScholarships(scholarships, profile, { includeIneligible: false });
 }
 
 function scholarshipCard(item, index, total) {
-  const deadlineText = daysUntil(item.deadline) < 0 ? "Past pilot date" : `${daysUntil(item.deadline)} days left`;
+  const days = daysUntil(item.deadline);
+  const deadlineText = days === null ? "Rolling deadline" : days < 0 ? "Past pilot date" : `${days} days left`;
   return `
     <article class="rank-card">
       <div class="rank-kicker">
@@ -226,7 +188,8 @@ function requirementRows(item, progress) {
 
 function landingPreviewCard(item, index) {
   const progress = landingProgress(index);
-  const deadlineText = daysUntil(item.deadline) < 0 ? "past date" : `${daysUntil(item.deadline)} days`;
+  const days = daysUntil(item.deadline);
+  const deadlineText = days === null ? "rolling" : days < 0 ? "past date" : `${days} days`;
   const initials = item.category.slice(0, 2).toUpperCase();
 
   return `
@@ -330,11 +293,16 @@ function attachDialogHandlers() {
   });
 }
 
-function saveScholarship(id) {
+async function saveScholarship(id) {
   const saved = JSON.parse(localStorage.getItem("grantlySaved") || "[]");
   if (!saved.includes(id)) {
     saved.push(id);
     localStorage.setItem("grantlySaved", JSON.stringify(saved));
+  }
+  try {
+    await saveScholarshipForUser(id);
+  } catch (error) {
+    console.warn("Could not save scholarship to account:", error);
   }
 }
 
@@ -457,9 +425,7 @@ async function loadScholarships() {
   }
 
   try {
-    const res = await fetch("data/scholarships.json");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    scholarships = await res.json();
+    scholarships = await fetchScholarships();
   } catch (err) {
     console.error("Could not load scholarship data:", err);
     scholarships = fallbackScholarships;

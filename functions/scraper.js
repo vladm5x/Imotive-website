@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
+const { normalizeScholarshipEntry, shouldPublishEntry } = require('./scholarshipQuality');
 
 const OUTPUT_PATH = path.join(__dirname, '..', 'data', 'scholarships.json');
 const SEED_PATH = path.join(__dirname, '..', 'data', 'scholarships.json');
@@ -442,7 +443,7 @@ function buildEntry({ id, title, amount, deadline, fullText, source, url, eligib
     const d = new Date(deadline);
     if (!isNaN(d) && d < new Date()) return null;
   }
-  return {
+  return normalizeScholarshipEntry({
     url,
     applicationUrl,
     id,
@@ -461,7 +462,7 @@ function buildEntry({ id, title, amount, deadline, fullText, source, url, eligib
     instructions: (instructions || 'Apply via the scholarship provider.').slice(0, 300),
     requirementKeywords: extractKeywords(fullText),
     requiredApplicantInfo: extractRequiredInfo(fullText)
-  };
+  });
 }
 
 // ─── Concurrency helper ───────────────────────────────────────────────────────
@@ -1553,7 +1554,7 @@ async function enrichEntries(entries, { label = '', maxEntries = Infinity, concu
 
 function loadSeed() {
   try {
-    return JSON.parse(fs.readFileSync(SEED_PATH, 'utf8'));
+    return JSON.parse(fs.readFileSync(SEED_PATH, 'utf8')).map(normalizeScholarshipEntry);
   } catch {
     return [];
   }
@@ -1676,6 +1677,9 @@ function toSupabaseRecord(entry, flags = {}) {
     blocked: flags.blocked ?? entry.blocked ?? entry.unreachableReason === 'blocked',
     requires_login: flags.requires_login ?? entry.requires_login ?? entry.unreachableReason === 'login_wall',
     expired: flags.expired ?? entry.expired ?? false,
+    quality_score: entry.qualityScore ?? entry.quality_score ?? 50,
+    quality_flags: entry.qualityFlags || entry.quality_flags || [],
+    review_status: entry.reviewStatus || entry.review_status || 'needs_review',
     date_scraped: new Date().toISOString()
   };
 }
@@ -1848,7 +1852,7 @@ async function printStatus() {
 
 async function pushJsonToSupabase() {
   const entries = loadSeed();
-  const activeOnly = entries.filter(e => !isExpired(e.deadline));
+  const activeOnly = entries.filter(e => !isExpired(e.deadline) && shouldPublishEntry(e));
   const expired = entries.filter(e => isExpired(e.deadline));
 
   console.log(`Loaded ${entries.length} scholarships from ${SEED_PATH}`);
@@ -1958,7 +1962,12 @@ async function main() {
   console.log(`\nSeed: ${seed.length} | Scraped new: ${newEntries.length} | Total: ${combined.length}`);
 
   // Strip expired before writing JSON
-  const activeOnly = combined.filter(e => !isExpired(e.deadline));
+  const activeBeforeQuality = combined.filter(e => !isExpired(e.deadline));
+  const activeOnly = activeBeforeQuality.filter(e => shouldPublishEntry(e));
+  const hiddenForQuality = activeBeforeQuality.length - activeOnly.length;
+  if (hiddenForQuality > 0) {
+    console.log(`Quality gate: hiding ${hiddenForQuality} low-quality entries from JSON output`);
+  }
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(activeOnly, null, 2));
   console.log(`Saved ${activeOnly.length} active scholarships to ${OUTPUT_PATH}`);
 

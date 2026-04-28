@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS scholarships_raw (
   blocked               boolean DEFAULT false,
   requires_login        boolean DEFAULT false,
   expired               boolean DEFAULT false,
+  quality_score         integer DEFAULT 50,
+  quality_flags         text[] DEFAULT '{}',
+  review_status         text DEFAULT 'needs_review',
   date_scraped          timestamptz DEFAULT now(),
   created_at            timestamptz DEFAULT now(),
   updated_at            timestamptz DEFAULT now()
@@ -75,10 +78,23 @@ END $$;
 
 -- Add expired flag to scholarships_raw (safe to run on existing table)
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS expired boolean DEFAULT false;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS quality_score integer DEFAULT 50;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS quality_flags text[] DEFAULT '{}';
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS review_status text DEFAULT 'needs_review';
 
 -- Add application_url — direct link to the application form/portal (safe to run on existing table)
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS application_url text;
 ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS application_url text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS quality_score integer DEFAULT 50;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS quality_flags text[] DEFAULT '{}';
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS review_status text DEFAULT 'needs_review';
+
+CREATE INDEX IF NOT EXISTS idx_scholarships_raw_quality ON scholarships_raw (quality_score DESC);
+CREATE INDEX IF NOT EXISTS idx_scholarships_raw_deadline ON scholarships_raw (deadline);
+CREATE INDEX IF NOT EXISTS idx_scholarships_raw_review_status ON scholarships_raw (review_status);
+CREATE INDEX IF NOT EXISTS idx_scholarships_raw_fields ON scholarships_raw USING gin (fields);
+CREATE INDEX IF NOT EXISTS idx_scholarships_raw_level ON scholarships_raw USING gin (level);
+CREATE INDEX IF NOT EXISTS idx_scholarships_raw_nationality ON scholarships_raw USING gin (nationality);
 
 -- ─── scrape_logs ──────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS scrape_logs (
@@ -154,3 +170,86 @@ CREATE POLICY "Users can update their own profile"
   ON user_profiles FOR UPDATE
   USING (auth.uid() = id)
   WITH CHECK (auth.uid() = id);
+
+-- Saved scholarships and application progress.
+CREATE TABLE IF NOT EXISTS saved_scholarships (
+  id              bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  user_id         uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  scholarship_id  text NOT NULL REFERENCES scholarships_raw(id) ON DELETE CASCADE,
+  status          text DEFAULT 'saved',
+  notes           text,
+  created_at      timestamptz DEFAULT now(),
+  updated_at      timestamptz DEFAULT now(),
+  UNIQUE (user_id, scholarship_id)
+);
+
+DROP TRIGGER IF EXISTS trg_saved_scholarships_updated_at ON saved_scholarships;
+CREATE TRIGGER trg_saved_scholarships_updated_at
+  BEFORE UPDATE ON saved_scholarships
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+ALTER TABLE saved_scholarships ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can read their saved scholarships" ON saved_scholarships;
+CREATE POLICY "Users can read their saved scholarships"
+  ON saved_scholarships FOR SELECT
+  USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can insert their saved scholarships" ON saved_scholarships;
+CREATE POLICY "Users can insert their saved scholarships"
+  ON saved_scholarships FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can update their saved scholarships" ON saved_scholarships;
+CREATE POLICY "Users can update their saved scholarships"
+  ON saved_scholarships FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can delete their saved scholarships" ON saved_scholarships;
+CREATE POLICY "Users can delete their saved scholarships"
+  ON saved_scholarships FOR DELETE
+  USING (auth.uid() = user_id);
+
+CREATE TABLE IF NOT EXISTS application_progress (
+  id                 bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  user_id            uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  scholarship_id     text NOT NULL REFERENCES scholarships_raw(id) ON DELETE CASCADE,
+  status             text DEFAULT 'not_started',
+  checklist          jsonb DEFAULT '[]'::jsonb,
+  missing_info       text[] DEFAULT '{}',
+  reminder_at        timestamptz,
+  submitted_at       timestamptz,
+  notes              text,
+  created_at         timestamptz DEFAULT now(),
+  updated_at         timestamptz DEFAULT now(),
+  UNIQUE (user_id, scholarship_id)
+);
+
+DROP TRIGGER IF EXISTS trg_application_progress_updated_at ON application_progress;
+CREATE TRIGGER trg_application_progress_updated_at
+  BEFORE UPDATE ON application_progress
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+ALTER TABLE application_progress ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can read their application progress" ON application_progress;
+CREATE POLICY "Users can read their application progress"
+  ON application_progress FOR SELECT
+  USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can insert their application progress" ON application_progress;
+CREATE POLICY "Users can insert their application progress"
+  ON application_progress FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can update their application progress" ON application_progress;
+CREATE POLICY "Users can update their application progress"
+  ON application_progress FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can delete their application progress" ON application_progress;
+CREATE POLICY "Users can delete their application progress"
+  ON application_progress FOR DELETE
+  USING (auth.uid() = user_id);
