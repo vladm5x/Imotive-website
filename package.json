@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node dev-server.mjs",
     "scrape": "node functions/scraper.js",
+    "scrape:debug": "node functions/scraper.js --debug-scrape",
     "push-json": "node functions/scraper.js --push-json"
   },
   "dependencies": {

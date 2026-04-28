@@ -87,5 +87,70 @@ CREATE TABLE IF NOT EXISTS scrape_logs (
   total_attempted  integer,
   success_count    integer,
   fail_count       integer,
-  blocked_count    integer
+  blocked_count    integer,
+  failure_reasons  jsonb DEFAULT '{}'::jsonb,
+  failure_examples jsonb DEFAULT '[]'::jsonb
 );
+
+ALTER TABLE scrape_logs ADD COLUMN IF NOT EXISTS failure_reasons jsonb DEFAULT '{}'::jsonb;
+ALTER TABLE scrape_logs ADD COLUMN IF NOT EXISTS failure_examples jsonb DEFAULT '[]'::jsonb;
+
+CREATE TABLE IF NOT EXISTS scrape_failures (
+  id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  created_at  timestamptz DEFAULT now(),
+  reason      text NOT NULL,
+  source      text,
+  url         text,
+  status      integer,
+  phase       text,
+  message     text
+);
+
+CREATE INDEX IF NOT EXISTS idx_scrape_failures_created_at ON scrape_failures (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_scrape_failures_reason ON scrape_failures (reason);
+
+-- User accounts and onboarding answers.
+-- Run this in Supabase SQL Editor after enabling Authentication > Providers > Google.
+CREATE TABLE IF NOT EXISTS user_profiles (
+  id                    uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email                 text,
+  full_name             text,
+  avatar_url            text,
+  university            text,
+  field                 text,
+  degree_level          text,
+  study_year            text,
+  citizenship           text,
+  date_of_birth         text,
+  interests             text[] DEFAULT '{}',
+  gpa                   text,
+  financial_need        text,
+  goals                 text,
+  answers               jsonb DEFAULT '{}'::jsonb,
+  onboarding_completed  boolean DEFAULT false,
+  created_at            timestamptz DEFAULT now(),
+  updated_at            timestamptz DEFAULT now()
+);
+
+DROP TRIGGER IF EXISTS trg_user_profiles_updated_at ON user_profiles;
+CREATE TRIGGER trg_user_profiles_updated_at
+  BEFORE UPDATE ON user_profiles
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can read their own profile" ON user_profiles;
+CREATE POLICY "Users can read their own profile"
+  ON user_profiles FOR SELECT
+  USING (auth.uid() = id);
+
+DROP POLICY IF EXISTS "Users can insert their own profile" ON user_profiles;
+CREATE POLICY "Users can insert their own profile"
+  ON user_profiles FOR INSERT
+  WITH CHECK (auth.uid() = id);
+
+DROP POLICY IF EXISTS "Users can update their own profile" ON user_profiles;
+CREATE POLICY "Users can update their own profile"
+  ON user_profiles FOR UPDATE
+  USING (auth.uid() = id)
+  WITH CHECK (auth.uid() = id);

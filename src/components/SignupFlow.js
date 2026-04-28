@@ -1,4 +1,12 @@
 import React from "https://esm.sh/react@18.2.0";
+import {
+  getSession,
+  isSupabaseConfigured,
+  saveUserProfile,
+  signInWithEmail,
+  signInWithGoogle,
+  signUpWithEmail
+} from "../lib/account.js";
 
 const e = React.createElement;
 
@@ -136,19 +144,53 @@ function Logo() {
   );
 }
 
-function SignupScreen({ onAdvance }) {
+function SignupScreen({ onAdvance, mode = "signup" }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const authReady = isSupabaseConfigured();
 
-  function submit(ev) {
+  async function submit(ev) {
     ev.preventDefault();
     if (!email.includes("@") || password.length < 8) {
       setError("Use a valid email and at least 8 password characters.");
       return;
     }
-    onAdvance();
+    if (!authReady) {
+      setError("Supabase is not configured yet. Add your public URL and anon key first.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const session = mode === "login" ? await signInWithEmail(email, password) : await signUpWithEmail(email, password);
+      if (!session && mode === "signup") {
+        setError("Check your email to confirm your account, then come back to continue.");
+        return;
+      }
+      onAdvance();
+    } catch (authError) {
+      setError(authError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function continueWithGoogle() {
+    if (!authReady) {
+      setError("Supabase is not configured yet. Add your public URL and anon key first.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      await signInWithGoogle();
+    } catch (authError) {
+      setError(authError.message);
+      setLoading(false);
+    }
   }
 
   return e(
@@ -161,20 +203,23 @@ function SignupScreen({ onAdvance }) {
         "header",
         { className: "signup-topbar" },
         e(Logo),
-        e("p", null, "Already have an account? ", e("a", { href: "login.html" }, "Log in"))
+        mode === "login"
+          ? e("p", null, "New to iMotive? ", e("a", { href: "signup.html" }, "Sign up"))
+          : e("p", null, "Already have an account? ", e("a", { href: "signup.html?mode=login" }, "Log in"))
       ),
       e(
         "div",
         { className: "signup-form-wrap" },
-        e("p", { className: "signup-eyebrow" }, "welcome +"),
-        e("h1", null, "Create your account."),
-        e("p", { className: "signup-subhead" }, "Free forever. We'll match you to scholarships next."),
+        e("p", { className: "signup-eyebrow" }, mode === "login" ? "welcome back" : "welcome +"),
+        e("h1", null, mode === "login" ? "Log in to your account." : "Create your account."),
+        e("p", { className: "signup-subhead" }, mode === "login" ? "Pick up where you left off." : "Free forever. We'll match you to scholarships next."),
+        !authReady
+          ? e("p", { className: "auth-setup-note" }, "Developer setup: add your public Supabase URL and anon key in src/lib/supabaseClient.js to activate login.")
+          : null,
         e(
           "div",
           { className: "sso-stack" },
-          e("button", { type: "button", className: "sso-btn", onClick: onAdvance }, e("span", null, "G"), "Continue with Google"),
-          e("button", { type: "button", className: "sso-btn sso-apple", onClick: onAdvance }, e("span", null, "A"), "Continue with Apple"),
-          e("button", { type: "button", className: "sso-btn sso-bankid", onClick: onAdvance }, e("span", null, "+"), "Continue with BankID (Swedish students)")
+          e("button", { type: "button", className: "sso-btn", disabled: loading, onClick: continueWithGoogle }, e("span", null, "G"), "Continue with Google")
         ),
         e("div", { className: "signup-divider" }, e("span", null, "or with email")),
         e(
@@ -193,7 +238,7 @@ function SignupScreen({ onAdvance }) {
             )
           ),
           error ? e("p", { className: "signup-error" }, error) : null,
-          e("button", { type: "submit", className: "signup-primary" }, "Create account ->")
+          e("button", { type: "submit", className: "signup-primary", disabled: loading }, loading ? "Working..." : mode === "login" ? "Log in ->" : "Create account ->")
         ),
         e("p", { className: "fine-print" }, "By continuing you agree to our ", e("a", { href: "#" }, "Terms"), " and ", e("a", { href: "#" }, "Privacy Policy"), ". GDPR-compliant.")
       )
@@ -463,24 +508,45 @@ function Confetti() {
 export function SignupFlow() {
   const [stage, setStage] = React.useState("signup");
   const [answers, setAnswers] = React.useState(getSavedAnswers);
+  const [mode] = React.useState(() => new URLSearchParams(window.location.search).get("mode") === "login" ? "login" : "signup");
+  const [authChecked, setAuthChecked] = React.useState(false);
+
+  React.useEffect(() => {
+    let active = true;
+    async function hydrateSession() {
+      if (!isSupabaseConfigured()) {
+        setAuthChecked(true);
+        return;
+      }
+      try {
+        const session = await getSession();
+        if (active && session) setStage("wizard");
+      } catch {
+        // The sign-in screen will show any actionable auth errors.
+      } finally {
+        if (active) setAuthChecked(true);
+      }
+    }
+    hydrateSession();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function complete(nextAnswers) {
     const merged = { ...answers, ...nextAnswers };
     setAnswers(merged);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
     try {
-      await fetch("/api/profile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(merged)
-      });
+      await saveUserProfile(merged);
     } catch {
       // Static preview keeps working until the profile API is connected.
     }
     setStage("reveal");
   }
 
+  if (!authChecked) return e("main", { className: "signup-shell" }, e("p", { className: "account-status" }, "Loading sign in..."));
   if (stage === "wizard") return e(Wizard, { onComplete: complete });
   if (stage === "reveal") return e(Reveal, { answers });
-  return e(SignupScreen, { onAdvance: () => setStage("wizard") });
+  return e(SignupScreen, { mode, onAdvance: () => setStage("wizard") });
 }

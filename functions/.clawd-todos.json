@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Review scraper.js and identify all optimization opportunities",
+    "activeForm": "Analyzing 2608-line scraper",
+    "status": "completed"
+  },
+  {
+    "content": "Eliminate massive code duplication across 30+ nearly identical scraper functions",
+    "activeForm": "Refactor scraper sources into config-driven approach",
+    "status": "in_progress"
+  },
+  {
+    "content": "Fix sequential execution of independent sources — add parallel scraping",
+    "activeForm": "Group sources and run in parallel batches",
+    "status": "pending"
+  },
+  {
+    "content": "Fix Supabase push duplication (main() manually builds records instead of using toSupabaseRecord helper)",
+    "activeForm": "Use existing pushEntriesToSupabase in main()",
+    "status": "pending"
+  },
+  {
+    "content": "Fix multiple independent Puppeteer browser launches (ScholarshipDB launches its own)",
+    "activeForm": "Use shared browser everywhere",
+    "status": "pending"
+  },
+  {
+    "content": "Remove dead code and redundant patterns",
+    "activeForm": "Clean up",
+    "status": "pending"
+  },
+  {
+    "content": "Add proper error handling for the entry point",
+    "activeForm": "Fix double closeSharedBrowser call",
+    "status": "pending"
+  }
+]

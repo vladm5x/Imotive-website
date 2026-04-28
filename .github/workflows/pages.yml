@@ -30,6 +30,8 @@ jobs:
           mkdir _site
           cp index.html _site/
           cp signup.html _site/
+          cp login.html _site/
+          cp account.html _site/
           cp 404.html _site/
           cp CNAME _site/
           cp profile.html _site/
