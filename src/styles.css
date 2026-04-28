@@ -5,10 +5,151 @@ html {
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: #FAFAF7;
   color: #1a1a1a;
 }
 
+/* Yellow marker swipe on hero headline */
 .marker-highlight {
-  background: linear-gradient(180deg, transparent 52%, #FACC15 52%);
-  padding-bottom: 3px;
+  display: inline;
+  background: #FACC15;
+  padding: 0.06em 0.18em 0.18em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.marker-wrap {
+  display: inline-block;
+  transform: rotate(-1deg);
+  transform-origin: left center;
+}
+
+/* Hard offset card shadow — used on featured cards */
+.card-hard {
+  border: 2px solid #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 #1a1a1a;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.card-hard:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 8px 0 #1a1a1a;
+}
+
+/* Search bar hard shadow */
+.search-bar-hard {
+  border: 2px solid #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 #1a1a1a;
+  overflow: hidden;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  background: white;
+}
+
+/* Browse pill button */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 18px;
+  border: 2px solid #1a1a1a;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.pill-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 2px 3px 0 #1a1a1a;
+}
+
+/* Signup nav pill */
+.nav-signup {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 18px;
+  border: 2px solid #1a1a1a;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: background 150ms;
+}
+
+.nav-signup:hover {
+  background: #f5f5f5;
+}
+
+/* Progress bars */
+.progress-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* Apply button */
+.apply-btn {
+  display: block;
+  width: 100%;
+  height: 44px;
+  background: #22C55E;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  line-height: 44px;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.apply-btn:hover {
+  background: #16A34A;
+  transform: translateY(-1px);
+}
+
+/* Effort pill */
+.effort-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 999px;
+  font-size: 12px;
+  color: #555555;
+  background: white;
+}
+
+/* Section spacing */
+.section-pad {
+  padding: 80px 0;
+}
+
+@media (max-width: 1024px) {
+  .hero-right { display: none; }
+}
+
+@media (max-width: 640px) {
+  .section-pad { padding: 48px 0; }
+  .search-bar-hard { height: 48px; }
+  .pill-btn { height: 36px; font-size: 13px; }
 }

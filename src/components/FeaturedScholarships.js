@@ -4,110 +4,146 @@ const e = React.createElement;
 
 const scholarships = [
   {
-    title: "Swedish Institute Scholarships for Global Professionals",
-    amount: "SEK 130,000",
-    daysLeft: 28,
-    progressPercent: 25,
-    effort: "Medium",
-    eligibilityTag: "Masters · International",
-    slug: "si-scholarships-global",
-    description: "Full funding for master’s studies in Sweden. Covers tuition, living costs, and travel grants."
-  },
-  {
-    title: "Chalmers Jubilee Scholarship",
-    amount: "SEK 40,000",
+    title: "Sustainable Engineering Fund",
+    amount: "40,000 kr",
     daysLeft: 9,
     progressPercent: 82,
-    effort: "⏱ Easy apply",
+    effort: "Easy apply",
     eligibilityTag: "Engineering · Masters",
-    slug: "chalmers-jubilee",
-    description: "For outstanding students admitted to Chalmers master’s programs in engineering or science."
+    slug: "sustainable-engineering-fund",
+    description: "For master's students researching sustainability."
   },
   {
-    title: "Lund University Global Scholarship",
-    amount: "SEK 80,000",
+    title: "Wallenberg Robotics Grant",
+    amount: "60,000 kr",
+    daysLeft: 33,
+    progressPercent: 30,
+    effort: "Medium apply",
+    eligibilityTag: "Engineering · Masters",
+    slug: "wallenberg-robotics",
+    description: "Supports robotics research projects."
+  },
+  {
+    title: "Lund Women in STEM",
+    amount: "15,000 kr",
     daysLeft: 21,
-    progressPercent: 40,
-    effort: "Hard",
-    eligibilityTag: "All fields · Masters",
-    slug: "lund-global-scholarship",
-    description: "Covers partial tuition fees for non-EU/EEA students admitted to selected master’s programs."
+    progressPercent: 48,
+    effort: "Easy apply",
+    eligibilityTag: "Engineering · Masters",
+    slug: "lund-women-in-stem",
+    description: "Open application, short essay required."
   }
 ];
 
+function ClockIcon() {
+  return e("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" },
+    e("circle", { cx: "12", cy: "12", r: "10" }),
+    e("polyline", { points: "12 6 12 12 16 14" })
+  );
+}
+
 function ScholarshipCard({ title, amount, daysLeft, progressPercent, effort, eligibilityTag, slug, description }) {
-  const urgent = daysLeft < 14;
+  const urgent = daysLeft <= 14;
 
   return e(
     "article",
     {
-      className: "bg-white border border-[#E5E7EB] rounded-lg shadow-sm p-5 flex flex-col gap-3 cursor-pointer transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md",
+      className: "card-hard",
+      style: { background: "white", padding: "24px", display: "flex", flexDirection: "column", gap: "14px", cursor: "pointer" },
       onClick: () => { window.location.href = `/scholarships/${slug}`; }
     },
+
+    // Top row: eligibility pill + amount
     e(
       "div",
-      { className: "flex items-start justify-between gap-3" },
-      e("span", { className: "text-[12px] rounded-full px-2.5 py-1 bg-[#F3F4F6] text-[#555555] font-medium whitespace-nowrap" }, eligibilityTag),
-      e("span", { className: "text-[14px] font-bold text-[#1A1A1A] whitespace-nowrap" }, amount)
+      { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px" } },
+      e("span", {
+        style: {
+          fontSize: "11px", fontWeight: 500, color: "#555555",
+          background: "#F3F4F6", borderRadius: "999px",
+          padding: "4px 10px", textTransform: "uppercase",
+          letterSpacing: "0.05em", whiteSpace: "nowrap"
+        }
+      }, eligibilityTag),
+      e("span", { style: { fontSize: "18px", fontWeight: 700, color: "#1A1A1A", whiteSpace: "nowrap" } }, amount)
     ),
-    e("h3", { className: "text-[17px] font-semibold text-[#1A1A1A] leading-snug" }, title),
-    e("p", { className: "text-[13px] text-[#555555] leading-relaxed flex-1" }, description),
+
+    // Title
+    e("h3", { style: { margin: 0, fontSize: "19px", fontWeight: 700, color: "#1A1A1A", lineHeight: "1.25" } }, title),
+
+    // Description
+    e("p", { style: { margin: 0, fontSize: "13px", color: "#6B7280", lineHeight: "1.5" } }, description),
+
+    // Deadline row
     e(
       "div",
       null,
       e(
         "div",
-        { className: "flex justify-between text-[12px] mb-1.5" },
-        e("span", { className: "text-[#555555]" }, "Deadline"),
+        { style: { display: "flex", justifyContent: "space-between", marginBottom: "6px" } },
+        e("span", { style: { fontSize: "12px", fontWeight: 600, color: "#555555" } }, "Deadline"),
         e("span", {
-          className: "font-medium",
-          style: { color: urgent ? "#B45309" : "#555555" }
+          style: { fontSize: "12px", fontWeight: 600, color: urgent ? "#DC2626" : "#16A34A" }
         }, `${daysLeft} days left`)
       ),
       e(
         "div",
-        { className: "h-2 rounded-full bg-[#E5E7EB] overflow-hidden" },
-        e("div", {
-          className: "h-full rounded-full",
-          style: { width: `${progressPercent}%`, background: urgent ? "#FACC15" : "#22C55E" }
-        })
+        { className: "progress-track" },
+        e("div", { className: "progress-fill", style: { width: `${progressPercent}%`, background: urgent ? "#FACC15" : "#22C55E" } })
       )
     ),
-    e("span", { className: "self-start text-[12px] rounded-full px-2.5 py-1 bg-[#F3F4F6] text-[#555555]" }, effort),
-    e(
-      "a",
-      {
-        href: `/scholarships/${slug}`,
-        className: "block w-full text-center bg-[#22C55E] text-white text-[14px] font-semibold py-2.5 rounded-lg hover:bg-[#16A34A] transition-colors duration-150 mt-auto",
-        onClick: (ev) => ev.stopPropagation()
-      },
-      "Apply →"
-    )
+
+    // Effort pill
+    e("div", null,
+      e("span", { className: "effort-pill" },
+        e(ClockIcon),
+        effort
+      )
+    ),
+
+    // Apply button
+    e("a", {
+      href: `/scholarships/${slug}`,
+      className: "apply-btn",
+      onClick: (ev) => ev.stopPropagation()
+    }, "Apply →")
   );
 }
 
 export function FeaturedScholarships() {
   return e(
     "section",
-    { id: "scholarships", className: "bg-[#F3F4F6] px-4 py-16 sm:px-8 sm:py-20 lg:px-10" },
+    { id: "scholarships", style: { background: "#FAFAF7", padding: "80px 0" } },
     e(
       "div",
-      { className: "mx-auto max-w-[1280px]" },
+      { style: { maxWidth: "1280px", margin: "0 auto", padding: "0 40px" } },
+
+      // Header row
       e(
         "div",
-        { className: "flex flex-wrap items-end justify-between gap-4 mb-10" },
+        { style: { display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "12px", marginBottom: "36px" } },
         e(
           "div",
           null,
-          e("p", { className: "text-[13px] font-medium text-[#555555] mb-2" }, "/ a peek at what’s inside"),
-          e("h2", { className: "text-[clamp(1.8rem,4vw,2.4rem)] font-bold text-[#1A1A1A] leading-tight" }, "Featured scholarships this week."),
-          e("p", { className: "text-[15px] text-[#555555] mt-1" }, "Sign up to see which ones fit you.")
+          e("p", {
+            style: {
+              fontFamily: "ui-monospace, 'JetBrains Mono', monospace",
+              fontSize: "12px", color: "#9CA3AF", margin: "0 0 10px",
+              textDecoration: "underline", textDecorationColor: "rgba(0,0,0,0.2)", textUnderlineOffset: "3px"
+            }
+          }, "/ a peek at what's inside"),
+          e("h2", { style: { margin: "0 0 8px", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, color: "#1A1A1A", lineHeight: "1.05", letterSpacing: "-0.5px" } },
+            "Featured scholarships this week."
+          ),
+          e("p", { style: { margin: 0, fontSize: "15px", color: "#6B7280" } }, "Sign up to see which ones fit you.")
         ),
-        e("a", { href: "/scholarships", className: "text-[14px] font-semibold text-[#3B82F6] hover:underline whitespace-nowrap" }, "browse all 2,400+ →")
+        e("a", { href: "/scholarships", style: { fontSize: "14px", fontStyle: "italic", color: "#1A1A1A", textDecoration: "none", whiteSpace: "nowrap" } }, "browse all 2,400+ →")
       ),
+
+      // Cards grid
       e(
         "div",
-        { className: "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" },
+        { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" } },
         scholarships.map((s) => e(ScholarshipCard, { key: s.slug, ...s }))
       )
     )

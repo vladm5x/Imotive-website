@@ -2,66 +2,81 @@ import React from "https://esm.sh/react@18.2.0";
 
 const e = React.createElement;
 
+const cols = [
+  {
+    label: "Product",
+    links: [
+      ["/scholarships", "Browse scholarships"],
+      ["#how-it-works", "How it works"],
+      ["/signup", "Sign up free"]
+    ]
+  },
+  {
+    label: "Company",
+    links: [
+      ["/about", "About"],
+      ["#universities", "For universities"],
+      ["/contact", "Contact"]
+    ]
+  },
+  {
+    label: "Legal",
+    links: [
+      ["/privacy", "Privacy"],
+      ["/terms", "Terms"]
+    ]
+  }
+];
+
 export function Footer() {
   return e(
     "footer",
-    { className: "bg-[#1A1A1A] text-white px-4 py-12 sm:px-8 lg:px-10" },
+    { style: { background: "#111111", borderTop: "2px solid #1A1A1A", padding: "56px 40px 40px" } },
     e(
       "div",
-      { className: "mx-auto max-w-[1280px] grid gap-8 sm:grid-cols-[1fr_auto_auto_auto] sm:gap-12" },
+      { style: { maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr auto auto auto", gap: "48px", alignItems: "start" } },
+
+      // Logo + tagline
       e(
         "div",
         null,
         e(
           "div",
-          { className: "flex items-center gap-1.5 font-bold text-[20px] text-white mb-3" },
-          "Stipendio",
-          e("span", { className: "w-2 h-2 rounded-full bg-[#3B82F6] inline-block", style: { marginBottom: "2px" } })
+          { style: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" } },
+          e("div", {
+            style: { width: "26px", height: "26px", borderRadius: "50%", background: "#3B82F6", border: "2px solid #444", flexShrink: 0 }
+          }),
+          e("span", { style: { fontSize: "18px", fontWeight: 800, color: "white" } }, "iMotive")
         ),
-        e("p", { className: "text-[14px] leading-relaxed max-w-[220px]", style: { color: "rgba(255,255,255,0.45)" } },
+        e("p", { style: { margin: 0, fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: "1.6", maxWidth: "200px" } },
           "Scholarship discovery for university students in Sweden."
         )
       ),
-      e(
-        "div",
-        null,
-        e("p", { className: "text-[11px] font-semibold uppercase tracking-wide mb-3", style: { color: "rgba(255,255,255,0.35)" } }, "Product"),
+
+      ...cols.map((col) =>
         e(
           "div",
-          { className: "flex flex-col gap-2 text-[14px]", style: { color: "rgba(255,255,255,0.65)" } },
-          e("a", { href: "/scholarships", className: "hover:text-white transition-colors duration-150" }, "Browse scholarships"),
-          e("a", { href: "#how-it-works", className: "hover:text-white transition-colors duration-150" }, "How it works"),
-          e("a", { href: "/signup", className: "hover:text-white transition-colors duration-150" }, "Sign up")
-        )
-      ),
-      e(
-        "div",
-        null,
-        e("p", { className: "text-[11px] font-semibold uppercase tracking-wide mb-3", style: { color: "rgba(255,255,255,0.35)" } }, "Company"),
-        e(
-          "div",
-          { className: "flex flex-col gap-2 text-[14px]", style: { color: "rgba(255,255,255,0.65)" } },
-          e("a", { href: "/about", className: "hover:text-white transition-colors duration-150" }, "About"),
-          e("a", { href: "#universities", className: "hover:text-white transition-colors duration-150" }, "For universities"),
-          e("a", { href: "/contact", className: "hover:text-white transition-colors duration-150" }, "Contact")
-        )
-      ),
-      e(
-        "div",
-        null,
-        e("p", { className: "text-[11px] font-semibold uppercase tracking-wide mb-3", style: { color: "rgba(255,255,255,0.35)" } }, "Legal"),
-        e(
-          "div",
-          { className: "flex flex-col gap-2 text-[14px]", style: { color: "rgba(255,255,255,0.65)" } },
-          e("a", { href: "/privacy", className: "hover:text-white transition-colors duration-150" }, "Privacy"),
-          e("a", { href: "/terms", className: "hover:text-white transition-colors duration-150" }, "Terms")
+          { key: col.label },
+          e("p", { style: { margin: "0 0 14px", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.3)" } }, col.label),
+          e(
+            "div",
+            { style: { display: "flex", flexDirection: "column", gap: "10px" } },
+            col.links.map(([href, label]) =>
+              e("a", {
+                key: href, href,
+                style: { fontSize: "14px", color: "rgba(255,255,255,0.6)", textDecoration: "none", transition: "color 150ms" },
+                onMouseEnter: (ev) => { ev.target.style.color = "white"; },
+                onMouseLeave: (ev) => { ev.target.style.color = "rgba(255,255,255,0.6)"; }
+              }, label)
+            )
+          )
         )
       )
     ),
     e(
       "div",
-      { className: "mx-auto max-w-[1280px] mt-10 pt-6 border-t text-[12px]", style: { borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.28)" } },
-      `© ${new Date().getFullYear()} Stipendio. All rights reserved.`
+      { style: { maxWidth: "1280px", margin: "0 auto", paddingTop: "32px", marginTop: "32px", borderTop: "1px solid rgba(255,255,255,0.08)", fontSize: "12px", color: "rgba(255,255,255,0.25)" } },
+      `© ${new Date().getFullYear()} iMotive. All rights reserved.`
     )
   );
 }

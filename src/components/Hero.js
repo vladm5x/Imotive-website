@@ -3,38 +3,53 @@ import React from "https://esm.sh/react@18.2.0";
 const e = React.createElement;
 
 const miniScholarships = [
-  { title: "Swedish Institute Scholarship for Global Professionals", amount: "130,000 kr", daysLeft: 28, progress: 25 },
-  { title: "KTH Research Excellence Fellowship", amount: "60,000 kr", daysLeft: 9, progress: 82 },
-  { title: "Chalmers Jubilee STEM Award", amount: "40,000 kr", daysLeft: 22, progress: 38 }
+  { title: "Wallenberg Engineering Grant", amount: "50,000 kr", daysLeft: 5, progress: 88 },
+  { title: "Lund Sustainability Fund", amount: "40,000 kr", daysLeft: 16, progress: 52 },
+  { title: "KTH Robotics Grant", amount: "60,000 kr", daysLeft: 29, progress: 28 }
 ];
 
 function MiniRow({ title, amount, daysLeft, progress }) {
-  const urgent = daysLeft < 14;
+  const urgent = daysLeft <= 14;
   return e(
     "div",
-    { className: "py-3 border-b border-[#E5E7EB] last:border-0" },
+    { style: { padding: "14px 0", borderBottom: "1px solid #E5E7EB" } },
     e(
       "div",
-      { className: "flex items-start justify-between gap-2 mb-2" },
-      e("span", { className: "text-[13px] font-medium text-[#1A1A1A] leading-snug" }, title),
-      e("span", { className: "text-[13px] font-bold text-[#1A1A1A] whitespace-nowrap ml-2" }, amount)
+      { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px", marginBottom: "10px" } },
+      e("span", { style: { fontSize: "13px", fontWeight: 500, color: "#1A1A1A", lineHeight: "1.35" } }, title),
+      e("span", { style: { fontSize: "13px", fontWeight: 700, color: "#1A1A1A", whiteSpace: "nowrap", marginLeft: "8px" } }, amount)
     ),
     e(
       "div",
-      { className: "flex items-center gap-2" },
-      e(
-        "div",
-        { className: "flex-1 h-1.5 rounded-full bg-[#E5E7EB] overflow-hidden" },
-        e("div", {
-          className: "h-full rounded-full",
-          style: { width: `${progress}%`, background: urgent ? "#FACC15" : "#22C55E" }
-        })
-      ),
-      e("span", {
-        className: "text-[11px] font-medium whitespace-nowrap",
-        style: { color: urgent ? "#B45309" : "#6B7280" }
-      }, `${daysLeft}d left`)
-    )
+      { className: "progress-track" },
+      e("div", {
+        className: "progress-fill",
+        style: { width: `${progress}%`, background: urgent ? "#FACC15" : "#22C55E" }
+      })
+    ),
+    e("div", {
+      style: { textAlign: "right", marginTop: "4px", fontSize: "11px", color: urgent ? "#B45309" : "#9CA3AF" }
+    }, `${daysLeft}d left`)
+  );
+}
+
+function SparkleIcon() {
+  return e("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "#3B82F6", style: { display: "inline", verticalAlign: "middle" } },
+    e("path", { d: "M12 1L14.39 8.26L22 9.27L16.5 14.64L17.96 22.18L12 18.77L6.04 22.18L7.5 14.64L2 9.27L9.61 8.26L12 1Z" })
+  );
+}
+
+function SearchIcon() {
+  return e("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "none", stroke: "#9CA3AF", strokeWidth: "2.5", strokeLinecap: "round", strokeLinejoin: "round" },
+    e("circle", { cx: "11", cy: "11", r: "8" }),
+    e("line", { x1: "21", y1: "21", x2: "16.65", y2: "16.65" })
+  );
+}
+
+function LockIcon() {
+  return e("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "none", stroke: "#3B82F6", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", flexShrink: 0 },
+    e("rect", { x: "3", y: "11", width: "18", height: "11", rx: "2" }),
+    e("path", { d: "M7 11V7a5 5 0 0 1 10 0v4" })
   );
 }
 
@@ -50,97 +65,154 @@ export function Hero() {
 
   return e(
     "section",
-    { id: "home", className: "bg-white px-4 py-16 sm:px-8 sm:py-24 lg:px-10" },
+    { id: "home", style: { background: "#FAFAF7", padding: "72px 0 96px" } },
     e(
       "div",
-      { className: "mx-auto max-w-[1280px]" },
+      { style: { maxWidth: "1280px", margin: "0 auto", padding: "0 40px", display: "grid", gridTemplateColumns: "55fr 45fr", gap: "72px", alignItems: "center" } },
+
+      // ── Left column ──
       e(
         "div",
-        { className: "grid lg:grid-cols-[55fr_45fr] gap-12 lg:gap-16 items-center" },
+        null,
+
+        // Eyebrow
         e(
           "div",
-          null,
-          e("p", { className: "text-[14px] font-medium text-[#3B82F6] mb-4" }, "hi there ✶"),
-          e(
-            "h1",
-            { className: "text-[clamp(2.6rem,5.5vw,4rem)] font-bold text-[#1A1A1A] leading-[1.05] tracking-[-0.5px] mb-5" },
-            "Scholarships that ",
+          { style: { display: "flex", alignItems: "center", gap: "7px", marginBottom: "22px" } },
+          e("span", { style: { fontSize: "17px", fontWeight: 600, color: "#3B82F6" } }, "hi there"),
+          e(SparkleIcon)
+        ),
+
+        // Headline
+        e(
+          "h1",
+          { style: { fontSize: "clamp(2.8rem, 5.5vw, 4.5rem)", fontWeight: 800, lineHeight: 1.0, letterSpacing: "-2px", color: "#1A1A1A", margin: "0 0 20px" } },
+          "Scholarships that ",
+          e("span", { className: "marker-wrap" },
             e("span", { className: "marker-highlight" }, "actually fit you.")
-          ),
-          e(
-            "p",
-            { className: "text-[17px] text-[#555555] leading-[1.65] mb-8 max-w-[520px]" },
-            "We collect every scholarship for university students in one place — so you stop scrolling and start applying."
-          ),
-          e(
-            "form",
-            {
-              onSubmit: handleSearch,
-              className: "flex items-center bg-white border border-[#E5E7EB] rounded-lg shadow-sm overflow-hidden mb-4"
-            },
-            e("input", {
-              type: "text",
-              value: query,
-              onChange: (ev) => setQuery(ev.target.value),
-              placeholder: "Try “engineering, masters, Lund”",
-              className: "flex-1 px-4 py-3.5 text-[15px] text-[#1A1A1A] outline-none bg-transparent placeholder:text-[#9CA3AF]"
-            }),
-            e(
-              "button",
-              {
-                type: "submit",
-                className: "bg-[#3B82F6] text-white px-5 py-3.5 text-[14px] font-semibold hover:bg-[#1E3A8A] transition-colors duration-150 shrink-0"
-              },
-              "Search"
-            )
-          ),
-          e(
-            "div",
-            { className: "flex flex-wrap items-center gap-2 text-[14px] mb-10" },
-            e("a", { href: "/scholarships", className: "font-semibold text-[#1A1A1A] hover:text-[#3B82F6] transition-colors duration-150" }, "Browse all 2,400+ →"),
-            e("span", { className: "text-[#9CA3AF]" }, "or,"),
-            e("a", { href: "/signup", className: "text-[#3B82F6] hover:underline" }, "sign up to get matches")
-          ),
-          e(
-            "div",
-            { className: "flex items-center gap-3" },
-            e(
-              "div",
-              { className: "flex -space-x-2" },
-              ["#3B82F6", "#22C55E", "#FACC15", "#F87171"].map((color, i) =>
-                e("div", {
-                  key: i,
-                  className: "w-8 h-8 rounded-full border-2 border-white",
-                  style: { background: color }
-                })
-              )
-            ),
-            e(
-              "span",
-              { className: "text-[13px] text-[#555555]" },
-              "Joined this week by ",
-              e("strong", { className: "text-[#1A1A1A]" }, "312 students")
-            )
           )
         ),
+
+        // Subhead
+        e("p", { style: { fontSize: "17px", color: "#555555", lineHeight: "1.65", maxWidth: "480px", margin: "0 0 28px" } },
+          "We collect every scholarship for university students in one place — so you stop scrolling and start applying."
+        ),
+
+        // Search bar
         e(
-          "div",
-          { className: "hidden lg:block" },
+          "form",
+          { onSubmit: handleSearch, className: "search-bar-hard", style: { marginBottom: "16px" } },
           e(
             "div",
-            { className: "bg-white border border-[#E5E7EB] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-5" },
-            e("p", { className: "text-[11px] font-semibold text-[#9CA3AF] uppercase tracking-wider mb-2" }, "Search results preview"),
-            miniScholarships.map((s, i) => e(MiniRow, { key: i, ...s })),
-            e(
-              "div",
-              { className: "mt-4 p-4 rounded-lg border-2 border-dashed border-[#3B82F6] bg-[#EFF6FF]" },
-              e(
-                "p",
-                { className: "text-[13px] text-[#1A1A1A] text-center" },
-                "🔒 ",
-                e("a", { href: "/signup", className: "font-semibold text-[#3B82F6] hover:underline" }, "Sign up"),
-                " to see your match score on every result."
-              )
+            { style: { padding: "0 14px", display: "flex", alignItems: "center", color: "#9CA3AF" } },
+            e(SearchIcon)
+          ),
+          e("input", {
+            type: "text",
+            value: query,
+            onChange: (ev) => setQuery(ev.target.value),
+            placeholder: "Try “engineering, masters, Lund”",
+            style: { flex: 1, border: "none", outline: "none", fontSize: "15px", color: "#1A1A1A", background: "transparent", padding: "0" }
+          }),
+          e(
+            "button",
+            {
+              type: "submit",
+              style: { background: "#3B82F6", color: "white", border: "none", height: "100%", padding: "0 22px", fontSize: "15px", fontWeight: 700, cursor: "pointer", borderRadius: "0 8px 8px 0", transition: "background 150ms" },
+              onMouseEnter: (ev) => { ev.currentTarget.style.background = "#1E3A8A"; },
+              onMouseLeave: (ev) => { ev.currentTarget.style.background = "#3B82F6"; }
+            },
+            "Search"
+          )
+        ),
+
+        // Browse CTA row
+        e(
+          "div",
+          { style: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px", marginBottom: "36px" } },
+          e("a", { href: "/scholarships", className: "pill-btn" }, "Browse all 2,400+ →"),
+          e("span", { style: { fontSize: "13px", color: "#9CA3AF", fontStyle: "italic" } }, "or,"),
+          e("a", { href: "/signup", style: { fontSize: "13px", color: "#3B82F6", fontStyle: "italic", textDecoration: "none" } }, "sign up to get matches")
+        ),
+
+        // Social proof
+        e(
+          "div",
+          { style: { display: "flex", alignItems: "center", gap: "12px" } },
+          e(
+            "div",
+            { style: { display: "flex" } },
+            ["#FACC15", "#22C55E", "#3B82F6", "#E5E7EB"].map((color, i) =>
+              e("div", {
+                key: i,
+                style: { width: "32px", height: "32px", borderRadius: "50%", border: "2px solid white", background: color, marginLeft: i === 0 ? "0" : "-12px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)" }
+              })
+            )
+          ),
+          e("span", { style: { fontSize: "13px", color: "#555555" } },
+            "Joined this week by ",
+            e("strong", { style: { color: "#1A1A1A" } }, "312 students")
+          )
+        )
+      ),
+
+      // ── Right column — preview card ──
+      e(
+        "div",
+        { className: "hero-right", style: { position: "relative" } },
+
+        // "matching unlocks after sign-up" annotation
+        e(
+          "div",
+          { style: { position: "absolute", top: "-44px", right: "8px", textAlign: "right", pointerEvents: "none" } },
+          e("span", { style: { fontSize: "11px", color: "#9CA3AF", fontStyle: "italic", lineHeight: "1.6" } },
+            "matching unlocks", e("br"), "after sign-up"
+          )
+        ),
+
+        e(
+          "div",
+          {
+            style: {
+              background: "white",
+              border: "2px solid #1A1A1A",
+              borderRadius: "12px",
+              boxShadow: "6px 6px 0 #1A1A1A",
+              padding: "20px",
+              transform: "rotate(1deg)"
+            }
+          },
+
+          // Label
+          e("p", {
+            style: {
+              fontFamily: "ui-monospace, 'JetBrains Mono', monospace",
+              fontSize: "11px",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "#9CA3AF",
+              margin: "0 0 8px"
+            }
+          }, "↳ search results preview"),
+
+          // Rows
+          miniScholarships.map((s, i) => e(MiniRow, { key: i, ...s })),
+
+          // Locked CTA
+          e(
+            "div",
+            {
+              style: {
+                marginTop: "16px", padding: "13px 15px",
+                border: "2px dashed #3B82F6", borderRadius: "10px",
+                background: "rgba(59,130,246,0.06)",
+                display: "flex", alignItems: "center", gap: "10px"
+              }
+            },
+            e(LockIcon),
+            e("p", { style: { margin: 0, fontSize: "13px", color: "#1A1A1A" } },
+              e("a", { href: "/signup", style: { fontWeight: 700, color: "#3B82F6", textDecoration: "none" } }, "Sign up"),
+              " to see your match score on every result."
             )
           )
         )
