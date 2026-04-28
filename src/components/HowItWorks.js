@@ -7,19 +7,19 @@ const steps = [
     number: "1",
     title: "Create Your Profile",
     description: "Tell us your field of study, level, nationality and preferences",
-    crop: "step-art-one"
+    image: "assets/how-step-1.png"
   },
   {
     number: "2",
     title: "Get Matched",
     description: "We rank the best scholarships based on your profile",
-    crop: "step-art-two"
+    image: "assets/how-step-2.png"
   },
   {
     number: "3",
     title: "Track & Apply",
     description: "See exactly what's missing and complete your application",
-    crop: "step-art-three"
+    image: "assets/how-step-3.png"
   }
 ];
 
@@ -45,12 +45,17 @@ export function HowItWorks() {
             { key: step.number, className: "how-step relative flex flex-col items-center text-center" },
             e(
               "div",
-              { className: "step-art-frame relative w-[min(86vw,330px)] md:w-full md:max-w-[350px]" },
+              { className: "step-art-shell relative w-[min(82vw,320px)] md:w-full md:max-w-[340px]" },
+              e("span", { className: "step-badge" }, step.number),
+              e(
+                "div",
+                { className: "step-art-frame" },
               e("img", {
-                className: `step-art ${step.crop}`,
-                src: "assets/how-it-works-steps.png",
+                className: "step-art",
+                src: step.image,
                 alt: ""
               })
+              )
             ),
             e("h3", { className: "mt-8 text-xl font-black uppercase tracking-normal text-black" }, step.title),
             e("p", { className: "mt-3 max-w-[280px] text-[15px] leading-7 text-black/55" }, step.description)
