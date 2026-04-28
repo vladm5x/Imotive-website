@@ -102,8 +102,8 @@ textarea {
   border: 1.5px solid #1a1a1a;
   border-radius: 999px;
   padding: 0 16px;
-  background: #1a1a1a;
-  color: white !important;
+  background: white;
+  color: #1a1a1a;
   font-weight: 800 !important;
 }
 
@@ -430,7 +430,7 @@ textarea {
   box-shadow: 2px 3px 0 #1a1a1a;
   font-size: 14px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
   text-decoration: none;
   transition: background 150ms;
 }
