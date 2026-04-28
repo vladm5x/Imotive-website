@@ -10,6 +10,15 @@ The larger scraper, Supabase, user profile, and application progress roadmap liv
 
 Open `index.html` in a browser. No build step is required.
 
+## Site Architecture
+
+- `index.html` is the public homepage with product, scholarship, how-it-works, university, and CTA sections.
+- `about.html`, `contact.html`, `privacy.html`, and `terms.html` are the supporting footer destinations.
+- `signup.html`, `account.html`, `profile.html`, and `results.html` are the authenticated student flow and prototype matching pages.
+- `src/styles.css` holds the shared visual system for the homepage, auth flow, account pages, and supporting content pages.
+- `src/home.js` owns homepage interactions and signed-in navigation state.
+- `src/lib/` contains shared browser-side services such as Supabase.
+
 ## Practical WordPress Setup
 
 Recommended setup:
