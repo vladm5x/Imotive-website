@@ -132,7 +132,7 @@ export function Hero() {
           { style: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px", marginBottom: "36px" } },
           e("a", { href: "/scholarships", className: "pill-btn" }, "Browse all 2,400+ →"),
           e("span", { style: { fontSize: "13px", color: "#9CA3AF", fontStyle: "italic" } }, "or,"),
-          e("a", { href: "/signup", style: { fontSize: "13px", color: "#3B82F6", fontStyle: "italic", textDecoration: "none" } }, "sign up to get matches")
+          e("a", { href: "signup.html", style: { fontSize: "13px", color: "#3B82F6", fontStyle: "italic", textDecoration: "none" } }, "sign up to get matches")
         ),
 
         // Social proof
@@ -211,7 +211,7 @@ export function Hero() {
             },
             e(LockIcon),
             e("p", { style: { margin: 0, fontSize: "13px", color: "#1A1A1A" } },
-              e("a", { href: "/signup", style: { fontWeight: 700, color: "#3B82F6", textDecoration: "none" } }, "Sign up"),
+              e("a", { href: "signup.html", style: { fontWeight: 700, color: "#3B82F6", textDecoration: "none" } }, "Sign up"),
               " to see your match score on every result."
             )
           )

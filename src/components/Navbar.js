@@ -48,7 +48,7 @@ export function Navbar() {
           onMouseEnter: (ev) => { ev.target.style.color = "#1A1A1A"; },
           onMouseLeave: (ev) => { ev.target.style.color = "#555555"; }
         }, "Log in"),
-        e("a", { href: "/signup", className: "nav-signup" }, "Sign up")
+        e("a", { href: "signup.html", className: "nav-signup" }, "Sign up")
       )
     )
   );

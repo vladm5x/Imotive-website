@@ -19,7 +19,7 @@ export function CTA() {
         "div",
         { style: { display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "12px" } },
         e("a", {
-          href: "/signup",
+          href: "signup.html",
           style: {
             display: "inline-flex", alignItems: "center", height: "48px",
             padding: "0 28px", background: "#22C55E",

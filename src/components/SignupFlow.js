@@ -286,7 +286,7 @@ function Wizard({ onComplete }) {
         ),
         e("span", null, `${index + 1} / ${questions.length}`)
       ),
-      e("p", { className: "question-eyebrow" }, `question ${index + 1}`, !question.required ? e("span", null, " · optional") : null),
+      e("p", { className: "question-eyebrow" }, `question ${index + 1}`, !question.required ? e("span", null, " - optional") : null),
       e("h1", null, question.title),
       e("p", { className: "question-helper" }, question.helper),
       e(Field, { question, value, setAnswer, pickCard, selectedFlash, onEnter: next }),
@@ -365,7 +365,7 @@ function Field({ question, value, setAnswer, pickCard, selectedFlash, onEnter })
               onClick: () => setAnswer(question.id, active ? selected.filter((item) => item !== option) : [...selected, option])
             },
             option,
-            active ? " ✓" : ""
+            active ? " +" : ""
           );
         })
       )

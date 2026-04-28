@@ -8,7 +8,7 @@ const cols = [
     links: [
       ["/scholarships", "Browse scholarships"],
       ["#how-it-works", "How it works"],
-      ["/signup", "Sign up free"]
+      ["signup.html", "Sign up free"]
     ]
   },
   {
