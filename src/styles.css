@@ -13,17 +13,22 @@ body {
 
 .logo-mark {
   color: #080808;
+  position: relative;
+  line-height: 1;
 }
 
 .logo-mark::after {
   display: block;
   width: 32px;
   height: 4px;
-  margin-top: -8px;
-  margin-left: 28px;
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  margin: 0;
   border-radius: 99px;
   background: currentColor;
   content: "";
+  transform: translateX(-50%);
 }
 
 .hero-abstract {
@@ -251,8 +256,7 @@ body {
 
   .logo-mark::after {
     width: 24px;
-    margin-top: -6px;
-    margin-left: 23px;
+    bottom: 7px;
   }
 
   .hero-video-stack {

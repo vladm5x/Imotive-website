@@ -22,7 +22,7 @@ export function Navbar() {
       {
         href: "#home",
         className:
-          "logo-mark shrink-0 rounded-[8px] bg-yellow px-4 py-3 text-[23px] font-black tracking-normal text-black shadow-[0_14px_28px_rgba(255,211,41,0.18)] sm:text-[27px]"
+          "logo-mark flex min-h-[44px] min-w-[119px] shrink-0 items-center justify-center rounded-[8px] bg-yellow px-4 text-[23px] font-black tracking-normal text-black shadow-[0_14px_28px_rgba(255,211,41,0.22)] transition hover:-translate-y-0.5 hover:bg-yellow/90 sm:min-h-[52px] sm:min-w-[140px] sm:px-5 sm:text-[27px]"
       },
       "iMotive"
     ),
