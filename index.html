@@ -1,28 +1,1099 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iMotive | Find Scholarships That Actually Fit You</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "ui-sans-serif", "system-ui"]
-            }
-          }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iMotive | Scholarships that actually fit you</title>
+  <meta name="description" content="We collect every scholarship for university students in one place – so you stop scrolling and start applying.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      background: #FAFAF7;
+      color: #1a1a1a;
+    }
+
+    button, input, textarea { font: inherit; }
+    * { box-sizing: border-box; }
+
+    .home-shell {
+      width: min(100% - 56px, 1280px);
+      margin: 0 auto;
+    }
+
+    .hand-title {
+      font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hand-note {
+      font-family: "Caveat", "Comic Sans MS", "Architects Daughter", cursive;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1.5px solid #1a1a1a;
+      background: #FAFAF7;
+    }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      min-height: 52px;
+      gap: 42px;
+    }
+
+    .brand-mark, .nav-links, .nav-actions { display: flex; align-items: center; }
+
+    .brand-mark {
+      gap: 7px;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .brand-mark span {
+      width: 18px;
+      height: 18px;
+      border: 1.7px solid #1a1a1a;
+      border-radius: 999px;
+      background: #3B82F6;
+    }
+
+    .brand-mark strong {
+      font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .nav-links { gap: 28px; }
+
+    .nav-links a, .nav-actions a {
+      color: #1a1a1a;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .nav-actions { gap: 14px; }
+
+    .nav-signup {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 18px;
+      border: 2px solid #1a1a1a;
+      border-radius: 999px;
+      background: white;
+      box-shadow: 2px 3px 0 #1a1a1a;
+      font-size: 14px;
+      font-weight: 800;
+      color: #1a1a1a !important;
+      text-decoration: none;
+      transition: background 150ms;
+    }
+
+    .nav-signup:hover { background: #f5f5f5; }
+
+    /* ── Hero ── */
+    .home-hero {
+      border-bottom: 1.5px solid #1a1a1a;
+      background: #FAFAF7;
+      padding: 58px 0 66px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(430px, 0.95fr) minmax(390px, 1.05fr);
+      gap: clamp(36px, 6vw, 76px);
+      align-items: center;
+    }
+
+    .hero-kicker {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0 0 14px;
+      color: #3B82F6;
+      font-size: 21px;
+    }
+
+    .hero-title {
+      max-width: 540px;
+      margin: 0 0 22px;
+      color: #1a1a1a;
+      font-size: clamp(3rem, 4.75vw, 4.35rem);
+      line-height: 0.88;
+    }
+
+    .hero-title-top, .hero-title-highlight { display: block; white-space: nowrap; }
+
+    .hero-title-highlight {
+      width: fit-content;
+      margin-top: 0.04em;
+      padding: 0 0.12em 0.13em;
+      background: #FACC15;
+    }
+
+    .hero-subhead {
+      max-width: 500px;
+      margin: 0 0 28px;
+      color: #344054;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .sketch-search {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      width: min(100%, 520px);
+      min-height: 52px;
+      overflow: hidden;
+      border: 2px solid #1a1a1a;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 4px 4px 0 #1a1a1a;
+    }
+
+    .sketch-search svg { margin-left: 18px; }
+
+    .sketch-search input {
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: #1a1a1a;
+      outline: 0;
+      padding: 0 14px;
+      font-size: 14px;
+    }
+
+    .sketch-search button {
+      min-height: 36px;
+      margin-right: 12px;
+      border: 1.5px solid #1a1a1a;
+      border-radius: 999px;
+      background: #3B82F6;
+      color: white;
+      cursor: pointer;
+      padding: 0 18px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin: 16px 0 28px;
+    }
+
+    .small-note { color: #1a1a1a; font-size: 16px; }
+
+    .joined-row { display: flex; align-items: center; gap: 12px; }
+    .joined-row p { margin: 0; color: #344054; font-size: 13px; }
+
+    .joined-dots { display: flex; }
+
+    .joined-dots span {
+      width: 22px;
+      height: 22px;
+      margin-left: -4px;
+      border: 1.5px solid #1a1a1a;
+      border-radius: 999px;
+    }
+
+    .joined-dots span:first-child { margin-left: 0; }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 0 20px;
+      border: 2px solid #1a1a1a;
+      border-radius: 999px;
+      background: white;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1a1a1a;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    .pill-btn:hover { transform: translateY(-1px); box-shadow: 2px 3px 0 #1a1a1a; }
+
+    /* ── Hero Preview ── */
+    .hero-preview { position: relative; }
+
+    .preview-note {
+      position: absolute;
+      top: -42px;
+      right: 92px;
+      margin: 0;
+      color: #1a1a1a;
+      font-size: 16px;
+      line-height: 0.86;
+      text-align: left;
+      transform: rotate(-2deg);
+    }
+
+    .preview-note::after {
+      position: absolute;
+      left: calc(100% + 14px);
+      top: 24px;
+      width: 62px;
+      height: 24px;
+      border-right: 1.5px solid #1a1a1a;
+      border-bottom: 1.5px solid #1a1a1a;
+      border-radius: 0 0 8px 0;
+      content: "";
+    }
+
+    .preview-card {
+      position: relative;
+      width: 100%;
+      min-height: 250px;
+      border: 2px solid #1a1a1a;
+      border-radius: 6px;
+      background: white;
+      box-shadow: 7px 8px 0 #1a1a1a;
+      padding: 18px 18px 16px;
+      transform: rotate(0.7deg);
+    }
+
+    .preview-label { margin: 0 0 12px; color: #1a1a1a; font-size: 16px; }
+    .preview-label::before { content: "↓ "; }
+
+    .preview-row {
+      border: 1.5px solid #1a1a1a;
+      border-radius: 6px;
+      padding: 11px 14px;
+    }
+
+    .preview-row + .preview-row { margin-top: 12px; }
+
+    .preview-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 7px;
+      font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+      font-size: 13px;
+    }
+
+    .preview-row-top strong { font-size: 12px; white-space: nowrap; }
+
+    .sketch-progress {
+      height: 8px;
+      overflow: hidden;
+      border: 1.5px solid #1a1a1a;
+      border-radius: 999px;
+      background: white;
+    }
+
+    .sketch-progress span { display: block; height: 100%; }
+
+    .preview-lock {
+      display: block;
+      margin-top: 12px;
+      border: 1.5px dashed #3B82F6;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: #1a1a1a;
+      padding: 12px 14px;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .preview-lock span {
+      display: inline-block;
+      margin-right: 7px;
+      color: #F59E0B;
+      font-size: 0;
+    }
+
+    .preview-lock span::before { content: "▣"; font-size: 14px; }
+    .preview-lock strong { margin-right: 4px; color: #1a1a1a; }
+
+    /* ── Trusted Band ── */
+    .trusted-band {
+      border-bottom: 1.5px solid #1a1a1a;
+      background: #FAFAF7;
+      padding: 28px 0 26px;
+      text-align: center;
+    }
+
+    .trusted-band p { margin: 0 0 8px; color: #1a1a1a; font-size: 16px; }
+
+    .trusted-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .trusted-list span { color: #1a1a1a; font-size: 18px; }
+
+    /* ── Featured Scholarships ── */
+    .featured-section {
+      border-bottom: 1.5px solid #1a1a1a;
+      background: #FAFAF7;
+      padding: 64px 0 52px;
+    }
+
+    .section-heading-row {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .slash-note {
+      display: inline-block;
+      margin: 0 0 18px;
+      border-bottom: 1.5px solid #1a1a1a;
+      color: #1a1a1a;
+      font-size: 20px;
+    }
+
+    .section-heading-row h2 {
+      margin: 0 0 8px;
+      color: #1a1a1a;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      line-height: 1.05;
+    }
+
+    .muted-copy { margin: 0; color: #344054; font-size: 16px; }
+
+    .browse-link {
+      color: #1a1a1a;
+      font-size: 18px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .scholarship-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .scholarship-card {
+      display: flex;
+      min-height: 228px;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 10px;
+      border: 2px solid #1a1a1a;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 5px 5px 0 #1a1a1a;
+      padding: 16px;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    .scholarship-card:hover { transform: translateY(-2px); box-shadow: 7px 8px 0 #1a1a1a; }
+
+    .scholarship-card-top, .deadline-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .scholarship-card-top strong {
+      font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .tiny-pill {
+      border: 1.3px solid #1a1a1a;
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: white;
+      color: #344054;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .scholarship-card h3 { margin: 0; color: #1a1a1a; font-size: 20px; line-height: 1.12; }
+    .scholarship-card p { margin: 0; color: #344054; font-size: 13px; line-height: 1.5; }
+
+    .deadline-row { margin-top: auto; color: #344054; font-size: 12px; }
+
+    .effort-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 28px;
+      padding: 0 10px;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #555555;
+      background: white;
+      align-self: flex-start;
+    }
+
+    .apply-btn {
+      display: block;
+      width: 100%;
+      height: 40px;
+      background: #22C55E;
+      color: white;
+      border: 2px solid #1a1a1a;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      line-height: 36px;
+      transition: background 150ms ease, transform 150ms ease;
+    }
+
+    .apply-btn:hover { background: #16A34A; transform: translateY(-1px); }
+
+    /* ── How It Works ── */
+    .how-section {
+      border-bottom: 1.5px solid #1a1a1a;
+      background: #F0EFEB;
+      padding: 54px 0 80px;
+    }
+
+    .how-heading { margin-bottom: 34px; text-align: center; }
+    .how-heading h2 { margin: 0 0 12px; color: #1a1a1a; font-size: clamp(2rem, 4vw, 2.8rem); }
+    .how-heading p { margin: 0; color: #344054; font-size: 15px; }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .step-card {
+      border: 2px solid #1a1a1a;
+      border-radius: 8px;
+      background: #FAFAF7;
+      padding: 22px;
+    }
+
+    .step-card > span {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1.5px solid #1a1a1a;
+      border-radius: 999px;
+      background: #3B82F6;
+      color: white;
+      font-weight: 900;
+    }
+
+    .step-card h3 { margin: 16px 0 8px; font-size: 22px; }
+    .step-card p { margin: 0; color: #344054; font-size: 14px; line-height: 1.55; }
+
+    /* ── Benefits ── */
+    .benefits-section {
+      border-top: 1px solid #E5E7EB;
+      background: #FAFAF7;
+      padding: 80px 0;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
+      align-items: center;
+      gap: 64px;
+    }
+
+    .benefits-eyebrow {
+      margin: 0 0 12px;
+      color: #9CA3AF;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .benefits-title {
+      margin: 0 0 40px;
+      color: #1A1A1A;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .benefits-list { display: flex; flex-direction: column; gap: 28px; }
+
+    .benefit-item { display: flex; gap: 16px; }
+
+    .benefit-check {
+      display: flex;
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      border: 2px solid #1A1A1A;
+      border-radius: 50%;
+      background: #22C55E;
+      color: white;
+      font-size: 8px;
+      font-weight: 900;
+    }
+
+    .benefit-item h3 { margin: 0 0 4px; color: #1A1A1A; font-size: 16px; font-weight: 700; }
+    .benefit-item p { margin: 0; color: #6B7280; font-size: 14px; line-height: 1.55; }
+
+    .testimonial-card {
+      border: 2px solid #1A1A1A;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 5px 5px 0 #1A1A1A;
+      padding: 36px 32px;
+    }
+
+    .testimonial-quote {
+      margin-bottom: 16px;
+      color: #3B82F6;
+      font-family: Georgia, serif;
+      font-size: 72px;
+      line-height: 1;
+    }
+
+    .testimonial-card blockquote {
+      margin: 0 0 28px;
+      color: #1A1A1A;
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .testimonial-person { display: flex; align-items: center; gap: 12px; }
+
+    .testimonial-avatar {
+      display: flex;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #1A1A1A;
+      border-radius: 50%;
+      background: #3B82F6;
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .testimonial-person p { margin: 0 0 2px; color: #1A1A1A; font-size: 14px; font-weight: 700; }
+    .testimonial-person p + p { margin: 0; color: #6B7280; font-size: 13px; font-weight: 400; }
+
+    /* ── CTA ── */
+    .cta-section {
+      border-top: 2px solid #1E3A8A;
+      background: #3B82F6;
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta-inner p { margin: 0 0 12px; color: rgba(255,255,255,0.72); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; }
+    .cta-inner h2 { margin: 0 0 32px; color: white; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.05; }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .cta-primary, .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border-radius: 10px;
+      padding: 0 28px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+    }
+
+    .cta-primary {
+      border: 2px solid #1A1A1A;
+      background: #22C55E;
+      box-shadow: 3px 3px 0 #1A1A1A;
+    }
+
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 4px 5px 0 #1A1A1A; }
+
+    .cta-secondary {
+      border: 2px solid rgba(255,255,255,0.5);
+      background: transparent;
+      font-weight: 600;
+    }
+
+    .cta-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.76); }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 2px solid #1A1A1A;
+      background: #111111;
+      padding: 56px 40px 40px;
+    }
+
+    .footer-grid, .footer-bottom { max-width: 1280px; margin: 0 auto; }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(3, auto);
+      align-items: start;
+      gap: 48px;
+    }
+
+    .footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+
+    .footer-logo div {
+      width: 26px;
+      height: 26px;
+      flex: 0 0 auto;
+      border: 2px solid #444444;
+      border-radius: 50%;
+      background: #3B82F6;
+    }
+
+    .footer-logo span { color: white; font-size: 18px; font-weight: 800; }
+    .footer-brand p { max-width: 200px; margin: 0; color: rgba(255,255,255,0.4); font-size: 13px; line-height: 1.6; }
+
+    .footer-col > p {
+      margin: 0 0 14px;
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .footer-col > div { display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    .footer-col a:hover { color: white; }
+
+    .footer-bottom {
+      margin-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 32px;
+      color: rgba(255,255,255,0.25);
+      font-size: 12px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1180px) {
+      .hero-grid { grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr); gap: 40px; }
+      .nav-inner { gap: 24px; }
+      .nav-links { gap: 18px; }
+    }
+
+    @media (max-width: 1024px) {
+      .home-shell { width: min(100% - 40px, 920px); }
+      .nav-inner { grid-template-columns: auto auto; justify-content: space-between; min-height: auto; padding: 12px 0; }
+      .nav-links { display: none; }
+      .hero-grid, .benefits-grid { grid-template-columns: 1fr; }
+      .home-hero { padding: 46px 0 54px; }
+      .hero-copy { max-width: 680px; }
+      .hero-title { font-size: clamp(2.7rem, 8vw, 4.2rem); }
+      .hero-preview { max-width: 680px; }
+      .preview-note { right: 72px; }
+      .scholarship-grid, .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .benefits-grid { gap: 40px; }
+      .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-brand p { max-width: 440px; }
+    }
+
+    @media (max-width: 640px) {
+      .home-shell { width: min(100% - 28px, 560px); }
+      .site-nav { position: static; }
+      .nav-actions { gap: 8px; }
+      .nav-actions > a:first-child { display: none; }
+      .nav-signup { min-height: 34px; padding: 0 14px; }
+      .home-hero { padding: 34px 0 42px; }
+      .hero-title { max-width: 360px; font-size: clamp(2.35rem, 12vw, 3.25rem); line-height: 0.94; }
+      .hero-title-top, .hero-title-highlight { white-space: normal; }
+      .hero-subhead { font-size: 15px; }
+      .sketch-search { grid-template-columns: auto 1fr; min-height: 0; }
+      .sketch-search input { min-height: 48px; }
+      .sketch-search button { grid-column: 1 / -1; width: calc(100% - 24px); min-height: 40px; margin: 0 12px 12px; }
+      .hero-cta-row { align-items: flex-start; flex-direction: column; }
+      .pill-btn { width: 100%; min-height: 40px; justify-content: center; font-size: 13px; }
+      .joined-row { align-items: flex-start; }
+      .hero-preview { margin-top: 10px; }
+      .preview-note { position: static; margin: 0 0 12px 8px; transform: none; }
+      .preview-note::after { display: none; }
+      .preview-card { box-shadow: 4px 5px 0 #1a1a1a; padding: 14px; transform: none; }
+      .preview-row-top { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .featured-section, .how-section, .benefits-section, .cta-section { padding-top: 48px; padding-bottom: 48px; }
+      .trusted-list { gap: 12px 18px; }
+      .trusted-list span { font-size: 16px; }
+      .section-heading-row { align-items: flex-start; flex-direction: column; }
+      .browse-link { white-space: normal; }
+      .scholarship-grid, .how-grid { grid-template-columns: 1fr; }
+      .scholarship-card-top, .deadline-row { align-items: flex-start; flex-direction: column; gap: 6px; }
+      .tiny-pill, .scholarship-card-top strong { white-space: normal; }
+      .benefits-grid { gap: 32px; }
+      .benefits-title { margin-bottom: 28px; }
+      .testimonial-card { border-radius: 10px; padding: 28px 22px; }
+      .cta-section { padding-left: 14px; padding-right: 14px; }
+      .cta-actions, .cta-primary, .cta-secondary { width: 100%; }
+      .site-footer { padding: 42px 14px 32px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-brand { grid-column: auto; }
+      .footer-bottom { margin-top: 28px; padding-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-nav">
+    <div class="home-shell nav-inner">
+      <a href="#home" class="brand-mark">
+        <span></span>
+        <strong>iMotive</strong>
+      </a>
+      <nav class="nav-links">
+        <a href="#scholarships">Browse</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#universities">For universities</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="signup.html" id="nav-login">Log in</a>
+        <a href="signup.html" class="nav-signup" id="nav-signup">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="home" class="home-hero">
+      <div class="home-shell hero-grid">
+        <div class="hero-copy">
+          <p class="hand-note hero-kicker">
+            hi there
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#3B82F6" aria-hidden="true">
+              <path d="M12 1L14.39 8.26L22 9.27L16.5 14.64L17.96 22.18L12 18.77L6.04 22.18L7.5 14.64L2 9.27L9.61 8.26L12 1Z"/>
+            </svg>
+          </p>
+          <h1 class="hero-title hand-title">
+            <span class="hero-title-top">Scholarships that</span>
+            <span class="hero-title-highlight">actually fit you.</span>
+          </h1>
+          <p class="hero-subhead">We collect every scholarship for university students in one place - so you stop scrolling and start applying.</p>
+          <form class="sketch-search" onsubmit="goSignup(event)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" placeholder='Try "engineering, masters, Lund"'>
+            <button type="submit">Search</button>
+          </form>
+          <div class="hero-cta-row">
+            <a href="signup.html" class="pill-btn">Browse all 2,400+ -&gt;</a>
+            <span class="hand-note small-note">or, sign up to get matches</span>
+          </div>
+          <div class="joined-row">
+            <div class="joined-dots" aria-hidden="true">
+              <span style="background:#FACC15"></span>
+              <span style="background:#3B82F6"></span>
+              <span style="background:#22C55E"></span>
+              <span style="background:#FAFAF7"></span>
+            </div>
+            <p>Joined this week by 312 students</p>
+          </div>
+        </div>
+
+        <div class="hero-preview">
+          <p class="hand-note preview-note">matching unlocks<br>after sign-up</p>
+          <div class="preview-card">
+            <p class="hand-note preview-label">search results preview</p>
+            <div class="preview-row">
+              <div class="preview-row-top">
+                <span>Wallenberg Engineering Grant</span>
+                <strong>50,000 kr</strong>
+              </div>
+              <div class="sketch-progress"><span style="width:88%;background:#FACC15"></span></div>
+            </div>
+            <div class="preview-row">
+              <div class="preview-row-top">
+                <span>Lund Sustainability Fund</span>
+                <strong>40,000 kr</strong>
+              </div>
+              <div class="sketch-progress"><span style="width:82%;background:#FACC15"></span></div>
+            </div>
+            <div class="preview-row">
+              <div class="preview-row-top">
+                <span>KTH Robotics Grant</span>
+                <strong>60,000 kr</strong>
+              </div>
+              <div class="sketch-progress"><span style="width:38%;background:#22C55E"></span></div>
+            </div>
+            <a href="signup.html" class="preview-lock">
+              <span>lock</span>
+              <strong>Sign up</strong> to see your match score on every result.
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trusted-band">
+      <div class="home-shell">
+        <p class="hand-note">trusted by students at</p>
+        <div class="trusted-list">
+          <span class="hand-note">Lund University</span>
+          <span class="hand-note">KTH</span>
+          <span class="hand-note">Uppsala</span>
+          <span class="hand-note">Chalmers</span>
+          <span class="hand-note">Stockholm</span>
+          <span class="hand-note">Goteborg</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="scholarships" class="featured-section">
+      <div class="home-shell">
+        <div class="section-heading-row">
+          <div>
+            <p class="hand-note slash-note">/ a peek at what's inside</p>
+            <h2 class="hand-title">Featured scholarships this week.</h2>
+            <p class="muted-copy">Sign up to see which ones fit you.</p>
+          </div>
+          <a href="signup.html" class="hand-note browse-link">browse all 2,400+ -&gt;</a>
+        </div>
+        <div class="scholarship-grid">
+
+          <article class="scholarship-card" onclick="location.href='signup.html'">
+            <div class="scholarship-card-top">
+              <span class="tiny-pill">Engineering - Masters</span>
+              <strong>40,000 kr</strong>
+            </div>
+            <h3 class="hand-title">Sustainable Engineering Fund</h3>
+            <p>For master's students researching sustainability.</p>
+            <div class="deadline-row">
+              <span>Deadline</span>
+              <strong style="color:#B45309">9 days left</strong>
+            </div>
+            <div class="sketch-progress"><span style="width:82%;background:#FACC15"></span></div>
+            <span class="effort-pill">Easy apply</span>
+            <a href="signup.html" class="apply-btn" onclick="event.stopPropagation()">Apply -&gt;</a>
+          </article>
+
+          <article class="scholarship-card" onclick="location.href='signup.html'">
+            <div class="scholarship-card-top">
+              <span class="tiny-pill">Engineering - Masters</span>
+              <strong>60,000 kr</strong>
+            </div>
+            <h3 class="hand-title">Wallenberg Robotics Grant</h3>
+            <p>Supports robotics research projects.</p>
+            <div class="deadline-row">
+              <span>Deadline</span>
+              <strong style="color:#555555">33 days left</strong>
+            </div>
+            <div class="sketch-progress"><span style="width:30%;background:#22C55E"></span></div>
+            <span class="effort-pill">Medium apply</span>
+            <a href="signup.html" class="apply-btn" onclick="event.stopPropagation()">Apply -&gt;</a>
+          </article>
+
+          <article class="scholarship-card" onclick="location.href='signup.html'">
+            <div class="scholarship-card-top">
+              <span class="tiny-pill">Engineering - Masters</span>
+              <strong>15,000 kr</strong>
+            </div>
+            <h3 class="hand-title">Lund Women in STEM</h3>
+            <p>Open application, short essay required.</p>
+            <div class="deadline-row">
+              <span>Deadline</span>
+              <strong style="color:#555555">21 days left</strong>
+            </div>
+            <div class="sketch-progress"><span style="width:48%;background:#22C55E"></span></div>
+            <span class="effort-pill">Easy apply</span>
+            <a href="signup.html" class="apply-btn" onclick="event.stopPropagation()">Apply -&gt;</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="how-section">
+      <div class="home-shell">
+        <div class="how-heading">
+          <h2 class="hand-title">From confused to confident in 3 steps.</h2>
+          <p>No friction. No hidden steps.</p>
+        </div>
+        <div class="how-grid">
+          <article class="step-card">
+            <span>1</span>
+            <h3 class="hand-title">Search or build a profile</h3>
+            <p>Tell us your field, level, and a few interests.</p>
+          </article>
+          <article class="step-card">
+            <span>2</span>
+            <h3 class="hand-title">Filter by what matters</h3>
+            <p>Match score, amount, deadline, or effort.</p>
+          </article>
+          <article class="step-card">
+            <span>3</span>
+            <h3 class="hand-title">Apply and track</h3>
+            <p>Save drafts, set reminders, see status.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits-section">
+      <div class="home-shell benefits-grid">
+        <div class="benefits-copy">
+          <p class="benefits-eyebrow">/ why students like it</p>
+          <h2 class="benefits-title">Less time hunting, more time applying.</h2>
+          <div class="benefits-list">
+            <div class="benefit-item">
+              <div class="benefit-check">OK</div>
+              <div>
+                <h3>Save 6+ hours a month</h3>
+                <p>No more bouncing between university pages.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check">OK</div>
+              <div>
+                <h3>Discover what you didn't know</h3>
+                <p>Niche &amp; private grants surface automatically.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check">OK</div>
+              <div>
+                <h3>Personalized matches</h3>
+                <p>The more you tell us, the better it gets.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <blockquote>I found 4 scholarships I qualified for in my first session. Got 2 of them. Paid my whole semester.</blockquote>
+          <div class="testimonial-person">
+            <div class="testimonial-avatar">SL</div>
+            <div>
+              <p>Sara L.</p>
+              <p>MSc Engineering, Lund</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-inner">
+        <p>2 minutes. that's all.</p>
+        <h2>Start finding your scholarships.</h2>
+        <div class="cta-actions">
+          <a href="signup.html" class="cta-primary">Start searching -&gt;</a>
+          <a href="signup.html" class="cta-secondary">Browse instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div></div>
+          <span>iMotive</span>
+        </div>
+        <p>Scholarship discovery for university students in Sweden.</p>
+      </div>
+      <div class="footer-col">
+        <p>Product</p>
+        <div>
+          <a href="signup.html">Browse scholarships</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="signup.html">Sign up free</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p>Company</p>
+        <div>
+          <a href="/about">About</a>
+          <a href="#universities">For universities</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p>Legal</p>
+        <div>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 iMotive. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function goSignup(ev) {
+      ev.preventDefault();
+      window.location.href = 'signup.html';
+    }
+
+    (async function updateNav() {
+      try {
+        const url = window.IMOTIVE_SUPABASE_URL || "https://yltxrmvxqnptffsmrpyt.supabase.co";
+        const key = window.IMOTIVE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsdHhybXZ4cW5wdGZmc21ycHl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMTIxMzMsImV4cCI6MjA5Mjg4ODEzM30.Dvb9Y4nuoDMxEyWm-4p1nbpjhyuAJzZ0cVSMoJXyZcM";
+        const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+        const supabase = createClient(url, key);
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          const login = document.getElementById('nav-login');
+          const signup = document.getElementById('nav-signup');
+          login.href = 'account.html';
+          login.textContent = 'Account';
+          signup.href = 'results.html';
+          signup.textContent = 'My matches';
         }
-      };
-    </script>
-    <link rel="stylesheet" href="src/styles.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="src/main.js"></script>
-  </body>
+      } catch (_) {}
+    })();
+  </script>
+
+</body>
 </html>
