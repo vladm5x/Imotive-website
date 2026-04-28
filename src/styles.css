@@ -15,6 +15,10 @@ textarea {
   font: inherit;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .home-shell {
   width: min(100% - 56px, 1280px);
   margin: 0 auto;
@@ -99,8 +103,8 @@ textarea {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(420px, 0.96fr) minmax(410px, 1fr);
-  gap: clamp(38px, 6vw, 72px);
+  grid-template-columns: minmax(475px, 1.08fr) minmax(340px, 0.92fr);
+  gap: clamp(26px, 4.5vw, 58px);
   align-items: center;
 }
 
@@ -114,19 +118,24 @@ textarea {
 }
 
 .hero-title {
-  max-width: 470px;
+  max-width: 720px;
   margin: 0 0 22px;
   color: #1a1a1a;
-  font-size: clamp(3.05rem, 4.9vw, 4rem);
-  line-height: 0.95;
+  font-size: clamp(3.55rem, 6.05vw, 6.1rem);
+  line-height: 0.78;
 }
 
-.hero-title span {
-  display: inline-block;
-  padding: 0 0.12em 0.08em;
+.hero-title-top,
+.hero-title-highlight {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero-title-highlight {
+  width: fit-content;
+  margin-top: 0.04em;
+  padding: 0 0.12em 0.13em;
   background: #FACC15;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
 }
 
 .hero-subhead {
@@ -246,6 +255,7 @@ textarea {
 
 .preview-card {
   position: relative;
+  width: 100%;
   min-height: 250px;
   border: 2px solid #1a1a1a;
   border-radius: 6px;
@@ -291,9 +301,7 @@ textarea {
 }
 
 .preview-lock {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  display: block;
   margin-top: 12px;
   border: 1.5px dashed #3B82F6;
   border-radius: 6px;
@@ -305,6 +313,8 @@ textarea {
 }
 
 .preview-lock span {
+  display: inline-block;
+  margin-right: 7px;
   color: #F59E0B;
   font-size: 0;
 }
@@ -315,6 +325,7 @@ textarea {
 }
 
 .preview-lock strong {
+  margin-right: 4px;
   color: #1a1a1a;
 }
 

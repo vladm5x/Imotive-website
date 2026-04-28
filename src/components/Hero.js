@@ -64,9 +64,8 @@ export function Hero() {
         e(
           "h1",
           { className: "hero-title hand-title" },
-          "Scholarships that",
-          e("br"),
-          e("span", null, "actually fit you.")
+          e("span", { className: "hero-title-top" }, "Scholarships that"),
+          e("span", { className: "hero-title-highlight" }, "actually fit you.")
         ),
         e(
           "p",
