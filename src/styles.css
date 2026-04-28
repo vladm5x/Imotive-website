@@ -80,24 +80,26 @@ body {
 .tag-cloud {
   position: relative;
   overflow: hidden;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.045);
 }
 
 .tag-cloud::after {
   position: absolute;
-  right: 20px;
+  right: 14px;
   bottom: 12px;
-  left: 20px;
+  left: 14px;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.16), transparent);
+  background: rgba(0, 0, 0, 0.1);
   content: "";
 }
 
 .tag-cloud span {
   position: absolute;
-  left: var(--x);
+  left: 0;
   top: 0;
-  z-index: calc(20 - var(--i));
+  z-index: 1;
   display: inline-flex;
   min-height: 42px;
   align-items: center;
@@ -108,10 +110,9 @@ body {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.07);
   font-size: clamp(13px, 1.12vw, 16px);
   white-space: nowrap;
-  transform: translate3d(0, -92px, 0) rotate(calc(var(--r) * -0.4));
+  opacity: 0;
+  transform: translate3d(0, -150px, 0);
   transform-origin: 50% 80%;
-  animation: tagGravity 2.7s cubic-bezier(0.17, 0.84, 0.28, 1.02) forwards;
-  animation-delay: var(--delay);
   will-change: transform;
 }
 
@@ -187,6 +188,64 @@ body {
   animation: mailFloat 5.8s ease-in-out infinite;
 }
 
+.how-steps {
+  position: relative;
+}
+
+.how-step:not(:last-child)::after {
+  position: absolute;
+  top: 154px;
+  left: calc(50% + 136px);
+  z-index: 0;
+  width: calc(100% - 248px);
+  height: 18px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgba(75, 22, 201, 0.35) 2px, transparent 3px) 0 50% / 14px 8px repeat-x;
+  content: "";
+}
+
+.how-step:not(:last-child)::before {
+  position: absolute;
+  top: 148px;
+  right: -17px;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border-top: 3px solid rgba(75, 22, 201, 0.35);
+  border-right: 3px solid rgba(75, 22, 201, 0.35);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.step-art-frame {
+  z-index: 2;
+  aspect-ratio: 0.82;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.step-art {
+  position: absolute;
+  top: -18%;
+  width: 350%;
+  max-width: none;
+  height: auto;
+  filter: drop-shadow(0 24px 34px rgba(75, 22, 201, 0.12));
+}
+
+.step-art-one {
+  left: -8%;
+}
+
+.step-art-two {
+  left: -122%;
+}
+
+.step-art-three {
+  left: -241%;
+}
+
 @keyframes softFloat {
   0%, 100% {
     transform: translateY(0);
@@ -204,28 +263,6 @@ body {
 
   50% {
     transform: translate3d(18px, -12px, 0) rotate(8deg);
-  }
-}
-
-@keyframes tagGravity {
-  0% {
-    transform: translate3d(calc((var(--i) - 4) * 10px), -120px, 0) rotate(calc(var(--r) * -1.2));
-  }
-
-  56% {
-    transform: translate3d(calc((var(--i) - 4) * -2px), calc(var(--land-y) + 18px), 0) rotate(calc(var(--r) + 10deg));
-  }
-
-  70% {
-    transform: translate3d(calc((var(--i) - 4) * 1px), calc(var(--land-y) - 22px), 0) rotate(calc(var(--r) - 7deg));
-  }
-
-  84% {
-    transform: translate3d(0, calc(var(--land-y) + 6px), 0) rotate(calc(var(--r) + 3deg));
-  }
-
-  100% {
-    transform: translate3d(0, var(--land-y), 0) rotate(var(--r));
   }
 }
 
@@ -269,7 +306,7 @@ body {
   }
 
   .tag-cloud span {
-    left: min(var(--x), 68%);
+    left: clamp(2%, var(--x), 70%);
     padding: 0 14px;
     font-size: 13px;
   }
@@ -283,13 +320,18 @@ body {
     margin-top: 16px;
     font-size: clamp(2.25rem, 13vw, 3.25rem);
   }
+
+  .how-step:not(:last-child)::before,
+  .how-step:not(:last-child)::after {
+    display: none;
+  }
 }
 
 @media (max-width: 420px) {
   .tag-cloud span {
-    left: min(var(--x), 58%);
+    left: clamp(2%, var(--x), 68%);
     min-height: 36px;
-    padding: 0 11px;
-    font-size: 12px;
+    padding: 0 8px;
+    font-size: 10.5px;
   }
 }

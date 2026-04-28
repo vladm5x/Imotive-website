@@ -1,5 +1,6 @@
 -- ─── scholarships_raw ────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS scholarships_raw (
+  application_url       text,
   id                    text PRIMARY KEY,
   title                 text NOT NULL,
   amount                text,
@@ -20,10 +21,25 @@ CREATE TABLE IF NOT EXISTS scholarships_raw (
   scrape_success        boolean DEFAULT true,
   blocked               boolean DEFAULT false,
   requires_login        boolean DEFAULT false,
+  expired               boolean DEFAULT false,
   date_scraped          timestamptz DEFAULT now(),
   created_at            timestamptz DEFAULT now(),
   updated_at            timestamptz DEFAULT now()
 );
+
+-- Repair existing tables created before id was a primary key.
+-- Supabase upsert(..., { onConflict: 'id' }) requires id to be unique.
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_constraint
+    WHERE conrelid = 'scholarships_raw'::regclass
+      AND conname = 'scholarships_raw_pkey'
+  ) THEN
+    ALTER TABLE scholarships_raw ADD CONSTRAINT scholarships_raw_pkey PRIMARY KEY (id);
+  END IF;
+END $$;
 
 -- Auto-update updated_at on upsert
 CREATE OR REPLACE FUNCTION set_updated_at()
@@ -44,6 +60,18 @@ CREATE TRIGGER trg_scholarships_raw_updated_at
 CREATE TABLE IF NOT EXISTS scholarships_expired (
   LIKE scholarships_raw INCLUDING ALL
 );
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_constraint
+    WHERE conrelid = 'scholarships_expired'::regclass
+      AND conname = 'scholarships_expired_pkey'
+  ) THEN
+    ALTER TABLE scholarships_expired ADD CONSTRAINT scholarships_expired_pkey PRIMARY KEY (id);
+  END IF;
+END $$;
 
 -- Add expired flag to scholarships_raw (safe to run on existing table)
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS expired boolean DEFAULT false;

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "node dev-server.mjs",
-    "scrape": "node functions/scraper.js"
+    "scrape": "node functions/scraper.js",
+    "push-json": "node functions/scraper.js --push-json"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

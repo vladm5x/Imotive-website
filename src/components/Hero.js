@@ -24,7 +24,7 @@ export function Hero() {
         { className: "mt-8 flex justify-center" },
         e(
           "a",
-          { href: "profile.html", className: "rounded-[8px] bg-purple px-10 py-4 text-sm font-semibold text-white shadow-[0_18px_38px_rgba(75,22,201,0.25)] transition hover:-translate-y-0.5" },
+          { href: "profile.html", className: "rounded-[8px] bg-yellow px-10 py-4 text-sm font-black text-black shadow-[0_14px_28px_rgba(255,211,41,0.22)] transition hover:-translate-y-0.5 hover:bg-yellow/90" },
           "Find Scholarships!"
         )
       )
