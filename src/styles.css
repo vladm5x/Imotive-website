@@ -31,6 +31,36 @@ body {
   transform: translateX(-50%);
 }
 
+.intro-hero {
+  display: grid;
+  align-items: start;
+  background:
+    linear-gradient(180deg, rgba(18, 8, 58, 0.78) 0%, rgba(35, 13, 101, 0.62) 45%, rgba(50, 17, 120, 0.24) 100%),
+    url("../assets/hero-scholarship-room.png") center bottom / cover no-repeat;
+}
+
+.intro-hero::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 5, 28, 0.46) 0%, rgba(8, 5, 28, 0.1) 42%, rgba(8, 5, 28, 0) 100%),
+    radial-gradient(circle at 50% 18%, rgba(0, 0, 0, 0.2), transparent 48%);
+  content: "";
+}
+
+.intro-hero::after {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 5, 32, 0.08);
+  backdrop-filter: saturate(0.92);
+  content: "";
+}
+
+.intro-hero h1,
+.intro-hero p {
+  text-shadow: 0 3px 24px rgba(5, 3, 20, 0.34);
+}
+
 .hero-abstract {
   position: absolute;
   border-radius: 999px;
@@ -302,6 +332,11 @@ body {
 @media (max-width: 768px) {
   .site-frame {
     border-radius: 0;
+  }
+
+  .intro-hero {
+    min-height: 760px;
+    background-position: center bottom;
   }
 
   .logo-mark::after {
