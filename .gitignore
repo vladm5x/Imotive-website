@@ -1,0 +1,7 @@
+.env
+.env.*
+node_modules/
+responsive-*.png
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

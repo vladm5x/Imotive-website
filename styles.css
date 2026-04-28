@@ -1122,11 +1122,14 @@ textarea:focus {
 
 @media (max-width: 980px) {
   .landing-band,
-  .profile-builder,
   .split-section,
   .landing-hero,
   .scholarship-preview {
     grid-template-columns: 1fr;
+  }
+
+  .profile-builder {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .rank-actions {
@@ -1174,6 +1177,22 @@ textarea:focus {
   .section-shell,
   .split-section {
     padding: 44px 18px;
+  }
+
+  .profile-builder,
+  .stacked-form,
+  .rank-card,
+  .summary-card {
+    padding: 16px;
+  }
+
+  .profile-builder {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-submit,
+  .button {
+    width: 100%;
   }
 
   .landing-hero {
@@ -1236,6 +1255,7 @@ textarea:focus {
   .scholarship-phone {
     padding: 12px;
     border-radius: 22px;
+    max-width: 100%;
   }
 
   .preview-toggle {
@@ -1277,5 +1297,25 @@ textarea:focus {
 
   .detail-list div {
     gap: 4px;
+  }
+
+  .pill-row,
+  .keyword-block,
+  .reason-list {
+    gap: 6px;
+  }
+
+  .pill,
+  .keyword {
+    min-height: 30px;
+    max-width: 100%;
+  }
+
+  .detail-dialog {
+    width: calc(100vw - 24px);
+  }
+
+  .detail-inner {
+    padding: 18px;
   }
 }

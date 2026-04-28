@@ -5,13 +5,13 @@ const e = React.createElement;
 export function Hero() {
   return e(
     "section",
-    { id: "home", className: "relative min-h-[88vh] overflow-hidden rounded-b-[18px] bg-white px-6 pb-20 pt-28 sm:px-10 lg:px-20" },
+    { id: "home", className: "relative min-h-[82vh] overflow-hidden rounded-b-[18px] bg-white px-4 pb-14 pt-24 sm:min-h-[88vh] sm:px-10 sm:pb-20 sm:pt-28 lg:px-20" },
     e(
       "div",
       { className: "mx-auto flex max-w-5xl flex-col items-center text-center" },
       e(
         "h1",
-        { className: "max-w-4xl text-[clamp(3rem,7vw,5.9rem)] font-medium leading-[0.96] tracking-[-0.06em]" },
+        { className: "max-w-4xl text-[clamp(2.55rem,14vw,5.9rem)] font-medium leading-[0.98] tracking-normal sm:text-[clamp(3rem,7vw,5.9rem)]" },
         "Find Scholarships Without Losing Your Life to Search"
       ),
       e(
@@ -31,12 +31,12 @@ export function Hero() {
     ),
     e(
       "div",
-      { className: "hero-image-frame pointer-events-none relative left-1/2 mt-16 w-[94vw] max-w-[1280px] -translate-x-1/2" },
+      { className: "hero-image-frame pointer-events-none relative left-1/2 mt-10 w-[92vw] max-w-[1280px] -translate-x-1/2 sm:mt-16 sm:w-[94vw]" },
       e(
         "figure",
-        { className: "m-0 overflow-hidden rounded-[34px] bg-white shadow-[0_38px_95px_rgba(26,18,55,0.18)] ring-1 ring-black/5" },
+        { className: "m-0 overflow-hidden rounded-[8px] bg-white shadow-[0_24px_60px_rgba(26,18,55,0.14)] ring-1 ring-black/5 sm:shadow-[0_38px_95px_rgba(26,18,55,0.18)]" },
         e("img", {
-          className: "block aspect-[3/2] w-full object-cover object-center",
+          className: "block aspect-[4/3] w-full object-cover object-center sm:aspect-[3/2]",
           src: "assets/hero-scholarship-room.png",
           alt: "Purple scholarship study room illustration"
         })

@@ -36,14 +36,58 @@ async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function fetchPage(url) {
-  try {
-    const res = await axios.get(url, { headers: HEADERS, timeout: 20000, maxRedirects: 5 });
-    return cheerio.load(res.data);
-  } catch (err) {
-    console.warn(`  [warn] Could not fetch ${url}: ${err.message}`);
-    return null;
+async function fetchPage(url, { retries = 3, backoff = 2000 } = {}) {
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const res = await axios.get(url, { headers: HEADERS, timeout: 20000, maxRedirects: 5 });
+      return cheerio.load(res.data);
+    } catch (err) {
+      const status = err.response?.status;
+      if (status && [401, 403, 429].includes(status)) {
+        runStats.blocked++;
+        console.warn(`  [warn] Blocked (${status}) ${url}`);
+        return null; // don't retry on auth/rate-limit
+      }
+      if (attempt < retries - 1) {
+        await sleep(backoff * (attempt + 1));
+      } else {
+        console.warn(`  [warn] Failed after ${retries} attempts ${url}: ${err.message}`);
+      }
+    }
   }
+  return null;
+}
+
+// Click common cookie/consent accept buttons — call after page.goto in any Puppeteer context
+async function acceptCookieBanners(page) {
+  await page.evaluate(() => {
+    const patterns = [
+      '#accept-all', '#acceptAll', '.accept-all', '.acceptAll',
+      '[id*="accept-all"]', '[id*="acceptAll"]', '[class*="accept-all"]',
+      '[data-testid*="accept"]', '[aria-label*="Accept all"]',
+      '#onetrust-accept-btn-handler', '.cc-accept', '#CybotCookiebotDialogBodyButtonAccept',
+      '.sp-acceptAllButton', '.js-accept-all-cookies', '#cookie-accept'
+    ];
+    for (const sel of patterns) {
+      const el = document.querySelector(sel);
+      if (el) { el.click(); return; }
+    }
+    // Fallback: click any visible button whose text matches
+    const btns = [...document.querySelectorAll('button, [role="button"]')];
+    const accept = btns.find(b => /^(accept all|accept cookies|i agree|agree|ok|allow all)$/i.test(b.textContent.trim()));
+    if (accept) accept.click();
+  }).catch(() => {});
+  await sleep(600);
+}
+
+// Returns true if page content looks like a login/auth wall
+function isLoginWall(html) {
+  const t = html.toLowerCase();
+  return (
+    (t.includes('sign in') || t.includes('log in') || t.includes('login') || t.includes('please authenticate')) &&
+    (t.includes('<form') || t.includes('password')) &&
+    !t.includes('scholarship') && !t.includes('grant')
+  );
 }
 
 // Puppeteer fetch for JS-rendered pages — lazy require so scraper still runs without puppeteer
@@ -58,10 +102,15 @@ async function fetchPageJS(url, waitSelector = null) {
     const page = await browser.newPage();
     await page.setUserAgent(HEADERS['User-Agent']);
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 35000 });
+    await acceptCookieBanners(page);
     if (waitSelector) {
       await page.waitForSelector(waitSelector, { timeout: 10000 }).catch(() => {});
     }
     const html = await page.content();
+    if (isLoginWall(html)) {
+      console.warn(`  [warn] Login wall detected at ${url}, skipping`);
+      return null;
+    }
     return cheerio.load(html);
   } catch (err) {
     console.warn(`  [warn] Puppeteer failed for ${url}: ${err.message}`);
@@ -196,12 +245,53 @@ function extractAmount(text) {
   return m ? m[0] : null;
 }
 
-function buildEntry({ id, title, amount, deadline, fullText, source, url, eligibility, documents, instructions }) {
+// Find the actual application form/portal URL on a detail page.
+// Returns null if application is email-based or no apply link found.
+function extractApplicationUrl($, baseUrl) {
+  const applyText = /^(apply(\s+(now|here|online|today))?|start\s+application|submit\s+application|application\s+form|go\s+to\s+application|apply\s+for\s+this|apply\s+to\s+this)$/i;
+  const applyHref = /[/=](apply|application|ansok|ans%C3%B6kan|ansökan|apply-now|applynow)/i;
+
+  let found = null;
+
+  // Pass 1: anchor text match (most reliable)
+  $('a').each((_, el) => {
+    if (found) return;
+    const text = $(el).text().trim();
+    const href = $(el).attr('href') || '';
+    if (!href || href === '#' || href.startsWith('mailto:')) return;
+    if (!applyText.test(text)) return;
+    try {
+      found = href.startsWith('http') ? href : new URL(href, baseUrl).href;
+    } catch { /* skip malformed */ }
+  });
+
+  // Pass 2: href keyword match (apply/application in URL path)
+  if (!found) {
+    $('a').each((_, el) => {
+      if (found) return;
+      const href = $(el).attr('href') || '';
+      if (!href || href === '#' || href.startsWith('mailto:')) return;
+      if (!applyHref.test(href)) return;
+      // Skip if it points back to the same page (anchor or same path)
+      try {
+        const abs = href.startsWith('http') ? href : new URL(href, baseUrl).href;
+        if (abs === baseUrl) return;
+        found = abs;
+      } catch { /* skip malformed */ }
+    });
+  }
+
+  return found;
+}
+
+function buildEntry({ id, title, amount, deadline, fullText, source, url, eligibility, documents, instructions, applicationUrl = null }) {
   return {
+    url,
+    applicationUrl,
     id,
     title: title.slice(0, 120),
     amount: amount || 'See scholarship page',
-    deadline: deadline || '2027-09-01',
+    deadline: deadline || 'Unknown',
     category: inferCategory(fullText),
     level: inferLevels(fullText),
     fields: inferFields(fullText),
@@ -209,7 +299,6 @@ function buildEntry({ id, title, amount, deadline, fullText, source, url, eligib
     interests: inferInterests(fullText),
     need: inferNeed(fullText),
     source,
-    url,
     eligibility: (eligibility || '').slice(0, 300) || 'See scholarship page for eligibility.',
     documents: (documents || 'See scholarship page for required documents.').slice(0, 300),
     instructions: (instructions || 'Apply via the scholarship provider.').slice(0, 300),
@@ -297,7 +386,7 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions }) {
     }
 
     console.log(`  ${name} (${pageUrl.split('/').pop() || 'root'}): ${results.length} so far`);
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   return results;
@@ -562,7 +651,7 @@ async function scrapeSwedishInstitute() {
     }
 
     console.log(`  swedish institute: ${results.length} so far`);
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   return results;
@@ -722,7 +811,7 @@ async function scrapeNordplus() {
     }
 
     console.log(`  nordplus: ${results.length} so far`);
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   return results;
@@ -734,7 +823,7 @@ async function scrapeScholarshipPositions() {
   console.log('Scraping ScholarshipPositions...');
   const results = [];
 
-  for (let pageNum = 1; pageNum <= 35; pageNum++) {
+  for (let pageNum = 1; pageNum <= 70; pageNum++) {
     const url = pageNum === 1
       ? 'https://scholarship-positions.com/category/sweden-scholarships/'
       : `https://scholarship-positions.com/category/sweden-scholarships/page/${pageNum}/`;
@@ -771,7 +860,7 @@ async function scrapeScholarshipPositions() {
 
     console.log(`  scholarship-positions page ${pageNum}: +${pageCount} (total: ${results.length})`);
     if (pageCount === 0) break;
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   return results;
@@ -783,7 +872,7 @@ async function scrapeAfterSchoolAfrica() {
   console.log('Scraping AfterSchoolAfrica...');
   const results = [];
 
-  for (let pageNum = 1; pageNum <= 15; pageNum++) {
+  for (let pageNum = 1; pageNum <= 40; pageNum++) {
     const url = pageNum === 1
       ? 'https://www.afterschoolafrica.com/tag/sweden-scholarships/'
       : `https://www.afterschoolafrica.com/tag/sweden-scholarships/page/${pageNum}/`;
@@ -821,9 +910,11 @@ async function scrapeAfterSchoolAfrica() {
 
     console.log(`  afterschoolafrica page ${pageNum}: +${pageCount} (total: ${results.length})`);
     if (pageCount === 0) break;
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
+  // Always deep-scrape AfterSchoolAfrica — small entry count, detail pages have real data
+  await enrichEntries(results, { label: 'AfterSchoolAfrica' });
   return results;
 }
 
@@ -844,17 +935,8 @@ async function scrapeScholarshipDB() {
     const page = await browser.newPage();
     await page.setUserAgent(HEADERS['User-Agent']);
 
-    // Dismiss GDPR consent popup if present
     await page.goto('https://scholarshipdb.net/scholarships-in/Sweden', { waitUntil: 'networkidle2', timeout: 35000 });
-    await sleep(2000);
-    await page.evaluate(() => {
-      const btns = [...document.querySelectorAll('button')];
-      const accept = btns.find(b => /accept|agree|ok|continue|allow/i.test(b.textContent));
-      if (accept) accept.click();
-      // Also try common consent frameworks
-      const cmpBtn = document.querySelector('.sp-acceptAllButton, #accept-all, .accept-all, [id*="accept"], [class*="accept-all"]');
-      if (cmpBtn) cmpBtn.click();
-    }).catch(() => {});
+    await acceptCookieBanners(page);
     await sleep(1500);
 
     for (let pageNum = 1; pageNum <= 20; pageNum++) {
@@ -898,7 +980,7 @@ async function scrapeScholarshipDB() {
 
         console.log(`  scholarshipdb page ${pageNum}: +${pageCount} new (total: ${results.length})`);
         if (pageCount === 0) break;
-        await sleep(DELAY_MS);
+        await sleep(randomDelay());
       } catch (err) {
         console.warn(`  [warn] ScholarshipDB page ${pageNum}: ${err.message}`);
         break;
@@ -974,7 +1056,7 @@ async function scrapeFulbright() {
     }
 
     console.log(`  fulbright: ${results.length} so far`);
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   return results;
@@ -1028,6 +1110,7 @@ async function scrapeScholarshipPortalJS() {
     const page = await browser.newPage();
     await page.setUserAgent(HEADERS['User-Agent']);
     await page.goto(baseUrl, { waitUntil: 'networkidle2', timeout: 35000 });
+    await acceptCookieBanners(page);
     await sleep(2000);
 
     for (let pageNum = 1; pageNum <= 15; pageNum++) {
@@ -1069,7 +1152,7 @@ async function scrapeScholarshipPortalJS() {
           break;
         }
 
-        await sleep(DELAY_MS);
+        await sleep(randomDelay());
       } catch (err) {
         console.warn(`  [warn] ScholarshipPortal page ${pageNum}: ${err.message}`);
         break;
@@ -1149,10 +1232,421 @@ async function scrapeErasmusJS() {
     }
 
     console.log(`  erasmus+: ${results.length} so far`);
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   return results;
+}
+
+// ─── Source: Scholars4Dev ─────────────────────────────────────────────────────
+
+async function scrapeScholars4Dev() {
+  console.log('Scraping Scholars4Dev...');
+  const results = [];
+
+  for (let pageNum = 1; pageNum <= 25; pageNum++) {
+    const url = pageNum === 1
+      ? 'https://www.scholars4dev.com/tag/scholarships-in-sweden/'
+      : `https://www.scholars4dev.com/tag/scholarships-in-sweden/page/${pageNum}/`;
+
+    const $ = await fetchPage(url);
+    if (!$) break;
+
+    let count = 0;
+    $('article, .post').each((_, el) => {
+      const titleEl = $(el).find('h2, h3, .entry-title').first();
+      const a = titleEl.find('a').first();
+      const title = (a.text() || titleEl.text()).trim();
+      if (!title || title.length < 8 || title.length > 200) return;
+
+      const link = a.attr('href') || '';
+      const fullText = $(el).text();
+
+      results.push(buildEntry({
+        id: `s4d-${slugify(title)}`,
+        title,
+        amount: extractAmount(fullText),
+        deadline: parseDeadline(fullText),
+        fullText: fullText + ' scholarship sweden',
+        source: 'Scholars4Dev',
+        url: link || url,
+        eligibility: $(el).find('p').first().text().trim(),
+        documents: '',
+        instructions: 'See the scholarship page for application instructions.'
+      }));
+      count++;
+    });
+
+    console.log(`  scholars4dev page ${pageNum}: +${count} (total: ${results.length})`);
+    if (count === 0) break;
+    await sleep(randomDelay());
+  }
+
+  return results;
+}
+
+// ─── Source: Opportunity Desk ─────────────────────────────────────────────────
+
+async function scrapeOpportunityDesk() {
+  console.log('Scraping Opportunity Desk...');
+  const results = [];
+
+  for (let pageNum = 1; pageNum <= 20; pageNum++) {
+    const url = pageNum === 1
+      ? 'https://opportunitydesk.org/tag/sweden-scholarships/'
+      : `https://opportunitydesk.org/tag/sweden-scholarships/page/${pageNum}/`;
+
+    const $ = await fetchPage(url);
+    if (!$) break;
+
+    let count = 0;
+    $('article, .post').each((_, el) => {
+      const titleEl = $(el).find('h2, h3, .entry-title').first();
+      const a = titleEl.find('a').first();
+      const title = (a.text() || titleEl.text()).trim();
+      if (!title || title.length < 8 || title.length > 200) return;
+
+      const link = a.attr('href') || '';
+      const fullText = $(el).text();
+
+      results.push(buildEntry({
+        id: `od-${slugify(title)}`,
+        title,
+        amount: extractAmount(fullText),
+        deadline: parseDeadline(fullText),
+        fullText: fullText + ' scholarship sweden',
+        source: 'Opportunity Desk',
+        url: link || url,
+        eligibility: $(el).find('p').first().text().trim(),
+        documents: '',
+        instructions: 'See the scholarship page for application instructions.'
+      }));
+      count++;
+    });
+
+    console.log(`  opportunity desk page ${pageNum}: +${count} (total: ${results.length})`);
+    if (count === 0) break;
+    await sleep(randomDelay());
+  }
+
+  return results;
+}
+
+// ─── Source: Euraxess Sweden ──────────────────────────────────────────────────
+
+async function scrapeEuraxess() {
+  console.log('Scraping Euraxess...');
+  const results = [];
+
+  const pages = [
+    'https://euraxess.ec.europa.eu/jobs/search?country_of_offer=SE',
+    'https://euraxess.ec.europa.eu/fellowships/search?country_of_offer=SE'
+  ];
+
+  for (const pageUrl of pages) {
+    const $ = await fetchPageJS(pageUrl, '.jobs-listing, article, .card');
+    if (!$) continue;
+
+    $('article, .card, .job-item, .fellowship-item, li.views-row').each((_, el) => {
+      const title = $(el).find('h2, h3, h4, .field-content, .views-field-title').first().text().trim();
+      if (!title || title.length < 8 || title.length > 200) return;
+
+      const fullText = $(el).text();
+      const link = $(el).find('a').first().attr('href') || '';
+      const absUrl = link.startsWith('http') ? link : `https://euraxess.ec.europa.eu${link}`;
+
+      results.push(buildEntry({
+        id: `euraxess-${slugify(title)}`,
+        title,
+        amount: extractAmount(fullText),
+        deadline: parseDeadline(fullText),
+        fullText: fullText + ' research grant fellowship sweden',
+        source: 'Euraxess',
+        url: absUrl || pageUrl,
+        eligibility: $(el).find('p, .field-content').first().text().trim(),
+        documents: '',
+        instructions: 'Apply through Euraxess or the hosting institution.'
+      }));
+    });
+
+    console.log(`  euraxess: ${results.length} so far`);
+    await sleep(randomDelay());
+  }
+
+  return results;
+}
+
+// ─── Source: Swedish Research Council (Vetenskapsrådet) ──────────────────────
+
+async function scrapeVetenskapsradet() {
+  return scrapeUniversity({
+    name: 'Swedish Research Council',
+    prefix: 'vr',
+    pages: [
+      'https://www.vr.se/english/applying-for-funding/calls/calls-for-proposals.html'
+    ],
+    defaultInstructions: 'Apply via the Swedish Research Council application portal PRISMA.'
+  });
+}
+
+// ─── Source: Formas ───────────────────────────────────────────────────────────
+
+async function scrapeFormas() {
+  return scrapeUniversity({
+    name: 'Formas',
+    prefix: 'formas',
+    pages: [
+      'https://formas.se/en/start/applying-for-funding/calls-for-proposals.html'
+    ],
+    defaultInstructions: 'Apply via Formas e-application system.'
+  });
+}
+
+// ─── Source: Vinnova ──────────────────────────────────────────────────────────
+
+async function scrapeVinnova() {
+  return scrapeUniversity({
+    name: 'Vinnova',
+    prefix: 'vinnova',
+    pages: [
+      'https://www.vinnova.se/en/apply-for-funding/find-the-right-funding/'
+    ],
+    defaultInstructions: 'Apply via Vinnova\'s online application system.'
+  });
+}
+
+// ─── Source: Wallenberg Foundations ──────────────────────────────────────────
+
+async function scrapeWallenberg() {
+  return scrapeUniversity({
+    name: 'Wallenberg Foundations',
+    prefix: 'wallenberg',
+    pages: [
+      'https://www.wallenberg.com/en/grants',
+      'https://kaw.wallenberg.org/en/apply'
+    ],
+    defaultInstructions: 'Apply through the Wallenberg foundation portal.'
+  });
+}
+
+// ─── Source: KK-stiftelsen ────────────────────────────────────────────────────
+
+async function scrapeKKStiftelsen() {
+  return scrapeUniversity({
+    name: 'KK-stiftelsen',
+    prefix: 'kk',
+    pages: [
+      'https://www.kks.se/en/grants/'
+    ],
+    defaultInstructions: 'Apply through KK-stiftelsen\'s application portal.'
+  });
+}
+
+// ─── Source: Karolinska Institutet ───────────────────────────────────────────
+
+async function scrapeKarolinska() {
+  return scrapeUniversity({
+    name: 'Karolinska Institutet',
+    prefix: 'ki',
+    pages: [
+      'https://ki.se/en/education/fees-and-scholarships',
+      'https://ki.se/en/research/scholarships-and-grants'
+    ],
+    defaultInstructions: 'Apply through Karolinska Institutet scholarship portal.'
+  });
+}
+
+// ─── Source: Swedish University of Agricultural Sciences ─────────────────────
+
+async function scrapeSLU() {
+  return scrapeUniversity({
+    name: 'Swedish University of Agricultural Sciences',
+    prefix: 'slu',
+    pages: [
+      'https://www.slu.se/en/education/programmes-courses/masters-studies/scholarships/'
+    ],
+    defaultInstructions: 'Apply through SLU scholarship portal.'
+  });
+}
+
+// ─── Source: Luleå University of Technology ──────────────────────────────────
+
+async function scrapeLTU() {
+  return scrapeUniversity({
+    name: 'Luleå University of Technology',
+    prefix: 'ltu',
+    pages: [
+      'https://www.ltu.se/en/study-at-ltu/application-and-tuition-fees/scholarships'
+    ],
+    defaultInstructions: 'Apply through Luleå University scholarship portal.'
+  });
+}
+
+// ─── Source: Blekinge Institute of Technology ─────────────────────────────────
+
+async function scrapeBTH() {
+  return scrapeUniversity({
+    name: 'Blekinge Institute of Technology',
+    prefix: 'bth',
+    pages: [
+      'https://www.bth.se/eng/study/scholarships/'
+    ],
+    defaultInstructions: 'Apply through BTH scholarship portal.'
+  });
+}
+
+// ─── Source: Mid Sweden University ───────────────────────────────────────────
+
+async function scrapeMidSweden() {
+  return scrapeUniversity({
+    name: 'Mid Sweden University',
+    prefix: 'miun',
+    pages: [
+      'https://www.miun.se/en/study-at-mid-sweden-university/scholarship/'
+    ],
+    defaultInstructions: 'Apply through Mid Sweden University scholarship portal.'
+  });
+}
+
+// ─── Source: Stockholm School of Economics ────────────────────────────────────
+
+async function scrapeHHS() {
+  return scrapeUniversity({
+    name: 'Stockholm School of Economics',
+    prefix: 'hhs',
+    pages: [
+      'https://www.hhs.se/en/education/bsc/scholarships/',
+      'https://www.hhs.se/en/education/msc/scholarships/'
+    ],
+    defaultInstructions: 'Apply through Stockholm School of Economics scholarship portal.'
+  });
+}
+
+// ─── Source: University of Borås ─────────────────────────────────────────────
+
+async function scrapeHB() {
+  return scrapeUniversity({
+    name: 'University of Borås',
+    prefix: 'hb',
+    pages: [
+      'https://www.hb.se/en/study-at-hb/study-options/scholarships/'
+    ],
+    defaultInstructions: 'Apply through University of Borås scholarship portal.'
+  });
+}
+
+// ─── Source: Concurrency helper ───────────────────────────────────────────────
+
+async function withConcurrency(items, limit, fn) {
+  const results = [];
+  for (let i = 0; i < items.length; i += limit) {
+    const batch = items.slice(i, i + limit);
+    const batchResults = await Promise.all(batch.map(fn));
+    results.push(...batchResults);
+  }
+  return results;
+}
+
+// ─── Deep scraping — follow links to individual scholarship pages ─────────────
+
+async function scrapeDetailPage(url) {
+  const $ = await fetchPage(url);
+  if (!$) return null;
+
+  const fullText = $('body').text();
+
+  // Extract section content by finding a heading that matches a keyword,
+  // then grabbing the next block of text
+  function extractSection(...keywords) {
+    let found = '';
+    $('h1, h2, h3, h4, h5, strong, b, dt').each((_, el) => {
+      if (found) return;
+      const heading = $(el).text().toLowerCase();
+      if (keywords.some(k => heading.includes(k))) {
+        const next = $(el).nextAll('p, ul, ol, div, dd').first();
+        const text = next.text().trim();
+        if (text.length > 10) found = text.slice(0, 400);
+      }
+    });
+    return found;
+  }
+
+  return {
+    amount: extractAmount(fullText),
+    deadline: parseDeadline(fullText),
+    eligibility: extractSection('eligib', 'who can apply', 'criteria', 'requirement'),
+    documents: extractSection('document', 'what you need', 'required material', 'application material'),
+    instructions: extractSection('how to apply', 'application process', 'apply now', 'to apply'),
+    applicationUrl: extractApplicationUrl($, url),
+    fullText
+  };
+}
+
+const CHECKPOINT_PATH = path.join(__dirname, '..', 'data', '.deep_checkpoint.json');
+const GENERIC_PLACEHOLDERS = new Set([
+  'See scholarship page', 'See scholarship page for eligibility.',
+  'See scholarship page for required documents.', 'Apply via the scholarship provider.',
+  'See the scholarship page for application instructions.'
+]);
+
+function needsEnrichment(entry) {
+  return (
+    GENERIC_PLACEHOLDERS.has(entry.amount) ||
+    entry.deadline === 'Unknown' ||
+    GENERIC_PLACEHOLDERS.has(entry.eligibility) ||
+    GENERIC_PLACEHOLDERS.has(entry.instructions)
+  );
+}
+
+function mergeDetail(entry, detail) {
+  if (!detail) return;
+  if (detail.amount && GENERIC_PLACEHOLDERS.has(entry.amount)) entry.amount = detail.amount;
+  if (detail.deadline && entry.deadline === '2027-09-01') entry.deadline = detail.deadline;
+  if (detail.eligibility && GENERIC_PLACEHOLDERS.has(entry.eligibility)) entry.eligibility = detail.eligibility.slice(0, 300);
+  if (detail.documents && GENERIC_PLACEHOLDERS.has(entry.documents)) entry.documents = detail.documents.slice(0, 300);
+  if (detail.instructions && GENERIC_PLACEHOLDERS.has(entry.instructions)) entry.instructions = detail.instructions.slice(0, 300);
+  if (detail.applicationUrl && !entry.applicationUrl) entry.applicationUrl = detail.applicationUrl;
+  if (detail.fullText) {
+    const betterFields = inferFields(detail.fullText);
+    if (betterFields[0] !== 'Any field') entry.fields = betterFields;
+    const betterLevel = inferLevels(detail.fullText);
+    if (betterLevel.length < 3) entry.level = betterLevel;
+  }
+}
+
+// Fetch detail pages concurrently (default 5 at a time) with checkpoint support.
+async function enrichEntries(entries, { label = '', maxEntries = Infinity, concurrency = 5 } = {}) {
+  // Load checkpoint — tracks which IDs have already been enriched
+  let done = new Set();
+  try { done = new Set(JSON.parse(fs.readFileSync(CHECKPOINT_PATH, 'utf8'))); } catch {}
+
+  const toEnrich = entries
+    .filter(e => e.url && e.url.startsWith('http'))
+    .filter(e => !done.has(e.id) && needsEnrichment(e))
+    .slice(0, maxEntries);
+
+  console.log(`  [deep] ${toEnrich.length} entries need enrichment${label ? ' (' + label + ')' : ''} (${done.size} already done, skipping ${entries.length - toEnrich.length - done.size} already-rich)`);
+  if (!toEnrich.length) return entries;
+
+  let processed = 0;
+
+  await withConcurrency(toEnrich, concurrency, async (entry) => {
+    const detail = await scrapeDetailPage(entry.url);
+    mergeDetail(entry, detail);
+    done.add(entry.id);
+    processed++;
+    if (processed % 20 === 0 || processed === toEnrich.length) {
+      fs.writeFileSync(CHECKPOINT_PATH, JSON.stringify([...done]));
+      console.log(`  [deep] ${processed}/${toEnrich.length} enriched`);
+    }
+  });
+
+  // Clear checkpoint after full enrichment pass
+  if (processed === toEnrich.length) {
+    try { fs.unlinkSync(CHECKPOINT_PATH); } catch {}
+  }
+
+  return entries;
 }
 
 // ─── Merge & deduplicate ──────────────────────────────────────────────────────
@@ -1173,10 +1667,216 @@ function deduplicate(entries) {
   return Array.from(seen.values());
 }
 
+// ─── Expiry helpers ───────────────────────────────────────────────────────────
+
+function isExpired(deadline) {
+  if (!deadline || deadline === 'Unknown') return false;
+  const d = new Date(deadline);
+  return !isNaN(d) && d < new Date();
+}
+
+async function loadExpiredIds() {
+  if (!supabase) return new Set();
+  const { data, error } = await supabase.from('scholarships_expired').select('id');
+  if (error) { console.warn(`  [supabase] load expired ids failed: ${error.message}`); return new Set(); }
+  return new Set((data || []).map(r => r.id));
+}
+
+async function runExpirePass(combined) {
+  if (!supabase) return;
+
+  const expired = combined.filter(e => isExpired(e.deadline));
+  if (!expired.length) {
+    console.log('Expiry pass: no newly expired entries.');
+    return;
+  }
+
+  console.log(`Expiry pass: archiving ${expired.length} expired entries...`);
+
+  const BATCH = 50;
+
+  // 1. Copy into scholarships_expired archive
+  for (let i = 0; i < expired.length; i += BATCH) {
+    const batch = expired.slice(i, i + BATCH).map(entry => ({
+      id: entry.id,
+      title: entry.title,
+      amount: entry.amount,
+      deadline: entry.deadline,
+      category: entry.category,
+      level: entry.level,
+      fields: entry.fields,
+      nationality: entry.nationality,
+      interests: entry.interests,
+      need: entry.need,
+      source: entry.source,
+      url: entry.url,
+      application_url: entry.applicationUrl || null,
+      eligibility: entry.eligibility,
+      documents: entry.documents,
+      instructions: entry.instructions,
+      requirement_keywords: entry.requirementKeywords,
+      required_applicant_info: entry.requiredApplicantInfo,
+      scrape_success: true,
+      blocked: false,
+      requires_login: false,
+      expired: true,
+      date_scraped: new Date().toISOString()
+    }));
+    const { error } = await supabase.from('scholarships_expired').upsert(batch, { onConflict: 'id' });
+    if (error) console.warn(`  [supabase] archive batch failed: ${error.message}`);
+  }
+
+  // 2. Delete from scholarships_raw — they're archived, no longer active
+  const expiredIds = expired.map(e => e.id);
+  for (let i = 0; i < expiredIds.length; i += BATCH) {
+    const batchIds = expiredIds.slice(i, i + BATCH);
+    const { error } = await supabase.from('scholarships_raw').delete().in('id', batchIds);
+    if (error) console.warn(`  [supabase] delete expired batch failed: ${error.message}`);
+  }
+
+  console.log(`Expiry pass done: ${expired.length} archived and removed from active table.`);
+}
+
+// ─── Supabase helpers ─────────────────────────────────────────────────────────
+
+async function upsertScholarship(entry, flags = {}) {
+  if (!supabase) return true;
+  const record = {
+    id: entry.id,
+    title: entry.title,
+    amount: entry.amount,
+    deadline: entry.deadline,
+    category: entry.category,
+    level: entry.level,
+    fields: entry.fields,
+    nationality: entry.nationality,
+    interests: entry.interests,
+    need: entry.need,
+    source: entry.source,
+    url: entry.url,
+    application_url: entry.applicationUrl || null,
+    eligibility: entry.eligibility,
+    documents: entry.documents,
+    instructions: entry.instructions,
+    requirement_keywords: entry.requirementKeywords,
+    required_applicant_info: entry.requiredApplicantInfo,
+    scrape_success: flags.scrape_success ?? true,
+    blocked: flags.blocked ?? false,
+    requires_login: flags.requires_login ?? false,
+    date_scraped: new Date().toISOString()
+  };
+  const { error } = await supabase.from('scholarships_raw').upsert(record, { onConflict: 'id' });
+  if (error) {
+    console.warn(`  [supabase] upsert failed for ${entry.id}: ${error.message}`);
+    return false;
+  }
+  return true;
+}
+
+async function logRun(stats) {
+  if (!supabase) return;
+  const { error } = await supabase.from('scrape_logs').insert({
+    timestamp: new Date().toISOString(),
+    total_attempted: stats.attempted,
+    success_count: stats.success,
+    fail_count: stats.fail,
+    blocked_count: stats.blocked
+  });
+  if (error) console.warn(`  [supabase] log run failed: ${error.message}`);
+}
+
+// ─── CLI modes ────────────────────────────────────────────────────────────────
+
+async function scrapeUrl(url) {
+  console.log(`Scraping single URL: ${url}\n`);
+  const raw = await fetchPage(url);
+  if (!raw) {
+    console.log('Failed to fetch URL');
+    return;
+  }
+  const html = raw.html();
+  if (isLoginWall(html)) {
+    console.log('Login wall detected — skipping');
+    const placeholder = buildEntry({
+      id: `custom-${slugify(url.slice(0, 60))}`,
+      title: url,
+      amount: null, deadline: null, fullText: '',
+      source: new URL(url).hostname, url, eligibility: '', documents: '', instructions: ''
+    });
+    await upsertScholarship(placeholder, { scrape_success: false, requires_login: true });
+    return;
+  }
+  const $ = raw;
+  const results = [];
+  $('h2, h3, h4').each((_, el) => {
+    const title = $(el).text().trim();
+    if (!title || title.length < 8 || title.length > 200) return;
+    if (!/scholarship|grant|stipend|award|bursary|funding|fellowship/i.test(title)) return;
+    const sibling = $(el).nextAll('p, ul, div').first();
+    const fullText = title + ' ' + sibling.text();
+    results.push(buildEntry({
+      id: `custom-${slugify(title)}`,
+      title,
+      amount: extractAmount(fullText),
+      deadline: parseDeadline(fullText),
+      fullText,
+      source: new URL(url).hostname,
+      url,
+      eligibility: sibling.find('p').first().text().trim() || sibling.text().trim().slice(0, 200),
+      documents: '',
+      instructions: 'See the scholarship page.'
+    }));
+  });
+  console.log(`Found ${results.length} entries`);
+  for (const entry of results) {
+    const ok = await upsertScholarship(entry, { scrape_success: true });
+    console.log(`  ${ok ? '✓' : '✗'} ${entry.title}`);
+  }
+}
+
+async function scrapeList(filepath) {
+  const urls = fs.readFileSync(filepath, 'utf8')
+    .split('\n').map(u => u.trim()).filter(Boolean);
+  console.log(`Scraping ${urls.length} URLs from ${filepath}\n`);
+  for (const url of urls) {
+    await scrapeUrl(url);
+    await sleep(randomDelay());
+  }
+}
+
+async function printStatus() {
+  if (!supabase) {
+    console.log('No Supabase connection — set SUPABASE_URL and SUPABASE_SERVICE_KEY in .env');
+    return;
+  }
+  const r1 = await supabase.from('scholarships_raw').select('*', { count: 'exact', head: true });
+  const r2 = await supabase.from('scholarships_raw').select('*', { count: 'exact', head: true }).eq('blocked', true);
+  const r3 = await supabase.from('scholarships_raw').select('*', { count: 'exact', head: true }).eq('requires_login', true);
+  const r6 = await supabase.from('scholarships_expired').select('*', { count: 'exact', head: true });
+  const r4 = await supabase.from('scrape_logs').select('*').order('timestamp', { ascending: false }).limit(5);
+
+  if (r1.error) console.error('  [supabase error]', r1.error.message);
+  if (r4.error) console.error('  [supabase error]', r4.error.message);
+
+  console.log('\n=== Supabase Status ===');
+  console.log(`Active scholarships : ${r1.count ?? 0}`);
+  console.log(`Archived (expired)  : ${r6.count ?? 0}`);
+  console.log(`Blocked             : ${r2.count ?? 0}`);
+  console.log(`Requires login     : ${r3.count ?? 0}`);
+  console.log('\nRecent scrape logs:');
+  (r4.data || []).forEach(l =>
+    console.log(`  ${l.timestamp}  attempted=${l.total_attempted}  success=${l.success_count}  fail=${l.fail_count}  blocked=${l.blocked_count}`)
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
   console.log('=== Grantly Scholarship Scraper ===\n');
+
+  // Load archived expired IDs upfront — these are permanently excluded
+  const expiredIds = await loadExpiredIds();
+  if (expiredIds.size) console.log(`Excluding ${expiredIds.size} previously expired scholarships\n`);
 
   const seed = loadSeed();
   console.log(`Loaded ${seed.length} seed scholarships\n`);
@@ -1198,18 +1898,33 @@ async function main() {
     scrapeSodertorn,
     scrapeMalardalen,
     scrapeHalmstad,
-    // National/government sources
+    scrapeKarolinska,
+    scrapeSLU,
+    scrapeLTU,
+    scrapeBTH,
+    scrapeMidSweden,
+    scrapeHHS,
+    scrapeHB,
+    // Swedish funding agencies & foundations
     scrapeSwedishInstitute,
     scrapeStudyInSweden,
     scrapeUHR,
     scrapeNordplus,
-    // Additional sources
+    scrapeVetenskapsradet,
+    scrapeFormas,
+    scrapeVinnova,
+    scrapeWallenberg,
+    scrapeKKStiftelsen,
+    // International aggregators (large volume)
     scrapeFulbright,
     scrapeScholarshipPositions,
     scrapeAfterSchoolAfrica,
+    scrapeScholars4Dev,
+    scrapeOpportunityDesk,
     // JS-rendered (Puppeteer)
     scrapeScholarshipPortalJS,
     scrapeErasmusJS,
+    scrapeEuraxess,
     scrapeScholarshipDB
   ];
 
@@ -1223,21 +1938,87 @@ async function main() {
     } catch (err) {
       console.error(`  [error] ${err.message}\n`);
     }
-    await sleep(DELAY_MS);
+    await sleep(randomDelay());
   }
 
   // Seed entries take priority (manually verified data)
   const seedIds = new Set(seed.map(s => s.id));
   const newEntries = scraped.filter(s => !seedIds.has(s.id));
-  const combined = deduplicate([...seed, ...newEntries]);
+  // Strip any entries that are already in the expired archive
+  let combined = deduplicate([...seed, ...newEntries]).filter(e => !expiredIds.has(e.id));
+
+  // --deep: follow every entry's URL and enrich with real page data
+  if (args.includes('--deep')) {
+    console.log('\nDeep scrape mode — following individual scholarship pages...');
+    combined = await enrichEntries(combined, { label: 'all sources' });
+  }
 
   console.log(`\nSeed: ${seed.length} | Scraped new: ${newEntries.length} | Total: ${combined.length}`);
 
-  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(combined, null, 2));
-  console.log(`Saved to ${OUTPUT_PATH}`);
+  // Strip expired before writing JSON so they don't re-enter as seed next run
+  const activeOnly = combined.filter(e => !isExpired(e.deadline)); // Unknown stays, expired goes
+  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(activeOnly, null, 2));
+  console.log(`Saved ${activeOnly.length} active scholarships to ${OUTPUT_PATH}`);
+
+  // Push to Supabase in batches of 50
+  if (supabase) {
+    console.log('\nPushing to Supabase...');
+    runStats.attempted = combined.length;
+    const BATCH = 50;
+    for (let i = 0; i < combined.length; i += BATCH) {
+      const batch = combined.slice(i, i + BATCH);
+      const records = batch.map(entry => ({
+        id: entry.id,
+        title: entry.title,
+        amount: entry.amount,
+        deadline: entry.deadline,
+        category: entry.category,
+        level: entry.level,
+        fields: entry.fields,
+        nationality: entry.nationality,
+        interests: entry.interests,
+        need: entry.need,
+        source: entry.source,
+        url: entry.url,
+        application_url: entry.applicationUrl || null,
+        eligibility: entry.eligibility,
+        documents: entry.documents,
+        instructions: entry.instructions,
+        requirement_keywords: entry.requirementKeywords,
+        required_applicant_info: entry.requiredApplicantInfo,
+        scrape_success: true,
+        blocked: false,
+        requires_login: false,
+        date_scraped: new Date().toISOString()
+      }));
+      const { error } = await supabase.from('scholarships_raw').upsert(records, { onConflict: 'id' });
+      if (error) {
+        console.warn(`  [supabase] batch ${i / BATCH + 1} failed: ${error.message}`);
+        runStats.fail += batch.length;
+      } else {
+        runStats.success += batch.length;
+      }
+    }
+    await logRun(runStats);
+    console.log(`Supabase: ${runStats.success} upserted, ${runStats.fail} failed, ${runStats.blocked} blocked URLs`);
+    await runExpirePass(combined);
+  } else {
+    console.log('\nSupabase not configured — skipping push (set SUPABASE_URL + SUPABASE_SERVICE_KEY in .env)');
+  }
 }
 
-main().catch(err => {
-  console.error('Fatal:', err);
-  process.exit(1);
-});
+// ─── Entry point (CLI routing) ────────────────────────────────────────────────
+
+const args = process.argv.slice(2);
+const urlIdx = args.indexOf('--url');
+const listIdx = args.indexOf('--list');
+
+if (args.includes('--status')) {
+  printStatus().then(() => process.exit(0)).catch(err => { console.error(err); process.exit(1); });
+} else if (urlIdx !== -1 && args[urlIdx + 1]) {
+  scrapeUrl(args[urlIdx + 1]).then(() => process.exit(0)).catch(err => { console.error('Fatal:', err); process.exit(1); });
+} else if (listIdx !== -1 && args[listIdx + 1]) {
+  scrapeList(args[listIdx + 1]).then(() => process.exit(0)).catch(err => { console.error('Fatal:', err); process.exit(1); });
+} else {
+  main().catch(err => { console.error('Fatal:', err); process.exit(1); });
+}

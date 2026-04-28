@@ -18,21 +18,21 @@ const tags = [
 export function Analytics() {
   return e(
     "section",
-    { id: "analytics", className: "relative bg-white px-6 pb-24 pt-24 sm:px-10 lg:px-20" },
+    { id: "analytics", className: "relative bg-white px-4 pb-16 pt-16 sm:px-10 sm:pb-24 sm:pt-24 lg:px-20" },
     e(
       "div",
       { className: "mx-auto max-w-[1320px]" },
-      e("h2", { className: "mx-auto max-w-2xl text-center text-[clamp(2.6rem,5vw,5rem)] font-medium leading-[1.02] tracking-[-0.06em]" }, "Advanced Matching and Reporting"),
+      e("h2", { className: "mx-auto max-w-2xl text-center text-[clamp(2.15rem,11vw,5rem)] font-medium leading-[1.04] tracking-normal sm:text-[clamp(2.6rem,5vw,5rem)]" }, "Advanced Matching and Reporting"),
       e(
         "div",
-        { className: "mt-16 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]" },
+        { className: "mt-10 grid gap-5 sm:mt-16 sm:gap-6 lg:grid-cols-[0.85fr_1.15fr]" },
         e(
           "article",
           { className: "analytics-card" },
-          e("h3", { className: "text-[clamp(1.6rem,2vw,2.25rem)] font-medium tracking-[-0.05em]" }, "Scholarship Fit Signals"),
+          e("h3", { className: "text-[clamp(1.45rem,6vw,2.25rem)] font-medium tracking-normal" }, "Scholarship Fit Signals"),
           e(
             "div",
-            { className: "mt-7 rounded-[26px] bg-white p-6 shadow-inner" },
+            { className: "mt-5 rounded-[8px] bg-white p-4 shadow-inner sm:mt-7 sm:p-6" },
             e(
               "div",
               { className: "tag-cloud min-h-[285px]" },
@@ -65,10 +65,10 @@ export function Analytics() {
         e(
           "article",
           { className: "analytics-card" },
-          e("h3", { className: "text-[clamp(1.6rem,2vw,2.25rem)] font-medium tracking-[-0.05em]" }, "Optimizing Applications"),
+          e("h3", { className: "text-[clamp(1.45rem,6vw,2.25rem)] font-medium tracking-normal" }, "Optimizing Applications"),
           e(
             "div",
-            { className: "mt-7 grid gap-6 lg:grid-cols-[190px_1fr]" },
+            { className: "mt-5 grid gap-5 sm:mt-7 sm:gap-6 lg:grid-cols-[190px_1fr]" },
             e(
               "div",
               { className: "grid gap-5" },
@@ -77,7 +77,7 @@ export function Analytics() {
             ),
             e(
               "div",
-              { className: "relative min-h-[310px] rounded-[26px] bg-white p-6" },
+              { className: "relative min-h-[250px] rounded-[8px] bg-white p-4 sm:min-h-[310px] sm:p-6" },
               e(
                 "div",
                 { className: "mb-7 flex flex-wrap justify-center gap-2 rounded-full border border-black/80 px-2 py-1 text-[11px]" },
