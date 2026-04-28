@@ -4,6 +4,66 @@ import { getSession, getUserProfile, isSupabaseConfigured, signOut } from "./lib
 
 const e = React.createElement;
 
+const scholarships = [
+  {
+    title: "Wallenberg Engineering",
+    amount: "50,000 kr",
+    match: 94,
+    description: "Open to all engineering masters.",
+    daysLeft: 12,
+    progress: 75,
+    effort: "Easy apply"
+  },
+  {
+    title: "Lund Sustainability Fund",
+    amount: "40,000 kr",
+    match: 91,
+    description: "For students researching climate.",
+    daysLeft: 9,
+    progress: 82,
+    effort: "Easy apply"
+  },
+  {
+    title: "KTH Robotics Grant",
+    amount: "60,000 kr",
+    match: 88,
+    description: "Robotics research projects.",
+    daysLeft: 33,
+    progress: 38,
+    effort: "Medium apply"
+  },
+  {
+    title: "Erasmus+ Mobility",
+    amount: "EUR 3,200",
+    match: 81,
+    description: "Exchange semester EU-wide.",
+    daysLeft: 64,
+    progress: 18,
+    effort: "Easy apply"
+  },
+  {
+    title: "Women in STEM Fund",
+    amount: "15,000 kr",
+    match: 77,
+    description: "Short essay, open eligibility.",
+    daysLeft: 21,
+    progress: 47,
+    effort: "Easy apply"
+  },
+  {
+    title: "Nordic Research Award",
+    amount: "25,000 kr",
+    match: 72,
+    description: "For published research only.",
+    daysLeft: 47,
+    progress: 28,
+    effort: "Hard apply"
+  }
+];
+
+const filters = ["All fields", "Any level", "Any deadline", "Any amount", "Effort: any"];
+const universities = ["Lund", "KTH", "Uppsala", "Chalmers", "Stockholm Univ.", "Goteborg"];
+
 function AccountPage() {
   const [state, setState] = React.useState({ loading: true, session: null, profile: null, error: "" });
 
@@ -16,7 +76,14 @@ function AccountPage() {
           return;
         }
         const session = await getSession();
-        const profile = session ? await getUserProfile() : null;
+        let profile = null;
+        if (session) {
+          try {
+            profile = await getUserProfile();
+          } catch (error) {
+            console.warn("Could not load profile:", error);
+          }
+        }
         if (active) setState({ loading: false, session, profile, error: "" });
       } catch (error) {
         if (active) setState({ loading: false, session: null, profile: null, error: error.message });
@@ -33,13 +100,15 @@ function AccountPage() {
     window.location.href = "index.html";
   }
 
-  if (state.loading) return e(Layout, null, e("p", { className: "account-status" }, "Loading account..."));
+  if (state.loading) {
+    return e(Layout, { onSignOut: handleSignOut, signedOut: true }, e("main", { className: "browse-loading" }, "Loading scholarships..."));
+  }
 
   if (!isSupabaseConfigured()) {
     return e(
       Layout,
-      null,
-      e("section", { className: "account-card" },
+      { onSignOut: handleSignOut, signedOut: true },
+      e("main", { className: "browse-empty" },
         e("p", { className: "signup-eyebrow" }, "setup needed"),
         e("h1", null, "Connect Supabase to enable accounts."),
         e("p", null, "Add your public Supabase URL and anon key in src/lib/supabaseClient.js, then enable Google in Supabase Auth.")
@@ -50,72 +119,145 @@ function AccountPage() {
   if (!state.session) {
     return e(
       Layout,
-      null,
-      e("section", { className: "account-card" },
+      { onSignOut: handleSignOut, signedOut: true },
+      e("main", { className: "browse-empty" },
         e("p", { className: "signup-eyebrow" }, "signed out"),
-        e("h1", null, "Sign in to view your account."),
-        e("a", { href: "signup.html", className: "signup-primary account-link" }, "Sign in")
+        e("h1", null, "Sign in to browse your scholarship matches."),
+        e("a", { href: "signup.html?mode=login", className: "browse-primary-link" }, "Log in")
       )
     );
   }
 
-  const user = state.session.user;
-  const answers = state.profile?.answers || {};
-  const displayName = state.profile?.full_name || user.user_metadata?.full_name || user.email;
-
   return e(
-    Layout,
+    React.Fragment,
     null,
+    e(Layout, { onSignOut: handleSignOut }),
     e(
-      "section",
-      { className: "account-card" },
-      state.error ? e("p", { className: "signup-error" }, state.error) : null,
-      e("p", { className: "signup-eyebrow" }, "account"),
-      e("div", { className: "account-heading" },
-        state.profile?.avatar_url ? e("img", { src: state.profile.avatar_url, alt: "", className: "account-avatar" }) : e("span", { className: "account-avatar" }, initials(displayName)),
-        e("div", null, e("h1", null, displayName), e("p", null, user.email))
-      ),
+      "main",
+      { className: "browse-page" },
+      state.error ? e("p", { className: "signup-error browse-error" }, state.error) : null,
+      e(HeroSearch, { profile: state.profile, user: state.session.user }),
+      e(FilterBar),
       e(
-        "div",
-        { className: "account-grid" },
-        accountItem("University", state.profile?.university || answers.university),
-        accountItem("Field", state.profile?.field || answers.field),
-        accountItem("Level", state.profile?.degree_level || answers.level),
-        accountItem("Citizenship", state.profile?.citizenship || answers.citizenship),
-        accountItem("Interests", Array.isArray(answers.interests) ? answers.interests.join(", ") : "")
+        "section",
+        { className: "browse-grid", "aria-label": "Scholarship results" },
+        scholarships.map((item) => e(ScholarshipCard, { key: item.title, item }))
       ),
-      e("div", { className: "account-actions" },
-        e("a", { href: "signup.html", className: "signup-primary account-link" }, "Update profile"),
-        e("a", { href: "results.html", className: "ghost-btn account-link" }, "View matches"),
-        e("button", { type: "button", className: "ghost-btn account-link", onClick: handleSignOut }, "Sign out")
-      )
-    )
+      e("div", { className: "browse-load-row" }, e("button", { type: "button", className: "browse-load" }, "Load more (2,425 remaining) ->"))
+    ),
+    e(TrustedBand)
   );
 }
 
-function Layout({ children }) {
+function Layout({ children, onSignOut, signedOut = false }) {
   return e(
-    "main",
-    { className: "account-shell" },
-    e("header", { className: "signup-topbar account-topbar" },
-      e("a", { href: "index.html", className: "signup-logo", "aria-label": "iMotive home" }, e("span", { className: "signup-logo-dot" }), "iMotive"),
-      e("a", { href: "index.html" }, "Home")
+    React.Fragment,
+    null,
+    e(
+      "header",
+      { className: "site-nav" },
+      e(
+        "div",
+        { className: "home-shell nav-inner" },
+        e(
+          "a",
+          { href: "index.html", className: "brand-mark", "aria-label": "iMotive home" },
+          e("span", null),
+          e("strong", null, "iMotive")
+        ),
+        e(
+          "nav",
+          { className: "nav-links" },
+          e("a", { href: "account.html" }, "Browse"),
+          e("a", { href: "index.html#how-it-works" }, "How it works"),
+          e("a", { href: "index.html#universities" }, "For universities")
+        ),
+        e(
+          "div",
+          { className: "nav-actions" },
+          signedOut ? e("a", { href: "signup.html?mode=login" }, "Log in") : e("button", { type: "button", className: "browse-nav-button", onClick: onSignOut }, "Log out"),
+          e("a", { href: "signup.html", className: "nav-signup" }, "Sign up")
+        )
+      )
     ),
     children
   );
 }
 
-function accountItem(label, value) {
-  return e("div", { className: "account-item" }, e("span", null, label), e("strong", null, value || "Not added yet"));
+function HeroSearch({ profile, user }) {
+  const answers = profile?.answers || {};
+  const name = profile?.full_name || user.user_metadata?.full_name || user.email || "";
+  const firstName = name.split(" ")[0];
+
+  return e(
+    "section",
+    { className: "browse-hero" },
+    e(
+      "div",
+      { className: "browse-hero-copy" },
+      e("p", { className: "hand-note browse-kicker" }, e("span", { "aria-hidden": "true" }, "+"), " 2,431 scholarships, indexed weekly"),
+      e("h1", { className: "hand-title" }, firstName ? `Find scholarships, ${firstName}.` : "Find scholarships in seconds."),
+      e("p", { className: "browse-subhead" }, profile?.university || answers.university ? `Matches are tuned for ${profile?.university || answers.university}. Start scanning right away.` : "We collect and match scholarships for students in one place - start scanning right away.")
+    ),
+    e(
+      "div",
+      { className: "browse-search-panel" },
+      e(
+        "label",
+        { className: "browse-search", "aria-label": "Search scholarships" },
+        e("span", { "aria-hidden": "true" }, "Q"),
+        e("input", { placeholder: "Search scholarships, fields, universities..." })
+      ),
+      e(
+        "div",
+        { className: "browse-actions-row" },
+        e("button", { type: "button", className: "browse-primary" }, "Start searching"),
+        e("button", { type: "button", className: "browse-secondary" }, "Browse all")
+      ),
+      e("p", { className: "hand-note browse-hint" }, "both equal weight, side by side")
+    )
+  );
 }
 
-function initials(value = "") {
-  return value
-    .split(/\s|@/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("") || "IM";
+function FilterBar() {
+  return e(
+    "section",
+    { className: "filter-zone" },
+    e(
+      "div",
+      { className: "filter-row" },
+      e("div", { className: "filter-left" },
+        e("span", { className: "hand-note filter-label" }, "Filter:"),
+        filters.map((filter) => e("button", { key: filter, type: "button", className: "filter-pill" }, filter, " v"))
+      ),
+      e("p", { className: "sort-copy" }, "Sort by: ", e("a", { href: "#" }, "Best match"))
+    ),
+    e("p", { className: "hand-note landing-note" }, "results show on landing")
+  );
+}
+
+function ScholarshipCard({ item }) {
+  const urgent = item.daysLeft <= 14;
+  return e(
+    "article",
+    { className: "browse-card" },
+    e("div", { className: "browse-card-top" }, e("span", { className: "match-pill" }, `${item.match}% match`), e("strong", { className: "hand-title" }, item.amount)),
+    e("h2", { className: "hand-title" }, item.title),
+    e("p", { className: "card-desc" }, item.description),
+    e("div", { className: "deadline-row browse-deadline" }, e("span", null, "Deadline"), e("strong", { style: { color: urgent ? "#B45309" : "#555555" } }, `${item.daysLeft} days left`)),
+    e("div", { className: "progress-track" }, e("span", { className: "progress-fill", style: { width: `${item.progress}%`, background: urgent ? "#FACC15" : "#22C55E" } })),
+    e("span", { className: "effort-pill" }, item.effort),
+    e("a", { href: "#", className: "apply-btn" }, "Apply ->")
+  );
+}
+
+function TrustedBand() {
+  return e(
+    "footer",
+    { className: "browse-trusted" },
+    e("p", { className: "hand-note" }, "Used by 12,000+ students at"),
+    universities.map((university) => e("span", { key: university, className: "hand-note" }, university))
+  );
 }
 
 createRoot(document.getElementById("root")).render(e(AccountPage));
