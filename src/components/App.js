@@ -1,10 +1,11 @@
 import React from "https://esm.sh/react@18.2.0";
 import { Navbar } from "./Navbar.js";
 import { Hero } from "./Hero.js";
+import { SocialProof } from "./SocialProof.js";
+import { FeaturedScholarships } from "./FeaturedScholarships.js";
 import { HowItWorks } from "./HowItWorks.js";
-import { Analytics } from "./Analytics.js";
-import { Integrations } from "./Integrations.js";
-import { Features } from "./Features.js";
+import { Benefits } from "./Benefits.js";
+import { CTA } from "./CTA.js";
 import { Footer } from "./Footer.js";
 
 const e = React.createElement;
@@ -12,13 +13,18 @@ const e = React.createElement;
 export function App() {
   return e(
     "div",
-    { className: "min-h-screen overflow-x-hidden bg-[#dfe1e7] text-ink antialiased" },
+    { className: "min-h-screen overflow-x-hidden bg-white" },
+    e(Navbar),
     e(
-      "div",
-      { className: "site-frame mx-auto min-h-screen max-w-[1480px] bg-white shadow-[0_24px_80px_rgba(18,18,30,0.12)]" },
-      e(Navbar),
-      e("main", null, e(Hero), e(HowItWorks), e(Analytics), e(Integrations), e(Features)),
-      e(Footer)
-    )
+      "main",
+      null,
+      e(Hero),
+      e(SocialProof),
+      e(FeaturedScholarships),
+      e(HowItWorks),
+      e(Benefits),
+      e(CTA)
+    ),
+    e(Footer)
   );
 }

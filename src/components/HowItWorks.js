@@ -5,62 +5,63 @@ const e = React.createElement;
 const steps = [
   {
     number: "1",
-    title: "Create Your Profile",
-    description: "Tell us your field of study, level, nationality and preferences",
-    image: "assets/how-step-1.png"
+    title: "Search or build a profile",
+    description: "Tell us your field, level, and a few interests."
   },
   {
     number: "2",
-    title: "Get Matched",
-    description: "We rank the best scholarships based on your profile",
-    image: "assets/how-step-2.png"
+    title: "Filter by what matters",
+    description: "Match score, amount, deadline, or effort."
   },
   {
     number: "3",
-    title: "Track & Apply",
-    description: "See exactly what's missing and complete your application",
-    image: "assets/how-step-3.png"
+    title: "Apply & track",
+    description: "Save drafts, set reminders, see status."
   }
 ];
 
 export function HowItWorks() {
   return e(
     "section",
-    { className: "how-it-works bg-white px-4 py-16 sm:px-10 sm:py-24 lg:px-20", id: "how-it-works" },
+    { id: "how-it-works", className: "bg-white px-4 py-16 sm:px-8 sm:py-20 lg:px-10" },
     e(
       "div",
-      { className: "mx-auto max-w-[1180px]" },
+      { className: "mx-auto max-w-[1280px]" },
       e(
         "div",
-        { className: "mx-auto max-w-2xl text-center" },
-        e("p", { className: "text-sm font-black uppercase text-purple" }, "How it works"),
-        e("h2", { className: "mt-3 text-[clamp(2.2rem,7vw,4.6rem)] font-medium leading-[1.04] tracking-normal" }, "From profile to application")
+        { className: "text-center mb-12" },
+        e("h2", { className: "text-[clamp(1.8rem,4vw,2.4rem)] font-bold text-[#1A1A1A]" }, "From confused to confident in 3 steps."),
+        e("p", { className: "text-[15px] text-[#555555] mt-2" }, "No friction. No hidden steps.")
       ),
       e(
         "div",
-        { className: "how-steps mt-14 grid gap-12 md:grid-cols-3 md:gap-7 lg:gap-12" },
-        steps.map((step) =>
-          e(
-            "article",
-            { key: step.number, className: "how-step relative flex flex-col items-center text-center" },
+        { className: "flex flex-col sm:flex-row items-stretch gap-0" },
+        steps.flatMap((step, i) => {
+          const card = e(
+            "div",
+            { key: step.number, className: "flex-1 bg-[#F3F4F6] rounded-xl p-7 flex flex-col gap-4" },
             e(
               "div",
-              { className: "step-art-shell relative w-[min(82vw,320px)] md:w-full md:max-w-[340px]" },
-              e("span", { className: "step-badge" }, step.number),
-              e(
-                "div",
-                { className: "step-art-frame" },
-              e("img", {
-                className: "step-art",
-                src: step.image,
-                alt: ""
-              })
-              )
+              { className: "w-9 h-9 rounded-full bg-[#3B82F6] text-white flex items-center justify-center text-[15px] font-bold shrink-0" },
+              step.number
             ),
-            e("h3", { className: "mt-8 text-xl font-black uppercase tracking-normal text-black" }, step.title),
-            e("p", { className: "mt-3 max-w-[280px] text-[15px] leading-7 text-black/55" }, step.description)
-          )
-        )
+            e("h3", { className: "text-[17px] font-semibold text-[#1A1A1A]" }, step.title),
+            e("p", { className: "text-[14px] text-[#555555] leading-relaxed" }, step.description)
+          );
+
+          if (i < steps.length - 1) {
+            const arrow = e(
+              "div",
+              {
+                key: `arrow-${i}`,
+                className: "hidden sm:flex items-center justify-center text-[#3B82F6] text-xl font-light px-2 shrink-0"
+              },
+              "→"
+            );
+            return [card, arrow];
+          }
+          return [card];
+        })
       )
     )
   );
