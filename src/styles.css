@@ -103,8 +103,8 @@ textarea {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(475px, 1.08fr) minmax(340px, 0.92fr);
-  gap: clamp(26px, 4.5vw, 58px);
+  grid-template-columns: minmax(430px, 0.95fr) minmax(390px, 1.05fr);
+  gap: clamp(36px, 6vw, 76px);
   align-items: center;
 }
 
@@ -118,11 +118,11 @@ textarea {
 }
 
 .hero-title {
-  max-width: 720px;
+  max-width: 540px;
   margin: 0 0 22px;
   color: #1a1a1a;
-  font-size: clamp(3.55rem, 6.05vw, 6.1rem);
-  line-height: 0.78;
+  font-size: clamp(3rem, 4.75vw, 4.35rem);
+  line-height: 0.88;
 }
 
 .hero-title-top,
@@ -233,20 +233,22 @@ textarea {
 
 .preview-note {
   position: absolute;
-  top: -28px;
-  right: 8px;
+  top: -42px;
+  right: 92px;
   margin: 0;
   color: #1a1a1a;
-  font-size: 17px;
-  line-height: 0.95;
+  font-size: 16px;
+  line-height: 0.86;
+  text-align: left;
+  transform: rotate(-2deg);
 }
 
 .preview-note::after {
   position: absolute;
-  right: -70px;
-  bottom: 4px;
-  width: 64px;
-  height: 20px;
+  left: calc(100% + 14px);
+  top: 24px;
+  width: 62px;
+  height: 24px;
   border-right: 1.5px solid #1a1a1a;
   border-bottom: 1.5px solid #1a1a1a;
   border-radius: 0 0 8px 0;
