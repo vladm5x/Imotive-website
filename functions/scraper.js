@@ -400,6 +400,7 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions, auto
 
     for (const sel of containerSelectors) {
       if ($(sel).length < 2) continue;
+      const prevLen = results.length;
 
       $(sel).each((_, el) => {
         const headingEl = $(el).find('h2, h3, h4, h5, .accordion__heading, .card__title, .title, strong').first();
@@ -414,7 +415,7 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions, auto
         const link = $(el).find('a').first().attr('href') || '';
         const absUrl = resolveUrl(link, pageUrl) || pageUrl;
 
-        results.push(buildEntry({
+        const entry = buildEntry({
           id: `${prefix}-${slugify(title)}`,
           title,
           amount: extractAmount(fullText),
@@ -425,10 +426,11 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions, auto
           eligibility,
           documents: paragraphs.find(p => /document|requir|submit/i.test(p)) || '',
           instructions: paragraphs.find(p => /apply|application|contact/i.test(p)) || defaultInstructions
-        }));
+        });
+        if (entry) results.push(entry);
       });
 
-      if (results.length) { scraped = true; break; }
+      if (results.length > prevLen) { scraped = true; break; }
     }
 
     // Fallback: heading scan
@@ -444,7 +446,7 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions, auto
         const link = $(el).find('a').attr('href') || $(el).closest('a').attr('href') || '';
         const absUrl = resolveUrl(link, pageUrl) || pageUrl;
 
-        results.push(buildEntry({
+        const entry = buildEntry({
           id: `${prefix}-${slugify(title)}`,
           title,
           amount: extractAmount(fullText),
@@ -455,7 +457,8 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions, auto
           eligibility: sibling.find('p').first().text().trim() || sibling.text().trim().slice(0, 200),
           documents: '',
           instructions: defaultInstructions
-        }));
+        });
+        if (entry) results.push(entry);
       });
     }
 
@@ -2076,6 +2079,7 @@ async function enrichEntries(entries, { label = '', maxEntries = Infinity, concu
   try { done = new Set(JSON.parse(fs.readFileSync(CHECKPOINT_PATH, 'utf8'))); } catch {}
 
   const toEnrich = entries
+    .filter(Boolean)
     .filter(e => e.url && e.url.startsWith('http'))
     .filter(e => !done.has(e.id) && (force || needsEnrichment(e)))
     .slice(0, maxEntries);
@@ -2144,7 +2148,7 @@ function deduplicate(entries) {
   const seen = new Map();
   const aliases = new Map();
 
-  for (const entry of entries) {
+  for (const entry of entries.filter(Boolean)) {
     const keys = [entry.id, normalizeUrl(entry.url)].filter(Boolean);
     const existingKey = keys.map(key => aliases.get(key) || key).find(key => seen.has(key));
 
