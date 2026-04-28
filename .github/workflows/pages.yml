@@ -29,10 +29,14 @@ jobs:
         run: |
           mkdir _site
           cp index.html _site/
+          cp signup.html _site/
+          cp 404.html _site/
+          cp CNAME _site/
           cp profile.html _site/
           cp results.html _site/
           cp app.js _site/
           cp styles.css _site/
+          cp -r signup _site/signup
           cp -r src _site/src
           cp -r assets _site/assets
           cp -r data _site/data

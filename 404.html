@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting | iMotive</title>
+    <script>
+      const target = new URL("signup.html", window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/"));
+      const path = window.location.pathname.toLowerCase();
+
+      if (path.includes("/signup") || path.includes("/scholarships") || path.includes("/search") || path.includes("/login")) {
+        window.location.replace(target.href);
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        background: #fafaf7;
+        color: #1a1a1a;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+
+      a {
+        color: #3b82f6;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>Page not found. <a href="signup.html">Go to sign up</a></p>
+    </main>
+  </body>
+</html>
