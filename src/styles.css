@@ -15,6 +15,322 @@ textarea {
   font: inherit;
 }
 
+.home-shell {
+  width: min(100% - 56px, 1280px);
+  margin: 0 auto;
+}
+
+.hand-title {
+  font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.hand-note {
+  font-family: "Caveat", "Comic Sans MS", "Architects Daughter", cursive;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1.5px solid #1a1a1a;
+  background: #FAFAF7;
+}
+
+.nav-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  min-height: 52px;
+  gap: 42px;
+}
+
+.brand-mark,
+.nav-links,
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.brand-mark {
+  gap: 7px;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.brand-mark span {
+  width: 18px;
+  height: 18px;
+  border: 1.7px solid #1a1a1a;
+  border-radius: 999px;
+  background: #3B82F6;
+}
+
+.brand-mark strong {
+  font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.nav-links {
+  gap: 28px;
+}
+
+.nav-links a,
+.nav-actions a {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav-actions {
+  gap: 14px;
+}
+
+.home-hero {
+  border-bottom: 1.5px solid #1a1a1a;
+  background: #FAFAF7;
+  padding: 58px 0 66px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(420px, 0.96fr) minmax(410px, 1fr);
+  gap: clamp(38px, 6vw, 72px);
+  align-items: center;
+}
+
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 14px;
+  color: #3B82F6;
+  font-size: 21px;
+}
+
+.hero-title {
+  max-width: 470px;
+  margin: 0 0 22px;
+  color: #1a1a1a;
+  font-size: clamp(3.05rem, 4.9vw, 4rem);
+  line-height: 0.95;
+}
+
+.hero-title span {
+  display: inline-block;
+  padding: 0 0.12em 0.08em;
+  background: #FACC15;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.hero-subhead {
+  max-width: 500px;
+  margin: 0 0 28px;
+  color: #344054;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.sketch-search {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  width: min(100%, 520px);
+  min-height: 52px;
+  overflow: hidden;
+  border: 2px solid #1a1a1a;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 4px 4px 0 #1a1a1a;
+}
+
+.sketch-search svg {
+  margin-left: 18px;
+}
+
+.sketch-search input {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #1a1a1a;
+  outline: 0;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+.sketch-search button {
+  min-height: 36px;
+  margin-right: 12px;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 999px;
+  background: #3B82F6;
+  color: white;
+  cursor: pointer;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 28px;
+}
+
+.small-note {
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.joined-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.joined-row p {
+  margin: 0;
+  color: #344054;
+  font-size: 13px;
+}
+
+.joined-dots {
+  display: flex;
+}
+
+.joined-dots span {
+  width: 22px;
+  height: 22px;
+  margin-left: -4px;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 999px;
+}
+
+.joined-dots span:first-child {
+  margin-left: 0;
+}
+
+.hero-preview {
+  position: relative;
+}
+
+.preview-note {
+  position: absolute;
+  top: -28px;
+  right: 8px;
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 17px;
+  line-height: 0.95;
+}
+
+.preview-note::after {
+  position: absolute;
+  right: -70px;
+  bottom: 4px;
+  width: 64px;
+  height: 20px;
+  border-right: 1.5px solid #1a1a1a;
+  border-bottom: 1.5px solid #1a1a1a;
+  border-radius: 0 0 8px 0;
+  content: "";
+}
+
+.preview-card {
+  position: relative;
+  min-height: 250px;
+  border: 2px solid #1a1a1a;
+  border-radius: 6px;
+  background: white;
+  box-shadow: 7px 8px 0 #1a1a1a;
+  padding: 18px 18px 16px;
+  transform: rotate(0.7deg);
+}
+
+.preview-label {
+  margin: 0 0 12px;
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.preview-label::before {
+  content: "↓ ";
+}
+
+.preview-row {
+  border: 1.5px solid #1a1a1a;
+  border-radius: 6px;
+  padding: 11px 14px;
+}
+
+.preview-row + .preview-row {
+  margin-top: 12px;
+}
+
+.preview-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+  font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+  font-size: 13px;
+}
+
+.preview-row-top strong {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.preview-lock {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  border: 1.5px dashed #3B82F6;
+  border-radius: 6px;
+  background: #EFF6FF;
+  color: #1a1a1a;
+  padding: 12px 14px;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.preview-lock span {
+  color: #F59E0B;
+  font-size: 0;
+}
+
+.preview-lock span::before {
+  content: "▣";
+  font-size: 14px;
+}
+
+.preview-lock strong {
+  color: #1a1a1a;
+}
+
+.sketch-progress {
+  height: 8px;
+  overflow: hidden;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 999px;
+  background: white;
+}
+
+.sketch-progress span {
+  display: block;
+  height: 100%;
+}
+
 /* Yellow marker swipe on hero headline */
 .marker-highlight {
   display: inline;
@@ -59,12 +375,13 @@ textarea {
 .pill-btn {
   display: inline-flex;
   align-items: center;
-  height: 40px;
-  padding: 0 18px;
+  min-height: 42px;
+  padding: 0 20px;
   border: 2px solid #1a1a1a;
   border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
+  background: white;
+  font-size: 15px;
+  font-weight: 800;
   color: #1a1a1a;
   text-decoration: none;
   white-space: nowrap;
@@ -80,12 +397,14 @@ textarea {
 .nav-signup {
   display: inline-flex;
   align-items: center;
-  height: 36px;
+  min-height: 32px;
   padding: 0 18px;
   border: 2px solid #1a1a1a;
   border-radius: 999px;
+  background: white;
+  box-shadow: 2px 3px 0 #1a1a1a;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 800;
   color: #1a1a1a;
   text-decoration: none;
   transition: background 150ms;
@@ -97,9 +416,10 @@ textarea {
 
 /* Progress bars */
 .progress-track {
-  height: 10px;
+  height: 8px;
+  border: 1.5px solid #1a1a1a;
   border-radius: 999px;
-  background: #E5E7EB;
+  background: white;
   overflow: hidden;
 }
 
@@ -112,17 +432,17 @@ textarea {
 .apply-btn {
   display: block;
   width: 100%;
-  height: 44px;
+  height: 40px;
   background: #22C55E;
   color: white;
-  border: none;
-  border-radius: 8px;
+  border: 2px solid #1a1a1a;
+  border-radius: 999px;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
-  line-height: 44px;
+  line-height: 36px;
   transition: background 150ms ease, transform 150ms ease;
 }
 
@@ -839,6 +1159,206 @@ kbd {
     opacity: 0;
     transform: translate3d(0, 560px, 0) rotate(var(--rotate));
   }
+}
+
+.trusted-band {
+  border-bottom: 1.5px solid #1a1a1a;
+  background: #FAFAF7;
+  padding: 28px 0 26px;
+  text-align: center;
+}
+
+.trusted-band p {
+  margin: 0 0 8px;
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.trusted-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.trusted-list span {
+  color: #1a1a1a;
+  font-size: 18px;
+}
+
+.featured-section {
+  border-bottom: 1.5px solid #1a1a1a;
+  background: #FAFAF7;
+  padding: 64px 0 52px;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.slash-note {
+  display: inline-block;
+  margin: 0 0 18px;
+  border-bottom: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  font-size: 20px;
+}
+
+.section-heading-row h2 {
+  margin: 0 0 8px;
+  color: #1a1a1a;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.05;
+}
+
+.muted-copy {
+  margin: 0;
+  color: #344054;
+  font-size: 16px;
+}
+
+.browse-link {
+  color: #1a1a1a;
+  font-size: 18px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.scholarship-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.scholarship-card {
+  display: flex;
+  min-height: 228px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid #1a1a1a;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 5px 5px 0 #1a1a1a;
+  padding: 16px;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.scholarship-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 7px 8px 0 #1a1a1a;
+}
+
+.scholarship-card-top,
+.deadline-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.scholarship-card-top strong {
+  font-family: "Architects Daughter", "Comic Sans MS", "Caveat", cursive;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+.tiny-pill {
+  border: 1.3px solid #1a1a1a;
+  border-radius: 999px;
+  padding: 3px 10px;
+  background: white;
+  color: #344054;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.scholarship-card h3 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 20px;
+  line-height: 1.12;
+}
+
+.scholarship-card p {
+  margin: 0;
+  color: #344054;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.deadline-row {
+  margin-top: auto;
+  color: #344054;
+  font-size: 12px;
+}
+
+.effort-pill {
+  align-self: flex-start;
+}
+
+.how-section {
+  border-bottom: 1.5px solid #1a1a1a;
+  background: #F0EFEB;
+  padding: 54px 0 80px;
+}
+
+.how-heading {
+  margin-bottom: 34px;
+  text-align: center;
+}
+
+.how-heading h2 {
+  margin: 0 0 12px;
+  color: #1a1a1a;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.how-heading p {
+  margin: 0;
+  color: #344054;
+  font-size: 15px;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.step-card {
+  border: 2px solid #1a1a1a;
+  border-radius: 8px;
+  background: #FAFAF7;
+  padding: 22px;
+}
+
+.step-card > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 999px;
+  background: #3B82F6;
+  color: white;
+  font-weight: 900;
+}
+
+.step-card h3 {
+  margin: 16px 0 8px;
+  font-size: 22px;
+}
+
+.step-card p {
+  margin: 0;
+  color: #344054;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 /* Effort pill */
