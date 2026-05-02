@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — iMotive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo: #160a5e;
+    --purple: #6c3aff;
+    --yellow: #ffd83d;
+    --cream: #fdfbf7;
+    --ink: #0d0826;
+    --muted: #6b7080;
+    --border: #e0daf5;
+    --white: #ffffff;
+    --green: #22c55e;
+    --coral: #ff5c5c;
+    --orange: #f97316;
+    --shadow: 4px 4px 0 var(--ink);
+    --radius: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+  /* NAV — sticky pill */
+  .nav-wrapper {
+    position: sticky; top: 16px; z-index: 100;
+    display: flex; justify-content: center;
+    padding: 0 24px;
+    margin-bottom: 48px;
+  }
+  nav {
+    background: var(--indigo);
+    border-radius: 50px;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    gap: 24px;
+    border: 2px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(22,10,94,0.35);
+    max-width: 800px; width: 100%;
+  }
+  .nav-logo { color: var(--yellow); font-family: 'Archivo Black', sans-serif; font-size: 1.05rem; text-decoration: none; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 50px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+  .nav-links a.active { color: var(--ink); background: var(--yellow); }
+  .nav-avatar {
+    width: 34px; height: 34px;
+    background: var(--purple);
+    border: 2px solid var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 0.72rem; font-weight: 700;
+    cursor: pointer; flex-shrink: 0;
+  }
+
+  /* HERO HEADER */
+  .page-header {
+    background: var(--indigo);
+    padding: 48px 32px 60px;
+    position: relative; overflow: hidden;
+    margin-bottom: -32px;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; top: -60px; right: -80px;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(108,58,255,0.45) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .page-header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; }
+  .welcome-text { color: var(--white); }
+  .welcome-text h1 { font-family: 'Archivo Black', sans-serif; font-size: 2rem; letter-spacing: -0.5px; }
+  .welcome-text h1 span { color: var(--yellow); }
+  .welcome-text p { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-top: 6px; }
+  .header-avatar-block {
+    width: 54px; height: 54px;
+    background: var(--yellow);
+    border: 3px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink); font-weight: 700; font-size: 1rem;
+    font-family: 'Archivo Black', sans-serif;
+    flex-shrink: 0;
+  }
+
+  /* LAYOUT */
+  .page-wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px 48px; display: grid; grid-template-columns: 1fr 284px; gap: 24px; }
+
+  /* STATS */
+  .stats-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 8px; }
+  .stat-card {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+  }
+  .stat-label { font-size: 0.73rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.7px; }
+  .stat-value { font-family: 'Archivo Black', sans-serif; font-size: 2.2rem; color: var(--ink); margin-top: 6px; line-height: 1; letter-spacing: -1px; }
+  .stat-value.yellow { color: var(--purple); }
+  .stat-sub { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+  .stat-card.accent { background: var(--yellow); }
+  .stat-card.accent .stat-value { color: var(--ink); }
+
+  /* MAIN */
+  .main-col { display: flex; flex-direction: column; gap: 16px; }
+  .section-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.1rem; color: var(--ink);
+    margin-bottom: 4px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-badge {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    background: var(--purple); color: var(--white);
+    padding: 3px 9px; border-radius: 20px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 22px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-name { font-family: 'Archivo Black', sans-serif; font-size: 0.95rem; color: var(--ink); }
+  .card-org { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .match-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+    border: 1.5px solid; flex-shrink: 0;
+  }
+  .match-high { background: #d1fae5; color: #065f46; border-color: #065f46; }
+  .match-mid { background: #ede9fe; color: var(--purple); border-color: var(--purple); }
+  .match-low { background: #fff7ed; color: #c2410c; border-color: #c2410c; }
+  .card-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .card-amount { font-family: 'Archivo Black', sans-serif; font-size: 1.2rem; color: var(--ink); }
+  .divider { width: 1px; height: 14px; background: var(--border); }
+  .deadline-badge {
+    font-size: 0.72rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 6px;
+    background: #f0edff; color: var(--purple);
+    border: 1px solid #ccc0ff;
+  }
+  .deadline-urgent { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+  .deadline-warn { background: #fff7ed; color: #c2410c; border-color: #fdba74; }
+  .field-tag {
+    font-size: 0.7rem; font-weight: 700;
+    padding: 3px 9px; border-radius: 5px;
+    background: var(--yellow); color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+  .card-footer { display: flex; justify-content: flex-end; }
+  .btn-apply {
+    background: var(--yellow); color: var(--ink);
+    border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    border-radius: 7px; padding: 9px 20px;
+    font-size: 0.82rem; font-weight: 700;
+    cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+    transition: transform 0.12s, box-shadow 0.12s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-apply:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .sidebar-title { font-family: 'Archivo Black', sans-serif; font-size: 0.88rem; margin-bottom: 14px; color: var(--ink); }
+  .deadline-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid #f0edff;
+    font-size: 0.79rem;
+  }
+  .deadline-item:last-child { border-bottom: none; }
+  .dl-name { font-weight: 600; color: var(--ink); }
+  .dl-date { color: var(--muted); font-size: 0.74rem; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red { background: var(--coral); }
+  .dot-orange { background: var(--orange); }
+  .dot-green { background: var(--green); }
+
+  .profile-row { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; }
+  .profile-row strong { color: var(--ink); font-weight: 700; }
+  .prog-track { background: #f0edff; border: 1.5px solid var(--ink); border-radius: 6px; height: 8px; overflow: hidden; }
+  .prog-fill { background: var(--purple); height: 100%; border-radius: 4px; width: 72%; }
+  .profile-items { margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+  .pi { display: flex; align-items: center; gap: 8px; font-size: 0.77rem; color: var(--muted); }
+  .pi-check { width: 16px; height: 16px; border-radius: 50%; background: var(--green); border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 0.55rem; flex-shrink: 0; }
+  .pi-empty { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #ccc; flex-shrink: 0; }
+
+  @media (max-width: 860px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .nav-links a { padding: 5px 8px; font-size: 0.77rem; }
+    .welcome-text h1 { font-size: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .page-header { padding: 36px 20px 52px; }
+    nav { padding: 0 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-wrapper">
+  <nav>
+    <a href="../index.html" class="nav-logo">iMotive</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="imotive-browse.html">Browse</a>
+      <a href="imotive-forum.html">Community</a>
+      <a href="imotive-account.html" class="active">Dashboard</a>
+      <a href="../index.html">Sign Out</a>
+    </div>
+    <div class="nav-avatar">AJ</div>
+  </nav>
+</div>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="welcome-text">
+      <h1>Welcome back, <span>Alex</span></h1>
+      <p>Your scholarship matches are ready. Let's get that money.</p>
+    </div>
+    <div class="header-avatar-block">AJ</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Matched</div>
+      <div class="stat-value yellow">14</div>
+      <div class="stat-sub">scholarships found</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Applied</div>
+      <div class="stat-value">3</div>
+      <div class="stat-sub">in progress</div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-label">Potential Award</div>
+      <div class="stat-value">$47,500</div>
+      <div class="stat-sub">total value</div>
+    </div>
+  </div>
+
+  <div class="main-col">
+    <div class="section-title">Your Matches <span class="section-badge">14 total</span></div>
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-name">Gates Scholarship</div><div class="card-org">Bill &amp; Melinda Gates Foundation</div></div>
+        <div class="match-pill match-high">94% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$10,000</div><div class="divider"></div>
+        <div class="deadline-badge">Jun 15, 2026</div>
+        <div class="field-tag">STEM / Leadership</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-name">Local Foundation Grant</div><div class="card-org">Community Foundation</div></div>
+        <div class="match-pill match-high">92% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$2,500</div><div class="divider"></div>
+        <div class="deadline-badge deadline-urgent">May 28 — 3 days left</div>
+        <div class="field-tag">Community</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-name">Dean's Excellence Award</div><div class="card-org">University Dean's Office</div></div>
+        <div class="match-pill match-mid">85% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$4,000</div><div class="divider"></div>
+        <div class="deadline-badge">Jun 10, 2026</div>
+        <div class="field-tag">Academic</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-name">STEM Women in Tech</div><div class="card-org">Tech Equity Fund</div></div>
+        <div class="match-pill match-mid">87% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$5,000</div><div class="divider"></div>
+        <div class="deadline-badge deadline-warn">May 30 — 5 days left</div>
+        <div class="field-tag">Engineering</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-name">National First-Gen Fund</div><div class="card-org">First Generation Foundation</div></div>
+        <div class="match-pill match-mid">82% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$8,500</div><div class="divider"></div>
+        <div class="deadline-badge">Jul 1, 2026</div>
+        <div class="field-tag">First-gen</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-name">Future Engineers Award</div><div class="card-org">Engineers of Tomorrow</div></div>
+        <div class="match-pill match-low">71% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$6,000</div><div class="divider"></div>
+        <div class="deadline-badge">Jul 30, 2026</div>
+        <div class="field-tag">STEM</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+  </div><!-- /main-col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Upcoming Deadlines</div>
+      <div class="deadline-item">
+        <div><div class="dl-name">Local Foundation Grant</div><div class="dl-date">May 28, 2026</div></div>
+        <div class="dot dot-red"></div>
+      </div>
+      <div class="deadline-item">
+        <div><div class="dl-name">STEM Women in Tech</div><div class="dl-date">May 30, 2026</div></div>
+        <div class="dot dot-orange"></div>
+      </div>
+      <div class="deadline-item">
+        <div><div class="dl-name">Dean's Excellence Award</div><div class="dl-date">Jun 10, 2026</div></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="deadline-item">
+        <div><div class="dl-name">Gates Scholarship</div><div class="dl-date">Jun 15, 2026</div></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="deadline-item">
+        <div><div class="dl-name">National First-Gen Fund</div><div class="dl-date">Jul 1, 2026</div></div>
+        <div class="dot dot-green"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">Profile Completion</div>
+      <div class="profile-row"><span>Progress</span><strong>72%</strong></div>
+      <div class="prog-track"><div class="prog-fill"></div></div>
+      <div class="profile-items">
+        <div class="pi"><div class="pi-check">✓</div>Basic info added</div>
+        <div class="pi"><div class="pi-check">✓</div>Academic history</div>
+        <div class="pi"><div class="pi-check">✓</div>Field of study</div>
+        <div class="pi"><div class="pi-empty"></div>Personal statement</div>
+        <div class="pi"><div class="pi-empty"></div>Recommendations</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>

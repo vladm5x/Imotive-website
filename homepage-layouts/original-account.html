@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — iMotive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --cream: #FAFAF7;
+    --blue: #3B82F6;
+    --blue-light: #EFF6FF;
+    --yellow: #FACC15;
+    --yellow-light: #FEFCE8;
+    --muted: #5A6E8A;
+    --ink: #1e293b;
+    --border: #dde3ec;
+    --white: #FFFFFF;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --orange: #ea580c;
+    --orange-bg: #ffedd5;
+    --radius: 14px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+  /* NAV */
+  nav {
+    background: var(--navy);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    height: 62px;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Architects Daughter', cursive;
+    color: var(--yellow); font-size: 1.2rem;
+    text-decoration: none; letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-logo::before { content: '✦'; font-size: 0.8rem; color: var(--blue); }
+  .nav-links { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    font-family: 'Caveat', cursive;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-links a.active { color: var(--yellow); }
+  .nav-avatar {
+    width: 36px; height: 36px;
+    background: var(--blue);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white);
+    font-family: 'Architects Daughter', cursive;
+    font-size: 0.75rem;
+    cursor: pointer; flex-shrink: 0; margin-left: 8px;
+  }
+
+  /* LAYOUT */
+  .page-wrap { max-width: 1180px; margin: 0 auto; padding: 36px 24px; display: grid; grid-template-columns: 1fr 296px; gap: 28px; }
+
+  /* HEADER */
+  .dash-header { grid-column: 1 / -1; display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+  .header-left h1 {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 1.8rem; color: var(--navy); line-height: 1.2;
+  }
+  .header-left h1 span {
+    display: inline-block;
+    border-bottom: 3px wavy var(--yellow);
+    padding-bottom: 2px;
+  }
+  .header-left p { font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--muted); margin-top: 6px; }
+  .header-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .header-avatar {
+    width: 54px; height: 54px;
+    background: var(--navy);
+    border: 3px solid var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white);
+    font-family: 'Architects Daughter', cursive;
+    font-size: 1rem;
+  }
+  .avatar-name { font-family: 'Caveat', cursive; font-size: 0.85rem; color: var(--muted); }
+
+  /* STATS */
+  .stats-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stat-card {
+    background: var(--white);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    position: relative;
+  }
+  .stat-card::after {
+    content: attr(data-symbol);
+    position: absolute; top: 12px; right: 14px;
+    color: var(--border); font-size: 1.2rem;
+    font-family: 'Architects Daughter', cursive;
+  }
+  .stat-label { font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--muted); }
+  .stat-value { font-family: 'Architects Daughter', cursive; font-size: 2.2rem; color: var(--navy); margin-top: 4px; line-height: 1; }
+  .stat-value.blue { color: var(--blue); }
+  .stat-value.green { color: var(--green); }
+  .stat-sub { font-family: 'Caveat', cursive; font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
+
+  /* MAIN */
+  .main-col { display: flex; flex-direction: column; gap: 16px; }
+  .section-title {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+  }
+  .section-title h2 { font-family: 'Architects Daughter', cursive; font-size: 1.15rem; color: var(--navy); }
+  .section-title .annot { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
+  .section-title::before { content: '✦'; color: var(--yellow); font-size: 0.9rem; }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: box-shadow 0.2s;
+    position: relative;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(59,130,246,0.1); }
+  /* hand-drawn corner decoration */
+  .card::before {
+    content: '✦';
+    position: absolute; top: 10px; right: 14px;
+    color: var(--yellow); font-size: 0.7rem; opacity: 0.6;
+  }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .card-name { font-family: 'Architects Daughter', cursive; font-size: 1rem; color: var(--navy); }
+  .card-org { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
+  .match-tag {
+    font-family: 'Caveat', cursive; font-size: 0.9rem; font-weight: 700;
+    padding: 3px 11px; border-radius: 20px; flex-shrink: 0;
+  }
+  .match-green { background: var(--green-bg); color: var(--green); }
+  .match-blue { background: var(--blue-light); color: var(--blue); }
+  .match-amber { background: var(--yellow-light); color: #92400e; }
+  .card-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .card-amount { font-family: 'Architects Daughter', cursive; font-size: 1.2rem; color: var(--navy); }
+  .sep { width: 1px; height: 14px; background: var(--border); }
+  .deadline-badge {
+    font-family: 'Caveat', cursive; font-size: 0.88rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 8px;
+    background: #f1f5f9; color: var(--muted);
+  }
+  .deadline-urgent { background: var(--red-bg); color: var(--red); }
+  .deadline-warn { background: var(--orange-bg); color: var(--orange); }
+  .field-tag {
+    font-family: 'Caveat', cursive; font-size: 0.84rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 6px;
+    background: var(--blue-light); color: var(--blue);
+    border: 1px dashed var(--blue);
+  }
+  .card-footer { display: flex; justify-content: flex-end; }
+  .btn-apply {
+    font-family: 'Architects Daughter', cursive;
+    background: var(--navy); color: var(--yellow);
+    border: 2px solid var(--navy);
+    border-radius: 9px; padding: 9px 20px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-apply:hover { background: var(--blue); border-color: var(--blue); color: var(--white); }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card {
+    background: var(--white);
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .sb-title {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 0.9rem; color: var(--navy); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sb-title::before { content: '✦'; color: var(--yellow); font-size: 0.7rem; }
+  .dl-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .dl-item:last-child { border-bottom: none; }
+  .dl-name { font-family: 'Caveat', cursive; font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+  .dl-date { font-family: 'Caveat', cursive; font-size: 0.82rem; color: var(--muted); }
+  .dl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red { background: var(--red); }
+  .dot-orange { background: var(--orange); }
+  .dot-green { background: var(--green); }
+
+  .prog-row { display: flex; justify-content: space-between; font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+  .prog-row strong { color: var(--blue); }
+  .prog-track { background: #f1f5f9; border-radius: 6px; height: 7px; overflow: hidden; border: 1px dashed var(--border); }
+  .prog-fill { background: var(--blue); height: 100%; border-radius: 6px; width: 72%; }
+  .pi-list { margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+  .pi { display: flex; align-items: center; gap: 8px; font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--muted); }
+  .pi-yes { font-size: 0.8rem; color: var(--green); flex-shrink: 0; }
+  .pi-no { font-size: 0.8rem; color: var(--border); flex-shrink: 0; }
+
+  /* wavy underline utility */
+  .wavy {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--yellow);
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 860px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 16px; }
+    .header-left h1 { font-size: 1.4rem; }
+  }
+  @media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .dash-header { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">iMotive</a>
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="original-browse.html">Browse</a>
+    <a href="original-forum.html">Community</a>
+    <a href="original-account.html" class="active">Dashboard</a>
+    <a href="../index.html">Sign Out</a>
+  </div>
+  <div class="nav-avatar">AJ</div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="dash-header">
+    <div class="header-left">
+      <h1>Hey, <span class="wavy">Alex</span> ✦</h1>
+      <p>here's what we found for you — dig in!</p>
+    </div>
+    <div class="header-avatar-wrap">
+      <div class="header-avatar">AJ</div>
+      <span class="avatar-name">Alex Johnson</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card" data-symbol="🎯">
+      <div class="stat-label">matched</div>
+      <div class="stat-value blue">14</div>
+      <div class="stat-sub">scholarships for you</div>
+    </div>
+    <div class="stat-card" data-symbol="✓">
+      <div class="stat-label">applied so far</div>
+      <div class="stat-value">3</div>
+      <div class="stat-sub">keep going!</div>
+    </div>
+    <div class="stat-card" data-symbol="$">
+      <div class="stat-label">up for grabs</div>
+      <div class="stat-value green">$47,500</div>
+      <div class="stat-sub">potential total</div>
+    </div>
+  </div>
+
+  <div class="main-col">
+    <div class="section-title">
+      <h2>your matches</h2>
+      <span class="annot">14 found — sorted by fit</span>
+    </div>
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Gates Scholarship</div>
+          <div class="card-org">Bill &amp; Melinda Gates Foundation</div>
+        </div>
+        <div class="match-tag match-green">94% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$10,000</div>
+        <div class="sep"></div>
+        <div class="deadline-badge">Due Jun 15, 2026</div>
+        <div class="field-tag">STEM / Leadership</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply ✦</a></div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Local Foundation Grant</div>
+          <div class="card-org">Community Foundation</div>
+        </div>
+        <div class="match-tag match-green">92% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$2,500</div>
+        <div class="sep"></div>
+        <div class="deadline-badge deadline-urgent">May 28 — only 3 days left!</div>
+        <div class="field-tag">Community</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply ✦</a></div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Dean's Excellence Award</div>
+          <div class="card-org">University Dean's Office</div>
+        </div>
+        <div class="match-tag match-blue">85% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$4,000</div>
+        <div class="sep"></div>
+        <div class="deadline-badge">Due Jun 10, 2026</div>
+        <div class="field-tag">Academic</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply ✦</a></div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">STEM Women in Tech</div>
+          <div class="card-org">Tech Equity Fund</div>
+        </div>
+        <div class="match-tag match-blue">87% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$5,000</div>
+        <div class="sep"></div>
+        <div class="deadline-badge deadline-warn">May 30 — 5 days left</div>
+        <div class="field-tag">Engineering</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply ✦</a></div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">National First-Gen Fund</div>
+          <div class="card-org">First Generation Foundation</div>
+        </div>
+        <div class="match-tag match-blue">82% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$8,500</div>
+        <div class="sep"></div>
+        <div class="deadline-badge">Due Jul 1, 2026</div>
+        <div class="field-tag">First-gen</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply ✦</a></div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Future Engineers Award</div>
+          <div class="card-org">Engineers of Tomorrow</div>
+        </div>
+        <div class="match-tag match-amber">71% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$6,000</div>
+        <div class="sep"></div>
+        <div class="deadline-badge">Due Jul 30, 2026</div>
+        <div class="field-tag">STEM</div>
+      </div>
+      <div class="card-footer"><a href="#" class="btn-apply">View &amp; Apply ✦</a></div>
+    </div>
+
+  </div><!-- /main-col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sb-title">upcoming deadlines</div>
+      <div class="dl-item">
+        <div><div class="dl-name">Local Foundation Grant</div><div class="dl-date">May 28 — hurry!</div></div>
+        <div class="dl-dot dot-red"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">STEM Women in Tech</div><div class="dl-date">May 30</div></div>
+        <div class="dl-dot dot-orange"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Dean's Excellence Award</div><div class="dl-date">Jun 10</div></div>
+        <div class="dl-dot dot-green"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Gates Scholarship</div><div class="dl-date">Jun 15</div></div>
+        <div class="dl-dot dot-green"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">National First-Gen Fund</div><div class="dl-date">Jul 1</div></div>
+        <div class="dl-dot dot-green"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sb-title">profile completion</div>
+      <div class="prog-row"><span>progress</span><strong>72%</strong></div>
+      <div class="prog-track"><div class="prog-fill"></div></div>
+      <div class="pi-list">
+        <div class="pi"><span class="pi-yes">✓</span> basic info added</div>
+        <div class="pi"><span class="pi-yes">✓</span> academic history</div>
+        <div class="pi"><span class="pi-yes">✓</span> field of study</div>
+        <div class="pi"><span class="pi-no">○</span> personal statement</div>
+        <div class="pi"><span class="pi-no">○</span> recommendations</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>

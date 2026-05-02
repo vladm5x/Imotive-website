@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Find Your Scholarships</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1F3A;
+    --cream: #FAFAF7;
+    --blue: #3B82F6;
+    --yellow: #FACC15;
+    --muted: #5A6E8A;
+    --border: #C8D5E8;
+    --white: #FFFFFF;
+    --soft: #EDF2FB;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; }
+
+  /* Nav */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 44px; border-bottom: 1.5px solid var(--border);
+    background: var(--white); position: sticky; top: 0; z-index: 100;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); }
+  .brand-mark {
+    width: 36px; height: 36px; background: var(--navy); border-radius: 8px;
+    display: grid; place-items: center;
+  }
+  .brand-mark::after { content: 'i'; color: var(--yellow); font-family: 'Architects Daughter', cursive; font-size: 18px; }
+  .brand-name { font-family: 'Architects Daughter', cursive; font-size: 20px; }
+  .header-nav { display: flex; align-items: center; gap: 24px; }
+  .header-nav a { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.15s; }
+  .header-nav a:hover, .header-nav a.active { color: var(--navy); }
+  .header-cta {
+    padding: 9px 20px; background: var(--navy); color: #fff;
+    border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none;
+  }
+
+  /* Search hero */
+  .hero { background: var(--navy); padding: 52px 44px 0; position: relative; overflow: hidden; }
+  .hero::before {
+    content: '✦'; position: absolute; right: 60px; top: 40px;
+    font-family: 'Caveat', cursive; font-size: 80px; color: rgba(250,204,21,0.1);
+    pointer-events: none;
+  }
+  .hero-kicker { font-family: 'Caveat', cursive; font-size: 20px; color: var(--yellow); margin-bottom: 10px; }
+  .hero h1 { font-family: 'Architects Daughter', cursive; font-size: clamp(28px, 4vw, 48px); color: #fff; line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.6); margin-bottom: 28px; max-width: 400px; }
+  .search-wrap { display: flex; max-width: 640px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.08); backdrop-filter: blur(4px); }
+  .search-wrap input {
+    flex: 1; padding: 14px 18px; background: transparent; border: none; outline: none;
+    font-family: 'Inter', sans-serif; font-size: 15px; color: #fff;
+  }
+  .search-wrap input::placeholder { color: rgba(255,255,255,0.4); }
+  .search-wrap button {
+    padding: 14px 22px; background: var(--yellow); color: var(--navy); border: none;
+    font-family: 'Architects Daughter', cursive; font-size: 14px; cursor: pointer;
+    border-left: 1.5px solid rgba(255,255,255,0.2);
+  }
+  .hero-tabs { display: flex; gap: 0; margin-top: 28px; }
+  .htab {
+    padding: 12px 20px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45);
+    background: transparent; border: none; cursor: pointer;
+    border-bottom: 2px solid transparent; transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .htab.active { color: #fff; border-bottom-color: var(--yellow); }
+
+  /* Body */
+  .content { display: grid; grid-template-columns: 248px 1fr; gap: 24px; padding: 28px 44px; max-width: 1300px; margin: 0 auto; }
+
+  /* Sidebar */
+  .sidebar {}
+  .filter-box { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .filter-box h3 { font-family: 'Architects Daughter', cursive; font-size: 16px; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+  .filter-box h3::before { content: '→'; color: var(--yellow); font-family: 'Caveat', cursive; }
+  .fcheck { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--border); }
+  .fcheck:last-of-type { border-bottom: none; }
+  .fcheck input[type=checkbox] { accent-color: var(--navy); width: 14px; height: 14px; }
+  .fcheck label { font-size: 13px; color: var(--navy); flex: 1; cursor: pointer; }
+  .fcheck .n { font-family: 'Caveat', cursive; font-size: 15px; color: var(--muted); }
+  .clear-link { display: block; text-align: center; margin-top: 12px; font-family: 'Caveat', cursive; font-size: 16px; color: var(--blue); text-decoration: none; cursor: pointer; }
+  .clear-link:hover { text-decoration: underline; }
+  .range-wrap { padding: 4px 0; }
+  .range-wrap input[type=range] { width: 100%; accent-color: var(--navy); }
+  .range-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* Main */
+  .main {}
+  .res-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .res-count { font-size: 14px; color: var(--muted); }
+  .res-count strong { color: var(--navy); }
+  .sort-row { display: flex; align-items: center; gap: 10px; }
+  .sort-row label { font-family: 'Caveat', cursive; font-size: 16px; color: var(--muted); }
+  .sort-row select {
+    padding: 7px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 13px; color: var(--navy);
+    background: var(--white); outline: none; cursor: pointer;
+  }
+
+  .active-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .af {
+    display: flex; align-items: center; gap: 6px; padding: 5px 12px;
+    background: rgba(59,130,246,0.08); border: 1.5px dashed var(--blue);
+    border-radius: 20px; font-size: 12px; color: var(--blue); font-weight: 500;
+  }
+  .af button { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 13px; }
+
+  .cards { display: flex; flex-direction: column; gap: 14px; }
+  .card {
+    background: var(--white); border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 22px 24px; display: grid; grid-template-columns: 1fr auto; gap: 20px;
+    transition: all 0.15s; position: relative;
+  }
+  .card:hover { border-color: var(--blue); box-shadow: 0 4px 18px rgba(59,130,246,0.08); }
+  .card-doodle { position: absolute; top: 12px; right: 16px; font-family: 'Caveat', cursive; font-size: 13px; color: var(--yellow); opacity: 0; transition: opacity 0.15s; }
+  .card:hover .card-doodle { opacity: 1; }
+  .c-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+  .c-logo {
+    width: 44px; height: 44px; border-radius: 10px; background: var(--soft);
+    border: 1.5px solid var(--border); display: grid; place-items: center; font-size: 20px; flex-shrink: 0;
+  }
+  .c-org { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 3px; }
+  .c-title { font-family: 'Architects Daughter', cursive; font-size: 17px; color: var(--navy); }
+  .c-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+  .c-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    border: 1.5px solid var(--border); background: var(--soft); color: var(--muted);
+  }
+  .tag.b { background: rgba(59,130,246,0.08); color: var(--blue); border-color: rgba(59,130,246,0.25); }
+  .tag.g { background: rgba(16,185,129,0.08); color: #059669; border-color: rgba(16,185,129,0.25); }
+  .tag.y { background: rgba(250,204,21,0.15); color: #A16207; border-color: rgba(250,204,21,0.4); }
+  .c-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; min-width: 150px; }
+  .c-amount { font-family: 'Architects Daughter', cursive; font-size: 28px; color: var(--navy); letter-spacing: -1px; }
+  .c-dl { font-size: 12px; color: var(--muted); }
+  .c-dl b { color: var(--navy); font-weight: 600; }
+  .c-match { font-family: 'Caveat', cursive; font-size: 16px; }
+  .c-match.hi { color: #059669; }
+  .c-match.mid { color: #D97706; }
+  .c-btns { display: flex; gap: 8px; }
+  .btn-save {
+    width: 38px; height: 38px; border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--white); font-size: 16px; cursor: pointer; transition: all 0.15s; display: grid; place-items: center;
+  }
+  .btn-save:hover { border-color: var(--yellow); background: rgba(250,204,21,0.08); }
+  .btn-apply {
+    padding: 9px 20px; background: var(--navy); color: #fff;
+    border: none; border-radius: 8px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: background 0.15s;
+  }
+  .btn-apply:hover { background: #0E2A50; }
+
+  .pagination { display: flex; justify-content: center; gap: 8px; padding: 32px 0 48px; }
+  .pg {
+    width: 38px; height: 38px; border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--white); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--navy); cursor: pointer; display: grid; place-items: center; transition: all 0.15s;
+  }
+  .pg.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .pg:hover:not(.active) { border-color: var(--blue); }
+
+  @media (max-width: 900px) {
+    header { padding: 16px 20px; }
+    .hero { padding: 40px 20px 0; }
+    .content { grid-template-columns: 1fr; padding: 20px; }
+    .sidebar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../index.html" class="brand">
+    <div class="brand-mark"></div>
+    <span class="brand-name">iMotive</span>
+  </a>
+  <div class="header-nav">
+    <a href="original-browse.html" class="active">Browse</a>
+    <a href="original-forum.html">Community</a>
+    <a href="original-account.html">Dashboard</a>
+    <a href="original-account.html" class="header-cta">My Account</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-kicker">✦ let's find your money!</div>
+  <h1>Scholarships matched<br>just for you.</h1>
+  <p>We've scanned 12,847 scholarships and surfaced the ones that fit your profile best.</p>
+  <div class="search-wrap">
+    <input type="text" placeholder="type anything — field, org, keyword…" value="biology pre-med">
+    <button>Search ✦</button>
+  </div>
+  <div class="hero-tabs">
+    <button class="htab active">My Matches</button>
+    <button class="htab">All Scholarships</button>
+    <button class="htab">Closing Soon</button>
+    <button class="htab">New This Week</button>
+    <button class="htab">Saved ♡</button>
+  </div>
+</div>
+
+<div class="content">
+  <aside class="sidebar">
+    <div class="filter-box">
+      <h3>Amount</h3>
+      <div class="range-wrap">
+        <input type="range" min="0" max="50000" value="20000">
+        <div class="range-labels"><span>$0</span><span>up to $20,000</span></div>
+      </div>
+    </div>
+
+    <div class="filter-box">
+      <h3>Category</h3>
+      <div class="fcheck"><input type="checkbox" id="c1" checked><label for="c1">Science & Medicine</label><span class="n">3.8k</span></div>
+      <div class="fcheck"><input type="checkbox" id="c2" checked><label for="c2">STEM</label><span class="n">5.1k</span></div>
+      <div class="fcheck"><input type="checkbox" id="c3"><label for="c3">Arts & Humanities</label><span class="n">2.3k</span></div>
+      <div class="fcheck"><input type="checkbox" id="c4"><label for="c4">Community Service</label><span class="n">980</span></div>
+      <div class="fcheck"><input type="checkbox" id="c5"><label for="c5">First-generation</label><span class="n">760</span></div>
+      <a class="clear-link" href="#">clear filters</a>
+    </div>
+
+    <div class="filter-box">
+      <h3>Deadline</h3>
+      <div class="fcheck"><input type="checkbox" id="d1" checked><label for="d1">Next 30 days</label><span class="n">342</span></div>
+      <div class="fcheck"><input type="checkbox" id="d2"><label for="d2">30–90 days</label><span class="n">1.2k</span></div>
+      <div class="fcheck"><input type="checkbox" id="d3"><label for="d3">Rolling deadline</label><span class="n">880</span></div>
+    </div>
+
+    <div class="filter-box">
+      <h3>GPA</h3>
+      <div class="fcheck"><input type="checkbox" id="g1"><label for="g1">Any GPA welcome</label><span class="n">5.4k</span></div>
+      <div class="fcheck"><input type="checkbox" id="g2" checked><label for="g2">3.0 or higher</label><span class="n">4.1k</span></div>
+      <div class="fcheck"><input type="checkbox" id="g3"><label for="g3">3.5 or higher</label><span class="n">3.2k</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="res-header">
+      <div class="res-count">Showing <strong>1–8</strong> of <strong>892</strong> matches</div>
+      <div class="sort-row">
+        <label>sort by</label>
+        <select>
+          <option>Best match</option>
+          <option>Deadline (soonest)</option>
+          <option>Amount (highest)</option>
+          <option>Newest</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="active-filters">
+      <div class="af">Science & Medicine <button>×</button></div>
+      <div class="af">STEM <button>×</button></div>
+      <div class="af">Next 30 days <button>×</button></div>
+      <div class="af">GPA 3.0+ <button>×</button></div>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-doodle">← great match!</div>
+        <div>
+          <div class="c-top">
+            <div class="c-logo">🧬</div>
+            <div>
+              <div class="c-org">National Institutes of Health</div>
+              <div class="c-title">NIH Biomedical Research Scholarship</div>
+            </div>
+          </div>
+          <div class="c-desc">Supporting pre-med and biomedical science students with a passion for research. NIH scholars gain access to exclusive seminars and a national network of researchers.</div>
+          <div class="c-tags">
+            <span class="tag b">Biomedical</span>
+            <span class="tag g">Merit</span>
+            <span class="tag">Pre-med</span>
+            <span class="tag">Research</span>
+          </div>
+        </div>
+        <div class="c-right">
+          <div class="c-amount">$8,000</div>
+          <div class="c-dl">Deadline: <b>May 22, 2026</b></div>
+          <div class="c-match hi">98% match ✓</div>
+          <div class="c-btns">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-doodle">← perfect fit!</div>
+        <div>
+          <div class="c-top">
+            <div class="c-logo">🔬</div>
+            <div>
+              <div class="c-org">National Science Foundation</div>
+              <div class="c-title">NSF STEM Excellence Scholarship</div>
+            </div>
+          </div>
+          <div class="c-desc">For undergraduate students in STEM fields. One of the most recognized STEM scholarships in the country — renewable for 4 years if you maintain your GPA.</div>
+          <div class="c-tags">
+            <span class="tag b">STEM</span>
+            <span class="tag y">Renewable</span>
+            <span class="tag">Undergraduate</span>
+          </div>
+        </div>
+        <div class="c-right">
+          <div class="c-amount">$10,000</div>
+          <div class="c-dl">Deadline: <b>Jun 1, 2026</b></div>
+          <div class="c-match hi">95% match ✓</div>
+          <div class="c-btns">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="c-top">
+            <div class="c-logo">🏥</div>
+            <div>
+              <div class="c-org">American Medical Association</div>
+              <div class="c-title">AMA Foundation Scholarship</div>
+            </div>
+          </div>
+          <div class="c-desc">Awarded to medical students with financial need who demonstrate strong academic performance and a commitment to community health.</div>
+          <div class="c-tags">
+            <span class="tag b">Medicine</span>
+            <span class="tag g">Need-based</span>
+            <span class="tag">Community health</span>
+          </div>
+        </div>
+        <div class="c-right">
+          <div class="c-amount">$5,000</div>
+          <div class="c-dl">Deadline: <b>May 30, 2026</b></div>
+          <div class="c-match hi">91% match ✓</div>
+          <div class="c-btns">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="c-top">
+            <div class="c-logo">⚗️</div>
+            <div>
+              <div class="c-org">American Chemical Society</div>
+              <div class="c-title">ACS Scholars Program</div>
+            </div>
+          </div>
+          <div class="c-desc">Renewable scholarships for underrepresented minority students in chemistry or chemistry-related fields. Scholars also get access to ACS mentorship and career resources.</div>
+          <div class="c-tags">
+            <span class="tag b">Chemistry</span>
+            <span class="tag">Diversity</span>
+            <span class="tag y">Renewable</span>
+          </div>
+        </div>
+        <div class="c-right">
+          <div class="c-amount">$5,000</div>
+          <div class="c-dl">Deadline: <b>Jun 10, 2026</b></div>
+          <div class="c-match mid">86% match</div>
+          <div class="c-btns">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="c-top">
+            <div class="c-logo">🌿</div>
+            <div>
+              <div class="c-org">Howard Hughes Medical Institute</div>
+              <div class="c-title">HHMI Gilliam Fellowship</div>
+            </div>
+          </div>
+          <div class="c-desc">For PhD students from underrepresented groups in the life sciences. Fellows are matched with a scientific adviser and receive dedicated mentorship support.</div>
+          <div class="c-tags">
+            <span class="tag b">Life sciences</span>
+            <span class="tag">PhD</span>
+            <span class="tag g">Mentorship</span>
+          </div>
+        </div>
+        <div class="c-right">
+          <div class="c-amount">$22,000</div>
+          <div class="c-dl">Deadline: <b>Jul 1, 2026</b></div>
+          <div class="c-match mid">80% match</div>
+          <div class="c-btns">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pagination">
+      <button class="pg">←</button>
+      <button class="pg active">1</button>
+      <button class="pg">2</button>
+      <button class="pg">3</button>
+      <span style="font-family:'Caveat',cursive;font-size:18px;color:var(--muted);display:grid;place-items:center;width:38px;">…</span>
+      <button class="pg">112</button>
+      <button class="pg">→</button>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — iMotive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0B1220;
+    --blue: #4A80E8;
+    --blue-light: #EEF3FD;
+    --light: #E6EAF2;
+    --white: #FFFFFF;
+    --muted: #6B7A99;
+    --green: #22C55E;
+    --amber: #F59E0B;
+    --red: #EF4444;
+    --orange: #F97316;
+    --border: #D8DFF0;
+    --radius: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter Tight', sans-serif; background: #F4F6FB; color: var(--ink); min-height: 100vh; }
+
+  /* NAV */
+  nav {
+    background: var(--ink);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo { color: var(--white); font-weight: 800; font-size: 1.1rem; text-decoration: none; letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--blue); }
+  .nav-links { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+  .nav-links a {
+    color: #A0AABE;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+  .nav-links a.active { color: var(--white); }
+  .nav-avatar {
+    width: 34px; height: 34px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 0.75rem; font-weight: 700;
+    margin-left: 8px; cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* LAYOUT */
+  .page-wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+
+  /* HEADER */
+  .dash-header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .dash-header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+  .dash-header p { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+  .header-avatar { width: 48px; height: 48px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; font-size: 1rem; }
+
+  /* STATS */
+  .stats-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+  .stat-label { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+  .stat-value { font-size: 2rem; font-weight: 800; color: var(--ink); margin-top: 6px; letter-spacing: -1px; }
+  .stat-value.blue { color: var(--blue); }
+  .stat-value.green { color: var(--green); }
+  .stat-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+  /* MAIN CONTENT */
+  .main-col { display: flex; flex-direction: column; gap: 16px; }
+  .section-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .section-title span { background: var(--blue); color: var(--white); font-size: 0.72rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+
+  /* SCHOLARSHIP CARD */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(74,128,232,0.12); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-name { font-size: 1rem; font-weight: 700; color: var(--ink); }
+  .card-org { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+  .match-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .match-green { background: #DCFCE7; color: #15803D; }
+  .match-blue { background: #DBEAFE; color: #1D4ED8; }
+  .match-amber { background: #FEF9C3; color: #A16207; }
+
+  .card-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .card-amount { font-size: 1.1rem; font-weight: 800; color: var(--ink); }
+  .meta-divider { width: 1px; height: 14px; background: var(--border); }
+  .deadline-badge {
+    font-size: 0.75rem; font-weight: 600;
+    padding: 3px 9px; border-radius: 20px;
+    background: var(--light); color: var(--muted);
+  }
+  .deadline-urgent { background: #FEE2E2; color: #B91C1C; }
+  .deadline-warn { background: #FFEDD5; color: #C2410C; }
+  .field-tag {
+    font-size: 0.72rem; font-weight: 600;
+    padding: 3px 8px; border-radius: 5px;
+    background: var(--blue-light); color: var(--blue);
+  }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; }
+  .btn-apply {
+    background: var(--blue); color: var(--white);
+    border: none; border-radius: 7px;
+    padding: 9px 18px; font-size: 0.83rem; font-weight: 600;
+    cursor: pointer; font-family: 'Inter Tight', sans-serif;
+    transition: background 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-apply:hover { background: #3a70d8; }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .sidebar-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; color: var(--ink); }
+  .deadline-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--light); font-size: 0.8rem; }
+  .deadline-item:last-child { border-bottom: none; }
+  .deadline-item .name { font-weight: 600; color: var(--ink); }
+  .deadline-item .date { color: var(--muted); }
+  .deadline-item .urgent-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+  .deadline-item .warn-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+  .deadline-item .ok-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  .profile-completion { }
+  .completion-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; }
+  .completion-label strong { color: var(--ink); }
+  .progress-track { background: var(--light); border-radius: 4px; height: 7px; overflow: hidden; }
+  .progress-fill { background: var(--blue); height: 100%; border-radius: 4px; width: 72%; }
+  .profile-items { margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+  .profile-item { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--muted); }
+  .check-icon { width: 16px; height: 16px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 0.6rem; flex-shrink: 0; }
+  .empty-icon { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border); flex-shrink: 0; }
+
+  @media (max-width: 860px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 16px; gap: 12px; }
+    .nav-links a { padding: 6px 8px; font-size: 0.78rem; }
+    .dash-header h1 { font-size: 1.2rem; }
+  }
+  @media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">i<span>Motive</span></a>
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="saas-browse.html">Browse</a>
+    <a href="saas-forum.html">Community</a>
+    <a href="saas-account.html" class="active">Dashboard</a>
+    <a href="../index.html">Sign Out</a>
+  </div>
+  <div class="nav-avatar">AJ</div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="dash-header">
+    <div>
+      <h1>Welcome back, Alex</h1>
+      <p>Here are your latest scholarship matches.</p>
+    </div>
+    <div class="header-avatar">AJ</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Matched</div>
+      <div class="stat-value blue">14</div>
+      <div class="stat-sub">scholarships found</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Applied</div>
+      <div class="stat-value">3</div>
+      <div class="stat-sub">in progress</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Potential Award</div>
+      <div class="stat-value green">$47,500</div>
+      <div class="stat-sub">total value</div>
+    </div>
+  </div>
+
+  <div class="main-col">
+    <div class="section-title">Your Matches <span>14 total</span></div>
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Gates Scholarship</div>
+          <div class="card-org">Bill &amp; Melinda Gates Foundation</div>
+        </div>
+        <div class="match-pill match-green">94% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$10,000</div>
+        <div class="meta-divider"></div>
+        <div class="deadline-badge">Due Jun 15, 2026</div>
+        <div class="field-tag">STEM / Leadership</div>
+      </div>
+      <div class="card-footer">
+        <span></span>
+        <a href="#" class="btn-apply">View &amp; Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Local Foundation Grant</div>
+          <div class="card-org">Community Foundation</div>
+        </div>
+        <div class="match-pill match-green">92% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$2,500</div>
+        <div class="meta-divider"></div>
+        <div class="deadline-badge deadline-urgent">May 28 — 3 days left</div>
+        <div class="field-tag">Community</div>
+      </div>
+      <div class="card-footer">
+        <span></span>
+        <a href="#" class="btn-apply">View &amp; Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Dean's Excellence Award</div>
+          <div class="card-org">University Dean's Office</div>
+        </div>
+        <div class="match-pill match-blue">85% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$4,000</div>
+        <div class="meta-divider"></div>
+        <div class="deadline-badge">Due Jun 10, 2026</div>
+        <div class="field-tag">Academic</div>
+      </div>
+      <div class="card-footer">
+        <span></span>
+        <a href="#" class="btn-apply">View &amp; Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">STEM Women in Tech</div>
+          <div class="card-org">Tech Equity Fund</div>
+        </div>
+        <div class="match-pill match-blue">87% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$5,000</div>
+        <div class="meta-divider"></div>
+        <div class="deadline-badge deadline-warn">May 30 — 5 days left</div>
+        <div class="field-tag">Engineering</div>
+      </div>
+      <div class="card-footer">
+        <span></span>
+        <a href="#" class="btn-apply">View &amp; Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">National First-Gen Fund</div>
+          <div class="card-org">First Generation Foundation</div>
+        </div>
+        <div class="match-pill match-blue">82% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$8,500</div>
+        <div class="meta-divider"></div>
+        <div class="deadline-badge">Due Jul 1, 2026</div>
+        <div class="field-tag">First-gen</div>
+      </div>
+      <div class="card-footer">
+        <span></span>
+        <a href="#" class="btn-apply">View &amp; Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Future Engineers Award</div>
+          <div class="card-org">Engineers of Tomorrow</div>
+        </div>
+        <div class="match-pill match-amber">71% match</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-amount">$6,000</div>
+        <div class="meta-divider"></div>
+        <div class="deadline-badge">Due Jul 30, 2026</div>
+        <div class="field-tag">STEM</div>
+      </div>
+      <div class="card-footer">
+        <span></span>
+        <a href="#" class="btn-apply">View &amp; Apply</a>
+      </div>
+    </div>
+
+  </div><!-- /main-col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Upcoming Deadlines</div>
+      <div class="deadline-item">
+        <div>
+          <div class="name">Local Foundation Grant</div>
+          <div class="date">May 28, 2026</div>
+        </div>
+        <div class="urgent-dot"></div>
+      </div>
+      <div class="deadline-item">
+        <div>
+          <div class="name">STEM Women in Tech</div>
+          <div class="date">May 30, 2026</div>
+        </div>
+        <div class="warn-dot"></div>
+      </div>
+      <div class="deadline-item">
+        <div>
+          <div class="name">Dean's Excellence Award</div>
+          <div class="date">Jun 10, 2026</div>
+        </div>
+        <div class="ok-dot"></div>
+      </div>
+      <div class="deadline-item">
+        <div>
+          <div class="name">Gates Scholarship</div>
+          <div class="date">Jun 15, 2026</div>
+        </div>
+        <div class="ok-dot"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">Profile Completion</div>
+      <div class="completion-label"><span>Progress</span><strong>72%</strong></div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="profile-items">
+        <div class="profile-item"><div class="check-icon">✓</div> Basic info</div>
+        <div class="profile-item"><div class="check-icon">✓</div> Academic history</div>
+        <div class="profile-item"><div class="check-icon">✓</div> Field of study</div>
+        <div class="profile-item"><div class="empty-icon"></div> Essay / personal statement</div>
+        <div class="profile-item"><div class="empty-icon"></div> Letters of recommendation</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>

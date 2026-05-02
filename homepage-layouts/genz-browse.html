@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Browse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0F0F14;
+    --purple: #7C3AED;
+    --purple-light: #A78BFA;
+    --yellow: #FACC15;
+    --bg: #F5F3FF;
+    --white: #FFFFFF;
+    --muted: #6B6880;
+    --border: #E0D9F7;
+  }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+  /* Nav */
+  nav {
+    background: var(--ink); height: 60px; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3px solid var(--yellow); position: sticky; top: 0; z-index: 100;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-box {
+    width: 32px; height: 32px; background: var(--yellow); border: 2px solid var(--ink);
+    display: grid; place-items: center; font-weight: 700; font-size: 14px; color: var(--ink);
+  }
+  .nav-brand-text { color: #fff; font-weight: 700; font-size: 16px; }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-links a { color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500; text-decoration: none; }
+  .nav-links a:hover, .nav-links a.active { color: var(--yellow); }
+  .nav-cta {
+    padding: 8px 18px; background: var(--yellow); color: var(--ink);
+    border: 2px solid var(--ink); font-weight: 700; font-size: 13px;
+    text-decoration: none; box-shadow: 3px 3px 0 rgba(255,255,255,0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .nav-cta:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 rgba(255,255,255,0.3); }
+
+  /* Hero */
+  .hero { background: var(--purple); padding: 48px 40px 36px; border-bottom: 3px solid var(--ink); }
+  .hero-tag {
+    display: inline-block; background: var(--yellow); color: var(--ink);
+    padding: 4px 14px; font-weight: 700; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.5px; border: 2px solid var(--ink); margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: clamp(32px, 5vw, 52px); color: #fff; line-height: 1.1; margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--yellow); }
+  .search-bar {
+    display: flex; max-width: 640px; border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .search-bar input {
+    flex: 1; padding: 14px 18px; font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; border: none; outline: none; color: var(--ink);
+  }
+  .search-bar button {
+    padding: 14px 24px; background: var(--yellow); color: var(--ink);
+    border: none; border-left: 3px solid var(--ink); font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+
+  /* Filter chips */
+  .filter-bar { padding: 20px 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--white); border-bottom: 2px solid var(--border); }
+  .filter-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-right: 4px; }
+  .chip {
+    padding: 8px 16px; background: var(--bg); border: 2px solid var(--ink);
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; color: var(--ink); transition: all 0.12s;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .chip:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+  .chip.active { background: var(--purple); color: #fff; box-shadow: 2px 2px 0 var(--ink); }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: 240px 1fr; gap: 0; padding: 0; }
+
+  /* Sidebar */
+  .sidebar { padding: 24px 20px; border-right: 2px solid var(--border); background: var(--white); min-height: calc(100vh - 180px); }
+  .filter-group { margin-bottom: 24px; }
+  .filter-group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 12px; }
+  .filter-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; cursor: pointer; border-bottom: 1px solid var(--border); }
+  .filter-item:last-child { border-bottom: none; }
+  .filter-item input[type=checkbox] { accent-color: var(--purple); width: 15px; height: 15px; }
+  .filter-item label { font-size: 13px; font-weight: 500; cursor: pointer; flex: 1; }
+  .filter-item .cnt { font-size: 11px; font-weight: 700; color: var(--purple); }
+  .reset-btn {
+    width: 100%; padding: 10px; background: var(--ink); color: #fff;
+    border: 2px solid var(--ink); font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    box-shadow: 3px 3px 0 var(--purple);
+  }
+
+  /* Main */
+  .main { padding: 24px 28px; }
+  .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .result-count { font-size: 14px; color: var(--muted); }
+  .result-count b { color: var(--ink); }
+  .sort-select {
+    padding: 8px 14px; border: 2px solid var(--ink); font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 600; background: var(--white); cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 14px; }
+  .card {
+    background: var(--white); border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink); padding: 22px 24px;
+    display: grid; grid-template-columns: 1fr auto; gap: 20px;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .card:hover { transform: translate(-3px,-3px); box-shadow: 7px 7px 0 var(--ink); }
+  .card-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+  .card-icon {
+    width: 44px; height: 44px; background: var(--yellow); border: 2px solid var(--ink);
+    display: grid; place-items: center; font-size: 18px; flex-shrink: 0;
+  }
+  .card-org { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 3px; }
+  .card-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .card-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ctag {
+    padding: 4px 10px; border: 2px solid var(--ink); font-size: 11px; font-weight: 700;
+    background: var(--bg); text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .ctag.purple { background: var(--purple); color: #fff; border-color: var(--ink); }
+  .ctag.yellow { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
+  .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; text-align: right; min-width: 140px; }
+  .amount { font-size: 26px; font-weight: 700; color: var(--purple); letter-spacing: -1px; }
+  .deadline { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .deadline b { color: var(--ink); }
+  .match-badge {
+    padding: 5px 12px; border: 2px solid var(--ink); font-size: 12px; font-weight: 700;
+    background: var(--yellow); color: var(--ink);
+  }
+  .btn-row { display: flex; gap: 8px; }
+  .btn-save {
+    width: 38px; height: 38px; background: var(--bg); border: 2px solid var(--ink);
+    font-size: 16px; cursor: pointer; display: grid; place-items: center;
+    transition: background 0.12s;
+  }
+  .btn-save:hover { background: var(--yellow); }
+  .btn-apply {
+    padding: 8px 18px; background: var(--purple); color: #fff; border: 2px solid var(--ink);
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; box-shadow: 3px 3px 0 var(--ink); text-decoration: none; display: inline-block;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn-apply:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+
+  .pagination { display: flex; justify-content: center; gap: 6px; padding: 32px 0; }
+  .pg {
+    width: 38px; height: 38px; border: 2px solid var(--ink); background: var(--white);
+    font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700;
+    cursor: pointer; display: grid; place-items: center;
+    box-shadow: 2px 2px 0 var(--ink); transition: all 0.1s;
+  }
+  .pg.active { background: var(--purple); color: #fff; }
+  .pg:hover:not(.active) { background: var(--yellow); }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    nav { padding: 0 20px; }
+    .hero { padding: 32px 20px 24px; }
+    .filter-bar { padding: 16px 20px; }
+    .main { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="genz-landing.html" class="nav-brand">
+    <div class="nav-logo-box">i</div>
+    <span class="nav-brand-text">iMotive</span>
+  </a>
+  <div class="nav-links">
+    <a href="genz-browse.html" class="active">Browse</a>
+    <a href="genz-forum.html">Community</a>
+    <a href="genz-account.html">Dashboard</a>
+  </div>
+  <a href="genz-account.html" class="nav-cta">My Profile</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">✦ 12,847 scholarships</div>
+  <h1>Find <span>money</span> for<br>your education.</h1>
+  <div class="search-bar">
+    <input type="text" placeholder="Search scholarships, fields, orgs…" value="computer science">
+    <button>Search →</button>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="chip active">All</button>
+  <button class="chip">STEM 🔬</button>
+  <button class="chip">Arts 🎨</button>
+  <button class="chip">Need-based 💰</button>
+  <button class="chip">Merit 🏆</button>
+  <button class="chip">Diversity 🌍</button>
+  <button class="chip">Closing soon ⏰</button>
+  <button class="chip">$10k+ 💸</button>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="filter-group">
+      <div class="filter-group-title">Amount</div>
+      <div class="filter-item"><input type="checkbox" id="a1"><label for="a1">Under $1,000</label><span class="cnt">2.1k</span></div>
+      <div class="filter-item"><input type="checkbox" id="a2" checked><label for="a2">$1,000 – $5,000</label><span class="cnt">4.8k</span></div>
+      <div class="filter-item"><input type="checkbox" id="a3" checked><label for="a3">$5,000 – $10,000</label><span class="cnt">3.2k</span></div>
+      <div class="filter-item"><input type="checkbox" id="a4"><label for="a4">$10,000+</label><span class="cnt">1.4k</span></div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-group-title">Deadline</div>
+      <div class="filter-item"><input type="checkbox" id="d1" checked><label for="d1">Within 30 days</label><span class="cnt">342</span></div>
+      <div class="filter-item"><input type="checkbox" id="d2"><label for="d2">30–90 days</label><span class="cnt">1.2k</span></div>
+      <div class="filter-item"><input type="checkbox" id="d3"><label for="d3">Rolling</label><span class="cnt">880</span></div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-group-title">GPA</div>
+      <div class="filter-item"><input type="checkbox" id="g1"><label for="g1">Any GPA</label><span class="cnt">5.4k</span></div>
+      <div class="filter-item"><input type="checkbox" id="g2" checked><label for="g2">3.0+</label><span class="cnt">4.1k</span></div>
+      <div class="filter-item"><input type="checkbox" id="g3"><label for="g3">3.5+</label><span class="cnt">3.2k</span></div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-group-title">Level</div>
+      <div class="filter-item"><input type="checkbox" id="l1" checked><label for="l1">Undergraduate</label><span class="cnt">7.8k</span></div>
+      <div class="filter-item"><input type="checkbox" id="l2"><label for="l2">Graduate</label><span class="cnt">3.4k</span></div>
+      <div class="filter-item"><input type="checkbox" id="l3"><label for="l3">High school</label><span class="cnt">1.6k</span></div>
+    </div>
+    <button class="reset-btn">Reset filters</button>
+  </aside>
+
+  <main class="main">
+    <div class="results-bar">
+      <div class="result-count">Showing <b>1–8</b> of <b>934</b> results</div>
+      <select class="sort-select">
+        <option>Best match ↓</option>
+        <option>Deadline</option>
+        <option>Amount ↓</option>
+        <option>Newest</option>
+      </select>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div>
+          <div class="card-top">
+            <div class="card-icon">💻</div>
+            <div>
+              <div class="card-org">Google</div>
+              <div class="card-title">Google Generation Scholarship</div>
+            </div>
+          </div>
+          <div class="card-desc">For underrepresented students in computer science. Includes mentorship from a Google engineer, access to Google Student Chapter events, and a community of scholars.</div>
+          <div class="card-chips">
+            <span class="ctag purple">CS</span>
+            <span class="ctag yellow">Merit</span>
+            <span class="ctag">Diversity</span>
+            <span class="ctag">Undergraduate</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="amount">$10,000</div>
+          <div class="deadline">Deadline: <b>Jun 2, 2026</b></div>
+          <div class="match-badge">99% match ✦</div>
+          <div class="btn-row">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="card-top">
+            <div class="card-icon">🧬</div>
+            <div>
+              <div class="card-org">National Science Foundation</div>
+              <div class="card-title">NSF Graduate Research Fellowship</div>
+            </div>
+          </div>
+          <div class="card-desc">One of the most prestigious science fellowships in the US. Stipend + tuition allowance for 3 years of graduate study in STEM fields.</div>
+          <div class="card-chips">
+            <span class="ctag purple">STEM</span>
+            <span class="ctag">Graduate</span>
+            <span class="ctag yellow">$48k/yr</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="amount">$48,000</div>
+          <div class="deadline">Deadline: <b>Oct 15, 2026</b></div>
+          <div class="match-badge">94% match ✦</div>
+          <div class="btn-row">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="card-top">
+            <div class="card-icon">⚡</div>
+            <div>
+              <div class="card-org">Tesla Foundation</div>
+              <div class="card-title">Sustainable Tech Innovators Award</div>
+            </div>
+          </div>
+          <div class="card-desc">For students working on clean energy, sustainable materials, or climate tech. Submit a project proposal for a chance at this award + a mentorship session.</div>
+          <div class="card-chips">
+            <span class="ctag purple">Tech</span>
+            <span class="ctag">Climate</span>
+            <span class="ctag yellow">Merit</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="amount">$7,500</div>
+          <div class="deadline">Deadline: <b>May 30, 2026</b></div>
+          <div class="match-badge">90% match ✦</div>
+          <div class="btn-row">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="card-top">
+            <div class="card-icon">🎨</div>
+            <div>
+              <div class="card-org">Adobe Creative Fund</div>
+              <div class="card-title">Design + Technology Scholarship</div>
+            </div>
+          </div>
+          <div class="card-desc">Supporting students at the intersection of design and technology. Portfolio submission required. Past winners have gone on to careers at top design studios worldwide.</div>
+          <div class="card-chips">
+            <span class="ctag">Design</span>
+            <span class="ctag yellow">Portfolio</span>
+            <span class="ctag purple">Tech</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="amount">$5,000</div>
+          <div class="deadline">Deadline: <b>Jun 20, 2026</b></div>
+          <div class="match-badge">85% match ✦</div>
+          <div class="btn-row">
+            <button class="btn-save">♡</button>
+            <a href="#" class="btn-apply">Apply →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pagination">
+      <button class="pg">←</button>
+      <button class="pg active">1</button>
+      <button class="pg">2</button>
+      <button class="pg">3</button>
+      <span style="color:var(--muted);font-size:14px;font-weight:700;">…</span>
+      <button class="pg">117</button>
+      <button class="pg">→</button>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

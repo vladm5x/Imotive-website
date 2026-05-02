@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Browse Scholarships</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0B1220;
+    --blue: #4A80E8;
+    --blue-dark: #2d5fc4;
+    --light: #E6EAF2;
+    --white: #FFFFFF;
+    --muted: #6B7A99;
+    --border: #D0D8EC;
+    --bg: #F4F7FC;
+  }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+  /* Nav */
+  nav {
+    background: var(--ink); padding: 0 48px; height: 60px;
+    display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark { width: 30px; height: 30px; background: var(--blue); border-radius: 6px; display: grid; place-items: center; }
+  .nav-logo-mark span { color: #fff; font-weight: 700; font-size: 14px; }
+  .nav-logo-text { color: #fff; font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { color: rgba(255,255,255,0.65); font-size: 14px; font-weight: 500; text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover, .nav-links a.active { color: #fff; }
+  .nav-cta { background: var(--blue); color: #fff; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; }
+
+  /* Search hero */
+  .search-hero { background: var(--ink); padding: 48px 48px 0; }
+  .search-hero h1 { color: #fff; font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-bottom: 8px; }
+  .search-hero p { color: #8899BB; font-size: 14px; margin-bottom: 28px; }
+  .search-bar {
+    display: flex; gap: 0; max-width: 680px;
+  }
+  .search-bar input {
+    flex: 1; padding: 13px 18px; border: none; border-radius: 8px 0 0 8px;
+    font-family: 'Inter Tight', sans-serif; font-size: 15px; color: var(--ink);
+    outline: none;
+  }
+  .search-bar button {
+    padding: 13px 24px; background: var(--blue); color: #fff; border: none;
+    border-radius: 0 8px 8px 0; font-family: 'Inter Tight', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .search-tabs { display: flex; gap: 0; margin-top: 28px; border-bottom: none; }
+  .search-tab {
+    padding: 12px 20px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5);
+    background: transparent; border: none; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .search-tab.active { color: #fff; border-bottom-color: var(--blue); }
+
+  /* Layout */
+  .content { display: grid; grid-template-columns: 260px 1fr; gap: 24px; padding: 28px 48px; max-width: 1300px; margin: 0 auto; }
+
+  /* Sidebar filters */
+  .sidebar {}
+  .filter-section { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+  .filter-section h3 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 14px; }
+  .filter-option { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; }
+  .filter-option input[type=checkbox] { accent-color: var(--blue); width: 14px; height: 14px; }
+  .filter-option label { font-size: 13px; color: var(--ink); cursor: pointer; flex: 1; }
+  .filter-option .count { font-size: 11px; color: var(--muted); background: var(--bg); padding: 1px 6px; border-radius: 10px; }
+  .amount-range { display: flex; flex-direction: column; gap: 10px; }
+  .amount-range input[type=range] { accent-color: var(--blue); width: 100%; }
+  .range-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+  .clear-btn { width: 100%; padding: 10px; background: transparent; border: 1px solid var(--border); border-radius: 8px; font-family: 'Inter Tight', sans-serif; font-size: 13px; color: var(--muted); cursor: pointer; margin-top: 4px; }
+  .clear-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* Main results */
+  .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .results-count { font-size: 14px; color: var(--muted); }
+  .results-count strong { color: var(--ink); }
+  .sort-row { display: flex; align-items: center; gap: 10px; }
+  .sort-row label { font-size: 13px; color: var(--muted); }
+  .sort-row select {
+    padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px;
+    font-family: 'Inter Tight', sans-serif; font-size: 13px; color: var(--ink);
+    background: var(--white); outline: none; cursor: pointer;
+  }
+
+  .active-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filter-chip {
+    display: flex; align-items: center; gap: 6px; padding: 5px 12px;
+    background: rgba(74,128,232,0.1); border: 1px solid rgba(74,128,232,0.3);
+    border-radius: 20px; font-size: 12px; color: var(--blue); font-weight: 500;
+  }
+  .filter-chip button { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
+
+  .scholarship-list { display: flex; flex-direction: column; gap: 12px; }
+  .scholarship-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 22px 24px; display: grid; grid-template-columns: 1fr auto;
+    gap: 16px; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .scholarship-card:hover { border-color: var(--blue); box-shadow: 0 4px 20px rgba(74,128,232,0.1); }
+  .card-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+  .card-logo { width: 42px; height: 42px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; font-size: 18px; }
+  .card-org { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+  .card-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; color: var(--ink); }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; max-width: 600px; }
+  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500;
+    background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+  }
+  .tag.stem { background: rgba(74,128,232,0.08); color: var(--blue); border-color: rgba(74,128,232,0.2); }
+  .tag.need { background: rgba(16,185,129,0.08); color: #059669; border-color: rgba(16,185,129,0.2); }
+  .tag.merit { background: rgba(245,158,11,0.08); color: #D97706; border-color: rgba(245,158,11,0.2); }
+  .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; text-align: right; }
+  .card-amount { font-size: 24px; font-weight: 700; color: var(--blue); letter-spacing: -1px; }
+  .card-deadline { font-size: 12px; color: var(--muted); }
+  .card-deadline span { font-weight: 600; color: var(--ink); }
+  .match-pill {
+    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    background: rgba(16,185,129,0.1); color: #059669;
+  }
+  .match-pill.high { background: rgba(16,185,129,0.12); color: #059669; }
+  .match-pill.mid { background: rgba(245,158,11,0.1); color: #D97706; }
+  .apply-btn {
+    padding: 9px 20px; background: var(--blue); color: #fff;
+    border: none; border-radius: 6px; font-family: 'Inter Tight', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none;
+    transition: background 0.15s; display: inline-block;
+  }
+  .apply-btn:hover { background: var(--blue-dark); }
+  .save-btn {
+    padding: 9px 14px; background: transparent; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 6px; font-size: 18px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .save-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .card-actions { display: flex; gap: 8px; }
+
+  .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 32px; padding-bottom: 40px; }
+  .page-btn {
+    width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--white); color: var(--ink); font-family: 'Inter Tight', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer; display: grid; place-items: center;
+    transition: all 0.15s;
+  }
+  .page-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .page-btn:hover:not(.active) { border-color: var(--blue); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .search-hero { padding: 32px 24px 0; }
+    .content { grid-template-columns: 1fr; padding: 24px; }
+    .sidebar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="saas-landing.html" class="nav-logo">
+    <div class="nav-logo-mark"><span>i</span></div>
+    <span class="nav-logo-text">iMotive</span>
+  </a>
+  <div class="nav-links">
+    <a href="saas-browse.html" class="active">Browse</a>
+    <a href="saas-forum.html">Community</a>
+    <a href="saas-account.html">Dashboard</a>
+  </div>
+  <a href="saas-account.html" class="nav-cta">My Account</a>
+</nav>
+
+<div class="search-hero">
+  <h1>Browse Scholarships</h1>
+  <p>12,847 opportunities — filtered to what you actually qualify for.</p>
+  <div class="search-bar">
+    <input type="text" placeholder="Search by name, field, or keyword…" value="STEM undergraduate">
+    <button>Search</button>
+  </div>
+  <div class="search-tabs">
+    <button class="search-tab active">All Matches</button>
+    <button class="search-tab">Top Picks</button>
+    <button class="search-tab">Closing Soon</button>
+    <button class="search-tab">New This Week</button>
+    <button class="search-tab">Saved</button>
+  </div>
+</div>
+
+<div class="content">
+  <aside class="sidebar">
+    <div class="filter-section">
+      <h3>Award Amount</h3>
+      <div class="amount-range">
+        <input type="range" min="0" max="50000" value="25000">
+        <div class="range-labels"><span>$0</span><span>up to $25,000</span></div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Category</h3>
+      <div class="filter-option"><input type="checkbox" id="merit" checked><label for="merit">Merit-based</label><span class="count">4,210</span></div>
+      <div class="filter-option"><input type="checkbox" id="need"><label for="need">Need-based</label><span class="count">3,180</span></div>
+      <div class="filter-option"><input type="checkbox" id="stem" checked><label for="stem">STEM</label><span class="count">2,940</span></div>
+      <div class="filter-option"><input type="checkbox" id="arts"><label for="arts">Arts & Humanities</label><span class="count">1,560</span></div>
+      <div class="filter-option"><input type="checkbox" id="community"><label for="community">Community Service</label><span class="count">980</span></div>
+      <div class="filter-option"><input type="checkbox" id="firstgen"><label for="firstgen">First-generation</label><span class="count">760</span></div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Deadline</h3>
+      <div class="filter-option"><input type="checkbox" id="d30" checked><label for="d30">Next 30 days</label><span class="count">342</span></div>
+      <div class="filter-option"><input type="checkbox" id="d90"><label for="d90">Next 90 days</label><span class="count">1,204</span></div>
+      <div class="filter-option"><input type="checkbox" id="droll"><label for="droll">Rolling deadline</label><span class="count">880</span></div>
+    </div>
+
+    <div class="filter-section">
+      <h3>GPA Requirement</h3>
+      <div class="filter-option"><input type="checkbox" id="gpa30"><label for="gpa30">3.0+</label><span class="count">5,400</span></div>
+      <div class="filter-option"><input type="checkbox" id="gpa35" checked><label for="gpa35">3.5+</label><span class="count">3,200</span></div>
+      <div class="filter-option"><input type="checkbox" id="gpanone"><label for="gpanone">No GPA requirement</label><span class="count">2,100</span></div>
+    </div>
+
+    <button class="clear-btn">Clear all filters</button>
+  </aside>
+
+  <main>
+    <div class="results-header">
+      <div class="results-count">Showing <strong>1–10</strong> of <strong>847</strong> scholarships</div>
+      <div class="sort-row">
+        <label>Sort by</label>
+        <select>
+          <option>Best match</option>
+          <option>Deadline (soonest)</option>
+          <option>Amount (highest)</option>
+          <option>Newest</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="active-filters">
+      <div class="filter-chip">STEM <button>×</button></div>
+      <div class="filter-chip">Merit-based <button>×</button></div>
+      <div class="filter-chip">Next 30 days <button>×</button></div>
+      <div class="filter-chip">GPA 3.5+ <button>×</button></div>
+    </div>
+
+    <div class="scholarship-list">
+
+      <div class="scholarship-card">
+        <div>
+          <div class="card-header">
+            <div class="card-logo">🔬</div>
+            <div>
+              <div class="card-org">National Science Foundation</div>
+              <div class="card-title">NSF STEM Excellence Scholarship</div>
+            </div>
+          </div>
+          <div class="card-desc">For undergraduate students pursuing degrees in science, technology, engineering, or mathematics. Renewable for up to 4 years with continued academic excellence.</div>
+          <div class="card-tags">
+            <span class="tag stem">STEM</span>
+            <span class="tag merit">Merit</span>
+            <span class="tag">Undergraduate</span>
+            <span class="tag">Renewable</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-amount">$10,000</div>
+          <div class="card-deadline">Deadline: <span>May 15, 2026</span></div>
+          <div class="match-pill high">98% match</div>
+          <div class="card-actions">
+            <button class="save-btn">♡</button>
+            <a href="#" class="apply-btn">Apply</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scholarship-card">
+        <div>
+          <div class="card-header">
+            <div class="card-logo">💻</div>
+            <div>
+              <div class="card-org">Google</div>
+              <div class="card-title">Google Generation Scholarship</div>
+            </div>
+          </div>
+          <div class="card-desc">Supporting students from underrepresented groups pursuing computer science or related technical degrees at accredited universities in the US and Canada.</div>
+          <div class="card-tags">
+            <span class="tag stem">STEM</span>
+            <span class="tag">CS</span>
+            <span class="tag">Diversity</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-amount">$10,000</div>
+          <div class="card-deadline">Deadline: <span>Jun 2, 2026</span></div>
+          <div class="match-pill high">95% match</div>
+          <div class="card-actions">
+            <button class="save-btn">♡</button>
+            <a href="#" class="apply-btn">Apply</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scholarship-card">
+        <div>
+          <div class="card-header">
+            <div class="card-logo">⚡</div>
+            <div>
+              <div class="card-org">Department of Energy</div>
+              <div class="card-title">STEM Workforce Development Award</div>
+            </div>
+          </div>
+          <div class="card-desc">Designed to increase diversity in energy-sector careers. Includes a paid summer internship at a national lab in addition to the scholarship award.</div>
+          <div class="card-tags">
+            <span class="tag stem">STEM</span>
+            <span class="tag">Energy</span>
+            <span class="tag">Internship included</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-amount">$7,500</div>
+          <div class="card-deadline">Deadline: <span>May 28, 2026</span></div>
+          <div class="match-pill high">92% match</div>
+          <div class="card-actions">
+            <button class="save-btn">♡</button>
+            <a href="#" class="apply-btn">Apply</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scholarship-card">
+        <div>
+          <div class="card-header">
+            <div class="card-logo">🏗️</div>
+            <div>
+              <div class="card-org">American Society of Civil Engineers</div>
+              <div class="card-title">ASCE Future Leaders Scholarship</div>
+            </div>
+          </div>
+          <div class="card-desc">For civil engineering students demonstrating leadership, academic achievement, and commitment to the engineering profession.</div>
+          <div class="card-tags">
+            <span class="tag stem">STEM</span>
+            <span class="tag merit">Merit</span>
+            <span class="tag">Engineering</span>
+            <span class="tag">Leadership</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-amount">$5,000</div>
+          <div class="card-deadline">Deadline: <span>Jun 15, 2026</span></div>
+          <div class="match-pill mid">87% match</div>
+          <div class="card-actions">
+            <button class="save-btn">♡</button>
+            <a href="#" class="apply-btn">Apply</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scholarship-card">
+        <div>
+          <div class="card-header">
+            <div class="card-logo">🧬</div>
+            <div>
+              <div class="card-org">NIH — National Institutes of Health</div>
+              <div class="card-title">Biomedical Research Scholarship</div>
+            </div>
+          </div>
+          <div class="card-desc">Supporting students pursuing biomedical sciences, with preference for those interested in clinical research careers.</div>
+          <div class="card-tags">
+            <span class="tag stem">STEM</span>
+            <span class="tag">Biomedical</span>
+            <span class="tag need">Need-based</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-amount">$8,000</div>
+          <div class="card-deadline">Deadline: <span>May 20, 2026</span></div>
+          <div class="match-pill mid">84% match</div>
+          <div class="card-actions">
+            <button class="save-btn">♡</button>
+            <a href="#" class="apply-btn">Apply</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pagination">
+      <button class="page-btn">←</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <span style="color:var(--muted);font-size:13px;">…</span>
+      <button class="page-btn">85</button>
+      <button class="page-btn">→</button>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

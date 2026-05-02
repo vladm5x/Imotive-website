@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — iMotive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4b00d8;
+    --purple-mid: #6a00ff;
+    --purple-light: #f0e8ff;
+    --off: #f6f6f8;
+    --ink: #111;
+    --muted: #6b6b7b;
+    --white: #ffffff;
+    --border: #e4e2ec;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --orange: #ea580c;
+    --orange-bg: #ffedd5;
+    --radius: 14px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--off); color: var(--ink); min-height: 100vh; }
+
+  /* NAV */
+  nav {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    height: 62px;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-weight: 700; font-size: 1.1rem;
+    text-decoration: none; letter-spacing: -0.4px;
+    background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .nav-links { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-links a:hover { color: var(--ink); background: var(--off); }
+  .nav-links a.active { color: var(--purple); background: var(--purple-light); font-weight: 600; }
+  .nav-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 0.72rem; font-weight: 700;
+    margin-left: 8px; cursor: pointer; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(74,0,216,0.3);
+  }
+
+  /* LAYOUT */
+  .page-wrap { max-width: 1180px; margin: 0 auto; padding: 36px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+
+  /* HEADER */
+  .dash-header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .dash-header-left h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px; color: var(--ink); }
+  .dash-header-left p { color: var(--muted); font-size: 0.88rem; margin-top: 3px; font-family: 'Inter', sans-serif; }
+  .header-avatar {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-weight: 700; font-size: 1rem;
+    box-shadow: 0 4px 16px rgba(74,0,216,0.25);
+  }
+
+  /* STATS */
+  .stats-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--purple), var(--purple-mid));
+    border-radius: 4px 0 0 4px;
+  }
+  .stat-card.accent-stat::before { background: linear-gradient(180deg, #16a34a, #22c55e); }
+  .stat-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; font-family: 'Inter', sans-serif; }
+  .stat-value { font-size: 2.1rem; font-weight: 700; color: var(--ink); margin-top: 6px; letter-spacing: -1px; }
+  .stat-value.purple { background: linear-gradient(135deg, var(--purple), var(--purple-mid)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-value.green-grad { background: linear-gradient(135deg, #16a34a, #22c55e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-sub { font-size: 0.75rem; color: var(--muted); margin-top: 3px; font-family: 'Inter', sans-serif; }
+
+  /* MAIN */
+  .main-col { display: flex; flex-direction: column; gap: 14px; }
+  .section-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .section-badge {
+    background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+    color: var(--white); font-size: 0.7rem; font-weight: 700;
+    padding: 2px 9px; border-radius: 20px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 20px 20px 24px;
+    display: flex; gap: 20px; align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    position: relative; overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 6px 24px rgba(74,0,216,0.1); transform: translateY(-1px); }
+  .card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+  }
+  .card.border-green::before { background: linear-gradient(180deg, var(--green), #22c55e); }
+  .card.border-purple::before { background: linear-gradient(180deg, var(--purple), var(--purple-mid)); }
+  .card.border-orange::before { background: linear-gradient(180deg, var(--orange), #f97316); }
+
+  /* RING */
+  .ring-wrap { flex-shrink: 0; position: relative; width: 64px; height: 64px; }
+  .ring-wrap svg { width: 64px; height: 64px; transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: #ede9fe; stroke-width: 5; }
+  .ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; }
+  .ring-fill.green { stroke: var(--green); }
+  .ring-fill.purple { stroke: var(--purple); }
+  .ring-fill.orange { stroke: var(--orange); }
+  .ring-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 700; color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+
+  .card-body { flex: 1; min-width: 0; }
+  .card-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-org { font-size: 0.76rem; color: var(--muted); margin-top: 1px; font-family: 'Inter', sans-serif; }
+  .card-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .card-amount { font-size: 1rem; font-weight: 700; color: var(--ink); }
+  .sep { width: 1px; height: 12px; background: var(--border); }
+  .deadline-badge {
+    font-size: 0.71rem; font-weight: 600;
+    padding: 3px 9px; border-radius: 20px;
+    background: var(--off); color: var(--muted);
+    font-family: 'Inter', sans-serif;
+  }
+  .deadline-urgent { background: var(--red-bg); color: var(--red); }
+  .deadline-warn { background: var(--orange-bg); color: var(--orange); }
+  .field-tag {
+    font-size: 0.68rem; font-weight: 600;
+    padding: 3px 8px; border-radius: 20px;
+    background: var(--purple-light); color: var(--purple);
+    font-family: 'Inter', sans-serif;
+  }
+  .card-action { flex-shrink: 0; }
+  .btn-apply {
+    background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+    color: var(--white); border: none;
+    border-radius: 9px; padding: 9px 18px;
+    font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+    transition: opacity 0.2s, box-shadow 0.2s;
+    text-decoration: none; display: inline-block;
+    box-shadow: 0 3px 10px rgba(74,0,216,0.25);
+    white-space: nowrap;
+  }
+  .btn-apply:hover { opacity: 0.9; box-shadow: 0 5px 16px rgba(74,0,216,0.35); }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .sb-title { font-size: 0.84rem; font-weight: 700; margin-bottom: 14px; color: var(--ink); }
+  .dl-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--off); font-size: 0.78rem; }
+  .dl-item:last-child { border-bottom: none; }
+  .dl-name { font-weight: 600; color: var(--ink); }
+  .dl-date { color: var(--muted); font-family: 'Inter', sans-serif; font-size: 0.72rem; }
+  .dl-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red { background: var(--red); }
+  .dot-orange { background: var(--orange); }
+  .dot-green { background: var(--green); }
+
+  .prog-label { display: flex; justify-content: space-between; font-size: 0.78rem; font-family: 'Inter', sans-serif; color: var(--muted); margin-bottom: 8px; }
+  .prog-label strong { color: var(--purple); }
+  .prog-track { background: var(--off); border-radius: 6px; height: 6px; overflow: hidden; }
+  .prog-fill { background: linear-gradient(90deg, var(--purple), var(--purple-mid)); height: 100%; border-radius: 6px; width: 72%; }
+  .pi-list { margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+  .pi { display: flex; align-items: center; gap: 8px; font-size: 0.77rem; color: var(--muted); font-family: 'Inter', sans-serif; }
+  .pi-yes { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg,var(--green),#22c55e); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 0.55rem; flex-shrink: 0; }
+  .pi-no { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border); flex-shrink: 0; }
+
+  @media (max-width: 860px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .card { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .card-action { align-self: flex-end; }
+    nav { padding: 0 16px; gap: 12px; }
+  }
+  @media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .dash-header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">iMotive</a>
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="purple-browse.html">Browse</a>
+    <a href="purple-forum.html">Community</a>
+    <a href="purple-account.html" class="active">Dashboard</a>
+    <a href="../index.html">Sign Out</a>
+  </div>
+  <div class="nav-avatar">AJ</div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <h1>Welcome back, Alex</h1>
+      <p>You have 14 scholarship matches ready to review.</p>
+    </div>
+    <div class="header-avatar">AJ</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Matched</div>
+      <div class="stat-value purple">14</div>
+      <div class="stat-sub">scholarships found</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Applied</div>
+      <div class="stat-value">3</div>
+      <div class="stat-sub">in progress</div>
+    </div>
+    <div class="stat-card accent-stat">
+      <div class="stat-label">Potential Award</div>
+      <div class="stat-value green-grad">$47,500</div>
+      <div class="stat-sub">total value</div>
+    </div>
+  </div>
+
+  <div class="main-col">
+    <div class="section-title">Your Matches <span class="section-badge">14 total</span></div>
+
+    <!-- Card 1 — 94% -->
+    <div class="card border-green">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-track" cx="32" cy="32" r="27"/>
+          <circle class="ring-fill green" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="10.2"/>
+        </svg>
+        <div class="ring-text">94%</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Gates Scholarship</div>
+        <div class="card-org">Bill &amp; Melinda Gates Foundation</div>
+        <div class="card-row">
+          <div class="card-amount">$10,000</div>
+          <div class="sep"></div>
+          <div class="deadline-badge">Jun 15, 2026</div>
+          <div class="field-tag">STEM / Leadership</div>
+        </div>
+      </div>
+      <div class="card-action"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 2 — 92% -->
+    <div class="card border-green">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-track" cx="32" cy="32" r="27"/>
+          <circle class="ring-fill green" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="13.6"/>
+        </svg>
+        <div class="ring-text">92%</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Local Foundation Grant</div>
+        <div class="card-org">Community Foundation</div>
+        <div class="card-row">
+          <div class="card-amount">$2,500</div>
+          <div class="sep"></div>
+          <div class="deadline-badge deadline-urgent">May 28 — 3 days left</div>
+          <div class="field-tag">Community</div>
+        </div>
+      </div>
+      <div class="card-action"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 3 — 85% -->
+    <div class="card border-purple">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-track" cx="32" cy="32" r="27"/>
+          <circle class="ring-fill purple" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="25.4"/>
+        </svg>
+        <div class="ring-text">85%</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Dean's Excellence Award</div>
+        <div class="card-org">University Dean's Office</div>
+        <div class="card-row">
+          <div class="card-amount">$4,000</div>
+          <div class="sep"></div>
+          <div class="deadline-badge">Jun 10, 2026</div>
+          <div class="field-tag">Academic</div>
+        </div>
+      </div>
+      <div class="card-action"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 4 — 87% -->
+    <div class="card border-purple">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-track" cx="32" cy="32" r="27"/>
+          <circle class="ring-fill purple" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="22.0"/>
+        </svg>
+        <div class="ring-text">87%</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">STEM Women in Tech</div>
+        <div class="card-org">Tech Equity Fund</div>
+        <div class="card-row">
+          <div class="card-amount">$5,000</div>
+          <div class="sep"></div>
+          <div class="deadline-badge deadline-warn">May 30 — 5 days left</div>
+          <div class="field-tag">Engineering</div>
+        </div>
+      </div>
+      <div class="card-action"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 5 — 82% -->
+    <div class="card border-purple">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-track" cx="32" cy="32" r="27"/>
+          <circle class="ring-fill purple" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="30.5"/>
+        </svg>
+        <div class="ring-text">82%</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">National First-Gen Fund</div>
+        <div class="card-org">First Generation Foundation</div>
+        <div class="card-row">
+          <div class="card-amount">$8,500</div>
+          <div class="sep"></div>
+          <div class="deadline-badge">Jul 1, 2026</div>
+          <div class="field-tag">First-gen</div>
+        </div>
+      </div>
+      <div class="card-action"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+    <!-- Card 6 — 71% -->
+    <div class="card border-orange">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-track" cx="32" cy="32" r="27"/>
+          <circle class="ring-fill orange" cx="32" cy="32" r="27" stroke-dasharray="169.6" stroke-dashoffset="49.2"/>
+        </svg>
+        <div class="ring-text">71%</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Future Engineers Award</div>
+        <div class="card-org">Engineers of Tomorrow</div>
+        <div class="card-row">
+          <div class="card-amount">$6,000</div>
+          <div class="sep"></div>
+          <div class="deadline-badge">Jul 30, 2026</div>
+          <div class="field-tag">STEM</div>
+        </div>
+      </div>
+      <div class="card-action"><a href="#" class="btn-apply">View &amp; Apply</a></div>
+    </div>
+
+  </div><!-- /main-col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sb-title">Upcoming Deadlines</div>
+      <div class="dl-item">
+        <div><div class="dl-name">Local Foundation Grant</div><div class="dl-date">May 28, 2026</div></div>
+        <div class="dl-dot dot-red"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">STEM Women in Tech</div><div class="dl-date">May 30, 2026</div></div>
+        <div class="dl-dot dot-orange"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Dean's Excellence Award</div><div class="dl-date">Jun 10, 2026</div></div>
+        <div class="dl-dot dot-green"></div>
+      </div>
+      <div class="dl-item">
+        <div><div class="dl-name">Gates Scholarship</div><div class="dl-date">Jun 15, 2026</div></div>
+        <div class="dl-dot dot-green"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sb-title">Profile Completion</div>
+      <div class="prog-label"><span>Progress</span><strong>72%</strong></div>
+      <div class="prog-track"><div class="prog-fill"></div></div>
+      <div class="pi-list">
+        <div class="pi"><div class="pi-yes">✓</div>Basic info</div>
+        <div class="pi"><div class="pi-yes">✓</div>Academic history</div>
+        <div class="pi"><div class="pi-yes">✓</div>Field of study</div>
+        <div class="pi"><div class="pi-no"></div>Personal statement</div>
+        <div class="pi"><div class="pi-no"></div>Recommendations</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>
