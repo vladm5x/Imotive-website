@@ -26,4 +26,22 @@ export const layoutRegistry = [
     colors: ['#0F0F0F', '#F5F0FF', '#7C3AED', '#FF6B6B'],
     htmlPath: 'homepage-layouts/genz-landing.html',
   },
+  {
+    id: 'imotive-landing',
+    name: 'iMotive Landing',
+    description: 'Bold neo-brutalist design. Deep purple + butter yellow palette, Archivo Black display type, hard-shadow cards.',
+    theme: 'Neo-brutalist / bold',
+    font: 'Archivo Black + Space Grotesk + Inter',
+    colors: ['#160a5e', '#fdfbf7', '#6c3aff', '#ffd83d'],
+    htmlPath: 'homepage-layouts/imotive-landing.html',
+  },
+  {
+    id: 'purple-landing',
+    name: 'Purple Landing',
+    description: 'Clean modern design with 3D CSS hero visual, dark stats panel, orbit sources diagram, and Space Grotesk typography.',
+    theme: 'Modern / clean purple',
+    font: 'Space Grotesk + Inter',
+    colors: ['#4b00d8', '#ffffff', '#f6f6f8', '#ffd84d'],
+    htmlPath: 'homepage-layouts/purple-landing.html',
+  },
 ];

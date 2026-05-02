@@ -916,7 +916,75 @@ const UNIVERSITY_SOURCES = [
   ], defaultInstructions: 'Apply through the Wallenberg foundation portal.' },
   { name: 'KK-stiftelsen', prefix: 'kk', pages: [
     'https://www.kks.se/en/funding-and-assessment/applying-for-funding/'
-  ], defaultInstructions: "Apply through KK-stiftelsen's application portal." }
+  ], defaultInstructions: "Apply through KK-stiftelsen's application portal." },
+
+  // ── Additional Swedish foundations & research councils ────────────────────
+  { name: 'Forte', prefix: 'forte2', pages: [
+    'https://forte.se/en/funding/',
+    'https://forte.se/en/funding/current-calls/'
+  ], defaultInstructions: 'Apply through Forte online application portal.' },
+  { name: 'STINT', prefix: 'stint', pages: [
+    'https://www.stint.se/en/grants/'
+  ], defaultInstructions: 'Apply through STINT application portal.' },
+  { name: 'Riksbankens Jubileumsfond', prefix: 'rj', pages: [
+    'https://rj.se/en/grants/',
+    'https://rj.se/en/grants/calls-for-proposals/'
+  ], defaultInstructions: 'Apply through RJ online application system.' },
+  { name: 'NordForsk', prefix: 'nordforsk', pages: [
+    'https://www.nordforsk.org/funding'
+  ], defaultInstructions: 'Apply through NordForsk application portal.' },
+  { name: 'Royal Swedish Academy of Sciences', prefix: 'kva', pages: [
+    'https://www.kva.se/en/grants-awards/'
+  ], defaultInstructions: 'Apply through the Royal Swedish Academy of Sciences.' },
+  { name: 'Swedish Foundation for Strategic Research', prefix: 'ssf', pages: [
+    'https://strategiska.se/en/apply-for-funding/'
+  ], defaultInstructions: 'Apply through SSF online application portal.' },
+  { name: 'Kempe Foundations', prefix: 'kempe', pages: [
+    'https://www.kempestiftelserna.se/en/grants/'
+  ], defaultInstructions: 'Apply through Kempe Foundations application portal.' },
+  { name: 'Crafoord Foundation', prefix: 'crafoord', pages: [
+    'https://www.crafoordprize.se/grants-and-scholarships/'
+  ], defaultInstructions: 'Apply through the Crafoord Foundation.' },
+  { name: 'Lars Hiertas Minne', prefix: 'lhm', pages: [
+    'https://www.larshiertasminne.se/anslag/'
+  ], defaultInstructions: 'Apply through Lars Hiertas Minne foundation portal.' },
+  { name: 'Helge Axson Johnson Foundation', prefix: 'haj', pages: [
+    'https://www.haxjohnson.se/en/'
+  ], defaultInstructions: 'Apply through Helge Ax:son Johnson Foundation.' },
+  { name: 'Swedish Foundation for Human Rights', prefix: 'sfhr', pages: [
+    'https://sfhr.se/en/grants/'
+  ], defaultInstructions: 'Apply through SFHR grant portal.' },
+  { name: 'Swedish Heart-Lung Foundation', prefix: 'hlf', pages: [
+    'https://www.hjart-lungfonden.se/forskning/for-dig-som-forskar/'
+  ], defaultInstructions: 'Apply through Hjärt-Lungfonden research portal.' },
+  { name: 'Swedish Brain Foundation', prefix: 'hjarnfonden', pages: [
+    'https://www.hjarnfonden.se/forskning/'
+  ], defaultInstructions: 'Apply through Hjärnfonden research portal.' },
+  { name: 'Cancerfonden Research Grants', prefix: 'cancer', pages: [
+    'https://www.cancerfonden.se/forskning/ansokan'
+  ], defaultInstructions: 'Apply through Cancerfonden research portal.' },
+  { name: 'SIDA Education', prefix: 'sida', pages: [
+    'https://www.sida.se/en/for-partners/researchers-and-students'
+  ], defaultInstructions: 'See SIDA website for scholarship application details.' },
+  { name: 'Erik Fernstrom Foundation', prefix: 'eef', pages: [
+    'https://fernstromfoundation.org/grants/'
+  ], defaultInstructions: 'Apply through the Fernström Foundation.' },
+  { name: 'Stiftelsen för Strategisk Forskning (SSF)', prefix: 'ssf2', pages: [
+    'https://strategiska.se/en/research/current-calls/'
+  ], defaultInstructions: 'Apply through SSF online portal.' },
+  { name: 'Royal Swedish Academy of Engineering Sciences', prefix: 'iva', pages: [
+    'https://www.iva.se/en/prizes-and-grants/'
+  ], defaultInstructions: 'Apply through IVA grants portal.' },
+  { name: 'Swedish Institute for European Policy Studies', prefix: 'sieps', pages: [
+    'https://www.sieps.se/en/publications/'
+  ], defaultInstructions: 'Apply via SIEPS.' },
+  { name: 'Bo Rydins Foundation', prefix: 'brf', pages: [
+    'https://www.boRydinstiftelse.se/stipendier/'
+  ], defaultInstructions: 'Apply through Bo Rydins Foundation.' },
+  { name: 'Fulbright Sweden', prefix: 'fulbright2', pages: [
+    'https://www.fulbright.se/grants/grants-for-swedish-citizens/',
+    'https://www.fulbright.se/grants/grants-for-us-citizens/'
+  ], defaultInstructions: 'Apply through the Fulbright Commission.' }
 ];
 
 // ─── Blog aggregator sources (all use scrapeBlogAggregator) ───────────────────
@@ -927,7 +995,13 @@ const BLOG_SOURCES = [
   { name: 'Opportunity Desk', prefix: 'od', baseUrl: 'https://opportunitydesk.org/category/scholarships/page/1/?fwp_location=sweden', source: 'Opportunity Desk', maxPages: 20, customPagination: pageNum => `https://opportunitydesk.org/category/scholarships/page/${pageNum}/?fwp_location=sweden` },
   { name: 'World Scholarship Forum', prefix: 'wsf', baseUrl: 'https://worldscholarshipforum.com/scholarships-in-sweden/', source: 'World Scholarship Forum', maxPages: 20 },
   { name: 'Scholarship Desk', prefix: 'sd', baseUrl: 'https://www.scholarshipdesk.com/tag/sweden-scholarships/', source: 'Scholarship Desk', maxPages: 15 },
-  { name: 'Scholarship Region', prefix: 'sr', baseUrl: 'https://www.scholarshipregion.com/category/sweden-scholarships/', source: 'Scholarship Region', maxPages: 15 }
+  { name: 'Scholarship Region', prefix: 'sr', baseUrl: 'https://www.scholarshipregion.com/category/sweden-scholarships/', source: 'Scholarship Region', maxPages: 15 },
+  { name: 'AfterSchoolAfrica Blog', prefix: 'asa2', baseUrl: 'https://www.afterschoolafrica.com/category/scholarships/europe/sweden/', source: 'AfterSchoolAfrica', maxPages: 20 },
+  { name: 'Scholarship Fellowship', prefix: 'sf', baseUrl: 'https://scholarship-fellowship.com/tag/sweden/', source: 'Scholarship Fellowship', maxPages: 15 },
+  { name: 'Scholarship Café', prefix: 'scafe', baseUrl: 'https://www.scholarshipcafe.com/scholarships/sweden/', source: 'Scholarship Café', maxPages: 10 },
+  { name: 'DAAD Germany-Sweden', prefix: 'daad', baseUrl: 'https://www.daad.de/en/study-and-research-in-germany/scholarships/daad-scholarships/', source: 'DAAD', maxPages: 5, titleFilter: title => /scholarship|award|fellowship|grant|stipend/i.test(title) },
+  { name: 'Inomics Scholarships', prefix: 'inomics', baseUrl: 'https://inomics.com/type/scholarship?country=SE', source: 'Inomics', maxPages: 10 },
+  { name: 'Study Abroad Funding', prefix: 'saf', baseUrl: 'https://www.studyabroadfunding.org/tag/sweden/', source: 'Study Abroad Funding', maxPages: 10 }
 ];
 
 // ─── Puppeteer portal sources (all use scrapePuppeteerPortal) ─────────────────
@@ -946,6 +1020,35 @@ const PUPPETEER_PORTAL_SOURCES = [
     maxScrolls: 10, defaultBaseUrl: 'https://www.phdportal.eu',
     itemSelectors: ['article', '[class*="ScholarshipItem"]', '[class*="scholarship-item"]', '[class*="ResultItem"]', 'li[class*="item"]'],
     extraText: 'scholarship sweden phd doctoral'
+  },
+  {
+    name: 'BachelorPortal', prefix: 'bp', source: 'BachelorPortal',
+    startUrl: 'https://www.bachelorportal.eu/scholarships/?countries=se',
+    maxScrolls: 10, defaultBaseUrl: 'https://www.bachelorportal.eu',
+    itemSelectors: ['article', '[class*="ScholarshipItem"]', '[class*="scholarship-item"]', '[class*="ResultItem"]', 'li[class*="item"]'],
+    extraText: 'scholarship sweden bachelor undergraduate'
+  },
+  {
+    name: 'DistanceLearningPortal', prefix: 'dlp', source: 'DistanceLearningPortal',
+    startUrl: 'https://www.distancelearningportal.eu/scholarships/?countries=se',
+    maxScrolls: 8, defaultBaseUrl: 'https://www.distancelearningportal.eu',
+    itemSelectors: ['article', '[class*="ScholarshipItem"]', '[class*="scholarship-item"]', '[class*="ResultItem"]', 'li[class*="item"]'],
+    extraText: 'scholarship sweden distance online'
+  },
+  {
+    name: 'FindAPhD Sweden', prefix: 'faphd', source: 'FindAPhD',
+    startUrl: 'https://www.findaphd.com/phds/sweden/?PreviousFunding100=1',
+    maxScrolls: 15, defaultBaseUrl: 'https://www.findaphd.com',
+    itemSelectors: ['div.phd-result__details', '.resultsHolder article', 'article', '[class*="result"]', 'div[class*="phd-result"]'],
+    titleSelectors: ['h3', 'h4', 'a[class*="title"]', '.phd-result__title'],
+    extraText: 'phd scholarship funding stipend sweden'
+  },
+  {
+    name: 'Scholarship Portal EU', prefix: 'speu', source: 'ScholarshipPortal.eu',
+    startUrl: 'https://www.scholarshipportal.com/scholarships/bachelors,masters,phd?country=se',
+    maxScrolls: 12, defaultBaseUrl: 'https://www.scholarshipportal.com',
+    itemSelectors: ['article', '[class*="scholarship"]', '[class*="Scholarship"]', 'li[class*="item"]', 'div[class*="result"]'],
+    extraText: 'scholarship sweden funding grant'
   }
 ];
 
@@ -1876,6 +1979,312 @@ async function pushJsonToSupabase() {
   printFailureSummary();
 }
 
+// ─── Stipendier.se (Swedish scholarship aggregator) ──────────────────────────
+
+async function scrapeStipendier() {
+  console.log('Scraping Stipendier.se...');
+  const results = [];
+  const pages = [
+    'https://www.stipendier.se/',
+    'https://www.stipendier.se/stipendier-for-studenter/',
+    'https://www.stipendier.se/stipendier-for-doktorander/',
+    'https://www.stipendier.se/resestipendier/',
+    'https://www.stipendier.se/internationella-stipendier/'
+  ];
+
+  for (const pageUrl of pages) {
+    const $ = await fetchPage(pageUrl);
+    if (!$) continue;
+
+    // Try structured listing elements first
+    $('article, .stipendium, .scholarship-item, [class*="stipend"], li[class*="item"]').each((_, el) => {
+      const titleEl = $(el).find('h2, h3, h4, a').first();
+      const title = titleEl.text().trim();
+      if (!title || title.length < 6 || title.length > 200) return;
+
+      const link = $(el).find('a').first().attr('href') || titleEl.attr('href') || '';
+      const absUrl = resolveUrl(link, pageUrl) || pageUrl;
+      const fullText = $(el).text() + ' stipend scholarship grant sweden student';
+
+      const entry = buildEntry({
+        id: `stip-${slugify(title)}`,
+        title,
+        amount: extractAmount(fullText),
+        deadline: parseDeadline(fullText),
+        fullText,
+        source: 'Stipendier.se',
+        url: absUrl,
+        eligibility: $(el).find('p').first().text().trim(),
+        documents: '',
+        instructions: 'See stipendier.se for application instructions.'
+      });
+      if (entry) results.push(entry);
+    });
+
+    // Fallback: heading scan with Swedish keywords
+    if (!results.length) {
+      $('h2, h3, h4').each((_, el) => {
+        const a = $(el).find('a').first();
+        const title = (a.text() || $(el).text()).trim();
+        if (!title || title.length < 6 || title.length > 200) return;
+        if (!/stipend|scholarship|grant|bursary|award|anslag|bidrag/i.test(title + ' ' + $(el).parent().text())) return;
+
+        const link = a.attr('href') || '';
+        const absUrl = resolveUrl(link, pageUrl) || pageUrl;
+        const sibling = $(el).nextAll('p').first().text();
+        const fullText = title + ' ' + sibling + ' scholarship sweden student funding';
+
+        const entry = buildEntry({
+          id: `stip-${slugify(title)}`,
+          title,
+          amount: extractAmount(fullText),
+          deadline: parseDeadline(fullText),
+          fullText,
+          source: 'Stipendier.se',
+          url: absUrl,
+          eligibility: sibling.slice(0, 200) || 'See scholarship page for eligibility.',
+          documents: '',
+          instructions: 'See stipendier.se for application instructions.'
+        });
+        if (entry) results.push(entry);
+      });
+    }
+
+    console.log(`  stipendier.se ${pageUrl.split('/').filter(Boolean).pop()}: ${results.length} so far`);
+    await sleep(randomDelay());
+  }
+
+  console.log(`  stipendier.se total: ${results.length}`);
+  return results;
+}
+
+// ─── FindAMasters Sweden ───────────────────────────────────────────────────────
+
+async function scrapeFindAMasters() {
+  console.log('Scraping FindAMasters Sweden...');
+  const results = [];
+  const seenTitles = new Set();
+
+  let page;
+  try {
+    const browser = await getSharedBrowser();
+    page = await browser.newPage();
+    await page.setUserAgent(HEADERS['User-Agent']);
+
+    const baseUrl = 'https://www.findamasters.com/masters-degrees/sweden/?PreviousFunding100=1';
+    await page.goto(baseUrl, { waitUntil: 'networkidle2', timeout: 35000 });
+    await acceptCookieBanners(page);
+    await sleep(2000);
+
+    for (let pageNum = 1; pageNum <= 10; pageNum++) {
+      if (pageNum > 1) {
+        const url = `https://www.findamasters.com/masters-degrees/sweden/?PreviousFunding100=1&Page=${pageNum}`;
+        try {
+          await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+          await sleep(1500);
+        } catch { break; }
+      }
+
+      const $ = cheerio.load(await page.content());
+      let count = 0;
+
+      $('article, div[class*="result"], div[class*="course"]').each((_, el) => {
+        const titleEl = $(el).find('h3, h4, a[class*="title"]').first();
+        const title = titleEl.text().trim();
+        if (!title || title.length < 8 || title.length > 200 || seenTitles.has(title)) return;
+        seenTitles.add(title);
+
+        const link = $(el).find('a').first().attr('href') || '';
+        const absUrl = link.startsWith('http') ? link : `https://www.findamasters.com${link}`;
+        const fullText = $(el).text() + ' masters scholarship funding sweden';
+
+        const entry = buildEntry({
+          id: `fam-${slugify(title)}`,
+          title,
+          amount: extractAmount(fullText),
+          deadline: parseDeadline(fullText),
+          fullText,
+          source: 'FindAMasters',
+          url: absUrl,
+          eligibility: $(el).find('p').first().text().trim(),
+          documents: '',
+          instructions: 'Apply through the institution directly.'
+        });
+        if (entry) { results.push(entry); count++; }
+      });
+
+      console.log(`  findamasters page ${pageNum}: +${count} (total: ${results.length})`);
+      if (count === 0) break;
+      await sleep(randomDelay());
+    }
+  } catch (err) {
+    console.warn(`  [warn] FindAMasters failed: ${err.message}`);
+  } finally {
+    if (page) await page.close().catch(() => {});
+  }
+
+  return results;
+}
+
+// ─── Inomics Sweden (economics/social-science scholarships, Puppeteer) ────────
+
+async function scrapeInomics() {
+  console.log('Scraping Inomics Sweden...');
+  const results = [];
+  const seenTitles = new Set();
+
+  let page;
+  try {
+    const browser = await getSharedBrowser();
+    page = await browser.newPage();
+    await page.setUserAgent(HEADERS['User-Agent']);
+
+    await page.goto('https://inomics.com/type/scholarship?country=SE', { waitUntil: 'networkidle2', timeout: 35000 });
+    await acceptCookieBanners(page);
+    await sleep(2000);
+
+    for (let pageNum = 1; pageNum <= 5; pageNum++) {
+      if (pageNum > 1) {
+        try {
+          await page.goto(`https://inomics.com/type/scholarship?country=SE&page=${pageNum}`, { waitUntil: 'networkidle2', timeout: 30000 });
+          await sleep(1500);
+        } catch { break; }
+      }
+
+      const $ = cheerio.load(await page.content());
+      let count = 0;
+
+      $('article, [class*="listing"], [class*="result"], [class*="card"]').each((_, el) => {
+        const title = $(el).find('h2, h3, h4, [class*="title"]').first().text().trim();
+        if (!title || title.length < 8 || seenTitles.has(title)) return;
+        seenTitles.add(title);
+
+        const link = $(el).find('a').first().attr('href') || '';
+        const absUrl = link.startsWith('http') ? link : `https://inomics.com${link}`;
+        const fullText = $(el).text() + ' scholarship economics sweden';
+
+        const entry = buildEntry({
+          id: `inomics-${slugify(title)}`,
+          title,
+          amount: extractAmount(fullText),
+          deadline: parseDeadline(fullText),
+          fullText,
+          source: 'Inomics',
+          url: absUrl,
+          eligibility: $(el).find('p').first().text().trim(),
+          documents: '',
+          instructions: 'Apply via the scholarship provider.'
+        });
+        if (entry) { results.push(entry); count++; }
+      });
+
+      console.log(`  inomics page ${pageNum}: +${count} (total: ${results.length})`);
+      if (count === 0) break;
+      await sleep(randomDelay());
+    }
+  } catch (err) {
+    console.warn(`  [warn] Inomics failed: ${err.message}`);
+  } finally {
+    if (page) await page.close().catch(() => {});
+  }
+
+  return results;
+}
+
+// ─── Academic Positions Sweden ────────────────────────────────────────────────
+
+async function scrapeAcademicPositionsSE() {
+  console.log('Scraping Academic Positions Sweden...');
+  const results = [];
+  const seenTitles = new Set();
+
+  let page;
+  try {
+    const browser = await getSharedBrowser();
+    page = await browser.newPage();
+    await page.setUserAgent(HEADERS['User-Agent']);
+
+    const url = 'https://academicpositions.com/jobs?academic_level=phd&country=SE&employment_type=scholarship';
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 35000 });
+    await acceptCookieBanners(page);
+    await sleep(2000);
+
+    // Scroll to load more
+    for (let i = 0; i < 8; i++) {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await sleep(1500);
+    }
+
+    const $ = cheerio.load(await page.content());
+
+    $('article, [class*="job-card"], [class*="listing"], [class*="position"]').each((_, el) => {
+      const title = $(el).find('h2, h3, h4, [class*="title"]').first().text().trim();
+      if (!title || title.length < 8 || seenTitles.has(title)) return;
+      if (!/scholarship|grant|fellowship|stipend|funded|funding/i.test($(el).text())) return;
+      seenTitles.add(title);
+
+      const link = $(el).find('a').first().attr('href') || '';
+      const absUrl = link.startsWith('http') ? link : `https://academicpositions.com${link}`;
+      const fullText = $(el).text() + ' scholarship sweden research';
+
+      const entry = buildEntry({
+        id: `acpos-${slugify(title)}`,
+        title,
+        amount: extractAmount(fullText),
+        deadline: parseDeadline(fullText),
+        fullText,
+        source: 'Academic Positions',
+        url: absUrl,
+        eligibility: $(el).find('p').first().text().trim(),
+        documents: '',
+        instructions: 'Apply through the institution directly.'
+      });
+      if (entry) results.push(entry);
+    });
+
+    console.log(`  academic positions sweden: ${results.length}`);
+  } catch (err) {
+    console.warn(`  [warn] Academic Positions SE failed: ${err.message}`);
+  } finally {
+    if (page) await page.close().catch(() => {});
+  }
+
+  return results;
+}
+
+// ─── Bidragsguiden (Swedish grants guide) ────────────────────────────────────
+
+async function scrapeBidragsguiden() {
+  return scrapeLinkFollower({
+    name: 'Bidragsguiden',
+    prefix: 'bg',
+    source: 'Bidragsguiden',
+    listPages: [
+      'https://bidragsguiden.se/stipendier/',
+      'https://bidragsguiden.se/stipendier/studenter/',
+      'https://bidragsguiden.se/stipendier/forskning/'
+    ],
+    defaultInstructions: 'See Bidragsguiden for application instructions.',
+    textFilter: (url, text) =>
+      text.length >= 6 && /stipend|scholarship|grant|anslag|bidrag|award|bursary/i.test(text)
+  });
+}
+
+// ─── European Scholarship Portal (static pages) ───────────────────────────────
+
+async function scrapeEuropeanScholarshipPortal() {
+  return scrapeHeadingBased({
+    name: 'European Scholarship Portal',
+    prefix: 'esp',
+    source: 'European Scholarship Portal',
+    pages: [
+      'https://www.scholarshipportal.com/scholarships/bachelors,masters,phd?country=se'
+    ],
+    defaultInstructions: 'Apply via the scholarship provider directly.',
+    titleFilter: title => /scholarship|grant|fellowship|award|bursary/i.test(title)
+  });
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -1915,7 +2324,14 @@ async function main() {
     scrapeScholarshipPortalJS,
     scrapeErasmusJS,
     scrapeEuraxess,
-    scrapeAcademicPositions
+    scrapeAcademicPositions,
+    // New sources
+    scrapeStipendier,
+    scrapeFindAMasters,
+    scrapeInomics,
+    scrapeAcademicPositionsSE,
+    scrapeBidragsguiden,
+    scrapeEuropeanScholarshipPortal,
   ];
 
   const allSourceFns = [...universityFns, ...blogFns, ...portalFns, ...customFns];

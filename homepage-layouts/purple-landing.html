@@ -1,0 +1,1706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="/">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iMotive — Find scholarships without the endless searching</title>
+<meta name="description" content="Search verified scholarships, filter by eligibility, and track every deadline in one student-friendly platform." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f6f6f8;
+    --off-2: #eeeef2;
+    --line: #e7e7ec;
+    --ink: #111111;
+    --ink-2: #2a2a2e;
+    --muted: #6b6b73;
+    --muted-2: #9a9aa3;
+    --purple-900: #2b007a;
+    --purple-700: #4b00d8;
+    --purple-500: #6a00ff;
+    --purple-300: #b88cff;
+    --purple-100: #efe6ff;
+    --pink: #ff4fd8;
+    --yellow: #ffd84d;
+    --orange: #ff7a2f;
+    --shadow-card: 0 1px 0 rgba(17,17,17,.04), 0 12px 32px -12px rgba(17,17,17,.08);
+    --shadow-soft: 0 24px 60px -24px rgba(75,0,216,.25);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p { margin: 0; text-wrap: pretty; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 720px) { .wrap { padding: 0 20px; } }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid rgba(17,17,17,.06);
+  }
+  .nav-inner {
+    display: flex; align-items: center; gap: 40px;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 19px; letter-spacing: -0.02em;
+  }
+  .logo-mark {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--purple-500) 0%, var(--purple-700) 60%, var(--purple-900) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 14px -4px rgba(75,0,216,.6);
+    position: relative;
+  }
+  .logo-mark::after {
+    content: ""; position: absolute; inset: 6px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%);
+    border-radius: 4px;
+  }
+  .nav-links {
+    display: flex; gap: 28px; flex: 1;
+    font-size: 14.5px; color: var(--ink-2);
+  }
+  .nav-links a:hover { color: var(--purple-700); }
+  .nav-cta {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 40px; padding: 0 18px;
+    border-radius: 999px;
+    font-size: 14.5px; font-weight: 500;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn-ghost { color: var(--ink); }
+  .btn-ghost:hover { background: var(--off); }
+  .btn-primary {
+    background: var(--ink); color: var(--white);
+  }
+  .btn-primary:hover { background: var(--purple-700); }
+  .btn-purple {
+    background: var(--purple-700); color: white;
+    box-shadow: 0 8px 24px -8px rgba(75,0,216,.55), inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  .btn-purple:hover { background: var(--purple-500); transform: translateY(-1px); }
+  .btn-lg { height: 52px; padding: 0 26px; font-size: 16px; border-radius: 14px; }
+  .btn-outline {
+    background: white; color: var(--ink); border: 1px solid var(--line);
+  }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  @media (max-width: 880px) {
+    .nav-links { display: none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 13px; color: var(--ink-2);
+    background: white;
+    margin-bottom: 28px;
+  }
+  .pill-dot {
+    width: 22px; height: 22px; border-radius: 999px;
+    background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
+    color: white; font-size: 11px; font-weight: 600;
+    display: grid; place-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 7vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    max-width: 14ch;
+    margin: 0 auto 22px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(120deg, var(--purple-700), var(--purple-500) 50%, var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: clamp(16px, 1.4vw, 19px);
+    max-width: 56ch;
+    margin: 0 auto 36px;
+    line-height: 1.55;
+  }
+  .hero-actions {
+    display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 64px;
+  }
+  .hero-meta {
+    display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 48px;
+    font-size: 13px; color: var(--muted);
+  }
+  .hero-meta b { color: var(--ink); font-weight: 600; }
+
+  /* ============ HERO 3D VISUAL ============ */
+  .stage {
+    position: relative;
+    margin: 24px auto 0;
+    max-width: 1080px;
+    aspect-ratio: 16 / 10;
+    perspective: 1800px;
+    perspective-origin: 50% 30%;
+  }
+  .stage-floor {
+    position: absolute; inset: 60% -10% -8% -10%;
+    background: radial-gradient(60% 80% at 50% 0%, rgba(106,0,255,.18), transparent 70%);
+    filter: blur(8px);
+    z-index: 0;
+  }
+  .scene {
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(14deg) rotateY(-8deg) rotateZ(0deg);
+  }
+
+  .product {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+    width: 78%;
+    background: white;
+    border-radius: 28px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 30px 80px -30px rgba(75,0,216,.45),
+      0 8px 28px -10px rgba(17,17,17,.18);
+    border: 1px solid rgba(17,17,17,.06);
+    overflow: hidden;
+  }
+  .product-top {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--off-2); }
+  .dot.r { background: #ff5f56; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #27c93f; }
+  .product-tab {
+    margin-left: 8px; font-size: 12.5px; color: var(--muted);
+    background: var(--off); padding: 6px 12px; border-radius: 8px;
+  }
+  .product-tab b { color: var(--ink); font-weight: 500; }
+  .product-body {
+    display: grid; grid-template-columns: 220px 1fr;
+    min-height: 320px;
+  }
+  .sidebar {
+    padding: 18px 14px;
+    border-right: 1px solid var(--line);
+    background: var(--off);
+    font-size: 13px;
+  }
+  .sidebar-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted-2); margin: 6px 0 10px;
+    font-weight: 600;
+  }
+  .filter-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; border-radius: 8px;
+    color: var(--ink-2);
+  }
+  .filter-row.active { background: white; color: var(--ink); box-shadow: 0 1px 0 rgba(17,17,17,.04); }
+  .filter-row .count { color: var(--muted); font-size: 11.5px; }
+  .filter-row .check {
+    width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid var(--line);
+  }
+  .filter-row.active .check {
+    background: var(--purple-700); border-color: var(--purple-700);
+    background-image: linear-gradient(45deg, transparent 40%, white 40% 60%, transparent 60%),
+                      linear-gradient(-45deg, transparent 40%, white 40% 60%, transparent 60%);
+  }
+
+  .main-pane { padding: 16px 18px; }
+  .search {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .search svg { flex-shrink: 0; }
+  .search-cmd { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); border: 1px solid var(--line); padding: 2px 6px; border-radius: 5px; }
+  .chips { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .chip {
+    font-size: 11.5px; padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--ink-2);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip.on { background: var(--purple-100); border-color: var(--purple-100); color: var(--purple-700); font-weight: 500; }
+  .chip-x { color: currentColor; opacity: .55; }
+
+  .listing {
+    margin-top: 14px;
+    display: grid; gap: 10px;
+  }
+  .scholar {
+    display: grid; grid-template-columns: 36px 1fr auto;
+    gap: 12px; align-items: center;
+    padding: 12px 14px;
+    border: 1px solid var(--line); border-radius: 14px;
+    background: white;
+  }
+  .scholar.hl { border-color: var(--purple-300); background: linear-gradient(180deg, #faf6ff, white); }
+  .sch-mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--off);
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 13px; color: var(--ink-2);
+  }
+  .sch-mark.p1 { background: linear-gradient(135deg, var(--purple-500), var(--purple-700)); color: white; }
+  .sch-mark.p2 { background: var(--yellow); color: #5a4400; }
+  .sch-mark.p3 { background: var(--pink); color: white; }
+  .sch-mark.p4 { background: linear-gradient(135deg, var(--orange), #ff5d2f); color: white; }
+  .sch-name { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  .sch-meta { font-size: 11.5px; color: var(--muted); display: flex; gap: 8px; margin-top: 2px; }
+  .sch-meta .verified { color: var(--purple-700); font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+  .sch-amount { text-align: right; }
+  .sch-amount .a { font-family: 'Space Grotesk'; font-weight: 600; font-size: 14px; }
+  .sch-amount .d { font-size: 11px; color: var(--muted); }
+
+  .float {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px -20px rgba(17,17,17,.25), 0 1px 0 rgba(17,17,17,.05);
+    border: 1px solid rgba(17,17,17,.06);
+    padding: 12px 14px;
+    font-size: 12.5px;
+    transform-style: preserve-3d;
+  }
+  .float-verified {
+    top: 6%; right: 4%;
+    transform: translateZ(80px) rotate(4deg);
+    display: flex; align-items: center; gap: 10px;
+    padding-right: 18px;
+  }
+  .float-verified .vmark {
+    width: 32px; height: 32px; border-radius: 999px;
+    background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
+    color: white; display: grid; place-items: center;
+    box-shadow: 0 6px 16px -6px rgba(75,0,216,.6);
+  }
+  .float-verified b { display: block; color: var(--ink); font-weight: 600; font-size: 13px; }
+  .float-verified span { color: var(--muted); font-size: 11.5px; }
+
+  .float-deadline {
+    bottom: 8%; left: 2%;
+    transform: translateZ(70px) rotate(-3deg);
+    min-width: 170px;
+  }
+  .float-deadline .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+  .float-deadline .big { font-family: 'Space Grotesk'; font-weight: 600; font-size: 22px; margin-top: 4px; letter-spacing: -.02em; }
+  .float-deadline .sub { font-size: 11.5px; color: var(--muted); }
+  .float-deadline .bar { height: 6px; background: var(--off); border-radius: 999px; margin-top: 10px; overflow: hidden; }
+  .float-deadline .bar i { display: block; height: 100%; width: 68%; background: linear-gradient(90deg, var(--orange), var(--pink)); border-radius: 999px; }
+
+  .float-saved {
+    top: 38%; right: -2%;
+    transform: translateZ(110px) rotate(6deg);
+    width: 200px;
+  }
+  .float-saved .row { display: flex; align-items: center; gap: 10px; }
+  .float-saved .heart {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--pink); color: white; display: grid; place-items: center;
+  }
+  .float-saved b { display: block; font-weight: 600; font-size: 13px; }
+  .float-saved span { color: var(--muted); font-size: 11.5px; }
+
+  .blocks {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 22px;
+    transform-style: preserve-3d;
+  }
+  .blob-cap {
+    bottom: -4%; right: 8%;
+    width: 130px; height: 130px;
+    transform: translateZ(40px) rotate(-12deg);
+  }
+  .blob-cap .top {
+    width: 100%; height: 26px;
+    background: #1a1a1a;
+    border-radius: 6px;
+    transform: rotate(-6deg) translateY(0);
+    box-shadow: 0 8px 18px -6px rgba(17,17,17,.4);
+    position: relative;
+  }
+  .blob-cap .top::after {
+    content: ""; position: absolute; right: 14px; top: 0;
+    width: 14px; height: 38px;
+    background: var(--yellow);
+    border-radius: 0 0 4px 4px;
+    transform: rotate(8deg);
+  }
+
+  .blob-coin {
+    top: 12%; left: -4%;
+    width: 90px; height: 90px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, var(--yellow), #d6a900);
+    box-shadow: 0 18px 40px -10px rgba(214,169,0,.45), inset 0 -8px 0 rgba(0,0,0,.18);
+    transform: translateZ(60px) rotate(-14deg);
+  }
+  .blob-coin::after {
+    content: "$"; position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk'; font-weight: 700; font-size: 38px;
+    color: rgba(60,40,0,.75);
+  }
+
+  .blob-doc {
+    top: 60%; left: 4%;
+    width: 80px; height: 100px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 14px 32px -10px rgba(17,17,17,.25), 0 0 0 1px rgba(17,17,17,.06);
+    transform: translateZ(50px) rotate(8deg);
+    padding: 10px;
+  }
+  .blob-doc i { display: block; height: 4px; background: var(--off-2); border-radius: 2px; margin-bottom: 5px; }
+  .blob-doc i:nth-child(1) { width: 60%; background: var(--purple-300); }
+  .blob-doc i:nth-child(2) { width: 90%; }
+  .blob-doc i:nth-child(3) { width: 75%; }
+  .blob-doc i:nth-child(4) { width: 40%; }
+
+  .blob-cube {
+    top: -2%; left: 22%;
+    width: 70px; height: 70px;
+    background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
+    border-radius: 16px;
+    box-shadow: 0 18px 36px -12px rgba(75,0,216,.55), inset 0 2px 0 rgba(255,255,255,.18);
+    transform: translateZ(70px) rotate(18deg);
+  }
+
+  @media (max-width: 720px) {
+    .stage { aspect-ratio: 4/5; }
+    .product-body { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .float-saved { display: none; }
+    .blob-coin, .blob-cube { width: 60px; height: 60px; }
+    .blob-cap { width: 90px; height: 90px; }
+  }
+
+  /* ============ LOGOS STRIP ============ */
+  .strip {
+    padding: 60px 0 20px;
+    text-align: center;
+  }
+  .strip-label {
+    font-size: 12px; color: var(--muted-2);
+    text-transform: uppercase; letter-spacing: .12em; font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .strip-row {
+    display: flex; flex-wrap: wrap; gap: 40px 56px;
+    justify-content: center; align-items: center;
+    color: var(--muted-2);
+    font-family: 'Space Grotesk'; font-weight: 500; font-size: 18px;
+    letter-spacing: -.01em;
+  }
+  .strip-row .item { opacity: .55; transition: opacity .2s; display: inline-flex; align-items: center; gap: 8px; }
+  .strip-row .item:hover { opacity: 1; color: var(--ink); }
+  .strip-row .item .glyph {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: currentColor; opacity: .35;
+  }
+
+  /* ============ SECTIONS ============ */
+  .section {
+    padding: 120px 0;
+    position: relative;
+  }
+  .section-tight { padding: 80px 0; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 600;
+    color: var(--purple-700);
+    text-transform: uppercase; letter-spacing: .1em;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--purple-700);
+  }
+  .section h2 {
+    font-size: clamp(34px, 4.6vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+  }
+  .section-head {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 40px; align-items: end;
+    margin-bottom: 56px;
+  }
+  .section-head p {
+    color: var(--muted); font-size: 17px; max-width: 50ch; line-height: 1.55;
+  }
+  @media (max-width: 880px) { .section-head { grid-template-columns: 1fr; gap: 16px; align-items: start; margin-bottom: 36px;} }
+
+  /* ============ DASHBOARD SECTION ============ */
+  .dash-shell {
+    background: var(--off);
+    border-radius: 28px;
+    padding: 18px;
+    border: 1px solid var(--line);
+  }
+  .dash {
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: grid; grid-template-columns: 240px 1fr;
+    min-height: 520px;
+  }
+  .dash-side {
+    background: #fafafc;
+    border-right: 1px solid var(--line);
+    padding: 22px 18px;
+    font-size: 14px;
+  }
+  .dash-side .group { margin-bottom: 24px; }
+  .dash-side .group-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--muted-2); font-weight: 600; margin-bottom: 8px;
+  }
+  .dash-side .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px;
+    color: var(--ink-2); font-weight: 500;
+  }
+  .dash-side .nav-item.on { background: var(--ink); color: white; }
+  .dash-side .nav-item .ico {
+    width: 16px; height: 16px; border-radius: 4px; background: currentColor; opacity: .35;
+  }
+  .dash-side .nav-item.on .ico { opacity: 1; }
+  .dash-side .nav-item .badge {
+    margin-left: auto; font-size: 11px; background: var(--off-2); color: var(--muted);
+    padding: 1px 7px; border-radius: 999px; font-weight: 500;
+  }
+  .dash-side .nav-item.on .badge { background: rgba(255,255,255,.15); color: white; }
+
+  .dash-main { padding: 26px 28px; }
+  .dash-h {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .dash-h h3 {
+    font-family: 'Space Grotesk'; font-size: 22px; font-weight: 600;
+    letter-spacing: -.02em;
+  }
+  .dash-h .sub { color: var(--muted); font-size: 13px; margin-top: 3px; }
+
+  .search-big {
+    display: flex; align-items: center; gap: 12px;
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 12px 16px; font-size: 14px;
+    background: white;
+  }
+  .search-big input {
+    border: 0; outline: none; flex: 1; font-family: inherit; font-size: 14px;
+    background: transparent;
+  }
+  .search-big .kbd { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--muted); border: 1px solid var(--line); padding: 3px 7px; border-radius: 6px; }
+
+  .filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 22px;
+  }
+  .fchip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: white;
+    font-size: 13px; color: var(--ink-2);
+  }
+  .fchip .v { color: var(--purple-700); font-weight: 600; }
+  .fchip.solid {
+    background: var(--ink); color: white; border-color: var(--ink);
+  }
+  .fchip .caret {
+    width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid currentColor; opacity: .5;
+  }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 880px) { .grid-3 { grid-template-columns: 1fr; } .dash { grid-template-columns: 1fr; } .dash-side { display: none; } }
+
+  .card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px;
+    transition: transform .15s ease, box-shadow .2s ease, border-color .2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); border-color: var(--purple-300); }
+  .card-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .verif {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11.5px; font-weight: 500;
+    background: var(--purple-100); color: var(--purple-700);
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .verif .vd { width: 11px; height: 11px; border-radius: 999px; background: var(--purple-700); position: relative; }
+  .verif .vd::after { content: ""; position: absolute; left: 3px; top: 5px; width: 4px; height: 2px; border-left: 1.5px solid white; border-bottom: 1.5px solid white; transform: rotate(-45deg); }
+  .card-mark {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 15px;
+  }
+  .m-purple { background: linear-gradient(135deg, var(--purple-500), var(--purple-700)); color: white; }
+  .m-yellow { background: var(--yellow); color: #5a4400; }
+  .m-pink   { background: var(--pink); color: white; }
+  .m-orange { background: linear-gradient(135deg, var(--orange), #ff5d2f); color: white; }
+  .m-mint   { background: #c9f2da; color: #0a5a2a; }
+  .m-soft   { background: var(--off); color: var(--ink); }
+
+  .card h4 {
+    font-family: 'Space Grotesk'; font-size: 17px; font-weight: 600; letter-spacing: -.01em;
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .card .sponsor { font-size: 12.5px; color: var(--muted); margin-bottom: 14px; }
+  .card-meta {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px 14px; padding: 12px 0; border-top: 1px dashed var(--line);
+    font-size: 12px;
+  }
+  .card-meta .lbl { color: var(--muted-2); text-transform: uppercase; letter-spacing: .06em; font-size: 10px; font-weight: 600; }
+  .card-meta .val { font-weight: 500; color: var(--ink); margin-top: 2px; font-size: 13px; }
+  .card-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 12px; border-top: 1px solid var(--line); margin-top: 4px;
+  }
+  .card-foot .deadline { font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .card-foot .deadline.urgent { color: var(--orange); font-weight: 500; }
+  .card-foot .deadline .pulse {
+    width: 7px; height: 7px; border-radius: 999px; background: currentColor;
+  }
+  .view-btn {
+    font-size: 12.5px; font-weight: 500;
+    color: var(--ink); display: inline-flex; align-items: center; gap: 4px;
+  }
+  .view-btn:hover { color: var(--purple-700); }
+
+  /* ============ TRACKING SECTION ============ */
+  .track-grid {
+    display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 18px;
+  }
+  @media (max-width: 980px) { .track-grid { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 26px;
+  }
+  .panel-h {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .panel-h h4 { font-size: 18px; font-family: 'Space Grotesk'; font-weight: 600; letter-spacing: -.015em; }
+  .panel-h .sub { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+
+  .timeline {
+    display: grid; gap: 14px;
+  }
+  .tl-row {
+    display: grid; grid-template-columns: 78px 1fr auto; gap: 14px; align-items: center;
+    padding: 12px 14px; border-radius: 14px;
+    background: var(--off);
+  }
+  .tl-row.next { background: linear-gradient(180deg, #f5edff, #faf6ff); border: 1px solid var(--purple-100); }
+  .tl-date {
+    font-family: 'Space Grotesk'; font-weight: 600; letter-spacing: -.01em;
+    line-height: 1;
+  }
+  .tl-date .d { font-size: 22px; }
+  .tl-date .m { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+  .tl-name { font-weight: 600; font-size: 14px; }
+  .tl-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .tl-amt { font-family: 'Space Grotesk'; font-weight: 600; font-size: 15px; }
+  .tl-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; padding: 3px 8px; border-radius: 999px;
+    background: white; border: 1px solid var(--line);
+    color: var(--ink-2); font-weight: 500;
+  }
+  .tl-tag .d { width: 6px; height: 6px; border-radius: 999px; background: var(--orange); }
+  .tl-tag.ok .d { background: #2cb673; }
+
+  .donut {
+    width: 130px; height: 130px; margin: 8px auto 18px;
+    --pct: 64;
+    background:
+      conic-gradient(var(--purple-700) calc(var(--pct) * 1%), var(--off-2) 0);
+    border-radius: 999px;
+    display: grid; place-items: center;
+    position: relative;
+  }
+  .donut::before {
+    content: ""; position: absolute; inset: 14px;
+    background: white; border-radius: 999px;
+  }
+  .donut span {
+    position: relative; font-family: 'Space Grotesk'; font-weight: 600;
+    font-size: 28px; letter-spacing: -.02em;
+  }
+  .donut span small { font-size: 14px; color: var(--muted); font-weight: 500; }
+
+  .legend { display: grid; gap: 8px; font-size: 13px; }
+  .legend .lr {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px dashed var(--line);
+  }
+  .legend .lr:last-child { border: 0; }
+  .legend .lr .l { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .legend .lr .dt { width: 8px; height: 8px; border-radius: 999px; }
+  .legend .lr b { font-family: 'Space Grotesk'; font-weight: 600; }
+
+  .matches { display: grid; gap: 12px; }
+  .match {
+    display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center;
+    padding: 12px; border-radius: 12px;
+    background: var(--off);
+  }
+  .match-name { font-weight: 600; font-size: 13.5px; }
+  .match-meta { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+  .match-score {
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 13.5px;
+    color: var(--purple-700);
+  }
+
+  /* ============ SOURCES SECTION ============ */
+  .sources-stage {
+    position: relative;
+    margin: 56px auto 0;
+    height: 480px;
+    max-width: 980px;
+  }
+  .source-center {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 220px; height: 220px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 30%, var(--purple-500), var(--purple-700) 60%, var(--purple-900));
+    box-shadow: 0 30px 80px -20px rgba(75,0,216,.5), inset 0 -10px 30px rgba(0,0,0,.2), inset 0 6px 20px rgba(255,255,255,.15);
+    color: white;
+    display: grid; place-items: center;
+    text-align: center;
+    z-index: 3;
+  }
+  .source-center .label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+  .source-center .num { font-family: 'Space Grotesk'; font-weight: 600; font-size: 56px; line-height: 1; letter-spacing: -.03em; margin-top: 6px; }
+  .source-center .lbl2 { font-size: 12.5px; margin-top: 6px; opacity: .85; }
+
+  .source-ring {
+    position: absolute; inset: 0;
+    border: 1px dashed var(--line); border-radius: 999px;
+    margin: auto;
+    width: 380px; height: 380px;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+  }
+  .source-ring.outer { width: 600px; height: 600px; opacity: .6; }
+
+  .src {
+    position: absolute;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 10px 26px -10px rgba(17,17,17,.15);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+    z-index: 2;
+  }
+  .src b { display: block; font-weight: 600; }
+  .src span { color: var(--muted); font-size: 11.5px; }
+  .src .ico {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 13px;
+  }
+  .src.s1 { top: 4%; left: 8%; }
+  .src.s2 { top: 14%; right: 6%; }
+  .src.s3 { top: 50%; left: -2%; transform: translateY(-50%); }
+  .src.s4 { top: 52%; right: 0%; transform: translateY(-50%); }
+  .src.s5 { bottom: 4%; left: 14%; }
+  .src.s6 { bottom: 8%; right: 12%; }
+
+  @media (max-width: 880px) {
+    .sources-stage { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 100%; }
+    .source-center, .source-ring { display: none; }
+    .src { position: static; transform: none; }
+  }
+
+  /* ============ HOW IT WORKS ============ */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 880px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    border-radius: 26px;
+    padding: 28px;
+    color: var(--ink);
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .step.s-orange { background: linear-gradient(160deg, #ffd6b8, #ffb88a); }
+  .step.s-pink { background: linear-gradient(160deg, #ffd0ee, #ff97d6); }
+  .step.s-purple { background: linear-gradient(160deg, #d8c2ff, #b394ff); color: var(--ink); }
+  .step .num {
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 18px;
+    letter-spacing: -.01em;
+  }
+  .step .num::before { content: ""; display: inline-block; width: 24px; height: 1px; background: currentColor; opacity: .4; margin-right: 10px; vertical-align: middle; }
+  .step h3 {
+    font-family: 'Space Grotesk'; font-weight: 600;
+    font-size: 36px; letter-spacing: -.02em;
+    margin: 18px 0 12px;
+  }
+  .step p { font-size: 14.5px; line-height: 1.5; opacity: .85; max-width: 26ch; }
+
+  .step-vis {
+    position: absolute; inset: auto -10px -20px auto;
+    width: 180px; height: 180px;
+    pointer-events: none;
+  }
+  .vs-cube {
+    position: absolute; right: 30px; bottom: 40px;
+    width: 80px; height: 80px;
+    background: rgba(17,17,17,.85);
+    border-radius: 18px;
+    transform: rotate(-12deg);
+    box-shadow: inset 0 -12px 0 rgba(0,0,0,.2), 0 18px 40px -12px rgba(0,0,0,.35);
+  }
+  .vs-cube::after {
+    content: ""; position: absolute; inset: 14px;
+    border: 2px solid rgba(255,255,255,.35);
+    border-radius: 8px;
+  }
+  .vs-coin {
+    position: absolute; right: 100px; bottom: 95px;
+    width: 50px; height: 50px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, var(--yellow), #d6a900);
+    transform: rotate(20deg);
+    box-shadow: 0 12px 24px -8px rgba(214,169,0,.6), inset 0 -6px 0 rgba(0,0,0,.2);
+  }
+  .vs-doc {
+    position: absolute; right: 70px; bottom: 30px;
+    width: 60px; height: 70px;
+    background: white;
+    border-radius: 8px;
+    transform: rotate(8deg);
+    box-shadow: 0 12px 24px -8px rgba(17,17,17,.3);
+    padding: 8px;
+  }
+  .vs-doc i { display: block; height: 3px; background: var(--off-2); border-radius: 2px; margin-bottom: 4px; }
+  .vs-doc i:nth-child(1) { width: 60%; background: var(--purple-300); }
+  .vs-doc i:nth-child(2) { width: 90%; }
+  .vs-doc i:nth-child(3) { width: 70%; }
+  .vs-cap-top {
+    position: absolute; right: 36px; bottom: 90px;
+    width: 110px; height: 22px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    transform: rotate(-10deg);
+    box-shadow: 0 12px 24px -10px rgba(17,17,17,.5);
+  }
+  .vs-cap-top::after {
+    content: ""; position: absolute; right: 14px; top: 0;
+    width: 12px; height: 30px;
+    background: var(--yellow);
+    border-radius: 0 0 3px 3px;
+  }
+
+  /* ============ STATS ============ */
+  .stats {
+    background: var(--ink);
+    color: white;
+    border-radius: 32px;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats::before {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 360px; height: 360px; border-radius: 999px;
+    background: radial-gradient(circle, rgba(106,0,255,.55), transparent 60%);
+    filter: blur(20px);
+  }
+  .stats-head {
+    max-width: 32ch; margin-bottom: 56px;
+    position: relative;
+  }
+  .stats-head .eyebrow { color: var(--purple-300); }
+  .stats-head .eyebrow::before { background: var(--purple-300); }
+  .stats-head h2 { color: white; font-size: clamp(34px, 4.4vw, 54px); }
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    position: relative;
+  }
+  .stat {
+    padding: 36px 24px 0 0;
+    border-right: 1px solid rgba(255,255,255,.08);
+  }
+  .stat:last-child { border-right: 0; }
+  .stat .n {
+    font-family: 'Space Grotesk'; font-weight: 600;
+    font-size: clamp(54px, 7vw, 92px);
+    letter-spacing: -.04em;
+    line-height: 1;
+    background: linear-gradient(120deg, white, var(--purple-300));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat .l {
+    color: rgba(255,255,255,.7);
+    font-size: 14px;
+    margin-top: 14px;
+    max-width: 18ch;
+    line-height: 1.45;
+  }
+  @media (max-width: 880px) {
+    .stats { padding: 48px 24px; border-radius: 24px; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .stat { border-right: 0; padding: 28px 12px; border-top: 1px solid rgba(255,255,255,.08); }
+    .stat:nth-child(1), .stat:nth-child(2) { border-top: 0; }
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 880px) { .quote-grid { grid-template-columns: 1fr; } }
+  .quote {
+    background: var(--off);
+    border-radius: 22px;
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 22px;
+    min-height: 240px;
+  }
+  .quote.bright { background: var(--purple-100); }
+  .quote.dark { background: var(--ink); color: white; }
+  .quote p {
+    font-family: 'Space Grotesk'; font-weight: 500;
+    font-size: 20px; letter-spacing: -.015em; line-height: 1.3;
+    flex: 1;
+  }
+  .quote.dark p { color: white; }
+  .quoter { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 999px;
+    background: var(--ink); color: white;
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 13px;
+  }
+  .avatar.a-pink { background: var(--pink); }
+  .avatar.a-yellow { background: var(--yellow); color: #5a4400; }
+  .avatar.a-purple { background: var(--purple-700); }
+  .avatar.a-orange { background: var(--orange); }
+  .quoter b { font-weight: 600; font-size: 13.5px; display: block; }
+  .quoter span { font-size: 12px; color: var(--muted); }
+  .quote.dark .quoter span { color: rgba(255,255,255,.6); }
+
+  /* ============ FAQ ============ */
+  .faq-grid {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
+  }
+  @media (max-width: 880px) { .faq-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .faq-list { display: grid; gap: 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 22px 0;
+  }
+  .faq-q {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%;
+    font-family: 'Space Grotesk'; font-size: 19px; font-weight: 500; letter-spacing: -.01em;
+    text-align: left; color: var(--ink);
+    padding: 0;
+  }
+  .faq-q .pls {
+    width: 28px; height: 28px; border-radius: 999px;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    color: var(--muted);
+    transition: all .2s;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .faq-q .pls::before, .faq-q .pls::after {
+    content: ""; position: absolute; width: 10px; height: 1.5px; background: currentColor;
+  }
+  .faq-q .pls::after { transform: rotate(90deg); transition: transform .25s; }
+  .faq-item.open .faq-q .pls { background: var(--ink); color: white; border-color: var(--ink); }
+  .faq-item.open .faq-q .pls::after { transform: rotate(0); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s ease;
+    color: var(--muted); font-size: 15px; line-height: 1.6;
+  }
+  .faq-a-inner { padding: 14px 0 0; max-width: 60ch; }
+  .faq-item.open .faq-a { max-height: 220px; }
+
+  /* ============ FINAL CTA ============ */
+  .final {
+    text-align: center;
+    background: linear-gradient(180deg, var(--off) 0%, white 100%);
+    border-radius: 36px;
+    padding: 100px 32px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .final h2 {
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1;
+    letter-spacing: -.035em;
+    margin-bottom: 20px;
+  }
+  .final p { color: var(--muted); font-size: 18px; max-width: 50ch; margin: 0 auto 36px; }
+  .final-deco-l, .final-deco-r {
+    position: absolute; pointer-events: none;
+  }
+  .final-deco-l {
+    left: 6%; top: 18%;
+    width: 90px; height: 90px; border-radius: 24px;
+    background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
+    box-shadow: 0 18px 40px -14px rgba(75,0,216,.55);
+    transform: rotate(-12deg);
+  }
+  .final-deco-r {
+    right: 8%; bottom: 16%;
+    width: 70px; height: 70px; border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, var(--yellow), #d6a900);
+    box-shadow: 0 14px 30px -8px rgba(214,169,0,.5), inset 0 -6px 0 rgba(0,0,0,.18);
+  }
+  @media (max-width: 720px) { .final-deco-l, .final-deco-r { display: none; } }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 80px 0 40px;
+  }
+  .foot {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 720px) { .foot { grid-template-columns: 1fr 1fr; } }
+  .foot-brand { max-width: 320px; }
+  .foot-brand p { color: var(--muted); font-size: 13.5px; margin-top: 14px; line-height: 1.55; }
+  .foot-col h5 {
+    font-family: 'Inter'; font-size: 12px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--muted-2); font-weight: 600; margin-bottom: 14px;
+  }
+  .foot-col a {
+    display: block; padding: 5px 0; color: var(--ink-2); font-size: 14px;
+  }
+  .foot-col a:hover { color: var(--purple-700); }
+  .foot-bot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 24px; font-size: 12.5px; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== NAV =================== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span> iMotive</a>
+    <nav class="nav-links">
+      <a href="#dash">Scholarships</a>
+      <a href="#how">How it works</a>
+      <a href="#stats">For Students</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-ghost">Sign in</a>
+      <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+    </div>
+  </div>
+</header>
+
+<!-- =================== HERO =================== -->
+<section class="hero">
+  <div class="wrap">
+    <span class="pill"><span class="pill-dot">★</span> Trusted by 12,400+ students this semester</span>
+    <h1>Find scholarships <em>without the endless searching.</em></h1>
+    <p class="hero-sub">Search verified scholarships, filter by eligibility, and track every deadline in one student-friendly platform — built for the way you actually apply.</p>
+    <div class="hero-actions">
+      <a href="signup.html" class="btn btn-purple btn-lg">Start Searching Free →</a>
+      <a href="account.html" class="btn btn-outline btn-lg">Browse Scholarships</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>Free</b> for students</span>
+      <span><b>500+</b> verified opportunities</span>
+      <span><b>No</b> credit card required</span>
+    </div>
+
+    <!-- HERO 3D STAGE -->
+    <div class="stage">
+      <div class="stage-floor"></div>
+      <div class="scene">
+        <div class="blocks">
+          <div class="blob blob-cube"></div>
+          <div class="blob blob-coin"></div>
+          <div class="blob blob-doc"><i></i><i></i><i></i><i></i></div>
+          <div class="blob blob-cap"><div class="top"></div></div>
+        </div>
+
+        <div class="product">
+          <div class="product-top">
+            <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+            <div class="product-tab">imotive.app / <b>search</b></div>
+          </div>
+          <div class="product-body">
+            <aside class="sidebar">
+              <div class="sidebar-label">Field of Study</div>
+              <div class="filter-row active"><span><span class="check"></span> Computer Science</span><span class="count">128</span></div>
+              <div class="filter-row"><span><span class="check"></span> Engineering</span><span class="count">94</span></div>
+              <div class="filter-row"><span><span class="check"></span> Public Health</span><span class="count">61</span></div>
+              <div class="filter-row"><span><span class="check"></span> Arts &amp; Design</span><span class="count">47</span></div>
+              <div class="sidebar-label" style="margin-top:18px">Amount</div>
+              <div class="filter-row active"><span><span class="check"></span> $5k – $25k</span><span class="count">182</span></div>
+              <div class="filter-row"><span><span class="check"></span> $25k+</span><span class="count">39</span></div>
+            </aside>
+            <div class="main-pane">
+              <div class="search">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <span style="color:var(--muted)">Search scholarships, schools, fields…</span>
+                <span class="search-cmd">⌘ K</span>
+              </div>
+              <div class="chips">
+                <span class="chip on">CS &amp; Engineering <span class="chip-x">×</span></span>
+                <span class="chip on">Undergrad <span class="chip-x">×</span></span>
+                <span class="chip on">Deadline &lt; 60d <span class="chip-x">×</span></span>
+                <span class="chip">+ Add filter</span>
+              </div>
+              <div class="listing">
+                <div class="scholar hl">
+                  <div class="sch-mark p1">FA</div>
+                  <div>
+                    <div class="sch-name">Future Architects Grant</div>
+                    <div class="sch-meta"><span class="verified">● Verified</span><span>Undergrad · USA</span></div>
+                  </div>
+                  <div class="sch-amount"><div class="a">$15,000</div><div class="d">Due Mar 14</div></div>
+                </div>
+                <div class="scholar">
+                  <div class="sch-mark p2">SH</div>
+                  <div>
+                    <div class="sch-name">STEM Horizons Award</div>
+                    <div class="sch-meta"><span class="verified">● Verified</span><span>Grad · International</span></div>
+                  </div>
+                  <div class="sch-amount"><div class="a">$22,500</div><div class="d">Due Apr 02</div></div>
+                </div>
+                <div class="scholar">
+                  <div class="sch-mark p3">RC</div>
+                  <div>
+                    <div class="sch-name">Rising Coders Foundation</div>
+                    <div class="sch-meta"><span class="verified">● Verified</span><span>Undergrad · USA</span></div>
+                  </div>
+                  <div class="sch-amount"><div class="a">$8,000</div><div class="d">Due Apr 19</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="float float-verified">
+          <div class="vmark">✓</div>
+          <div><b>Verified by 4 sources</b><span>Cross-checked daily</span></div>
+        </div>
+        <div class="float float-saved">
+          <div class="row">
+            <div class="heart">♥</div>
+            <div><b>Saved · 12</b><span>3 closing this week</span></div>
+          </div>
+        </div>
+        <div class="float float-deadline">
+          <div class="label">Next deadline</div>
+          <div class="big">12 days</div>
+          <div class="sub">Future Architects Grant</div>
+          <div class="bar"><i></i></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== LOGOS STRIP =================== -->
+<section class="strip">
+  <div class="wrap">
+    <div class="strip-label">Aggregating scholarships from</div>
+    <div class="strip-row">
+      <span class="item"><span class="glyph"></span>OpenGrants</span>
+      <span class="item"><span class="glyph"></span>Fastweb</span>
+      <span class="item"><span class="glyph"></span>StudyHub</span>
+      <span class="item"><span class="glyph"></span>FoundationsDB</span>
+      <span class="item"><span class="glyph"></span>UniverseEd</span>
+      <span class="item"><span class="glyph"></span>BrightFutures</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DASHBOARD =================== -->
+<section class="section" id="dash">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">The Search Experience</div>
+        <h2>A search built for scholarships, not job listings.</h2>
+      </div>
+      <p>Every result is verified, deadline-aware, and matched to your profile. Filter by field, location, amount, or eligibility — without bouncing between ten browser tabs.</p>
+    </div>
+
+    <div class="dash-shell">
+      <div class="dash">
+        <aside class="dash-side">
+          <div class="group">
+            <div class="group-label">Discover</div>
+            <div class="nav-item on"><span class="ico"></span>Search<span class="badge">512</span></div>
+            <div class="nav-item"><span class="ico"></span>Recommended<span class="badge">38</span></div>
+            <div class="nav-item"><span class="ico"></span>New this week<span class="badge">17</span></div>
+          </div>
+          <div class="group">
+            <div class="group-label">My applications</div>
+            <div class="nav-item"><span class="ico"></span>Saved<span class="badge">12</span></div>
+            <div class="nav-item"><span class="ico"></span>In progress<span class="badge">4</span></div>
+            <div class="nav-item"><span class="ico"></span>Submitted<span class="badge">2</span></div>
+          </div>
+          <div class="group">
+            <div class="group-label">Profile</div>
+            <div class="nav-item"><span class="ico"></span>Eligibility</div>
+            <div class="nav-item"><span class="ico"></span>Documents</div>
+          </div>
+        </aside>
+        <div class="dash-main">
+          <div class="dash-h">
+            <div>
+              <h3>Scholarship search</h3>
+              <div class="sub">512 results · sorted by relevance</div>
+            </div>
+            <div class="fchip solid">Sort: Best match <span class="caret"></span></div>
+          </div>
+          <div class="search-big">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--muted)"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input value="data science" />
+            <span class="kbd">⌘ K</span>
+          </div>
+          <div class="filter-bar">
+            <span class="fchip">Field <span class="v">CS, Data</span><span class="caret"></span></span>
+            <span class="fchip">Location <span class="v">USA, Remote</span><span class="caret"></span></span>
+            <span class="fchip">Deadline <span class="v">&lt; 90 days</span><span class="caret"></span></span>
+            <span class="fchip">Amount <span class="v">$5k+</span><span class="caret"></span></span>
+            <span class="fchip">Eligibility <span class="v">Undergrad</span><span class="caret"></span></span>
+          </div>
+
+          <div class="grid-3">
+            <article class="card">
+              <div class="card-top">
+                <div class="card-mark m-purple">FA</div>
+                <span class="verif"><span class="vd"></span>Verified</span>
+              </div>
+              <h4>Future Architects Data Grant</h4>
+              <div class="sponsor">Carnegie Foundation</div>
+              <div class="card-meta">
+                <div><div class="lbl">Amount</div><div class="val">$15,000</div></div>
+                <div><div class="lbl">Eligibility</div><div class="val">Undergrad</div></div>
+              </div>
+              <div class="card-foot">
+                <span class="deadline urgent"><span class="pulse"></span>12 days left</span>
+                <a href="account.html" class="view-btn">View Details →</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="card-mark m-yellow">SH</div>
+                <span class="verif"><span class="vd"></span>Verified</span>
+              </div>
+              <h4>STEM Horizons Award</h4>
+              <div class="sponsor">Horizons Education Trust</div>
+              <div class="card-meta">
+                <div><div class="lbl">Amount</div><div class="val">$22,500</div></div>
+                <div><div class="lbl">Eligibility</div><div class="val">Grad / Intl.</div></div>
+              </div>
+              <div class="card-foot">
+                <span class="deadline">31 days left</span>
+                <a href="account.html" class="view-btn">View Details →</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="card-mark m-pink">RC</div>
+                <span class="verif"><span class="vd"></span>Verified</span>
+              </div>
+              <h4>Rising Coders Foundation</h4>
+              <div class="sponsor">Tech4All Network</div>
+              <div class="card-meta">
+                <div><div class="lbl">Amount</div><div class="val">$8,000</div></div>
+                <div><div class="lbl">Eligibility</div><div class="val">Undergrad</div></div>
+              </div>
+              <div class="card-foot">
+                <span class="deadline">48 days left</span>
+                <a href="account.html" class="view-btn">View Details →</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="card-mark m-orange">FF</div>
+                <span class="verif"><span class="vd"></span>Verified</span>
+              </div>
+              <h4>First-Gen Futures Fund</h4>
+              <div class="sponsor">Bridges Network</div>
+              <div class="card-meta">
+                <div><div class="lbl">Amount</div><div class="val">$12,500</div></div>
+                <div><div class="lbl">Eligibility</div><div class="val">First-gen</div></div>
+              </div>
+              <div class="card-foot">
+                <span class="deadline">26 days left</span>
+                <a href="account.html" class="view-btn">View Details →</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="card-mark m-mint">WT</div>
+                <span class="verif"><span class="vd"></span>Verified</span>
+              </div>
+              <h4>Women in Tech Scholarship</h4>
+              <div class="sponsor">SheBuilds Initiative</div>
+              <div class="card-meta">
+                <div><div class="lbl">Amount</div><div class="val">$10,000</div></div>
+                <div><div class="lbl">Eligibility</div><div class="val">Undergrad</div></div>
+              </div>
+              <div class="card-foot">
+                <span class="deadline">62 days left</span>
+                <a href="account.html" class="view-btn">View Details →</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="card-mark m-soft">CR</div>
+                <span class="verif"><span class="vd"></span>Verified</span>
+              </div>
+              <h4>Climate Researchers Grant</h4>
+              <div class="sponsor">Earth Science Council</div>
+              <div class="card-meta">
+                <div><div class="lbl">Amount</div><div class="val">$18,000</div></div>
+                <div><div class="lbl">Eligibility</div><div class="val">Grad</div></div>
+              </div>
+              <div class="card-foot">
+                <span class="deadline">74 days left</span>
+                <a href="account.html" class="view-btn">View Details →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TRACKING =================== -->
+<section class="section section-tight" style="background:var(--off); border-radius: 36px; margin: 0 24px;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Tracking</div>
+        <h2>Track every scholarship in one place.</h2>
+      </div>
+      <p>Deadlines, statuses, saved opportunities, and matches — your entire scholarship pipeline in a single, calm view. No more sticky notes or buried tabs.</p>
+    </div>
+
+    <div class="track-grid">
+      <div class="panel">
+        <div class="panel-h">
+          <div>
+            <h4>Upcoming deadlines</h4>
+            <div class="sub">Next 30 days · 4 active</div>
+          </div>
+          <span class="tl-tag">Calendar synced</span>
+        </div>
+        <div class="timeline">
+          <div class="tl-row next">
+            <div class="tl-date"><div class="d">14</div><div class="m">Mar</div></div>
+            <div>
+              <div class="tl-name">Future Architects Grant</div>
+              <div class="tl-meta">Essay · 1 of 2 documents uploaded</div>
+            </div>
+            <div class="tl-amt">$15,000</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-date"><div class="d">28</div><div class="m">Mar</div></div>
+            <div>
+              <div class="tl-name">First-Gen Futures Fund</div>
+              <div class="tl-meta">Application started · 40% complete</div>
+            </div>
+            <div class="tl-amt">$12,500</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-date"><div class="d">02</div><div class="m">Apr</div></div>
+            <div>
+              <div class="tl-name">STEM Horizons Award</div>
+              <div class="tl-meta">Saved · ready to start</div>
+            </div>
+            <div class="tl-amt">$22,500</div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-date"><div class="d">19</div><div class="m">Apr</div></div>
+            <div>
+              <div class="tl-name">Rising Coders Foundation</div>
+              <div class="tl-meta">Letters of rec · pending</div>
+            </div>
+            <div class="tl-amt">$8,000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">
+          <div>
+            <h4>Application status</h4>
+            <div class="sub">Across 18 saved scholarships</div>
+          </div>
+        </div>
+        <div class="donut" style="--pct: 64"><span>64<small>%</small></span></div>
+        <div class="legend">
+          <div class="lr"><span class="l"><span class="dt" style="background:var(--purple-700)"></span>In progress</span><b>7</b></div>
+          <div class="lr"><span class="l"><span class="dt" style="background:var(--orange)"></span>Drafting</span><b>4</b></div>
+          <div class="lr"><span class="l"><span class="dt" style="background:var(--yellow)"></span>Saved</span><b>5</b></div>
+          <div class="lr"><span class="l"><span class="dt" style="background:#2cb673"></span>Submitted</span><b>2</b></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">
+          <div>
+            <h4>Recommended for you</h4>
+            <div class="sub">Based on your profile</div>
+          </div>
+        </div>
+        <div class="matches">
+          <div class="match">
+            <div class="card-mark m-purple" style="width:36px;height:36px;border-radius:10px;font-size:13px">DI</div>
+            <div>
+              <div class="match-name">DataIQ Undergraduate Award</div>
+              <div class="match-meta">$9,500 · Apr 30</div>
+            </div>
+            <div class="match-score">96%</div>
+          </div>
+          <div class="match">
+            <div class="card-mark m-pink" style="width:36px;height:36px;border-radius:10px;font-size:13px">CW</div>
+            <div>
+              <div class="match-name">Code &amp; Write Grant</div>
+              <div class="match-meta">$6,000 · May 12</div>
+            </div>
+            <div class="match-score">91%</div>
+          </div>
+          <div class="match">
+            <div class="card-mark m-yellow" style="width:36px;height:36px;border-radius:10px;font-size:13px">ML</div>
+            <div>
+              <div class="match-name">Machine Learners Fund</div>
+              <div class="match-meta">$11,000 · May 03</div>
+            </div>
+            <div class="match-score">88%</div>
+          </div>
+          <div class="match">
+            <div class="card-mark m-orange" style="width:36px;height:36px;border-radius:10px;font-size:13px">SR</div>
+            <div>
+              <div class="match-name">Student Researchers Prize</div>
+              <div class="match-meta">$7,500 · Jun 01</div>
+            </div>
+            <div class="match-score">82%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SOURCES =================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Sources</div>
+        <h2>Scholarships from many places, organized for you.</h2>
+      </div>
+      <p>We pull from universities, foundations, public databases, and private sponsors — then verify, deduplicate, and rank them so you only see opportunities that actually fit.</p>
+    </div>
+
+    <div class="sources-stage">
+      <div class="source-ring outer"></div>
+      <div class="source-ring"></div>
+
+      <div class="src s1">
+        <div class="ico m-purple">U</div>
+        <div><b>Universities</b><span>184 partners</span></div>
+      </div>
+      <div class="src s2">
+        <div class="ico m-yellow">F</div>
+        <div><b>Foundations</b><span>62 endowments</span></div>
+      </div>
+      <div class="src s3">
+        <div class="ico m-pink">O</div>
+        <div><b>Student orgs</b><span>211 chapters</span></div>
+      </div>
+      <div class="src s4">
+        <div class="ico m-orange">G</div>
+        <div><b>Public grants</b><span>9 federal sources</span></div>
+      </div>
+      <div class="src s5">
+        <div class="ico m-mint">P</div>
+        <div><b>Private sponsors</b><span>140+ programs</span></div>
+      </div>
+      <div class="src s6">
+        <div class="ico m-soft">N</div>
+        <div><b>Nonprofits</b><span>78 organizations</span></div>
+      </div>
+
+      <div class="source-center">
+        <div>
+          <div class="label">Aggregated</div>
+          <div class="num">684</div>
+          <div class="lbl2">live sources</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== HOW IT WORKS =================== -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">How it works</div>
+        <h2>From discovery to applied — in three steps.</h2>
+      </div>
+      <p>iMotive replaces the search-bookmark-forget loop with a clean three-step rhythm. Most students find their first match in under 10 minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step s-orange">
+        <div>
+          <div class="num">01 / Search</div>
+          <h3>Browse verified sources.</h3>
+          <p>Pull from 600+ universities, foundations, and public databases — all in one search bar.</p>
+        </div>
+        <div class="step-vis"><div class="vs-doc"><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="step s-pink">
+        <div>
+          <div class="num">02 / Filter</div>
+          <h3>Match your profile.</h3>
+          <p>Filter by field of study, eligibility, deadline, and amount — see only what's relevant.</p>
+        </div>
+        <div class="step-vis"><div class="vs-coin"></div><div class="vs-cube"></div></div>
+      </div>
+      <div class="step s-purple">
+        <div>
+          <div class="num">03 / Apply</div>
+          <h3>Save &amp; apply on time.</h3>
+          <p>Track deadlines, store documents, and submit before the closing date — every time.</p>
+        </div>
+        <div class="step-vis"><div class="vs-cap-top"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== STATS =================== -->
+<section class="section" id="stats">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stats-head">
+        <div class="eyebrow">By the numbers</div>
+        <h2>The fastest way students find funding.</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="n">+500</div><div class="l">Verified scholarships listed and growing weekly</div></div>
+        <div class="stat"><div class="n">8×</div><div class="l">Faster than searching across multiple websites</div></div>
+        <div class="stat"><div class="n">+40h</div><div class="l">Saved per student over a single application cycle</div></div>
+        <div class="stat"><div class="n">6×</div><div class="l">More organized application process, end-to-end</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TESTIMONIALS =================== -->
+<section class="section section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Students</div>
+        <h2>Real students. Real funding.</h2>
+      </div>
+      <p>From first-gen undergrads to grad researchers — students use iMotive to stop guessing what's out there and start applying.</p>
+    </div>
+    <div class="quote-grid">
+      <div class="quote">
+        <p>"I didn't know half of these scholarships existed. I found three matches in my first session and applied to two of them that weekend."</p>
+        <div class="quoter">
+          <div class="avatar a-pink">MR</div>
+          <div><b>Maya R.</b><span>CS Undergrad · Year 3</span></div>
+        </div>
+      </div>
+      <div class="quote dark">
+        <p>"This made scholarship searching feel manageable for the first time. Deadlines, documents, status — all in one place."</p>
+        <div class="quoter">
+          <div class="avatar a-yellow">JT</div>
+          <div><b>Jordan T.</b><span>Public Health · Grad</span></div>
+        </div>
+      </div>
+      <div class="quote bright">
+        <p>"I saved all my deadlines in one place and stopped missing them. Won my first $5k grant in week 2."</p>
+        <div class="quoter">
+          <div class="avatar a-purple">AK</div>
+          <div><b>Aisha K.</b><span>Engineering · Year 2</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FAQ =================== -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div>
+        <div class="eyebrow">FAQ</div>
+        <h2>Questions, answered.</h2>
+        <p style="color:var(--muted); font-size:15px; margin-top: 18px; max-width: 36ch;">Still curious? Reach out at hello@imotive.app — we usually reply within a few hours.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q">Is the platform free? <span class="pls"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — iMotive is free for students. We never charge to search, save, or track scholarships. Premium tools (essay review, advisor calls) are optional and clearly labeled.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Are the scholarships verified? <span class="pls"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Every listing is cross-checked against its official source weekly. Listings that go stale, change deadlines, or look suspicious are flagged and removed automatically.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do I need an account? <span class="pls"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">You can browse without signing up. To save scholarships, track deadlines, or get personalized matches, you'll create a free account in under a minute.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I save scholarships? <span class="pls"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — save unlimited scholarships, organize them into lists, and get reminders before each deadline. Everything syncs to your calendar if you want it to.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Which students is this for? <span class="pls"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Undergrad and grad students aged 18–30, in the US and increasingly internationally. We serve first-gen, returning, and traditional students alike.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FINAL CTA =================== -->
+<section class="section" id="cta">
+  <div class="wrap">
+    <div class="final">
+      <div class="final-deco-l"></div>
+      <div class="final-deco-r"></div>
+      <h2>Start finding scholarships today.</h2>
+      <p>Create a free account and discover funding opportunities that match your field, your eligibility, and your timeline.</p>
+      <a href="signup.html" class="btn btn-purple btn-lg">Sign Up Free →</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a href="index.html" class="logo"><span class="logo-mark"></span> iMotive</a>
+        <p>The scholarship discovery platform built for students who'd rather apply than search.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="account.html">Scholarships</a>
+        <a href="#how">How it works</a>
+        <a href="signup.html">Sign Up Free</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 iMotive Education Inc.</span>
+      <span>Made for students, in San Francisco.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
