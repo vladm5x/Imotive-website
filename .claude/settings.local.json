@@ -4,7 +4,10 @@
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mures\\\\Documents\\\\GitHub\\\\Imotive-website\")",
       "Bash(Select-Object Name, PSIsContainer)",
       "Bash(node *)",
-      "Bash(Select-Object Name)"
+      "Bash(Select-Object Name)",
+      "PowerShell(Set-Content *)",
+      "WebFetch(domain:imotive.se)",
+      "Bash(curl *)"
     ]
   }
 }

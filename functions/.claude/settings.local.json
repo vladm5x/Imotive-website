@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(ls package.json)",
+      "Bash(ls functions/package.json)",
+      "PowerShell(Get-Content \"C:\\\\Users\\\\mures\\\\Documents\\\\GitHub\\\\Imotive-website\\\\.env\" | Where-Object { $_ -match \"SUPABASE\" })"
     ]
   }
 }

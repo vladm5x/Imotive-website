@@ -1,7 +1,6 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-  <base href="/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iMotive | Find scholarships that match you</title>
@@ -51,20 +50,19 @@
   <!-- Nav -->
   <header style="border-bottom: 1px solid #E6EAF2; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 100;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between;">
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="saas-landing.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
         <div style="width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255));"></div>
         <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.4px;">iMotive</div>
-      </div>
+      </a>
       <nav id="saas-nav" style="display: flex; gap: 28px; font-size: 14px; color: #0B1220;">
-        <a href="#scholarships">Scholarships</a>
+        <a href="saas-browse.html">Browse</a>
+        <a href="saas-forum.html">Community</a>
         <a href="#how-it-works">How it works</a>
         <a href="contact.html">For schools</a>
-        <a href="about.html">About</a>
-        <a href="homepage-layouts/saas-forum.html">Community</a>
       </nav>
       <div style="display: flex; gap: 12px; font-size: 14px; align-items: center;">
-        <a href="/signup.html?layout=saas-landing&mode=login" style="color: #5C6479;" id="nav-login">Sign in</a>
-        <a href="/signup.html?layout=saas-landing" style="background: #0B1220; color: #fff; padding: 9px 16px; border-radius: 8px; font-weight: 500;" id="nav-signup">Get started</a>
+        <a href="saas-signup.html" style="color: #5C6479;" id="nav-login">Sign in</a>
+        <a href="saas-signup.html" style="background: #0B1220; color: #fff; padding: 9px 16px; border-radius: 8px; font-weight: 500;" id="nav-signup">Get started</a>
       </div>
     </div>
   </header>
@@ -87,7 +85,7 @@
 
       <!-- Search -->
       <div style="margin-top: 44px; max-width: 720px; margin-inline: auto;">
-        <form data-signup-form style="display: flex; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 6px; box-shadow: 0 12px 32px -16px rgba(11, 18, 32, 0.18), 0 2px 6px rgba(11, 18, 32, 0.04); align-items: center;">
+        <form data-signup-form action="saas-signup.html" style="display: flex; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 6px; box-shadow: 0 12px 32px -16px rgba(11, 18, 32, 0.18), 0 2px 6px rgba(11, 18, 32, 0.04); align-items: center;">
           <div style="padding: 0 14px; color: #5C6479; font-size: 18px;">&#8981;</div>
           <input placeholder="Search by field, school, or keyword&hellip;" style="flex: 1; border: none; outline: none; font-size: 16px; padding: 14px 0; background: transparent;">
           <button type="submit" style="background: #0B1220; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; cursor: pointer;">Get started free</button>
@@ -218,10 +216,10 @@
           <div style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500; margin-bottom: 12px;">Live opportunities</div>
           <h2 style="font-size: 40px; letter-spacing: -1.2px; font-weight: 600; margin: 0;">Closing this season</h2>
         </div>
-        <a href="/signup.html?layout=saas-landing" style="font-size: 14px; color: #0B1220; font-weight: 500;">View all 2,400+ &rarr;</a>
+        <a href="saas-signup.html" style="font-size: 14px; color: #0B1220; font-weight: 500;">View all 2,400+ &rarr;</a>
       </div>
       <div id="saas-schol-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
-        <a href="/signup.html?layout=saas-landing" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+        <a href="saas-signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
             <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">96% match</span>
             <span style="font-size: 12px; color: #5C6479;">Closes Mar 14</span>
@@ -233,7 +231,7 @@
             <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
           </div>
         </a>
-        <a href="/signup.html?layout=saas-landing" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+        <a href="saas-signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
             <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">88% match</span>
             <span style="font-size: 12px; color: #5C6479;">Closes Apr 02</span>
@@ -245,7 +243,7 @@
             <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
           </div>
         </a>
-        <a href="/signup.html?layout=saas-landing" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+        <a href="saas-signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
             <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">92% match</span>
             <span style="font-size: 12px; color: #5C6479;">Closes May 20</span>
@@ -257,7 +255,7 @@
             <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
           </div>
         </a>
-        <a href="/signup.html?layout=saas-landing" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+        <a href="saas-signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
             <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">84% match</span>
             <span style="font-size: 12px; color: #5C6479;">Closes Jun 11</span>
@@ -313,8 +311,8 @@
             Join 5,000+ students using iMotive to fund their education.
           </p>
           <div id="saas-cta-btns" style="margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a href="/signup.html?layout=saas-landing" style="background: #fff; color: #0B1220; padding: 14px 24px; border-radius: 10px; font-weight: 600; font-size: 15px;">Get started free</a>
-            <a href="/signup.html?layout=saas-landing" style="border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 14px 24px; border-radius: 10px; font-size: 15px;">Browse instead</a>
+            <a href="saas-signup.html" style="background: #fff; color: #0B1220; padding: 14px 24px; border-radius: 10px; font-weight: 600; font-size: 15px;">Get started free</a>
+            <a href="saas-signup.html" style="border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 14px 24px; border-radius: 10px; font-size: 15px;">Browse instead</a>
           </div>
         </div>
       </div>
@@ -334,8 +332,8 @@
         </div>
         <div>
           <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Product</div>
-          <a href="/signup.html?layout=saas-landing" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Search</a>
-          <a href="/signup.html?layout=saas-landing" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Matching</a>
+          <a href="saas-signup.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Search</a>
+          <a href="saas-signup.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Matching</a>
           <a href="results.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">My results</a>
         </div>
         <div>
@@ -347,7 +345,7 @@
         <div>
           <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Resources</div>
           <a href="#how-it-works" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">How it works</a>
-          <a href="/signup.html?layout=saas-landing" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Browse all</a>
+          <a href="saas-signup.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Browse all</a>
         </div>
         <div>
           <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Legal</div>

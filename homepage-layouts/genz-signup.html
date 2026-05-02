@@ -155,11 +155,16 @@
 <body>
 
 <header class="topbar">
-  <a href="../index.html" class="logo">
+  <a href="genz-landing.html" class="logo">
     <div class="logo-mark">i</div>
     <span class="logo-text">iMotive</span>
   </a>
-  <a href="genz-forum.html" class="topbar-link">Community forum →</a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="genz-browse.html" class="topbar-link">Browse</a>
+    <a href="genz-forum.html" class="topbar-link">Community</a>
+    <a href="genz-account.html" class="topbar-link">Dashboard</a>
+    <a href="genz-profile.html" class="topbar-link">Profile</a>
+  </div>
 </header>
 
 <div class="main">
@@ -221,7 +226,7 @@
           <a href="#" class="forgot">Forgot?</a>
         </div>
 
-        <button type="submit" class="submit-btn" id="submit-btn">Sign In →</button>
+        <button type="submit" class="submit-btn" id="submit-btn" onclick="if(document.getElementById('tab-signup').classList.contains('active')){window.location='genz-profile.html';}">Sign In →</button>
 
         <p class="terms">
           By continuing you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.

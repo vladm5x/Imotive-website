@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Set Up Your Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1F3A;
+    --cream: #FAFAF7;
+    --blue: #3B82F6;
+    --yellow: #FACC15;
+    --muted: #5A6E8A;
+    --border: #C8D5E8;
+    --white: #FFFFFF;
+  }
+  html, body { min-height: 100vh; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--navy); }
+
+  /* ── HEADER ── */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px; border-bottom: 1.5px solid var(--border);
+    background: var(--white);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); }
+  .brand-mark {
+    width: 36px; height: 36px; background: var(--navy); border-radius: 8px;
+    display: grid; place-items: center;
+  }
+  .brand-mark::after {
+    content: 'i'; color: var(--yellow);
+    font-family: 'Architects Daughter', cursive; font-size: 18px;
+  }
+  .brand-name { font-family: 'Architects Daughter', cursive; font-size: 20px; letter-spacing: -0.3px; }
+  .header-right { display: flex; align-items: center; gap: 6px; }
+  .header-link {
+    font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .header-link:hover { color: var(--navy); }
+  .header-link-accent { color: var(--blue); font-weight: 500; }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 600px; margin: 0 auto;
+    padding: 52px 24px 80px;
+  }
+
+  /* ── PILL STEPPER ── */
+  .stepper {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 40px;
+  }
+  .step-pill {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 9px 12px; border: 1.5px dashed var(--border);
+    background: var(--cream);
+    font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+    color: var(--muted); border-radius: 100px;
+    transition: all 0.2s; cursor: default; position: relative;
+    z-index: 1;
+  }
+  .step-pill.active {
+    background: var(--navy); color: var(--white);
+    border-color: var(--navy); border-style: solid;
+  }
+  .step-pill.done {
+    background: var(--yellow); color: var(--navy);
+    border-color: var(--yellow); border-style: solid;
+  }
+  .step-connector {
+    width: 24px; height: 1.5px;
+    background: var(--border); flex-shrink: 0;
+    z-index: 0;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 40px;
+  }
+
+  /* Step panels */
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+
+  /* Step header text */
+  .step-kicker {
+    font-family: 'Caveat', cursive; font-size: 18px; color: var(--blue);
+    margin-bottom: 6px; display: block;
+  }
+  .step-title {
+    font-family: 'Architects Daughter', cursive; font-size: 28px;
+    color: var(--navy); letter-spacing: -0.5px; margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .step-desc {
+    font-size: 14px; color: var(--muted); line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  /* ── FIELDS ── */
+  .field-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--navy); margin-bottom: 7px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--cream);
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    color: var(--navy); outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    appearance: none; -webkit-appearance: none;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: #9BACC0; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--blue); background: var(--white);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6E8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 13px center;
+    padding-right: 36px; cursor: pointer;
+    background-color: var(--cream);
+  }
+  .field select:focus { background-color: var(--white); }
+  .field textarea { resize: vertical; min-height: 100px; }
+
+  .field-row-2 .field { margin-bottom: 0; }
+  .optional-tag {
+    font-family: 'Caveat', cursive; font-size: 14px; color: var(--muted);
+    font-weight: 500; margin-left: 4px;
+  }
+
+  /* ── ACTIONS ── */
+  .action-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 28px; padding-top: 24px;
+    border-top: 1.5px solid var(--border);
+    position: relative;
+  }
+  .btn-next {
+    flex: 1; padding: 13px 20px;
+    background: var(--navy); color: var(--white);
+    border: none; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+  }
+  .btn-next:hover { background: #0E2A50; transform: translateY(-1px); }
+  .btn-back {
+    padding: 13px 20px;
+    background: transparent; color: var(--muted);
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-submit {
+    flex: 1; padding: 13px 20px;
+    background: var(--navy); color: var(--yellow);
+    border: none; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+  }
+  .btn-submit:hover { background: #0E2A50; transform: translateY(-1px); }
+
+  /* Hand note near submit */
+  .hand-note {
+    font-family: 'Caveat', cursive; font-size: 16px; color: var(--muted);
+    position: absolute; right: 0; top: -30px;
+    white-space: nowrap;
+    transform: rotate(-2deg);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 14px 20px; }
+    main { padding: 36px 16px 60px; }
+    .card { padding: 24px 18px; }
+    .field-row-2 { grid-template-columns: 1fr; gap: 0; }
+    .field-row-2 .field { margin-bottom: 20px; }
+    .step-title { font-size: 23px; }
+    .hand-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="original.html" class="brand">
+    <div class="brand-mark"></div>
+    <span class="brand-name">iMotive</span>
+  </a>
+  <div class="header-right">
+    <a href="original-browse.html" class="header-link">Browse</a>
+    <a href="original-forum.html" class="header-link">Community</a>
+    <span class="header-link">Already have an account?</span>
+    <a href="original-signup.html" class="header-link header-link-accent">Sign in</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- STEPPER -->
+  <div class="stepper" id="stepper">
+    <div class="step-pill active" id="pill-1">step 1 ✦</div>
+    <div class="step-connector" id="connector-1"></div>
+    <div class="step-pill" id="pill-2">step 2 ✦</div>
+    <div class="step-connector" id="connector-2"></div>
+    <div class="step-pill" id="pill-3">step 3 ✦</div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card">
+    <form onsubmit="window.location.href='original-browse.html'; return false;">
+
+      <!-- STEP 1: About You -->
+      <div class="form-step active" id="step-1">
+        <span class="step-kicker">hi there ✦</span>
+        <h1 class="step-title">Tell us about yourself</h1>
+        <p class="step-desc">We'll use this to build a personalised scholarship ranking — takes about 2 minutes.</p>
+
+        <div class="field-row-2">
+          <div class="field">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" placeholder="Alex" autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" placeholder="Johnson" autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@university.edu" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="nationality">Nationality Status</label>
+          <select id="nationality">
+            <option value="" disabled selected>Select your status</option>
+            <option value="international">International non-EU</option>
+            <option value="eu">EU / EEA</option>
+            <option value="swedish">Swedish</option>
+            <option value="any">Any nationality</option>
+          </select>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-next" onclick="goStep(2)">Next — Your Studies →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Your Studies -->
+      <div class="form-step" id="step-2">
+        <span class="step-kicker">your studies →</span>
+        <h1 class="step-title">Where are you studying?</h1>
+        <p class="step-desc">Academic details help us filter out scholarships that aren't relevant to you.</p>
+
+        <div class="field">
+          <label for="university">University</label>
+          <select id="university">
+            <option value="" disabled selected>Select your university</option>
+            <option value="lund">Lund University</option>
+            <option value="kth">KTH Royal Institute of Technology</option>
+            <option value="uppsala">Uppsala University</option>
+            <option value="chalmers">Chalmers University of Technology</option>
+            <option value="stockholm">Stockholm University</option>
+            <option value="gothenburg">University of Gothenburg</option>
+            <option value="other">Other Swedish university</option>
+          </select>
+        </div>
+
+        <div class="field-row-2">
+          <div class="field">
+            <label for="study-level">Study Level</label>
+            <select id="study-level">
+              <option value="" disabled selected>Select level</option>
+              <option value="bachelor">Bachelor</option>
+              <option value="master">Master</option>
+              <option value="phd">PhD</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="year-of-study">Year of Study</label>
+            <select id="year-of-study">
+              <option value="" disabled selected>Select year</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-of-study">Field of Study</label>
+          <select id="field-of-study">
+            <option value="" disabled selected>Select your field</option>
+            <option value="engineering">Engineering</option>
+            <option value="social">Social Sciences</option>
+            <option value="medicine">Medicine</option>
+            <option value="law">Law</option>
+            <option value="humanities">Humanities</option>
+            <option value="any">Any field</option>
+          </select>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-back" onclick="goStep(1)">← Back</button>
+          <button type="button" class="btn-next" onclick="goStep(3)">Next — Your Needs →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Your Needs -->
+      <div class="form-step" id="step-3">
+        <span class="step-kicker">almost done ✦</span>
+        <h1 class="step-title">What do you need?</h1>
+        <p class="step-desc">Tell us what matters most and we'll put the best-fit scholarships at the top.</p>
+
+        <div class="field-row-2">
+          <div class="field">
+            <label for="funding-need">Funding Need</label>
+            <select id="funding-need">
+              <option value="" disabled selected>Select level</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="main-interest">Main Interest</label>
+            <select id="main-interest">
+              <option value="" disabled selected>Select interest</option>
+              <option value="sustainability">Sustainability</option>
+              <option value="research">Research</option>
+              <option value="leadership">Leadership</option>
+              <option value="travel">Travel</option>
+              <option value="any">Any interest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tuition-support">Need Tuition Support?</label>
+          <select id="tuition-support">
+            <option value="" disabled selected>Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="extra-notes">Extra Notes <span class="optional-tag">(optional)</span></label>
+          <textarea id="extra-notes" placeholder="Anything specific? Research interests, locations, award types…"></textarea>
+        </div>
+
+        <div class="action-row">
+          <span class="hand-note">takes ~2 minutes :)</span>
+          <button type="button" class="btn-back" onclick="goStep(2)">← Back</button>
+          <button type="submit" class="btn-submit">Build my ranking →</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</main>
+
+<script>
+  var currentStep = 1;
+
+  function goStep(n) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    document.getElementById('step-' + n).classList.add('active');
+
+    // Update pills
+    for (var i = 1; i <= 3; i++) {
+      var pill = document.getElementById('pill-' + i);
+      pill.classList.remove('active', 'done');
+      if (i < n) {
+        pill.classList.add('done');
+      } else if (i === n) {
+        pill.classList.add('active');
+      }
+    }
+
+    currentStep = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

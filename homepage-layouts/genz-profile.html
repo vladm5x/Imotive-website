@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Build Your Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0F0F14;
+    --purple: #7C3AED;
+    --purple-dark: #5b21b6;
+    --yellow: #FACC15;
+    --bg: #F5F3FF;
+    --white: #FFFFFF;
+    --muted: #6B6880;
+    --border: #E0D9F7;
+  }
+  html, body { min-height: 100vh; }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    background: var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .logo-mark {
+    width: 40px; height: 40px;
+    background: var(--yellow);
+    border: 2px solid var(--ink);
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 18px; color: var(--ink);
+    box-shadow: 3px 3px 0 rgba(255,255,255,0.2);
+  }
+  .logo-text {
+    font-size: 19px; font-weight: 700; letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .topbar-right { display: flex; align-items: center; gap: 20px; }
+  .topbar-link {
+    font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .topbar-link:hover { color: var(--white); }
+  .topbar-signin {
+    font-size: 13px; font-weight: 700;
+    color: var(--ink); background: var(--yellow);
+    border: 2px solid var(--ink); text-decoration: none;
+    padding: 7px 16px;
+    box-shadow: 3px 3px 0 rgba(255,255,255,0.15);
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: inline-block;
+  }
+  .topbar-signin:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 rgba(255,255,255,0.15); }
+
+  /* ── Page wrapper ── */
+  .page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 52px 20px 80px;
+  }
+
+  /* ── Step pills ── */
+  .step-pills {
+    display: flex; align-items: center;
+    margin-bottom: 36px;
+    gap: 0;
+  }
+  .pill {
+    flex: 1; text-align: center;
+    padding: 9px 8px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border: 2px solid var(--ink);
+    cursor: default;
+    transition: background 0.15s, color 0.15s;
+    position: relative;
+  }
+  .pill:not(:last-child) { margin-right: -2px; }
+  .pill.upcoming {
+    background: var(--white);
+    color: var(--ink);
+  }
+  .pill.active {
+    background: var(--purple);
+    color: var(--white);
+    z-index: 2;
+  }
+  .pill.done {
+    background: var(--yellow);
+    color: var(--ink);
+    z-index: 1;
+  }
+  .pill.done::after {
+    content: ' ✓';
+  }
+
+  /* ── Form card ── */
+  .form-card {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    padding: 40px 40px 36px;
+  }
+
+  /* Step counter label */
+  .step-counter {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* Step headings */
+  .step-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .step-subtitle {
+    font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.5;
+  }
+
+  /* Fields */
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--ink); margin-bottom: 7px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%; padding: 12px 14px;
+    border: 2px solid var(--ink);
+    border-radius: 2px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+    color: var(--ink); background: var(--white); outline: none;
+    appearance: none; -webkit-appearance: none;
+    transition: box-shadow 0.12s, transform 0.12s;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230F0F14' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    box-shadow: 3px 3px 0 var(--ink);
+    transform: translate(-1px, -1px);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: #BDB8D0; }
+
+  /* Two-column grid */
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* Divider inside form */
+  .field-divider {
+    height: 2px; background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* Nav buttons */
+  .form-nav {
+    display: flex; gap: 12px; align-items: center; margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .btn-back {
+    padding: 12px 22px;
+    border: 2px solid var(--ink); background: transparent;
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.3px;
+    color: var(--ink); cursor: pointer;
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-back:hover { box-shadow: 2px 2px 0 var(--ink); transform: translate(-1px, -1px); }
+  .btn-next {
+    flex: 1;
+    padding: 13px 22px;
+    background: var(--yellow); color: var(--ink);
+    border: 2px solid var(--ink);
+    font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn-next:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+  .btn-next:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+
+  .btn-submit {
+    width: 100%; padding: 15px;
+    background: var(--purple); color: var(--white);
+    border: 2px solid var(--ink);
+    font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+    margin-top: 28px;
+  }
+  .btn-submit:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+  .btn-submit:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+
+  /* Step visibility */
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+
+  /* Footer note */
+  .foot-note {
+    text-align: center; font-size: 12px; color: var(--muted);
+    margin-top: 20px; line-height: 1.5;
+  }
+  .foot-note a { color: var(--purple); font-weight: 600; text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .topbar { padding: 14px 20px; }
+    .page { padding: 28px 12px 60px; }
+    .form-card { padding: 28px 20px 24px; }
+    .field-grid { grid-template-columns: 1fr; }
+    .step-title { font-size: 24px; }
+    .topbar-right .topbar-link { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Top bar ── -->
+<header class="topbar">
+  <a href="genz-landing.html" class="logo">
+    <div class="logo-mark">i</div>
+    <span class="logo-text">iMotive</span>
+  </a>
+  <div class="topbar-right">
+    <a href="genz-browse.html" class="topbar-link">Browse →</a>
+    <a href="genz-forum.html" class="topbar-link">Community →</a>
+    <a href="genz-signup.html" class="topbar-signin">Sign in</a>
+  </div>
+</header>
+
+<!-- ── Page ── -->
+<div class="page">
+
+  <!-- Step pills -->
+  <div class="step-pills" id="step-pills">
+    <div class="pill active" id="pill-1">Step 1</div>
+    <div class="pill upcoming" id="pill-2">Step 2</div>
+    <div class="pill upcoming" id="pill-3">Step 3</div>
+  </div>
+
+  <!-- Form card -->
+  <div class="form-card">
+    <form onsubmit="return false;" id="profile-form">
+
+      <!-- ── STEP 1: About You ── -->
+      <div class="form-step active" id="step-1">
+        <span class="step-counter">step 1 of 3</span>
+        <h1 class="step-title">who are you? 👀</h1>
+        <p class="step-subtitle">Start with the basics. We'll keep your info safe and never spam you.</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input type="text" id="first-name" placeholder="Alex" autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="last-name">Last name</label>
+            <input type="text" id="last-name" placeholder="Johnson" autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@university.edu" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="nationality">Nationality</label>
+          <select id="nationality">
+            <option value="" disabled selected>Pick your status</option>
+            <option value="non-eu">International non-EU</option>
+            <option value="eu">EU / EEA</option>
+            <option value="swedish">Swedish</option>
+            <option value="any">Any nationality</option>
+          </select>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn-next" onclick="goToStep(2)">Next up: Studies →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Your Studies ── -->
+      <div class="form-step" id="step-2">
+        <span class="step-counter">step 2 of 3</span>
+        <h1 class="step-title">your academic life 🎓</h1>
+        <p class="step-subtitle">Tell us where you study — we'll match scholarships specific to your institution and field.</p>
+
+        <div class="field">
+          <label for="university">University</label>
+          <select id="university">
+            <option value="" disabled selected>Where do you study?</option>
+            <option value="lund">Lund University</option>
+            <option value="kth">KTH Royal Institute of Technology</option>
+            <option value="uppsala">Uppsala University</option>
+            <option value="chalmers">Chalmers University of Technology</option>
+            <option value="stockholm">Stockholm University</option>
+            <option value="gothenburg">University of Gothenburg</option>
+            <option value="other">Other Swedish university</option>
+          </select>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="study-level">Study level</label>
+            <select id="study-level">
+              <option value="" disabled selected>Level?</option>
+              <option value="master">Master</option>
+              <option value="bachelor">Bachelor</option>
+              <option value="phd">PhD</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="year">Year of study</label>
+            <select id="year">
+              <option value="" disabled selected>Which year?</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field">Field of study</label>
+          <select id="field">
+            <option value="" disabled selected>What do you study?</option>
+            <option value="engineering">Engineering</option>
+            <option value="social">Social sciences</option>
+            <option value="medicine">Medicine</option>
+            <option value="law">Law</option>
+            <option value="humanities">Humanities</option>
+            <option value="any">Any field</option>
+          </select>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
+          <button type="button" class="btn-next" onclick="goToStep(3)">Almost there →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Your Needs ── -->
+      <div class="form-step" id="step-3">
+        <span class="step-counter">step 3 of 3</span>
+        <h1 class="step-title">what do you need? 💸</h1>
+        <p class="step-subtitle">Last step! This helps us sort the scholarships that actually matter to you to the top.</p>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="funding-need">Funding need</label>
+            <select id="funding-need">
+              <option value="" disabled selected>How urgent?</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="tuition-support">Need tuition support?</label>
+            <select id="tuition-support">
+              <option value="" disabled selected>Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="interest">Main interest</label>
+          <select id="interest">
+            <option value="" disabled selected>What lights you up?</option>
+            <option value="sustainability">Sustainability</option>
+            <option value="research">Research</option>
+            <option value="leadership">Leadership</option>
+            <option value="travel">Travel</option>
+            <option value="any">Any interest</option>
+          </select>
+        </div>
+
+        <div class="field-divider"></div>
+
+        <div class="field">
+          <label for="notes">Extra notes <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+          <textarea id="notes" placeholder="Anything else? Specific goals, constraints, side quests…"></textarea>
+        </div>
+
+        <div class="form-nav" style="display:block; margin-top:0;">
+          <button type="button" class="btn-back" onclick="goToStep(2)" style="display:inline-block; margin-bottom:4px;">← Back</button>
+          <button type="submit" class="btn-submit" onclick="window.location='genz-browse.html'">Build my ranking →</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <p class="foot-note">
+    Already have an account? <a href="genz-signup.html">Sign in here</a> &nbsp;·&nbsp;
+    <a href="../terms.html">Terms</a> &nbsp;·&nbsp; <a href="../privacy.html">Privacy</a>
+  </p>
+
+</div><!-- /.page -->
+
+<script>
+  var currentStep = 1;
+  var totalSteps = 3;
+
+  function goToStep(n) {
+    // Hide current step form
+    document.getElementById('step-' + currentStep).classList.remove('active');
+
+    currentStep = n;
+
+    // Show new step form
+    document.getElementById('step-' + currentStep).classList.add('active');
+
+    // Update pills
+    for (var i = 1; i <= totalSteps; i++) {
+      var pill = document.getElementById('pill-' + i);
+      pill.className = 'pill';
+      if (i < currentStep) pill.classList.add('done');
+      else if (i === currentStep) pill.classList.add('active');
+      else pill.classList.add('upcoming');
+    }
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

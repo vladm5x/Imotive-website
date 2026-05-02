@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Set Up Your Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0B1220;
+    --blue: #4A80E8;
+    --blue-dark: #2d5fc4;
+    --light: #E6EAF2;
+    --white: #FFFFFF;
+    --muted: #6B7A99;
+    --border: #D0D8EC;
+  }
+  html, body { height: 100%; }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--light); color: var(--ink); }
+
+  /* ── Layout ── */
+  .layout { display: grid; grid-template-columns: 340px 1fr; min-height: 100vh; }
+
+  /* ── Left panel ── */
+  .panel-left {
+    background: var(--ink);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .panel-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; margin-bottom: 48px;
+  }
+  .panel-logo-mark {
+    width: 34px; height: 34px; background: var(--blue);
+    border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .panel-logo-mark span { color: #fff; font-weight: 700; font-size: 15px; }
+  .panel-logo-text { color: #fff; font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+
+  /* Vertical stepper */
+  .stepper { display: flex; flex-direction: column; gap: 0; flex: 1; }
+  .step-item {
+    display: flex; gap: 16px; padding-bottom: 32px;
+    position: relative;
+  }
+  .step-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 32px;
+    bottom: 0;
+    width: 2px;
+    background: #1E2D4A;
+  }
+  .step-item.active .step-connector-line { background: var(--blue); }
+
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center; flex-shrink: 0;
+    font-size: 13px; font-weight: 700;
+    background: #1A2740; color: #4A5A7A;
+    border: 2px solid #1E2D4A;
+    transition: all 0.2s; z-index: 1;
+  }
+  .step-item.active .step-num {
+    background: var(--blue); color: #fff; border-color: var(--blue);
+  }
+  .step-item.done .step-num {
+    background: rgba(74,128,232,0.15); color: var(--blue); border-color: var(--blue);
+  }
+  .step-item.done .step-num::after { content: '✓'; font-size: 13px; }
+  .step-item.done .step-num-inner { display: none; }
+
+  .step-text { padding-top: 4px; }
+  .step-label {
+    font-size: 13px; font-weight: 600; color: #4A5A7A;
+    transition: color 0.2s;
+  }
+  .step-item.active .step-label { color: #fff; }
+  .step-item.done .step-label { color: var(--blue); }
+  .step-desc {
+    font-size: 12px; color: #36486A; margin-top: 3px; line-height: 1.4;
+  }
+  .step-item.active .step-desc { color: #8899BB; }
+
+  /* Unlock section */
+  .unlock-box {
+    margin-top: auto;
+    padding-top: 28px;
+    border-top: 1px solid #1E2D4A;
+  }
+  .unlock-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #4A5A7A; margin-bottom: 14px;
+  }
+  .unlock-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .unlock-check {
+    width: 16px; height: 16px; background: rgba(74,128,232,0.15);
+    border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .unlock-check svg { width: 9px; height: 9px; }
+  .unlock-item span { font-size: 12px; color: #7A8FAA; line-height: 1.4; }
+
+  /* ── Right panel ── */
+  .panel-right {
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Right panel top bar */
+  .right-topbar {
+    padding: 20px 52px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .right-topbar a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+  }
+  .right-topbar a span { color: var(--blue); font-weight: 500; }
+  .right-topbar a:hover span { text-decoration: underline; }
+
+  /* Form area */
+  .form-area {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 52px 52px 64px;
+  }
+  .form-wrap { max-width: 480px; width: 100%; }
+
+  /* Mobile progress (hidden on desktop) */
+  .mobile-progress { display: none; }
+
+  /* Step header */
+  .step-header { margin-bottom: 32px; }
+  .step-badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--blue);
+    background: rgba(74,128,232,0.1); padding: 4px 10px;
+    border-radius: 20px; margin-bottom: 12px;
+  }
+  .step-title {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.5px;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .step-subtitle { font-size: 14px; color: var(--muted); }
+
+  /* Form fields */
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--ink); margin-bottom: 7px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: 'Inter Tight', sans-serif; font-size: 14px;
+    color: var(--ink); background: #fff; outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none; -webkit-appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7A99' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .field textarea {
+    resize: vertical; min-height: 100px;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(74,128,232,0.12);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: #B0BAD0; }
+
+  /* Two-col grid */
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* Radio-style card group */
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px; border: 1px solid var(--border);
+    border-radius: 8px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .radio-card:hover { border-color: var(--blue); background: rgba(74,128,232,0.03); }
+  .radio-card input[type=radio] { accent-color: var(--blue); width: 15px; height: 15px; flex-shrink: 0; }
+  .radio-card-label { font-size: 14px; color: var(--ink); }
+
+  /* Navigation buttons */
+  .form-nav {
+    display: flex; gap: 12px; margin-top: 32px;
+    align-items: center;
+  }
+  .btn-back {
+    padding: 12px 24px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--muted);
+    font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-next {
+    padding: 12px 28px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 8px;
+    font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; letter-spacing: -0.1px;
+    transition: background 0.15s;
+  }
+  .btn-next:hover { background: var(--blue-dark); }
+  .btn-submit {
+    width: 100%; padding: 14px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 8px;
+    font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; letter-spacing: -0.2px;
+    transition: background 0.15s; margin-top: 32px;
+  }
+  .btn-submit:hover { background: var(--blue-dark); }
+
+  /* Step visibility */
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .panel-left { display: none; }
+    .panel-right { min-height: 100vh; }
+    .mobile-progress {
+      display: flex; gap: 8px; padding: 20px 24px 0;
+      align-items: center;
+    }
+    .mob-step {
+      flex: 1; height: 4px; border-radius: 2px;
+      background: var(--border);
+    }
+    .mob-step.active { background: var(--blue); }
+    .mob-step.done { background: var(--blue); opacity: 0.5; }
+    .form-area { padding: 28px 24px 48px; }
+    .right-topbar { padding: 16px 24px; }
+    .field-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── LEFT PANEL ── -->
+  <div class="panel-left">
+    <a href="saas-landing.html" class="panel-logo">
+      <div class="panel-logo-mark"><span>i</span></div>
+      <span class="panel-logo-text">iMotive</span>
+    </a>
+
+    <div class="stepper" id="stepper">
+      <div class="step-item active" id="sidebar-step-1">
+        <div class="step-num"><span class="step-num-inner">1</span></div>
+        <div class="step-text">
+          <div class="step-label">About You</div>
+          <div class="step-desc">Name, email &amp; nationality</div>
+        </div>
+      </div>
+      <div class="step-item" id="sidebar-step-2">
+        <div class="step-num"><span class="step-num-inner">2</span></div>
+        <div class="step-text">
+          <div class="step-label">Your Studies</div>
+          <div class="step-desc">University, level &amp; field</div>
+        </div>
+      </div>
+      <div class="step-item" id="sidebar-step-3">
+        <div class="step-num"><span class="step-num-inner">3</span></div>
+        <div class="step-text">
+          <div class="step-label">Your Needs</div>
+          <div class="step-desc">Funding goals &amp; interests</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unlock-box">
+      <div class="unlock-title">What you unlock</div>
+      <div class="unlock-item">
+        <div class="unlock-check">
+          <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 5l2 2 4-4" stroke="#4A80E8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>12k+ scholarships matched to your profile</span>
+      </div>
+      <div class="unlock-item">
+        <div class="unlock-check">
+          <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 5l2 2 4-4" stroke="#4A80E8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>Real deadlines updated daily</span>
+      </div>
+      <div class="unlock-item">
+        <div class="unlock-check">
+          <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 5l2 2 4-4" stroke="#4A80E8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>Application tracking &amp; reminders</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RIGHT PANEL ── -->
+  <div class="panel-right">
+
+    <div class="right-topbar">
+      <a href="saas-signup.html">Already have an account? <span>Sign in</span></a>
+    </div>
+
+    <!-- Mobile progress bar -->
+    <div class="mobile-progress">
+      <div class="mob-step active" id="mob-1"></div>
+      <div class="mob-step" id="mob-2"></div>
+      <div class="mob-step" id="mob-3"></div>
+    </div>
+
+    <div class="form-area">
+      <div class="form-wrap">
+        <form onsubmit="return false;" id="profile-form">
+
+          <!-- ── STEP 1: About You ── -->
+          <div class="form-step active" id="step-1">
+            <div class="step-header">
+              <div class="step-badge">Step 1 of 3</div>
+              <h1 class="step-title">About You</h1>
+              <p class="step-subtitle">Let's start with the basics — we'll use this to personalise your matches.</p>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="first-name">First name</label>
+                <input type="text" id="first-name" placeholder="Alex" autocomplete="given-name">
+              </div>
+              <div class="field">
+                <label for="last-name">Last name</label>
+                <input type="text" id="last-name" placeholder="Johnson" autocomplete="family-name">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" placeholder="you@university.edu" autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label for="nationality">Nationality</label>
+              <select id="nationality">
+                <option value="" disabled selected>Select your nationality status</option>
+                <option value="non-eu">International non-EU</option>
+                <option value="eu">EU / EEA</option>
+                <option value="swedish">Swedish</option>
+                <option value="any">Any nationality</option>
+              </select>
+            </div>
+
+            <div class="form-nav">
+              <button type="button" class="btn-next" onclick="goToStep(2)">Continue →</button>
+            </div>
+          </div>
+
+          <!-- ── STEP 2: Your Studies ── -->
+          <div class="form-step" id="step-2">
+            <div class="step-header">
+              <div class="step-badge">Step 2 of 3</div>
+              <h1 class="step-title">Your Studies</h1>
+              <p class="step-subtitle">Tell us about your academic background so we can find the right scholarships.</p>
+            </div>
+
+            <div class="field">
+              <label for="university">University</label>
+              <select id="university">
+                <option value="" disabled selected>Select your university</option>
+                <option value="lund">Lund University</option>
+                <option value="kth">KTH Royal Institute of Technology</option>
+                <option value="uppsala">Uppsala University</option>
+                <option value="chalmers">Chalmers University of Technology</option>
+                <option value="stockholm">Stockholm University</option>
+                <option value="gothenburg">University of Gothenburg</option>
+                <option value="other">Other Swedish university</option>
+              </select>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="study-level">Study level</label>
+                <select id="study-level">
+                  <option value="" disabled selected>Select level</option>
+                  <option value="master">Master</option>
+                  <option value="bachelor">Bachelor</option>
+                  <option value="phd">PhD</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="year">Year of study</label>
+                <select id="year">
+                  <option value="" disabled selected>Select year</option>
+                  <option value="1">Year 1</option>
+                  <option value="2">Year 2</option>
+                  <option value="3">Year 3</option>
+                  <option value="4">Year 4+</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="field">Field of study</label>
+              <select id="field">
+                <option value="" disabled selected>Select your field</option>
+                <option value="engineering">Engineering</option>
+                <option value="social">Social sciences</option>
+                <option value="medicine">Medicine</option>
+                <option value="law">Law</option>
+                <option value="humanities">Humanities</option>
+                <option value="any">Any field</option>
+              </select>
+            </div>
+
+            <div class="form-nav">
+              <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
+              <button type="button" class="btn-next" onclick="goToStep(3)">Continue →</button>
+            </div>
+          </div>
+
+          <!-- ── STEP 3: Your Needs ── -->
+          <div class="form-step" id="step-3">
+            <div class="step-header">
+              <div class="step-badge">Step 3 of 3</div>
+              <h1 class="step-title">Your Needs</h1>
+              <p class="step-subtitle">Almost there — help us understand what matters most to you.</p>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="funding-need">Funding need</label>
+                <select id="funding-need">
+                  <option value="" disabled selected>Select level</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="tuition-support">Need tuition support</label>
+                <select id="tuition-support">
+                  <option value="" disabled selected>Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="interest">Main interest</label>
+              <select id="interest">
+                <option value="" disabled selected>Select your main interest</option>
+                <option value="sustainability">Sustainability</option>
+                <option value="research">Research</option>
+                <option value="leadership">Leadership</option>
+                <option value="travel">Travel</option>
+                <option value="any">Any interest</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="notes">Extra notes <span style="font-weight:400; color:var(--muted)">(optional)</span></label>
+              <textarea id="notes" placeholder="Anything else we should know? Specific goals, constraints, or interests…"></textarea>
+            </div>
+
+            <div class="form-nav" style="display:block; margin-top:0;">
+              <button type="button" class="btn-back" onclick="goToStep(2)" style="margin-bottom:12px; display:inline-block;">← Back</button>
+              <button type="submit" class="btn-submit" onclick="window.location='saas-browse.html'">Build my ranking →</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.layout -->
+
+<script>
+  var currentStep = 1;
+  var totalSteps = 3;
+
+  function goToStep(n) {
+    // Hide current step
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    // Update sidebar
+    var prevSidebar = document.getElementById('sidebar-step-' + currentStep);
+    prevSidebar.classList.remove('active');
+    if (n > currentStep) {
+      prevSidebar.classList.add('done');
+      // Replace number with checkmark by hiding the inner span
+      var inner = prevSidebar.querySelector('.step-num-inner');
+      if (inner) inner.style.display = 'none';
+    } else {
+      // Going back — remove done from steps after target
+      for (var i = n; i <= totalSteps; i++) {
+        var s = document.getElementById('sidebar-step-' + i);
+        s.classList.remove('done');
+        var inner2 = s.querySelector('.step-num-inner');
+        if (inner2) inner2.style.display = '';
+      }
+    }
+
+    currentStep = n;
+
+    // Show new step
+    document.getElementById('step-' + currentStep).classList.add('active');
+    document.getElementById('sidebar-step-' + currentStep).classList.add('active');
+
+    // Update mobile pills
+    for (var j = 1; j <= totalSteps; j++) {
+      var mob = document.getElementById('mob-' + j);
+      if (!mob) continue;
+      mob.className = 'mob-step';
+      if (j < currentStep) mob.classList.add('done');
+      if (j === currentStep) mob.classList.add('active');
+    }
+
+    // Scroll right panel to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

@@ -8,7 +8,15 @@ const GENERIC_TITLE_PATTERNS = [
   /key facts/i,
   /opens doors/i,
   /cookie/i,
-  /privacy/i
+  /privacy/i,
+  /^what is an? /i,
+  /^how to (apply|write|find|get|win)/i,
+  /^(top|best) \d+/i,
+  /scholarship (guide|tips|advice|essay|interview)/i,
+  /^complete guide/i,
+  /^step[- ]by[- ]step/i,
+  /fully funded.*guide/i,
+  /^list of /i,
 ];
 
 const STALE_YEAR_PATTERN = /\b(20[0-1]\d|2020|2021|2022|2023|2024|2025)\b/;
@@ -46,7 +54,7 @@ function assessScholarshipQuality(entry) {
   const flags = [];
   let score = 100;
   const title = cleanText(entry.title);
-  const text = `${title} ${entry.eligibility || ''} ${entry.instructions || ''}`;
+  const text = `${title} ${entry.eligibility || ''} ${entry.instructions || ''} ${entry.fullText || ''}`;
 
   if (!title || title.length < 8) addFlag(flags, 'short_title');
   if (!SCHOLARSHIP_WORDS.test(text)) addFlag(flags, 'weak_scholarship_signal');

@@ -131,11 +131,14 @@
 <body>
 
 <header>
-  <a href="../index.html" class="brand">
+  <a href="original.html" class="brand">
     <div class="brand-mark"></div>
     <span class="brand-name">iMotive</span>
   </a>
-  <a href="original-forum.html" class="header-link">Community →</a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <a href="original-browse.html" class="header-link">Browse</a>
+    <a href="original-forum.html" class="header-link">Community →</a>
+  </div>
 </header>
 
 <div class="page">
@@ -185,7 +188,7 @@
 
       <div class="divider"><span>or email</span></div>
 
-      <form onsubmit="return false;">
+      <form onsubmit="window.location.href='original-profile.html'; return false;">
         <div class="field signup-field" id="field-name">
           <label for="name">Full name</label>
           <input type="text" id="name" placeholder="Alex Johnson">

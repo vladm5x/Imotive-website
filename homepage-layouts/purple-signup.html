@@ -186,11 +186,14 @@
 <body>
 
 <nav>
-  <div class="nav-logo">
+  <a href="purple-landing.html" class="nav-logo">
     <div class="nav-logo-mark">i</div>
     <span class="nav-logo-text">iMotive</span>
+  </a>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <a href="purple-browse.html" class="nav-link">Browse</a>
+    <a href="purple-forum.html" class="nav-link">Community →</a>
   </div>
-  <a href="purple-forum.html" class="nav-link">Community →</a>
 </nav>
 
 <div class="page">
@@ -290,7 +293,7 @@
           <a href="#" class="forgot">Forgot password?</a>
         </div>
 
-        <button type="submit" class="submit-btn" id="submit-btn">Sign in</button>
+        <button type="submit" class="submit-btn" id="submit-btn" onclick="handleSubmit()">Sign in</button>
 
         <p class="terms">
           By continuing you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.
@@ -314,6 +317,13 @@
       : 'Don\'t have an account? <a href="#" onclick="switchTab(\'signup\'); return false;">Sign up free</a>';
   }
   if (window.location.hash === '#signup') switchTab('signup');
+
+  function handleSubmit() {
+    var isSignup = document.getElementById('tab-signup').classList.contains('active');
+    if (isSignup) {
+      window.location.href = 'purple-profile.html';
+    }
+  }
 </script>
 </body>
 </html>

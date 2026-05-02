@@ -168,10 +168,11 @@
 <body>
 
 <nav>
-  <a href="../index.html" class="nav-logo">
+  <a href="imotive-landing.html" class="nav-logo">
     <div class="nav-logo-mark">i</div>
     <span class="nav-logo-text">iMotive</span>
   </a>
+  <a href="imotive-browse.html" class="nav-link">Browse</a>
   <a href="imotive-forum.html" class="nav-link">Community →</a>
 </nav>
 
@@ -241,7 +242,7 @@
 
       <div class="divider"><span>or email</span></div>
 
-      <form onsubmit="return false;">
+      <form onsubmit="handleFormSubmit(event);">
         <div class="field signup-field" id="field-name">
           <label for="name">Full name</label>
           <input type="text" id="name" placeholder="Alex Johnson">
@@ -275,6 +276,14 @@
 </div>
 
 <script>
+  function handleFormSubmit(ev) {
+    ev.preventDefault();
+    var isSignup = document.getElementById('tab-signup').classList.contains('active');
+    if (isSignup) {
+      window.location.href = 'imotive-profile.html';
+    }
+  }
+
   function switchTab(mode) {
     const isSignup = mode === 'signup';
     document.getElementById('tab-signin').classList.toggle('active', !isSignup);

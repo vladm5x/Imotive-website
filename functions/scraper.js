@@ -34,9 +34,16 @@ const failureStats = { reasons: {}, examples: [] };
 const FAILURE_EXAMPLE_LIMIT = 80;
 
 const HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (compatible; GrantlyScraper/1.0; educational research bot)',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en-GB,en;q=0.9,sv;q=0.8'
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Connection': 'keep-alive',
+  'Upgrade-Insecure-Requests': '1',
+  'Sec-Fetch-Dest': 'document',
+  'Sec-Fetch-Mode': 'navigate',
+  'Sec-Fetch-Site': 'none',
+  'Cache-Control': 'max-age=0',
 };
 
 const RETRYABLE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
@@ -308,6 +315,26 @@ function parseDeadline(text) {
   const dmy2 = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   if (dmy2) return `${dmy2[3]}-${dmy2[2].padStart(2, '0')}-${dmy2[1].padStart(2, '0')}`;
 
+  // "31 March 2026" / "closes 31 March" (no year — assume current or next year)
+  const dmNoYear = text.match(new RegExp(`(\\d{1,2})(?:st|nd|rd|th)?\\s+(${monthPattern})(?:\\b|\\.)`, 'i'));
+  if (dmNoYear) {
+    const year = new Date().getFullYear();
+    const mo = months[dmNoYear[2].toLowerCase()];
+    const day = dmNoYear[1].padStart(2, '0');
+    const candidate = new Date(`${year}-${mo}-${day}`);
+    const finalYear = candidate < new Date() ? year + 1 : year;
+    return `${finalYear}-${mo}-${day}`;
+  }
+
+  // "March 2026" / "April 2026" (month + year only — use last day of month)
+  const myOnly = text.match(new RegExp(`(${monthPattern})\\s+(20\\d{2})`, 'i'));
+  if (myOnly) {
+    const mo = months[myOnly[1].toLowerCase()];
+    const yr = myOnly[2];
+    const lastDay = new Date(Number(yr), Number(mo), 0).getDate();
+    return `${yr}-${mo}-${String(lastDay).padStart(2, '0')}`;
+  }
+
   return null;
 }
 
@@ -325,7 +352,7 @@ function inferLevels(text) {
   if (t.includes('bachelor') || t.includes('undergraduate') || t.includes('first cycle') || t.includes("bachelor's")) levels.push('Bachelor');
   if (t.includes('master') || t.includes('postgraduate') || t.includes('second cycle') || t.includes("master's")) levels.push('Master');
   if (t.includes('phd') || t.includes('doctoral') || t.includes('third cycle') || t.includes('doctorate')) levels.push('PhD');
-  return levels.length ? levels : ['Bachelor', 'Master'];
+  return levels;
 }
 
 function inferNationality(text) {
@@ -334,7 +361,7 @@ function inferNationality(text) {
   if (t.includes('swedish citizen') || t.includes('swedish national') || /\bswedish\b/.test(t)) nat.push('Swedish');
   if (t.includes('eu/eea') || t.includes('european union') || t.includes('eea student') || t.includes('eu student')) nat.push('EU/EEA');
   if (t.includes('international') || t.includes('non-eu') || t.includes('outside europe') || t.includes('fee-paying')) nat.push('International non-EU');
-  return nat.length ? nat : ['Swedish', 'EU/EEA', 'International non-EU'];
+  return nat;
 }
 
 function inferNeed(text) {
@@ -396,10 +423,21 @@ function extractRequiredInfo(text) {
 }
 
 function extractAmount(text) {
-  const m = text.match(/(?:SEK|EUR|USD|GBP)\s*[\d,]+(?:\s*[-–]\s*[\d,]+)?/i)
-    || text.match(/[\d,]+\s*(?:SEK|EUR|USD|GBP)/i)
-    || text.match(/kr\.?\s*[\d,]+/i);
-  return m ? m[0] : null;
+  const m =
+    // Symbol-prefixed: €10,000 / $5,000
+    text.match(/[€$£]\s*[\d\s,.]+(?:k|,000)?/i) ||
+    // Currency code before: SEK 50 000 / EUR 10,000
+    text.match(/(?:SEK|EUR|USD|GBP|CHF)\s*[\d\s,.]+(?:k)?/i) ||
+    // Currency code after: 50 000 SEK / 10,000 EUR
+    text.match(/[\d\s,.]+\s*(?:SEK|EUR|USD|GBP|CHF|kr\.?)/i) ||
+    // Swedish kr shorthand: 50 000 kr / 10 000kr
+    text.match(/[\d\s]+kr\.?/i) ||
+    // Spelled: 10,000 dollars/euros/kronor
+    text.match(/[\d,]+\s*(?:dollars?|euros?|kronor|pounds?)/i) ||
+    // Full waiver / stipend descriptor
+    text.match(/(?:full(?:y)?\s*(?:funded|tuition\s*waiver|scholarship)|tuition\s*fee\s*waiver)/i);
+  if (!m) return null;
+  return m[0].trim().replace(/\s+/g, ' ').slice(0, 60);
 }
 
 // Find the actual application form/portal URL on a detail page.
@@ -565,7 +603,7 @@ async function scrapeUniversity({ name, prefix, pages, defaultInstructions, auto
   }
 
   // Auto-enrich small sources — visits each individual page for real data + applicationUrl
-  if (autoEnrich && results.length > 0 && results.length <= 50) {
+  if (autoEnrich && results.length > 0) {
     await enrichEntries(results, { label: name, concurrency: 3 });
   }
 
@@ -990,18 +1028,17 @@ const UNIVERSITY_SOURCES = [
 // ─── Blog aggregator sources (all use scrapeBlogAggregator) ───────────────────
 
 const BLOG_SOURCES = [
-  { name: 'Scholarship Positions', prefix: 'spos', baseUrl: 'https://scholarship-positions.com/category/sweden-scholarships/', source: 'Scholarship Positions', maxPages: 70 },
-  { name: 'Scholars4Dev', prefix: 's4d', baseUrl: 'https://www.scholars4dev.com/category/country/europe-scholarships/sweden/', source: 'Scholars4Dev', maxPages: 25 },
-  { name: 'Opportunity Desk', prefix: 'od', baseUrl: 'https://opportunitydesk.org/category/scholarships/page/1/?fwp_location=sweden', source: 'Opportunity Desk', maxPages: 20, customPagination: pageNum => `https://opportunitydesk.org/category/scholarships/page/${pageNum}/?fwp_location=sweden` },
-  { name: 'World Scholarship Forum', prefix: 'wsf', baseUrl: 'https://worldscholarshipforum.com/scholarships-in-sweden/', source: 'World Scholarship Forum', maxPages: 20 },
-  { name: 'Scholarship Desk', prefix: 'sd', baseUrl: 'https://www.scholarshipdesk.com/tag/sweden-scholarships/', source: 'Scholarship Desk', maxPages: 15 },
-  { name: 'Scholarship Region', prefix: 'sr', baseUrl: 'https://www.scholarshipregion.com/category/sweden-scholarships/', source: 'Scholarship Region', maxPages: 15 },
-  { name: 'AfterSchoolAfrica Blog', prefix: 'asa2', baseUrl: 'https://www.afterschoolafrica.com/category/scholarships/europe/sweden/', source: 'AfterSchoolAfrica', maxPages: 20 },
-  { name: 'Scholarship Fellowship', prefix: 'sf', baseUrl: 'https://scholarship-fellowship.com/tag/sweden/', source: 'Scholarship Fellowship', maxPages: 15 },
-  { name: 'Scholarship Café', prefix: 'scafe', baseUrl: 'https://www.scholarshipcafe.com/scholarships/sweden/', source: 'Scholarship Café', maxPages: 10 },
-  { name: 'DAAD Germany-Sweden', prefix: 'daad', baseUrl: 'https://www.daad.de/en/study-and-research-in-germany/scholarships/daad-scholarships/', source: 'DAAD', maxPages: 5, titleFilter: title => /scholarship|award|fellowship|grant|stipend/i.test(title) },
-  { name: 'Inomics Scholarships', prefix: 'inomics', baseUrl: 'https://inomics.com/type/scholarship?country=SE', source: 'Inomics', maxPages: 10 },
-  { name: 'Study Abroad Funding', prefix: 'saf', baseUrl: 'https://www.studyabroadfunding.org/tag/sweden/', source: 'Study Abroad Funding', maxPages: 10 }
+  { name: 'Scholarship Positions', prefix: 'spos', baseUrl: 'https://scholarship-positions.com/category/sweden-scholarships/', source: 'Scholarship Positions', maxPages: 30, enrichAfter: true },
+  { name: 'Scholars4Dev', prefix: 's4d', baseUrl: 'https://www.scholars4dev.com/category/country/europe-scholarships/sweden/', source: 'Scholars4Dev', maxPages: 15, enrichAfter: true },
+  { name: 'Opportunity Desk', prefix: 'od', baseUrl: 'https://opportunitydesk.org/category/scholarships/page/1/?fwp_location=sweden', source: 'Opportunity Desk', maxPages: 15, customPagination: pageNum => `https://opportunitydesk.org/category/scholarships/page/${pageNum}/?fwp_location=sweden`, enrichAfter: true },
+  { name: 'World Scholarship Forum', prefix: 'wsf', baseUrl: 'https://worldscholarshipforum.com/scholarships-in-sweden/', source: 'World Scholarship Forum', maxPages: 15, enrichAfter: true },
+  { name: 'Scholarship Desk', prefix: 'sd', baseUrl: 'https://www.scholarshipdesk.com/tag/sweden-scholarships/', source: 'Scholarship Desk', maxPages: 10, enrichAfter: true },
+  { name: 'Scholarship Region', prefix: 'sr', baseUrl: 'https://www.scholarshipregion.com/category/sweden-scholarships/', source: 'Scholarship Region', maxPages: 10, enrichAfter: true },
+  { name: 'AfterSchoolAfrica Blog', prefix: 'asa2', baseUrl: 'https://www.afterschoolafrica.com/category/scholarships/europe/sweden/', source: 'AfterSchoolAfrica', maxPages: 15, enrichAfter: true },
+  { name: 'Scholarship Fellowship', prefix: 'sf', baseUrl: 'https://scholarship-fellowship.com/tag/sweden/', source: 'Scholarship Fellowship', maxPages: 10, enrichAfter: true },
+  { name: 'Scholarship Café', prefix: 'scafe', baseUrl: 'https://www.scholarshipcafe.com/scholarships/sweden/', source: 'Scholarship Café', maxPages: 8, enrichAfter: true },
+  { name: 'DAAD Germany-Sweden', prefix: 'daad', baseUrl: 'https://www.daad.de/en/study-and-research-in-germany/scholarships/daad-scholarships/', source: 'DAAD', maxPages: 5, titleFilter: title => /scholarship|award|fellowship|grant|stipend/i.test(title), enrichAfter: true },
+  { name: 'Study Abroad Funding', prefix: 'saf', baseUrl: 'https://www.studyabroadfunding.org/tag/sweden/', source: 'Study Abroad Funding', maxPages: 8, enrichAfter: true }
 ];
 
 // ─── Puppeteer portal sources (all use scrapePuppeteerPortal) ─────────────────
@@ -1797,13 +1834,36 @@ async function pushEntriesToSupabase(entries, { table = 'scholarships_raw', labe
   const skipped = entries.length - validEntries.length;
   if (skipped) console.warn(`  [supabase] skipped ${skipped} ${label} with missing id/title`);
 
+  // Fetch IDs already admin-reviewed so re-scraping never overwrites their statuses
+  let adminReviewedIds = new Set();
+  if (table === 'scholarships_raw') {
+    const { data: reviewed, error: reviewErr } = await supabase
+      .from(table)
+      .select('id')
+      .in('review_status', ['approved', 'rejected', 'archived']);
+    if (reviewErr) {
+      console.warn(`  [supabase] could not fetch admin-reviewed ids: ${reviewErr.message}`);
+    } else {
+      adminReviewedIds = new Set((reviewed || []).map(r => r.id));
+      if (adminReviewedIds.size) {
+        console.log(`  [supabase] preserving review_status for ${adminReviewedIds.size} admin-reviewed entries`);
+      }
+    }
+  }
+
   console.log(`\nPushing ${validEntries.length} ${label} to ${table}...`);
   let success = 0;
   let fail = 0;
 
   for (let i = 0; i < validEntries.length; i += SUPABASE_BATCH_SIZE) {
     const batch = validEntries.slice(i, i + SUPABASE_BATCH_SIZE);
-    const records = batch.map(entry => toSupabaseRecord(entry, flags));
+    const records = batch.map(entry => {
+      const record = toSupabaseRecord(entry, flags);
+      if (adminReviewedIds.has(entry.id)) {
+        delete record.review_status;
+      }
+      return record;
+    });
     const { error } = await supabase.from(table).upsert(records, { onConflict: 'id' });
 
     if (error) {
@@ -2442,6 +2502,10 @@ async function scrapeBlogAggregatorCustomUrl(cfg) {
     console.log(`  ${cfg.name} page ${pageNum}: +${count} (total: ${results.length})`);
     if (count === 0) break;
     await sleep(randomDelay());
+  }
+
+  if (cfg.enrichAfter && results.length > 0) {
+    await enrichEntries(results, { label: cfg.name });
   }
 
   return results;

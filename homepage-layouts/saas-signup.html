@@ -130,7 +130,7 @@
 <div class="layout">
   <!-- Left value panel -->
   <div class="panel-left">
-    <a href="../index.html" class="panel-logo">
+    <a href="saas-landing.html" class="panel-logo">
       <div class="panel-logo-mark"><span>i</span></div>
       <span class="panel-logo-text">iMotive</span>
     </a>
@@ -181,7 +181,7 @@
 
       <div class="divider"><span>or continue with email</span></div>
 
-      <form onsubmit="return false;">
+      <form onsubmit="handleSubmit(); return false;">
         <!-- signup-only: name -->
         <div class="field signup-field" id="field-name">
           <label for="name">Full name</label>
@@ -232,6 +232,15 @@
 
   // Check URL hash
   if (window.location.hash === '#signup') switchTab('signup');
+
+  function handleSubmit() {
+    var isSignup = document.getElementById('tab-signup').classList.contains('active');
+    if (isSignup) {
+      window.location = 'saas-profile.html';
+    } else {
+      window.location = 'saas-browse.html';
+    }
+  }
 </script>
 </body>
 </html>
