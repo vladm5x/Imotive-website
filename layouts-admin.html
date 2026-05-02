@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout Manager — iMotive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: #0F1117;
+      color: #F1F3F5;
+      height: 100dvh;
+      display: grid;
+      grid-template-rows: 52px 1fr;
+      grid-template-columns: 320px 1fr;
+    }
+
+    /* Top bar */
+    .topbar {
+      grid-column: 1 / -1;
+      background: #1A1D27;
+      border-bottom: 1px solid #2A2D3A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .topbar-brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4F7EFF;
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar-link {
+      font-size: 13px;
+      color: #8B8FA8;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .topbar-link:hover { color: #F1F3F5; }
+
+    /* Sidebar */
+    .sidebar {
+      background: #1A1D27;
+      border-right: 1px solid #2A2D3A;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sidebar-heading {
+      font-size: 11px;
+      font-weight: 600;
+      color: #5A5D72;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 4px 8px 8px;
+    }
+
+    /* Layout card */
+    .layout-card {
+      border-radius: 10px;
+      border: 1px solid #2A2D3A;
+      padding: 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+    .layout-card:hover { border-color: #4A4D62; background: #1E2130; }
+    .layout-card.selected { border-color: #4F7EFF; background: #1C2240; }
+    .layout-card.active-layout { border-color: #22C55E; }
+    .layout-card.active-layout.selected { border-color: #22C55E; background: #152820; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #E8EAF0;
+    }
+    .badge-active {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #14532D;
+      color: #4ADE80;
+      border: 1px solid #166534;
+      white-space: nowrap;
+    }
+    .card-desc {
+      font-size: 12px;
+      color: #6B6E85;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .card-meta {
+      font-size: 11px;
+      color: #5A5D72;
+      margin-bottom: 10px;
+    }
+    .color-swatches {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .color-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .card-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-preview {
+      flex: 1;
+      padding: 7px 0;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid #2A2D3A;
+      background: transparent;
+      color: #A0A3B8;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+    .btn-preview:hover { border-color: #4A4D62; color: #E8EAF0; }
+    .btn-activate {
+      flex: 1;
+      padding: 7px 0;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: #4F7EFF;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .btn-activate:hover { background: #3B6AE8; }
+    .btn-activate.is-active {
+      background: #14532D;
+      color: #4ADE80;
+      border-color: #166534;
+      cursor: default;
+    }
+
+    /* Preview pane */
+    .preview-pane {
+      position: relative;
+      overflow: hidden;
+      background: #0A0B10;
+    }
+    .preview-pane iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .preview-empty {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #3A3D52;
+    }
+    .preview-empty-icon { font-size: 40px; }
+    .preview-empty-text { font-size: 14px; }
+
+    /* Active indicator in preview -->  */
+    .preview-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid #2A2D3A;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #A0A3B8;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-brand-dot"></div>
+      iMotive — Layout Manager
+    </div>
+    <div class="topbar-actions">
+      <a href="index.html" class="topbar-link" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View live site
+      </a>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-heading">Layouts</div>
+    <!-- Cards injected by JS -->
+  </aside>
+
+  <div class="preview-pane" id="previewPane">
+    <div class="preview-empty" id="previewEmpty">
+      <div class="preview-empty-icon">&#128065;</div>
+      <div class="preview-empty-text">Select a layout to preview</div>
+    </div>
+    <iframe id="previewFrame" src="" style="display:none;"></iframe>
+    <div class="preview-tag" id="previewTag"></div>
+  </div>
+
+  <script type="module">
+    import { layoutRegistry } from './src/homepage-layouts/layoutRegistry.js';
+
+    const STORAGE_KEY = 'imotive-active-layout';
+    let currentPreviewId = null;
+
+    function getActiveId() {
+      return localStorage.getItem(STORAGE_KEY) || 'original';
+    }
+
+    function setActiveId(id) {
+      localStorage.setItem(STORAGE_KEY, id);
+    }
+
+    function renderSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const activeId = getActiveId();
+
+      // Clear existing cards (keep heading)
+      const heading = sidebar.querySelector('.sidebar-heading');
+      sidebar.innerHTML = '';
+      sidebar.appendChild(heading);
+
+      layoutRegistry.forEach(layout => {
+        const isActive = layout.id === activeId;
+        const isSelected = layout.id === currentPreviewId;
+
+        const card = document.createElement('div');
+        card.className = `layout-card${isSelected ? ' selected' : ''}${isActive ? ' active-layout' : ''}`;
+        card.dataset.id = layout.id;
+
+        card.innerHTML = `
+          <div class="card-header">
+            <div class="card-name">${layout.name}</div>
+            ${isActive ? '<span class="badge-active">Active</span>' : ''}
+          </div>
+          <div class="card-desc">${layout.description}</div>
+          <div class="card-meta">${layout.font}</div>
+          <div class="color-swatches">
+            ${layout.colors.map(c => `<div class="color-swatch" style="background:${c};"></div>`).join('')}
+          </div>
+          <div class="card-actions">
+            <button class="btn-preview" data-preview="${layout.id}">Preview</button>
+            <button class="btn-activate${isActive ? ' is-active' : ''}" data-activate="${layout.id}">
+              ${isActive ? '&#10003; Active' : 'Activate'}
+            </button>
+          </div>
+        `;
+
+        // Clicking the card body previews it
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('button')) return;
+          previewLayout(layout.id);
+        });
+
+        sidebar.appendChild(card);
+      });
+
+      // Button handlers
+      sidebar.querySelectorAll('[data-preview]').forEach(btn => {
+        btn.addEventListener('click', () => previewLayout(btn.dataset.preview));
+      });
+
+      sidebar.querySelectorAll('[data-activate]').forEach(btn => {
+        btn.addEventListener('click', () => activateLayout(btn.dataset.activate));
+      });
+    }
+
+    function previewLayout(id) {
+      const layout = layoutRegistry.find(l => l.id === id);
+      if (!layout) return;
+
+      currentPreviewId = id;
+
+      const frame = document.getElementById('previewFrame');
+      const empty = document.getElementById('previewEmpty');
+      const tag = document.getElementById('previewTag');
+
+      frame.src = layout.htmlPath;
+      frame.style.display = 'block';
+      empty.style.display = 'none';
+
+      const isActive = id === getActiveId();
+      tag.textContent = isActive ? `Active: ${layout.name}` : `Preview: ${layout.name}`;
+      tag.style.display = 'block';
+
+      renderSidebar();
+    }
+
+    function activateLayout(id) {
+      setActiveId(id);
+      const layout = layoutRegistry.find(l => l.id === id);
+      const tag = document.getElementById('previewTag');
+
+      if (currentPreviewId !== id) {
+        previewLayout(id);
+      } else {
+        renderSidebar();
+        if (layout) {
+          tag.textContent = `Active: ${layout.name}`;
+          tag.style.display = 'block';
+        }
+      }
+    }
+
+    // Init: render sidebar, auto-preview active layout
+    renderSidebar();
+    previewLayout(getActiveId());
+  </script>
+
+</body>
+</html>
