@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1280" />
+<title>Fundly — SaaS Landing Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; }
+  * { box-sizing: border-box; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const Concept2 = () => {
+  const blue = 'oklch(0.62 0.14 250)';
+  const blueDark = 'oklch(0.45 0.16 255)';
+  const bg = '#FFFFFF';
+  const surface = '#F7F9FC';
+  const ink = '#0B1220';
+  const muted = '#5C6479';
+  const border = '#E6EAF2';
+
+  const scholarships = [
+    { title: 'STEM Excellence Award', org: 'Northbridge', deadline: 'Mar 14', amount: '$25,000', match: 96 },
+    { title: 'Humanities Fellowship', org: 'Mercer Trust', deadline: 'Apr 02', amount: '$12,500', match: 88 },
+    { title: 'First-Gen Scholars Grant', org: 'Aldridge', deadline: 'May 20', amount: '$8,000', match: 92 },
+    { title: 'Coastal Research Bursary', org: 'Coastal Inst.', deadline: 'Jun 11', amount: '$15,000', match: 84 },
+  ];
+
+  return (
+    <div style={{ background: bg, color: ink, fontFamily: '"Inter Tight", "Inter", sans-serif', width: 1280, fontFeatureSettings: '"ss01", "cv11"' }}>
+      {/* Nav */}
+      <header style={{ borderBottom: `1px solid ${border}`, background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(8px)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: `linear-gradient(135deg, ${blue}, ${blueDark})` }}></div>
+            <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: -0.4 }}>Fundly</div>
+          </div>
+          <nav style={{ display: 'flex', gap: 28, fontSize: 14, color: ink }}>
+            <span>Product</span>
+            <span>Scholarships</span>
+            <span>For schools</span>
+            <span>Pricing</span>
+            <span>Resources</span>
+          </nav>
+          <div style={{ display: 'flex', gap: 12, fontSize: 14, alignItems: 'center' }}>
+            <span style={{ color: muted }}>Sign in</span>
+            <span style={{ background: ink, color: '#fff', padding: '9px 16px', borderRadius: 8, fontWeight: 500 }}>Get started</span>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section style={{ padding: '96px 32px 80px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: -200, right: -200, width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle, oklch(0.92 0.05 250 / 0.7), transparent 70%)`, pointerEvents: 'none' }}></div>
+        <div style={{ position: 'absolute', top: 100, left: -150, width: 500, height: 500, borderRadius: '50%', background: `radial-gradient(circle, oklch(0.94 0.04 220 / 0.5), transparent 70%)`, pointerEvents: 'none' }}></div>
+        <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', borderRadius: 999, background: surface, border: `1px solid ${border}`, fontSize: 13, color: muted, marginBottom: 28 }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'oklch(0.7 0.18 145)' }}></span>
+            14,820 verified scholarships · updated daily
+          </div>
+          <h1 style={{ fontSize: 76, lineHeight: 1.05, letterSpacing: -2.4, fontWeight: 600, margin: 0, maxWidth: 900, marginInline: 'auto' }}>
+            Find scholarships that <span style={{ background: `linear-gradient(120deg, ${blue}, ${blueDark})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>match you.</span>
+          </h1>
+          <p style={{ fontSize: 19, color: muted, lineHeight: 1.55, marginTop: 24, maxWidth: 600, marginInline: 'auto' }}>
+            One search. Every funded opportunity. Built for students who'd rather be studying than tab-hopping forms.
+          </p>
+
+          {/* Search */}
+          <div style={{ marginTop: 44, maxWidth: 720, marginInline: 'auto' }}>
+            <div style={{ display: 'flex', background: '#fff', border: `1px solid ${border}`, borderRadius: 14, padding: 6, boxShadow: '0 12px 32px -16px rgba(11, 18, 32, 0.18), 0 2px 6px rgba(11, 18, 32, 0.04)', alignItems: 'center' }}>
+              <div style={{ padding: '0 14px', color: muted, fontSize: 18 }}>⌕</div>
+              <input placeholder="Search by field, school, or keyword…" style={{ flex: 1, border: 'none', outline: 'none', fontSize: 16, padding: '14px 0', background: 'transparent', fontFamily: 'inherit' }} />
+              <span style={{ background: ink, color: '#fff', padding: '12px 22px', borderRadius: 10, fontSize: 14, fontWeight: 500 }}>Get started free</span>
+            </div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 18, justifyContent: 'center', flexWrap: 'wrap' }}>
+              {['Engineering', 'First-gen', 'Graduate', 'Arts', 'International', 'Athletics'].map(t => (
+                <span key={t} style={{ fontSize: 13, padding: '6px 12px', borderRadius: 999, background: surface, border: `1px solid ${border}`, color: ink }}>{t}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Floating preview card */}
+          <div style={{ marginTop: 72, display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            <div style={{ width: 880, background: '#fff', border: `1px solid ${border}`, borderRadius: 16, boxShadow: '0 24px 60px -24px rgba(11, 18, 32, 0.25)', overflow: 'hidden', textAlign: 'left' }}>
+              <div style={{ padding: '14px 20px', borderBottom: `1px solid ${border}`, display: 'flex', gap: 8, alignItems: 'center' }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#FF6058' }}></span>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#FFC130' }}></span>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28CA42' }}></span>
+                <span style={{ marginLeft: 16, fontSize: 13, color: muted }}>fundly.app/dashboard</span>
+              </div>
+              <div style={{ padding: 24, display: 'grid', gridTemplateColumns: '220px 1fr', gap: 24 }}>
+                <div>
+                  <div style={{ fontSize: 12, color: muted, marginBottom: 12 }}>Filters</div>
+                  {['All matches', 'Closing soon', 'Saved', 'STEM', 'Arts'].map((f, i) => (
+                    <div key={f} style={{ padding: '8px 10px', borderRadius: 8, fontSize: 13, background: i === 0 ? surface : 'transparent', color: i === 0 ? ink : muted, marginBottom: 2, fontWeight: i === 0 ? 500 : 400 }}>{f}</div>
+                  ))}
+                </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                    <div style={{ fontSize: 15, fontWeight: 500 }}>32 matches for you</div>
+                    <div style={{ fontSize: 12, color: muted }}>Sorted by match score</div>
+                  </div>
+                  {scholarships.slice(0, 3).map((s, i) => (
+                    <div key={i} style={{ padding: '14px 16px', border: `1px solid ${border}`, borderRadius: 10, marginBottom: 8, display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 16, alignItems: 'center' }}>
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 500 }}>{s.title}</div>
+                        <div style={{ fontSize: 12, color: muted, marginTop: 2 }}>{s.org} · Closes {s.deadline}</div>
+                      </div>
+                      <div style={{ fontSize: 13, color: ink, fontVariantNumeric: 'tabular-nums', fontWeight: 500 }}>{s.amount}</div>
+                      <div style={{ fontSize: 11, padding: '4px 8px', borderRadius: 6, background: 'oklch(0.95 0.03 250)', color: blueDark, fontWeight: 500 }}>{s.match}% match</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust */}
+      <section style={{ padding: '60px 32px', borderTop: `1px solid ${border}`, borderBottom: `1px solid ${border}`, background: surface }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ fontSize: 13, color: muted, marginBottom: 28 }}>Used by students at 240+ universities</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 32, opacity: 0.7 }}>
+            {['NORTHBRIDGE', 'St·Aldwin', 'PACIFIC TECH', 'MERCER', 'COASTAL', 'HARTWELL', 'ALDRIDGE'].map(n => (
+              <div key={n} style={{ fontSize: 18, fontWeight: 600, letterSpacing: 1, color: muted }}>{n}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section style={{ padding: '120px 32px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 72 }}>
+            <div style={{ fontSize: 13, color: blue, fontWeight: 500, marginBottom: 12, letterSpacing: 0.2 }}>How it works</div>
+            <h2 style={{ fontSize: 48, letterSpacing: -1.4, fontWeight: 600, margin: 0, maxWidth: 700, marginInline: 'auto', lineHeight: 1.1 }}>
+              From scrolling to scholarship in three steps.
+            </h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {[
+              ['01', 'Tell us about you', 'Set your field, year, eligibility. Two minutes, no signup wall.', `linear-gradient(135deg, oklch(0.93 0.05 250), oklch(0.88 0.08 240))`],
+              ['02', 'See your matches', 'We rank every verified opportunity by fit and deadline.', `linear-gradient(135deg, oklch(0.94 0.04 220), oklch(0.89 0.07 230))`],
+              ['03', 'Apply in one place', 'Track every application. Reuse essays. Hit deadlines.', `linear-gradient(135deg, oklch(0.92 0.05 260), oklch(0.86 0.09 250))`],
+            ].map(([n, t, d, grad]) => (
+              <div key={n} style={{ background: '#fff', border: `1px solid ${border}`, borderRadius: 16, padding: 28, position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, right: 0, width: 140, height: 140, background: grad, borderRadius: '50%', transform: 'translate(40%, -40%)' }}></div>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ fontSize: 13, color: blue, fontWeight: 500, marginBottom: 14 }}>{n}</div>
+                  <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: -0.5, marginBottom: 8 }}>{t}</div>
+                  <div style={{ fontSize: 14, color: muted, lineHeight: 1.6 }}>{d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Scholarship preview */}
+      <section style={{ padding: '40px 32px 120px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32 }}>
+            <div>
+              <div style={{ fontSize: 13, color: blue, fontWeight: 500, marginBottom: 12 }}>Live opportunities</div>
+              <h2 style={{ fontSize: 40, letterSpacing: -1.2, fontWeight: 600, margin: 0 }}>Closing this season</h2>
+            </div>
+            <span style={{ fontSize: 14, color: ink, fontWeight: 500 }}>View all 14,820 →</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            {scholarships.map((s, i) => (
+              <div key={i} style={{ background: '#fff', border: `1px solid ${border}`, borderRadius: 14, padding: 24, transition: 'all 0.2s' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14 }}>
+                  <span style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, background: 'oklch(0.95 0.03 250)', color: blueDark, fontWeight: 500 }}>{s.match}% match</span>
+                  <span style={{ fontSize: 12, color: muted }}>Closes {s.deadline}</span>
+                </div>
+                <div style={{ fontSize: 20, fontWeight: 600, letterSpacing: -0.4, marginBottom: 6 }}>{s.title}</div>
+                <div style={{ fontSize: 13, color: muted, marginBottom: 18 }}>{s.org}</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 18, borderTop: `1px solid ${border}` }}>
+                  <span style={{ fontSize: 22, fontWeight: 600, letterSpacing: -0.5, fontVariantNumeric: 'tabular-nums' }}>{s.amount}</span>
+                  <span style={{ fontSize: 13, color: blue, fontWeight: 500 }}>View →</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Value prop */}
+      <section style={{ padding: '120px 32px', background: surface, borderTop: `1px solid ${border}`, borderBottom: `1px solid ${border}` }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 48, letterSpacing: -1.4, fontWeight: 600, margin: '0 0 56px', maxWidth: 700, lineHeight: 1.1 }}>
+            Built for students. Priced for students.
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
+            {[
+              ['Free, forever', 'Every core feature. No paywall. No upsells. We make money from partner schools, not students.'],
+              ['Verified by humans', 'Our editorial team reviews every listing. We remove expired and predatory awards within 24 hours.'],
+              ['Your data is yours', 'We never sell your information. Export or delete your profile any time, no questions asked.'],
+            ].map(([t, d], i) => (
+              <div key={t} style={{ padding: '8px 28px 8px 0', borderLeft: i === 0 ? 'none' : `1px solid ${border}`, paddingLeft: i === 0 ? 0 : 28 }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: `linear-gradient(135deg, ${blue}, ${blueDark})`, marginBottom: 18 }}></div>
+                <div style={{ fontSize: 20, fontWeight: 600, letterSpacing: -0.4, marginBottom: 8 }}>{t}</div>
+                <div style={{ fontSize: 14, color: muted, lineHeight: 1.6 }}>{d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Signup CTA */}
+      <section style={{ padding: '120px 32px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ background: `linear-gradient(135deg, ${blue}, ${blueDark})`, borderRadius: 24, padding: '80px 64px', textAlign: 'center', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }}></div>
+            <div style={{ position: 'absolute', bottom: -150, left: -100, width: 350, height: 350, borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }}></div>
+            <div style={{ position: 'relative' }}>
+              <h2 style={{ fontSize: 56, letterSpacing: -1.6, fontWeight: 600, margin: 0, lineHeight: 1.05, maxWidth: 720, marginInline: 'auto' }}>
+                Stop searching. Start applying.
+              </h2>
+              <p style={{ fontSize: 18, opacity: 0.85, marginTop: 18, maxWidth: 520, marginInline: 'auto', lineHeight: 1.5 }}>
+                Join 180,000 students using Fundly to fund their education.
+              </p>
+              <div style={{ marginTop: 36, display: 'flex', gap: 12, justifyContent: 'center' }}>
+                <span style={{ background: '#fff', color: ink, padding: '14px 24px', borderRadius: 10, fontWeight: 600, fontSize: 15 }}>Get started free</span>
+                <span style={{ border: '1px solid rgba(255,255,255,0.4)', color: '#fff', padding: '14px 24px', borderRadius: 10, fontSize: 15 }}>See pricing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ padding: '60px 32px 40px', borderTop: `1px solid ${border}` }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 40, paddingBottom: 40 }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                <div style={{ width: 24, height: 24, borderRadius: 6, background: `linear-gradient(135deg, ${blue}, ${blueDark})` }}></div>
+                <div style={{ fontSize: 17, fontWeight: 600 }}>Fundly</div>
+              </div>
+              <div style={{ fontSize: 13, color: muted, maxWidth: 280, lineHeight: 1.6 }}>The fastest way to find and win scholarships.</div>
+            </div>
+            {[
+              ['Product', ['Search', 'Matching', 'Application tracker', 'Pricing']],
+              ['Company', ['About', 'Careers', 'Blog', 'Press']],
+              ['Resources', ['Help center', 'Guides', 'Webinars', 'Community']],
+              ['Legal', ['Privacy', 'Terms', 'Security', 'Cookies']],
+            ].map(([h, items]) => (
+              <div key={h}>
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 16 }}>{h}</div>
+                {items.map(i => <div key={i} style={{ fontSize: 13, color: muted, marginBottom: 10 }}>{i}</div>)}
+              </div>
+            ))}
+          </div>
+          <div style={{ paddingTop: 24, borderTop: `1px solid ${border}`, display: 'flex', justifyContent: 'space-between', fontSize: 12, color: muted }}>
+            <span>© 2026 Fundly Inc.</span>
+            <span>Made for students, everywhere.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+window.Concept2 = Concept2;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Concept2 />);
+</script>
+</body>
+</html>

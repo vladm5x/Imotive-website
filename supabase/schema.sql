@@ -89,6 +89,12 @@ ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS quality_score integer 
 ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS quality_flags text[] DEFAULT '{}';
 ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS review_status text DEFAULT 'needs_review';
 
+-- Admin review columns (added for the admin panel)
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS admin_notes      text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS rejection_reason text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS reviewed_at      timestamptz;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS reviewed_by      text;
+
 CREATE INDEX IF NOT EXISTS idx_scholarships_raw_quality ON scholarships_raw (quality_score DESC);
 CREATE INDEX IF NOT EXISTS idx_scholarships_raw_deadline ON scholarships_raw (deadline);
 CREATE INDEX IF NOT EXISTS idx_scholarships_raw_review_status ON scholarships_raw (review_status);

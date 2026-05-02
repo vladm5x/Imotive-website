@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iMotive | Find scholarships that match you</title>
+  <meta name="description" content="One search. Every funded opportunity. Built for students who'd rather be studying than tab-hopping forms.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #FFFFFF; color: #0B1220; font-family: "Inter Tight", "Inter", sans-serif; font-feature-settings: "ss01", "cv11"; }
+    input, button { font-family: inherit; }
+    a { text-decoration: none; color: inherit; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header style="border-bottom: 1px solid #E6EAF2; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 100;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255));"></div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.4px;">iMotive</div>
+      </div>
+      <nav style="display: flex; gap: 28px; font-size: 14px; color: #0B1220;">
+        <a href="#scholarships">Scholarships</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="contact.html">For schools</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div style="display: flex; gap: 12px; font-size: 14px; align-items: center;">
+        <a href="signup.html" style="color: #5C6479;" id="nav-login">Sign in</a>
+        <a href="signup.html" style="background: #0B1220; color: #fff; padding: 9px 16px; border-radius: 8px; font-weight: 500;" id="nav-signup">Get started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section style="padding: 96px 32px 80px; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, oklch(0.92 0.05 250 / 0.7), transparent 70%); pointer-events: none;"></div>
+    <div style="position: absolute; top: 100px; left: -150px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, oklch(0.94 0.04 220 / 0.5), transparent 70%); pointer-events: none;"></div>
+    <div style="max-width: 1100px; margin: 0 auto; text-align: center; position: relative;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; font-size: 13px; color: #5C6479; margin-bottom: 28px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.7 0.18 145); display: inline-block;"></span>
+        2,400+ verified scholarships &middot; updated daily
+      </div>
+      <h1 style="font-size: 76px; line-height: 1.05; letter-spacing: -2.4px; font-weight: 600; margin: 0; max-width: 900px; margin-inline: auto;">
+        Find scholarships that <span style="background: linear-gradient(120deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">match you.</span>
+      </h1>
+      <p style="font-size: 19px; color: #5C6479; line-height: 1.55; margin-top: 24px; max-width: 600px; margin-inline: auto;">
+        One search. Every funded opportunity. Built for students who'd rather be studying than tab-hopping forms.
+      </p>
+
+      <!-- Search -->
+      <div style="margin-top: 44px; max-width: 720px; margin-inline: auto;">
+        <form data-signup-form style="display: flex; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 6px; box-shadow: 0 12px 32px -16px rgba(11, 18, 32, 0.18), 0 2px 6px rgba(11, 18, 32, 0.04); align-items: center;">
+          <div style="padding: 0 14px; color: #5C6479; font-size: 18px;">&#8981;</div>
+          <input placeholder="Search by field, school, or keyword&hellip;" style="flex: 1; border: none; outline: none; font-size: 16px; padding: 14px 0; background: transparent;">
+          <button type="submit" style="background: #0B1220; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 500; border: none; cursor: pointer;">Get started free</button>
+        </form>
+        <div style="display: flex; gap: 8px; margin-top: 18px; justify-content: center; flex-wrap: wrap;">
+          <span style="font-size: 13px; padding: 6px 12px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; color: #0B1220; cursor: pointer;">Engineering</span>
+          <span style="font-size: 13px; padding: 6px 12px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; color: #0B1220; cursor: pointer;">Masters</span>
+          <span style="font-size: 13px; padding: 6px 12px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; color: #0B1220; cursor: pointer;">Sustainability</span>
+          <span style="font-size: 13px; padding: 6px 12px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; color: #0B1220; cursor: pointer;">International</span>
+          <span style="font-size: 13px; padding: 6px 12px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; color: #0B1220; cursor: pointer;">Research</span>
+          <span style="font-size: 13px; padding: 6px 12px; border-radius: 999px; background: #F7F9FC; border: 1px solid #E6EAF2; color: #0B1220; cursor: pointer;">Humanities</span>
+        </div>
+      </div>
+
+      <!-- Floating dashboard preview -->
+      <div style="margin-top: 72px; display: flex; justify-content: center; position: relative;">
+        <div style="width: 880px; background: #fff; border: 1px solid #E6EAF2; border-radius: 16px; box-shadow: 0 24px 60px -24px rgba(11, 18, 32, 0.25); overflow: hidden; text-align: left; max-width: 100%;">
+          <div style="padding: 14px 20px; border-bottom: 1px solid #E6EAF2; display: flex; gap: 8px; align-items: center;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #FF6058; display: inline-block;"></span>
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #FFC130; display: inline-block;"></span>
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #28CA42; display: inline-block;"></span>
+            <span style="margin-left: 16px; font-size: 13px; color: #5C6479;">imotive.app/dashboard</span>
+          </div>
+          <div style="padding: 24px; display: grid; grid-template-columns: 220px 1fr; gap: 24px;">
+            <div>
+              <div style="font-size: 12px; color: #5C6479; margin-bottom: 12px;">Filters</div>
+              <div style="padding: 8px 10px; border-radius: 8px; font-size: 13px; background: #F7F9FC; color: #0B1220; margin-bottom: 2px; font-weight: 500;">All matches</div>
+              <div style="padding: 8px 10px; border-radius: 8px; font-size: 13px; background: transparent; color: #5C6479; margin-bottom: 2px;">Closing soon</div>
+              <div style="padding: 8px 10px; border-radius: 8px; font-size: 13px; background: transparent; color: #5C6479; margin-bottom: 2px;">Saved</div>
+              <div style="padding: 8px 10px; border-radius: 8px; font-size: 13px; background: transparent; color: #5C6479; margin-bottom: 2px;">STEM</div>
+              <div style="padding: 8px 10px; border-radius: 8px; font-size: 13px; background: transparent; color: #5C6479; margin-bottom: 2px;">Humanities</div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 15px; font-weight: 500;">32 matches for you</div>
+                <div style="font-size: 12px; color: #5C6479;">Sorted by match score</div>
+              </div>
+              <div style="padding: 14px 16px; border: 1px solid #E6EAF2; border-radius: 10px; margin-bottom: 8px; display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center;">
+                <div>
+                  <div style="font-size: 14px; font-weight: 500;">Wallenberg Engineering Grant</div>
+                  <div style="font-size: 12px; color: #5C6479; margin-top: 2px;">KTH &middot; Closes Mar 14</div>
+                </div>
+                <div style="font-size: 13px; color: #0B1220; font-variant-numeric: tabular-nums; font-weight: 500;">50,000 kr</div>
+                <div style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">96% match</div>
+              </div>
+              <div style="padding: 14px 16px; border: 1px solid #E6EAF2; border-radius: 10px; margin-bottom: 8px; display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center;">
+                <div>
+                  <div style="font-size: 14px; font-weight: 500;">Lund Sustainability Fund</div>
+                  <div style="font-size: 12px; color: #5C6479; margin-top: 2px;">Lund University &middot; Closes Apr 02</div>
+                </div>
+                <div style="font-size: 13px; color: #0B1220; font-variant-numeric: tabular-nums; font-weight: 500;">40,000 kr</div>
+                <div style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">88% match</div>
+              </div>
+              <div style="padding: 14px 16px; border: 1px solid #E6EAF2; border-radius: 10px; margin-bottom: 8px; display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center;">
+                <div>
+                  <div style="font-size: 14px; font-weight: 500;">Chalmers Tech Fellowship</div>
+                  <div style="font-size: 12px; color: #5C6479; margin-top: 2px;">Chalmers &middot; Closes May 20</div>
+                </div>
+                <div style="font-size: 13px; color: #0B1220; font-variant-numeric: tabular-nums; font-weight: 500;">30,000 kr</div>
+                <div style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">92% match</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section style="padding: 60px 32px; border-top: 1px solid #E6EAF2; border-bottom: 1px solid #E6EAF2; background: #F7F9FC;">
+    <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+      <div style="font-size: 13px; color: #5C6479; margin-bottom: 28px;">Trusted by students at Swedish universities</div>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 32px; opacity: 0.7;">
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">KTH</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">LUND</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">STOCKHOLM</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">CHALMERS</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">UPPSALA</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">G&Ouml;TEBORG</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: 1px; color: #5C6479;">LINK&Ouml;PING</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how-it-works" style="padding: 120px 32px;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 72px;">
+        <div style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500; margin-bottom: 12px; letter-spacing: 0.2px;">How it works</div>
+        <h2 style="font-size: 48px; letter-spacing: -1.4px; font-weight: 600; margin: 0; max-width: 700px; margin-inline: auto; line-height: 1.1;">
+          From scrolling to scholarship in three steps.
+        </h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div style="background: #fff; border: 1px solid #E6EAF2; border-radius: 16px; padding: 28px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; right: 0; width: 140px; height: 140px; background: linear-gradient(135deg, oklch(0.93 0.05 250), oklch(0.88 0.08 240)); border-radius: 50%; transform: translate(40%, -40%);"></div>
+          <div style="position: relative;">
+            <div style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500; margin-bottom: 14px;">01</div>
+            <div style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px;">Tell us about you</div>
+            <div style="font-size: 14px; color: #5C6479; line-height: 1.6;">Set your field, year, eligibility. Two minutes, no signup wall.</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #E6EAF2; border-radius: 16px; padding: 28px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; right: 0; width: 140px; height: 140px; background: linear-gradient(135deg, oklch(0.94 0.04 220), oklch(0.89 0.07 230)); border-radius: 50%; transform: translate(40%, -40%);"></div>
+          <div style="position: relative;">
+            <div style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500; margin-bottom: 14px;">02</div>
+            <div style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px;">See your matches</div>
+            <div style="font-size: 14px; color: #5C6479; line-height: 1.6;">We rank every verified opportunity by fit and deadline.</div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #E6EAF2; border-radius: 16px; padding: 28px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; right: 0; width: 140px; height: 140px; background: linear-gradient(135deg, oklch(0.92 0.05 260), oklch(0.86 0.09 250)); border-radius: 50%; transform: translate(40%, -40%);"></div>
+          <div style="position: relative;">
+            <div style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500; margin-bottom: 14px;">03</div>
+            <div style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px;">Apply in one place</div>
+            <div style="font-size: 14px; color: #5C6479; line-height: 1.6;">Track every application. Reuse essays. Hit deadlines.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scholarship preview grid -->
+  <section id="scholarships" style="padding: 40px 32px 120px;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px;">
+        <div>
+          <div style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500; margin-bottom: 12px;">Live opportunities</div>
+          <h2 style="font-size: 40px; letter-spacing: -1.2px; font-weight: 600; margin: 0;">Closing this season</h2>
+        </div>
+        <a href="signup.html" style="font-size: 14px; color: #0B1220; font-weight: 500;">View all 2,400+ &rarr;</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+        <a href="signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
+            <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">96% match</span>
+            <span style="font-size: 12px; color: #5C6479;">Closes Mar 14</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 6px;">Wallenberg Engineering Grant</div>
+          <div style="font-size: 13px; color: #5C6479; margin-bottom: 18px;">KTH</div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid #E6EAF2;">
+            <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; font-variant-numeric: tabular-nums;">50,000 kr</span>
+            <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
+          </div>
+        </a>
+        <a href="signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
+            <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">88% match</span>
+            <span style="font-size: 12px; color: #5C6479;">Closes Apr 02</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 6px;">Lund Sustainability Fund</div>
+          <div style="font-size: 13px; color: #5C6479; margin-bottom: 18px;">Lund University</div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid #E6EAF2;">
+            <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; font-variant-numeric: tabular-nums;">40,000 kr</span>
+            <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
+          </div>
+        </a>
+        <a href="signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
+            <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">92% match</span>
+            <span style="font-size: 12px; color: #5C6479;">Closes May 20</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 6px;">Chalmers Tech Fellowship</div>
+          <div style="font-size: 13px; color: #5C6479; margin-bottom: 18px;">Chalmers</div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid #E6EAF2;">
+            <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; font-variant-numeric: tabular-nums;">30,000 kr</span>
+            <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
+          </div>
+        </a>
+        <a href="signup.html" data-signup-card style="display: block; background: #fff; border: 1px solid #E6EAF2; border-radius: 14px; padding: 24px; color: inherit;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 14px;">
+            <span style="font-size: 11px; padding: 4px 10px; border-radius: 6px; background: oklch(0.95 0.03 250); color: oklch(0.45 0.16 255); font-weight: 500;">84% match</span>
+            <span style="font-size: 12px; color: #5C6479;">Closes Jun 11</span>
+          </div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 6px;">Uppsala Humanities Grant</div>
+          <div style="font-size: 13px; color: #5C6479; margin-bottom: 18px;">Uppsala University</div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid #E6EAF2;">
+            <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; font-variant-numeric: tabular-nums;">20,000 kr</span>
+            <span style="font-size: 13px; color: oklch(0.62 0.14 250); font-weight: 500;">View &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value prop -->
+  <section style="padding: 120px 32px; background: #F7F9FC; border-top: 1px solid #E6EAF2; border-bottom: 1px solid #E6EAF2;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <h2 style="font-size: 48px; letter-spacing: -1.4px; font-weight: 600; margin: 0 0 56px; max-width: 700px; line-height: 1.1;">
+        Built for students. Priced for students.
+      </h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;">
+        <div style="padding: 8px 28px 8px 0;">
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255)); margin-bottom: 18px;"></div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 8px;">Free, forever</div>
+          <div style="font-size: 14px; color: #5C6479; line-height: 1.6;">Every core feature. No paywall. No upsells. We make money from partner schools, not students.</div>
+        </div>
+        <div style="padding: 8px 28px; border-left: 1px solid #E6EAF2;">
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255)); margin-bottom: 18px;"></div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 8px;">Verified by humans</div>
+          <div style="font-size: 14px; color: #5C6479; line-height: 1.6;">Our editorial team reviews every listing. We remove expired awards within 24 hours.</div>
+        </div>
+        <div style="padding: 8px 0 8px 28px; border-left: 1px solid #E6EAF2;">
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255)); margin-bottom: 18px;"></div>
+          <div style="font-size: 20px; font-weight: 600; letter-spacing: -0.4px; margin-bottom: 8px;">Your data is yours</div>
+          <div style="font-size: 14px; color: #5C6479; line-height: 1.6;">We never sell your information. Export or delete your profile any time, no questions asked.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding: 120px 32px;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255)); border-radius: 24px; padding: 80px 64px; text-align: center; color: #fff; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.08);"></div>
+        <div style="position: absolute; bottom: -150px; left: -100px; width: 350px; height: 350px; border-radius: 50%; background: rgba(255,255,255,0.06);"></div>
+        <div style="position: relative;">
+          <h2 style="font-size: 56px; letter-spacing: -1.6px; font-weight: 600; margin: 0; line-height: 1.05; max-width: 720px; margin-inline: auto;">
+            Stop searching. Start applying.
+          </h2>
+          <p style="font-size: 18px; opacity: 0.85; margin-top: 18px; max-width: 520px; margin-inline: auto; line-height: 1.5;">
+            Join 5,000+ students using iMotive to fund their education.
+          </p>
+          <div style="margin-top: 36px; display: flex; gap: 12px; justify-content: center;">
+            <a href="signup.html" style="background: #fff; color: #0B1220; padding: 14px 24px; border-radius: 10px; font-weight: 600; font-size: 15px;">Get started free</a>
+            <a href="signup.html" style="border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 14px 24px; border-radius: 10px; font-size: 15px;">Browse instead</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 60px 32px 40px; border-top: 1px solid #E6EAF2;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, oklch(0.62 0.14 250), oklch(0.45 0.16 255));"></div>
+            <div style="font-size: 17px; font-weight: 600;">iMotive</div>
+          </div>
+          <div style="font-size: 13px; color: #5C6479; max-width: 280px; line-height: 1.6;">Scholarship discovery for university students in Sweden.</div>
+        </div>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Product</div>
+          <a href="signup.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Search</a>
+          <a href="signup.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Matching</a>
+          <a href="results.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">My results</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Company</div>
+          <a href="about.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">About</a>
+          <a href="contact.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Contact</a>
+          <a href="contact.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">For schools</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Resources</div>
+          <a href="#how-it-works" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">How it works</a>
+          <a href="signup.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Browse all</a>
+        </div>
+        <div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px;">Legal</div>
+          <a href="privacy.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Privacy</a>
+          <a href="terms.html" style="display: block; font-size: 13px; color: #5C6479; margin-bottom: 10px;">Terms</a>
+        </div>
+      </div>
+      <div style="padding-top: 24px; border-top: 1px solid #E6EAF2; display: flex; justify-content: space-between; font-size: 12px; color: #5C6479;">
+        <span>&copy; 2026 iMotive. All rights reserved.</span>
+        <span>Made for students, everywhere.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="src/home.js"></script>
+
+</body>
+</html>
