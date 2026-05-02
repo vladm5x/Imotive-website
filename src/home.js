@@ -1,10 +1,35 @@
 import { getSupabase } from "./lib/supabaseClient.js";
 
 const signupUrl = "signup.html";
+const LAYOUT_STORAGE_KEY = "imotive-active-layout";
+const layoutByPage = {
+  "original.html": "original",
+  "saas-landing.html": "saas-landing",
+  "genz-landing.html": "genz-landing",
+  "imotive-landing.html": "imotive-landing",
+  "purple-landing.html": "purple-landing",
+};
+
+function currentLayoutId() {
+  const page = window.location.pathname.split("/").pop();
+  return localStorage.getItem(LAYOUT_STORAGE_KEY) || layoutByPage[page] || "";
+}
+
+function signupDestination(source) {
+  const link = source?.closest?.('a[href*="signup.html"]') || source?.querySelector?.('a[href*="signup.html"]');
+  if (link?.href) return link.href;
+
+  const layout = currentLayoutId();
+  if (!layout) return signupUrl;
+
+  const url = new URL(signupUrl, window.location.href);
+  url.searchParams.set("layout", layout);
+  return url.toString();
+}
 
 function sendToSignup(event) {
   event?.preventDefault();
-  window.location.href = signupUrl;
+  window.location.href = signupDestination(event?.currentTarget);
 }
 
 function initSignupEntrypoints() {

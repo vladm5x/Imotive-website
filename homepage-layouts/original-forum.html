@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1F3A; --cream: #FAFAF7; --blue: #3B82F6;
+    --yellow: #FACC15; --muted: #5A6E8A; --border: #C8D5E8;
+    --white: #FFFFFF; --green: #22c55e; --green-bg: #e6f9ef;
+  }
+  html, body { min-height: 100vh; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--navy); }
+
+  /* Nav */
+  nav {
+    background: var(--navy); display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 62px; position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 32px; height: 32px; background: var(--yellow); border-radius: 7px;
+    display: grid; place-items: center; font-family: 'Architects Daughter', cursive; font-size: 16px; color: var(--navy);
+  }
+  .logo-text { font-family: 'Architects Daughter', cursive; font-size: 18px; color: #fff; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-link { color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500; text-decoration: none; transition: color 0.15s; }
+  .nav-link:hover, .nav-link.active { color: #fff; }
+  .nav-cta { padding: 8px 18px; background: var(--blue); border-radius: 6px; color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; }
+
+  /* Hero */
+  .hero { background: var(--navy); padding: 48px; position: relative; overflow: hidden; }
+  .hero::after { content: '✦'; font-family: 'Architects Daughter', cursive; font-size: 200px; color: rgba(250,204,21,0.06); position: absolute; right: 0; bottom: -40px; line-height: 1; }
+  .hero-kicker { font-family: 'Caveat', cursive; font-size: 20px; color: var(--yellow); margin-bottom: 12px; }
+  .hero h1 { font-family: 'Architects Daughter', cursive; font-size: clamp(36px, 5vw, 64px); color: #fff; line-height: 1.1; margin-bottom: 14px; }
+  .hero h1 .sketch-line { position: relative; display: inline-block; }
+  .hero h1 .sketch-line::after { content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 3px; background: var(--yellow); border-radius: 2px; }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 440px; line-height: 1.65; margin-bottom: 32px; }
+  .hero-stats { display: flex; gap: 36px; }
+  .h-stat .num { font-family: 'Architects Daughter', cursive; font-size: 28px; color: var(--yellow); }
+  .h-stat .lbl { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+  /* Filter bar */
+  .filter-bar { display: flex; align-items: center; gap: 8px; padding: 14px 48px; background: var(--white); border-bottom: 1.5px solid var(--border); flex-wrap: wrap; }
+  .filter-label { font-family: 'Caveat', cursive; font-size: 16px; color: var(--muted); margin-right: 4px; }
+  .filter-btn { padding: 6px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; background: var(--cream); cursor: pointer; color: var(--muted); transition: all 0.15s; }
+  .filter-btn:hover { border-color: var(--blue); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .filter-spacer { flex: 1; }
+  .new-post-btn { padding: 8px 18px; background: var(--blue); border-radius: 6px; color: #fff; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; border: none; cursor: pointer; }
+
+  /* Body */
+  .page-body { max-width: 1100px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 260px; gap: 24px; }
+
+  /* Categories */
+  .cats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .cat-card {
+    background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px;
+    cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .cat-card:hover { border-color: var(--blue); box-shadow: 0 3px 12px rgba(59,130,246,0.1); }
+  .cat-emoji { font-size: 24px; margin-bottom: 8px; }
+  .cat-name { font-family: 'Architects Daughter', cursive; font-size: 15px; margin-bottom: 2px; }
+  .cat-count { font-size: 12px; color: var(--muted); }
+
+  /* Posts */
+  .posts-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .posts-head h2 { font-family: 'Architects Daughter', cursive; font-size: 20px; }
+  .sort-row { display: flex; gap: 6px; }
+  .sort-btn { padding: 5px 12px; border: 1.5px solid var(--border); border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; background: var(--white); cursor: pointer; color: var(--muted); }
+  .sort-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  .post-list { display: flex; flex-direction: column; gap: 10px; }
+  .post-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+  .post-card:hover { border-color: var(--blue); box-shadow: 0 2px 10px rgba(59,130,246,0.08); }
+  .post-card.pinned { border-left: 3px solid var(--yellow); padding-left: 17px; }
+
+  .post-top { display: flex; gap: 14px; align-items: flex-start; }
+  .post-avi { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .post-body { flex: 1; }
+  .post-tags { display: flex; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+  .post-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+  .tag-blue { background: #EEF3FF; color: var(--blue); }
+  .tag-yellow { background: #FFFBE0; color: #92600A; }
+  .tag-green { background: var(--green-bg); color: #16a34a; }
+  .tag-muted { background: #F0F4F8; color: var(--muted); }
+  .post-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.35; }
+  .post-preview { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+  .post-footer { display: flex; align-items: center; gap: 16px; }
+  .post-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .post-meta strong { color: var(--navy); font-weight: 600; }
+  .dot { color: var(--border); }
+  .post-counts { margin-left: auto; display: flex; gap: 14px; }
+  .pn { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; font-weight: 500; }
+  .pn span { font-weight: 600; color: var(--navy); }
+
+  /* Sidebar */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .widget { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .widget-head { padding: 14px 16px; border-bottom: 1.5px solid var(--border); }
+  .widget-head h3 { font-family: 'Architects Daughter', cursive; font-size: 16px; }
+  .widget-body { padding: 12px 16px; }
+  .trend-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--cream); cursor: pointer; }
+  .trend-item:last-child { border-bottom: none; }
+  .trend-num { font-family: 'Architects Daughter', cursive; font-size: 18px; color: var(--blue); width: 22px; }
+  .trend-text { font-size: 13px; font-weight: 500; }
+  .leader-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--cream); }
+  .leader-item:last-child { border-bottom: none; }
+  .l-avi { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; color: #fff; }
+  .l-name { font-size: 13px; font-weight: 600; }
+  .l-pts { font-size: 11px; color: var(--muted); }
+  .join-widget { padding: 20px 16px; text-align: center; }
+  .join-widget h3 { font-family: 'Architects Daughter', cursive; font-size: 18px; margin-bottom: 8px; line-height: 1.2; }
+  .join-widget p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .join-btn { display: block; width: 100%; padding: 11px; background: var(--blue); border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #fff; text-decoration: none; text-align: center; cursor: pointer; }
+  .join-hand { font-family: 'Caveat', cursive; font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+  @media (max-width: 900px) {
+    .page-body { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    nav { padding: 0 20px; }
+    .filter-bar { padding: 12px 20px; }
+    .hero { padding: 36px 20px; }
+    .cats-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) { .nav-links { display: none; } .cats-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <div class="logo-mark">i</div>
+    <span class="logo-text">iMotive</span>
+  </a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="original-forum.html" class="nav-link active">Community</a>
+    <a href="original-browse.html" class="nav-link">Browse</a>
+    <a href="/signup.html?layout=original" class="nav-cta">Sign up free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-kicker">✦ student community</div>
+  <h1>Real students,<br><span class="sketch-line">real wins</span>.</h1>
+  <p>Tips, scholarship drops, essay advice, and success stories — all in one friendly place.</p>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="num">3.2k</div><div class="lbl">Members</div></div>
+    <div class="h-stat"><div class="num">248</div><div class="lbl">Posts</div></div>
+    <div class="h-stat"><div class="num">$2.4M</div><div class="lbl">Won together</div></div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">show me:</span>
+  <button class="filter-btn active">Everything</button>
+  <button class="filter-btn">🎓 Scholarships</button>
+  <button class="filter-btn">📝 Essays</button>
+  <button class="filter-btn">🏆 Wins</button>
+  <button class="filter-btn">💡 Tips</button>
+  <div class="filter-spacer"></div>
+  <button class="new-post-btn">+ Share something</button>
+</div>
+
+<div class="page-body">
+  <div>
+    <div class="cats-grid">
+      <div class="cat-card"><div class="cat-emoji">🎓</div><div class="cat-name">Scholarship Finds</div><div class="cat-count">94 posts · 12 new</div></div>
+      <div class="cat-card"><div class="cat-emoji">📝</div><div class="cat-name">Application Help</div><div class="cat-count">67 posts · 5 new</div></div>
+      <div class="cat-card"><div class="cat-emoji">🏆</div><div class="cat-name">Success Stories</div><div class="cat-count">29 posts · 3 new</div></div>
+    </div>
+
+    <div class="posts-head">
+      <h2>Recent posts ✦</h2>
+      <div class="sort-row">
+        <button class="sort-btn active">Latest</button>
+        <button class="sort-btn">Top</button>
+        <button class="sort-btn">Unanswered</button>
+      </div>
+    </div>
+
+    <div class="post-list">
+      <div class="post-card pinned">
+        <div class="post-top">
+          <div class="post-avi" style="background:#3B82F6">S</div>
+          <div class="post-body">
+            <div class="post-tags"><span class="post-tag tag-yellow">📌 Pinned</span><span class="post-tag tag-blue">Scholarship Finds</span></div>
+            <div class="post-title">STEM scholarships for first-gen students — complete list, May 2026</div>
+            <div class="post-preview">40+ verified scholarships, all with links and deadlines. Compiled and updated by the iMotive team. Bookmark this one.</div>
+            <div class="post-footer">
+              <div class="post-meta"><strong>Sofia M.</strong><span class="dot">·</span><span>2 hours ago</span><span class="dot">·</span><span>iMotive team</span></div>
+              <div class="post-counts"><span class="pn">💬 <span>34</span></span><span class="pn">👁 <span>1.2k</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-top">
+          <div class="post-avi" style="background:#22c55e">J</div>
+          <div class="post-body">
+            <div class="post-tags"><span class="post-tag tag-green">✓ Solved</span><span class="post-tag tag-muted">Application Help</span></div>
+            <div class="post-title">How to write a compelling essay when your story feels "ordinary"</div>
+            <div class="post-preview">Thought this before winning 3 scholarships this year. Here's the reframe that changed everything for me.</div>
+            <div class="post-footer">
+              <div class="post-meta"><strong>Jordan K.</strong><span class="dot">·</span><span>5 hours ago</span></div>
+              <div class="post-counts"><span class="pn">💬 <span>18</span></span><span class="pn">👁 <span>847</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-top">
+          <div class="post-avi" style="background:#a855f7">A</div>
+          <div class="post-body">
+            <div class="post-tags"><span class="post-tag tag-blue">Success Story</span></div>
+            <div class="post-title">Won the Gates Scholarship on attempt 4. Full breakdown of what changed.</div>
+            <div class="post-preview">Year 1–3 I tried to sound impressive. Year 4 I got honest and specific. Sharing the exact changes I made.</div>
+            <div class="post-footer">
+              <div class="post-meta"><strong>Amara T.</strong><span class="dot">·</span><span>Yesterday</span></div>
+              <div class="post-counts"><span class="pn">💬 <span>52</span></span><span class="pn">👁 <span>2.4k</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-top">
+          <div class="post-avi" style="background:#f59e0b">R</div>
+          <div class="post-body">
+            <div class="post-tags"><span class="post-tag tag-muted">Tips</span></div>
+            <div class="post-title">Free Notion tracker for scholarship apps — 1,100+ students already using it</div>
+            <div class="post-preview">Tracks deadlines, essay prompts, recommender status. Saved me from missing 3 deadlines last semester.</div>
+            <div class="post-footer">
+              <div class="post-meta"><strong>Rohan P.</strong><span class="dot">·</span><span>2 days ago</span></div>
+              <div class="post-counts"><span class="pn">💬 <span>23</span></span><span class="pn">👁 <span>1.1k</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-top">
+          <div class="post-avi" style="background:#ef4444">L</div>
+          <div class="post-body">
+            <div class="post-tags"><span class="post-tag tag-blue">Scholarship Finds</span></div>
+            <div class="post-title">Local foundation scholarships are massively underrated — applied to 6, won 3</div>
+            <div class="post-footer">
+              <div class="post-meta"><strong>Leila D.</strong><span class="dot">·</span><span>3 days ago</span></div>
+              <div class="post-counts"><span class="pn">💬 <span>11</span></span><span class="pn">👁 <span>623</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="widget">
+      <div class="widget-head"><h3>Trending ✨</h3></div>
+      <div class="widget-body">
+        <div class="trend-item"><span class="trend-num">1</span><span class="trend-text">Gates Scholarship tips</span></div>
+        <div class="trend-item"><span class="trend-num">2</span><span class="trend-text">First-gen STEM grants</span></div>
+        <div class="trend-item"><span class="trend-num">3</span><span class="trend-text">Essay openers that win</span></div>
+        <div class="trend-item"><span class="trend-num">4</span><span class="trend-text">Local scholarship finds</span></div>
+        <div class="trend-item"><span class="trend-num">5</span><span class="trend-text">May 2026 deadlines</span></div>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="widget-head"><h3>Top helpers 🌟</h3></div>
+      <div class="widget-body">
+        <div class="leader-item"><div class="l-avi" style="background:#3B82F6">A</div><div><div class="l-name">Amara T.</div><div class="l-pts">2,340 pts</div></div></div>
+        <div class="leader-item"><div class="l-avi" style="background:#22c55e">J</div><div><div class="l-name">Jordan K.</div><div class="l-pts">1,890 pts</div></div></div>
+        <div class="leader-item"><div class="l-avi" style="background:#f59e0b">R</div><div><div class="l-name">Rohan P.</div><div class="l-pts">1,420 pts</div></div></div>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="join-widget">
+        <h3>Join 3,200+ students! 👋</h3>
+        <p>Share tips, get matched, win money. Always free.</p>
+        <a href="/signup.html?layout=original#signup" class="join-btn">Create free account</a>
+        <div class="join-hand">takes 30 seconds :)</div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

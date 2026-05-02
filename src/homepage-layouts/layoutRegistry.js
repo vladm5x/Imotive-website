@@ -7,6 +7,7 @@ export const layoutRegistry = [
     font: 'Inter + Architects Daughter',
     colors: ['#0B1F3A', '#FAFAF7', '#3B82F6', '#FACC15'],
     htmlPath: 'homepage-layouts/original.html',
+    signupPath: 'homepage-layouts/original-signup.html',
   },
   {
     id: 'saas-landing',
@@ -16,6 +17,7 @@ export const layoutRegistry = [
     font: 'Inter Tight',
     colors: ['#0B1220', '#FFFFFF', '#4A80E8', '#E6EAF2'],
     htmlPath: 'homepage-layouts/saas-landing.html',
+    signupPath: 'homepage-layouts/saas-signup.html',
   },
   {
     id: 'genz-landing',
@@ -25,6 +27,7 @@ export const layoutRegistry = [
     font: 'Inter',
     colors: ['#0F0F0F', '#F5F0FF', '#7C3AED', '#FF6B6B'],
     htmlPath: 'homepage-layouts/genz-landing.html',
+    signupPath: 'homepage-layouts/genz-signup.html',
   },
   {
     id: 'imotive-landing',
@@ -34,6 +37,7 @@ export const layoutRegistry = [
     font: 'Archivo Black + Space Grotesk + Inter',
     colors: ['#160a5e', '#fdfbf7', '#6c3aff', '#ffd83d'],
     htmlPath: 'homepage-layouts/imotive-landing.html',
+    signupPath: 'homepage-layouts/imotive-signup.html',
   },
   {
     id: 'purple-landing',
@@ -43,5 +47,6 @@ export const layoutRegistry = [
     font: 'Space Grotesk + Inter',
     colors: ['#4b00d8', '#ffffff', '#f6f6f8', '#ffd84d'],
     htmlPath: 'homepage-layouts/purple-landing.html',
+    signupPath: 'homepage-layouts/purple-signup.html',
   },
 ];

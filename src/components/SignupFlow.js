@@ -186,7 +186,7 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
     setLoading(true);
     setError("");
     try {
-      await signInWithGoogle();
+      await signInWithGoogle("signup.html?continue=1");
     } catch (authError) {
       setError(authError.message);
       setLoading(false);

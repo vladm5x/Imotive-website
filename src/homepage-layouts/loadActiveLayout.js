@@ -32,6 +32,7 @@ async function loadActiveLayout() {
 
     // Replace body content
     document.body.innerHTML = doc.body.innerHTML;
+    normalizeSignupLinks();
 
     // Re-execute scripts (innerHTML does not run scripts automatically)
     for (const old of Array.from(document.body.querySelectorAll('script'))) {
@@ -51,6 +52,22 @@ async function loadActiveLayout() {
     // Hard fallback: navigate directly to the layout file
     window.location.href = entry.htmlPath;
   }
+}
+
+function normalizeSignupLinks() {
+  document.querySelectorAll('a[href*="signup.html"]').forEach((link) => {
+    const href = link.getAttribute('href') || '';
+    const url = new URL(href, window.location.href);
+    const filename = url.pathname.split('/').pop();
+    if (!filename || !filename.endsWith('signup.html')) return;
+
+    const next = new URL('signup.html', window.location.href);
+    if (href.includes('#signup')) next.hash = 'signup';
+    if (url.searchParams.get('mode') === 'login' || /sign\s*in|log\s*in/i.test(link.textContent || '')) {
+      next.searchParams.set('mode', 'login');
+    }
+    link.href = next.toString();
+  });
 }
 
 function injectLayoutPreviewButton() {

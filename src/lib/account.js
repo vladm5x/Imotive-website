@@ -12,13 +12,13 @@ export async function getSession() {
   return data.session;
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(redirectPath = "account.html") {
   const supabase = getSupabase();
   if (!supabase) throw new Error("Supabase is not configured yet.");
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: new URL("account.html", window.location.href).toString()
+      redirectTo: new URL(redirectPath, window.location.href).toString()
     }
   });
   if (error) throw error;

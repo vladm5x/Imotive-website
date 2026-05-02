@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1F3A;
+    --cream: #FAFAF7;
+    --blue: #3B82F6;
+    --yellow: #FACC15;
+    --muted: #5A6E8A;
+    --border: #C8D5E8;
+    --white: #FFFFFF;
+  }
+  html, body { min-height: 100vh; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--navy); }
+
+  /* Nav */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1.5px solid var(--border); background: var(--white);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); }
+  .brand-mark {
+    width: 36px; height: 36px; background: var(--navy); border-radius: 8px;
+    display: grid; place-items: center; position: relative;
+  }
+  .brand-mark::after { content: 'i'; color: var(--yellow); font-family: 'Architects Daughter', cursive; font-size: 18px; }
+  .brand-name { font-family: 'Architects Daughter', cursive; font-size: 20px; letter-spacing: -0.3px; }
+  .header-link { font-size: 14px; color: var(--muted); text-decoration: none; }
+
+  /* Page */
+  .page { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 73px); }
+
+  /* Left */
+  .left { background: var(--navy); padding: 64px 52px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .left::before {
+    content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(59,130,246,0.12); top: -80px; right: -80px; pointer-events: none;
+  }
+  .left-kicker { font-family: 'Caveat', cursive; font-size: 20px; color: var(--yellow); margin-bottom: 16px; }
+  .left h2 { font-family: 'Architects Daughter', cursive; font-size: clamp(32px, 3.5vw, 52px); color: #fff; line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px; }
+  .left p { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.65; max-width: 320px; }
+  .left-doodle { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(250,204,21,0.7); margin-top: 12px; }
+
+  .perks { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
+  .perk { display: flex; align-items: center; gap: 12px; }
+  .perk-check { width: 22px; height: 22px; background: var(--yellow); border-radius: 50%; display: grid; place-items: center; font-size: 12px; flex-shrink: 0; color: var(--navy); font-weight: 700; }
+  .perk-text { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; }
+
+  .left-stats { display: flex; gap: 32px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 36px; }
+  .stat-num { font-family: 'Architects Daughter', cursive; font-size: 30px; color: var(--yellow); letter-spacing: -1px; }
+  .stat-lbl { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+  /* Right */
+  .right { padding: 64px 52px; display: flex; flex-direction: column; justify-content: center; background: var(--white); }
+  .form-wrap { max-width: 420px; width: 100%; margin: 0 auto; }
+
+  .form-kicker { font-family: 'Caveat', cursive; font-size: 18px; color: var(--blue); margin-bottom: 4px; }
+  .form-title { font-family: 'Architects Daughter', cursive; font-size: 30px; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .form-sub a { color: var(--blue); text-decoration: none; font-weight: 500; }
+
+  .tabs { display: flex; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+  .tab-btn {
+    flex: 1; padding: 11px 0; font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 500; border: none; cursor: pointer;
+    background: transparent; color: var(--muted); transition: all 0.15s;
+  }
+  .tab-btn.active { background: var(--navy); color: #fff; }
+
+  .social-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .social-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    background: var(--cream); cursor: pointer; color: var(--navy);
+    transition: border-color 0.15s;
+  }
+  .social-btn:hover { border-color: var(--blue); }
+  .social-btn svg { width: 16px; height: 16px; }
+
+  .divider { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .divider span { font-family: 'Caveat', cursive; font-size: 16px; color: var(--muted); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .field input {
+    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 14px; color: var(--navy); background: var(--cream);
+    outline: none; transition: border-color 0.15s;
+  }
+  .field input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+  .field input::placeholder { color: #9BACC0; }
+
+  .field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .remember { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .remember input { accent-color: var(--blue); }
+  .forgot { font-size: 13px; color: var(--blue); text-decoration: none; font-weight: 500; font-family: 'Caveat', cursive; font-size: 16px; }
+
+  .submit-btn {
+    width: 100%; padding: 13px; background: var(--navy); color: #fff;
+    border: none; border-radius: 10px; font-family: 'Inter', sans-serif;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    position: relative; overflow: hidden;
+  }
+  .submit-btn:hover { background: #0E2A50; transform: translateY(-1px); }
+
+  .terms { font-size: 12px; color: var(--muted); text-align: center; margin-top: 16px; line-height: 1.5; }
+  .terms a { color: var(--blue); text-decoration: none; }
+
+  .hand-note { font-family: 'Caveat', cursive; font-size: 14px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+  .signup-field { display: none; }
+
+  @media (max-width: 860px) {
+    .page { grid-template-columns: 1fr; }
+    .left { display: none; }
+    .right { padding: 40px 24px; }
+    header { padding: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../index.html" class="brand">
+    <div class="brand-mark"></div>
+    <span class="brand-name">iMotive</span>
+  </a>
+  <a href="original-forum.html" class="header-link">Community →</a>
+</header>
+
+<div class="page">
+  <div class="left">
+    <div>
+      <div class="left-kicker">✦ hi there!</div>
+      <h2>Scholarships that actually fit you.</h2>
+      <p>We scan 12,000+ scholarships and surface only the ones that match your real profile. No noise, no spam.</p>
+      <div class="left-doodle">← it's free, always</div>
+    </div>
+
+    <div class="perks">
+      <div class="perk"><div class="perk-check">✓</div><span class="perk-text">AI-matched to your exact profile</span></div>
+      <div class="perk"><div class="perk-check">✓</div><span class="perk-text">Real deadlines, updated daily</span></div>
+      <div class="perk"><div class="perk-check">✓</div><span class="perk-text">Application reminders & tracking</span></div>
+      <div class="perk"><div class="perk-check">✓</div><span class="perk-text">Community of students who've won</span></div>
+    </div>
+
+    <div class="left-stats">
+      <div><div class="stat-num">12k+</div><div class="stat-lbl">Scholarships</div></div>
+      <div><div class="stat-num">$2.4M</div><div class="stat-lbl">Awarded</div></div>
+      <div><div class="stat-num">94%</div><div class="stat-lbl">Match rate</div></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="form-wrap">
+      <div class="form-kicker">welcome back ✨</div>
+      <h1 class="form-title" id="form-title">Sign in to iMotive</h1>
+      <p class="form-sub" id="form-sub">New here? <a href="#" onclick="switchTab('signup'); return false;">Create a free account</a></p>
+
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-signin" onclick="switchTab('signin')">Sign in</button>
+        <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
+      </div>
+
+      <div class="social-row">
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </button>
+      </div>
+
+      <div class="divider"><span>or email</span></div>
+
+      <form onsubmit="return false;">
+        <div class="field signup-field" id="field-name">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Alex Johnson">
+        </div>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@university.edu">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••">
+        </div>
+        <div class="field-row" id="row-remember">
+          <label class="remember"><input type="checkbox"> Keep me signed in</label>
+          <a href="#" class="forgot">Forgot?</a>
+        </div>
+        <button type="submit" class="submit-btn" id="submit-btn">Sign in</button>
+        <p class="terms">By continuing you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.</p>
+        <div class="hand-note">no spam, ever :)</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(mode) {
+    const isSignup = mode === 'signup';
+    document.getElementById('tab-signin').classList.toggle('active', !isSignup);
+    document.getElementById('tab-signup').classList.toggle('active', isSignup);
+    document.getElementById('field-name').style.display = isSignup ? 'block' : 'none';
+    document.getElementById('row-remember').style.display = isSignup ? 'none' : 'flex';
+    document.getElementById('submit-btn').textContent = isSignup ? 'Create account' : 'Sign in';
+    document.getElementById('form-title').textContent = isSignup ? 'Create your account' : 'Sign in to iMotive';
+    document.querySelector('.form-kicker').textContent = isSignup ? "let's get started ✨" : 'welcome back ✨';
+    document.getElementById('form-sub').innerHTML = isSignup
+      ? 'Already have one? <a href="#" onclick="switchTab(\'signin\'); return false;">Sign in</a>'
+      : 'New here? <a href="#" onclick="switchTab(\'signup\'); return false;">Create a free account</a>';
+  }
+  if (window.location.hash === '#signup') switchTab('signup');
+</script>
+</body>
+</html>
