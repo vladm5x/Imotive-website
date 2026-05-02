@@ -28,14 +28,8 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir _site
-          cp index.html _site/
-          cp signup.html _site/
-          cp login.html _site/
-          cp account.html _site/
-          cp 404.html _site/
+          cp *.html _site/
           cp CNAME _site/
-          cp profile.html _site/
-          cp results.html _site/
           cp app.js _site/
           cp styles.css _site/
           cp -r signup _site/signup
