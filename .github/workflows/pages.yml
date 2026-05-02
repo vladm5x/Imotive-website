@@ -32,6 +32,7 @@ jobs:
           cp CNAME _site/
           cp app.js _site/
           cp styles.css _site/
+          cp -r homepage-layouts _site/homepage-layouts
           cp -r signup _site/signup
           cp -r src _site/src
           cp -r assets _site/assets
