@@ -7,7 +7,6 @@ export const layoutRegistry = [
     font: 'Inter + Architects Daughter',
     colors: ['#0B1F3A', '#FAFAF7', '#3B82F6', '#FACC15'],
     htmlPath: 'homepage-layouts/original.html',
-    signupPath: 'homepage-layouts/original-signup.html',
   },
   {
     id: 'saas-landing',
