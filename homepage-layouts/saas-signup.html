@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0B1220;
+    --blue: #4A80E8;
+    --blue-dark: #2d5fc4;
+    --light: #E6EAF2;
+    --white: #FFFFFF;
+    --muted: #6B7A99;
+    --border: #D0D8EC;
+    --error: #E05252;
+  }
+  html, body { height: 100%; }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--light); color: var(--ink); }
+
+  .layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+
+  /* Left panel */
+  .panel-left {
+    background: var(--ink);
+    padding: 56px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .panel-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .panel-logo-mark {
+    width: 36px; height: 36px; background: var(--blue);
+    border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
+  }
+  .panel-logo-mark span { color: #fff; font-weight: 700; font-size: 16px; }
+  .panel-logo-text { color: #fff; font-weight: 700; font-size: 18px; letter-spacing: -0.3px; }
+
+  .panel-hero { margin-top: auto; padding-bottom: 48px; }
+  .panel-hero h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
+  }
+  .panel-hero p { color: #8899BB; font-size: 15px; line-height: 1.6; max-width: 340px; }
+
+  .panel-stats { display: flex; gap: 40px; padding-top: 48px; border-top: 1px solid #1E2D4A; }
+  .stat-item .val { font-size: 28px; font-weight: 700; color: var(--blue); letter-spacing: -1px; }
+  .stat-item .lbl { font-size: 12px; color: #6B7A99; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Right panel */
+  .panel-right {
+    background: var(--white);
+    padding: 56px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .form-wrap { max-width: 400px; width: 100%; margin: 0 auto; }
+
+  .form-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .form-sub { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+  .form-sub a { color: var(--blue); text-decoration: none; font-weight: 500; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 28px; }
+  .tab-btn {
+    flex: 1; padding: 10px 0; font-family: 'Inter Tight', sans-serif;
+    font-size: 14px; font-weight: 500; border: none; cursor: pointer;
+    background: transparent; color: var(--muted); transition: all 0.15s;
+  }
+  .tab-btn.active { background: var(--blue); color: #fff; }
+
+  /* Social */
+  .social-row { display: flex; gap: 12px; margin-bottom: 24px; }
+  .social-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 10px 16px; border: 1px solid var(--border); border-radius: 8px;
+    font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 500;
+    background: #fff; cursor: pointer; color: var(--ink); transition: border-color 0.15s;
+  }
+  .social-btn:hover { border-color: var(--blue); }
+  .social-btn svg { width: 18px; height: 18px; }
+
+  .divider { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .divider span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+  /* Form fields */
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+  .field input {
+    width: 100%; padding: 11px 14px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: 'Inter Tight', sans-serif; font-size: 14px;
+    color: var(--ink); background: #fff; outline: none; transition: border-color 0.15s;
+  }
+  .field input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(74,128,232,0.12); }
+  .field input::placeholder { color: #B0BAD0; }
+
+  .field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .remember { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .remember input[type=checkbox] { accent-color: var(--blue); width: 14px; height: 14px; }
+  .forgot { font-size: 13px; color: var(--blue); text-decoration: none; font-weight: 500; }
+
+  .submit-btn {
+    width: 100%; padding: 13px; background: var(--blue); color: #fff;
+    border: none; border-radius: 8px; font-family: 'Inter Tight', sans-serif;
+    font-size: 15px; font-weight: 600; cursor: pointer; letter-spacing: -0.2px;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: var(--blue-dark); }
+
+  .terms { font-size: 12px; color: var(--muted); text-align: center; margin-top: 20px; line-height: 1.5; }
+  .terms a { color: var(--blue); text-decoration: none; }
+
+  /* signup-only fields hidden by default */
+  .signup-field { display: none; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .panel-left { display: none; }
+    .panel-right { padding: 40px 24px; }
+    .form-wrap { max-width: 480px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- Left value panel -->
+  <div class="panel-left">
+    <a href="../index.html" class="panel-logo">
+      <div class="panel-logo-mark"><span>i</span></div>
+      <span class="panel-logo-text">iMotive</span>
+    </a>
+
+    <div class="panel-hero">
+      <h2>Scholarships found while you focus on school.</h2>
+      <p>iMotive's AI scans thousands of opportunities and surfaces the ones you actually qualify for — no spam, no noise.</p>
+    </div>
+
+    <div class="panel-stats">
+      <div class="stat-item">
+        <div class="val">12k+</div>
+        <div class="lbl">Active scholarships</div>
+      </div>
+      <div class="stat-item">
+        <div class="val">$2.4M</div>
+        <div class="lbl">Awarded to date</div>
+      </div>
+      <div class="stat-item">
+        <div class="val">94%</div>
+        <div class="lbl">Match accuracy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="panel-right">
+    <div class="form-wrap">
+      <h1 class="form-title">Welcome back</h1>
+      <p class="form-sub">Don't have an account? <a href="saas-signup.html#signup" onclick="switchTab('signup'); return false;">Sign up free</a></p>
+
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-signin" onclick="switchTab('signin')">Sign in</button>
+        <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Create account</button>
+      </div>
+
+      <!-- Social login -->
+      <div class="social-row">
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </button>
+      </div>
+
+      <div class="divider"><span>or continue with email</span></div>
+
+      <form onsubmit="return false;">
+        <!-- signup-only: name -->
+        <div class="field signup-field" id="field-name">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Alex Johnson" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@university.edu" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+
+        <!-- signin: remember + forgot -->
+        <div class="field-row" id="row-remember">
+          <label class="remember">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Sign in</button>
+
+        <p class="terms">
+          By continuing you agree to our <a href="../terms.html">Terms of Service</a> and <a href="../privacy.html">Privacy Policy</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(mode) {
+    const isSignup = mode === 'signup';
+    document.getElementById('tab-signin').classList.toggle('active', !isSignup);
+    document.getElementById('tab-signup').classList.toggle('active', isSignup);
+    document.getElementById('field-name').style.display = isSignup ? 'block' : 'none';
+    document.getElementById('row-remember').style.display = isSignup ? 'none' : 'flex';
+    document.getElementById('submit-btn').textContent = isSignup ? 'Create account' : 'Sign in';
+    document.querySelector('.form-title').textContent = isSignup ? 'Create your account' : 'Welcome back';
+    document.querySelector('.form-sub').innerHTML = isSignup
+      ? 'Already have an account? <a href="#" onclick="switchTab(\'signin\'); return false;">Sign in</a>'
+      : 'Don\'t have an account? <a href="#" onclick="switchTab(\'signup\'); return false;">Sign up free</a>';
+  }
+
+  // Check URL hash
+  if (window.location.hash === '#signup') switchTab('signup');
+</script>
+</body>
+</html>

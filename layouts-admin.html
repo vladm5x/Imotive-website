@@ -405,6 +405,54 @@
       white-space: nowrap;
     }
     .btn-refresh:hover { border-color: #4A4D62; color: #E8EAF0; }
+
+    /* Filter bar */
+    .review-filter-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid #2A2D3A;
+      background: transparent;
+      color: #6B6E85;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-tab:hover { color: #E8EAF0; border-color: #4A4D62; }
+    .filter-tab.active { background: #1E2130; border-color: #4F7EFF; color: #F1F3F5; }
+    .filter-count {
+      font-size: 11px;
+      background: #2A2D3A;
+      color: #8B8FA8;
+      border-radius: 999px;
+      padding: 1px 7px;
+      min-width: 20px;
+      text-align: center;
+    }
+    .filter-tab.active .filter-count { background: #263050; color: #A0B8FF; }
+
+    /* Row status indicator */
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    .status-dot.needs_review { background: #FACC15; }
+    .status-dot.approved { background: #4ADE80; }
+    .status-dot.rejected { background: #F87171; }
   </style>
 </head>
 <body>
@@ -444,17 +492,23 @@
   <div class="review-panel" id="reviewPanel">
     <div class="review-header">
       <div>
-        <div class="review-title">Review Queue</div>
+        <div class="review-title">Scholarship Labeler</div>
         <div class="review-count" id="reviewCount">&nbsp;</div>
       </div>
       <button class="btn-refresh" id="refreshReview" type="button">&#8635; Refresh</button>
+    </div>
+    <div class="review-filter-bar" id="reviewFilterBar">
+      <button class="filter-tab active" data-filter="needs_review">Needs Review <span class="filter-count" id="cnt-needs_review"></span></button>
+      <button class="filter-tab" data-filter="approved">Usable <span class="filter-count" id="cnt-approved"></span></button>
+      <button class="filter-tab" data-filter="rejected">Not Usable <span class="filter-count" id="cnt-rejected"></span></button>
+      <button class="filter-tab" data-filter="all">All <span class="filter-count" id="cnt-all"></span></button>
     </div>
     <div id="reviewContent"><div class="review-loading">Loading…</div></div>
   </div>
 
   <script type="module">
     import { layoutRegistry } from './src/homepage-layouts/layoutRegistry.js';
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
+    import { getSupabase } from './src/lib/supabaseClient.js';
 
     const STORAGE_KEY = 'imotive-active-layout';
     const SIDEBAR_STORAGE_KEY = 'imotive-layout-sidebar-collapsed';
@@ -581,24 +635,61 @@
     renderSidebar();
     previewLayout(getActiveId());
 
-    // ── Review Queue ──────────────────────────────────────────────────────────
-    const SUPA_URL = 'https://yltxrmvxqnptffsmrpyt.supabase.co';
-    const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsdHhybXZ4cW5wdGZmc21ycHl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMTIxMzMsImV4cCI6MjA5Mjg4ODEzM30.Dvb9Y4nuoDMxEyWm-4p1nbpjhyuAJzZ0cVSMoJXyZcM';
-    const supabase = createClient(SUPA_URL, SUPA_KEY);
+    // ── Scholarship Labeler ───────────────────────────────────────────────────
+    const supabase = getSupabase();
+    if (!supabase) {
+      document.getElementById('reviewContent').innerHTML =
+        '<div class="review-error">Supabase not configured. Check src/lib/supabaseClient.js.</div>';
+    }
 
     let currentView = 'layouts';
+    let activeFilter = 'needs_review';
+    let counts = { needs_review: 0, approved: 0, rejected: 0, all: 0 };
 
     function setView(view) {
       currentView = view;
       document.body.classList.toggle('view-review', view === 'review');
       document.getElementById('tabLayouts').classList.toggle('active', view === 'layouts');
       document.getElementById('tabReview').classList.toggle('active', view === 'review');
-      if (view === 'review') fetchReviewQueue();
+      if (view === 'review') {
+        fetchCounts();
+        fetchLabeler(activeFilter);
+      }
     }
 
     document.getElementById('tabLayouts').addEventListener('click', () => setView('layouts'));
     document.getElementById('tabReview').addEventListener('click', () => setView('review'));
-    document.getElementById('refreshReview').addEventListener('click', fetchReviewQueue);
+    document.getElementById('refreshReview').addEventListener('click', () => {
+      fetchCounts();
+      fetchLabeler(activeFilter);
+    });
+
+    document.getElementById('reviewFilterBar').addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-filter]');
+      if (!tab) return;
+      activeFilter = tab.dataset.filter;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.filter === activeFilter));
+      fetchLabeler(activeFilter);
+    });
+
+    async function fetchCounts() {
+      const [pending, approved, rejected, total] = await Promise.all([
+        supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).in('review_status', ['pending_review', 'needs_review']),
+        supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).eq('review_status', 'approved'),
+        supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).eq('review_status', 'rejected'),
+        supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }),
+      ]);
+      counts = {
+        needs_review: pending.count || 0,
+        approved: approved.count || 0,
+        rejected: rejected.count || 0,
+        all: total.count || 0,
+      };
+      ['needs_review', 'approved', 'rejected', 'all'].forEach(k => {
+        const el = document.getElementById(`cnt-${k}`);
+        if (el) el.textContent = counts[k];
+      });
+    }
 
     function scoreClass(score) {
       if (score == null) return '';
@@ -612,24 +703,48 @@
       return `<div class="review-flags">${flags.map(f => `<span class="flag-badge">${f}</span>`).join('')}</div>`;
     }
 
-    function renderTable(rows) {
+    function statusLabel(s) {
+      if (s === 'approved') return 'Usable';
+      if (s === 'rejected') return 'Not Usable';
+      return 'Unlabeled';
+    }
+
+    function renderTable(rows, filter) {
       if (!rows.length) {
-        return '<div class="review-empty">No items need review ✓</div>';
+        const msg = filter === 'needs_review' ? 'All caught up — nothing left to label ✓'
+          : filter === 'approved' ? 'No usable scholarships labeled yet'
+          : filter === 'rejected' ? 'No scholarships marked as not usable yet'
+          : 'No scholarships in database';
+        return `<div class="review-empty">${msg}</div>`;
       }
+
+      const showStatus = filter === 'all';
       const rowsHtml = rows.map(r => {
         const score = r.quality_score != null ? r.quality_score : '—';
         const flags = Array.isArray(r.quality_flags) ? r.quality_flags
           : (r.quality_flags ? [r.quality_flags] : []);
+        const isUsable = r.review_status === 'approved';
+        const isNotUsable = r.review_status === 'rejected';
+
         return `
-          <tr id="row-${r.id}">
-            <td><div class="review-title-cell">${r.title || '<em style="color:#5A5D72">untitled</em>'}</div></td>
+          <tr id="row-${r.id}" data-status="${r.review_status}">
+            <td>
+              ${showStatus ? `<span class="status-dot ${r.review_status}" title="${statusLabel(r.review_status)}"></span>` : ''}
+              <div class="review-title-cell" style="display:inline;">${r.title || '<em style="color:#5A5D72">untitled</em>'}</div>
+            </td>
             <td><a href="${r.url}" target="_blank" rel="noopener" class="review-url">${r.url}</a></td>
             <td><span class="review-score ${scoreClass(r.quality_score)}">${score}</span></td>
             <td>${renderFlags(flags)}</td>
             <td>
               <div class="review-actions">
-                <button class="btn-approve" data-id="${r.id}" data-action="approve">Approve</button>
-                <button class="btn-reject" data-id="${r.id}" data-action="reject">Reject</button>
+                <button class="btn-approve${isUsable ? ' is-current' : ''}" data-id="${r.id}" data-action="approve"
+                  style="${isUsable ? 'opacity:0.5;cursor:default;' : ''}">
+                  ✓ Usable
+                </button>
+                <button class="btn-reject${isNotUsable ? ' is-current' : ''}" data-id="${r.id}" data-action="reject"
+                  style="${isNotUsable ? 'opacity:0.5;cursor:default;' : ''}">
+                  ✗ Not Usable
+                </button>
               </div>
             </td>
           </tr>`;
@@ -644,7 +759,7 @@
                 <th>URL</th>
                 <th>Score</th>
                 <th>Flags</th>
-                <th>Actions</th>
+                <th>Label</th>
               </tr>
             </thead>
             <tbody>${rowsHtml}</tbody>
@@ -652,36 +767,47 @@
         </div>`;
     }
 
-    async function fetchReviewQueue() {
+    async function fetchLabeler(filter) {
       const content = document.getElementById('reviewContent');
       const countEl = document.getElementById('reviewCount');
       content.innerHTML = '<div class="review-loading">Loading…</div>';
       countEl.textContent = '';
 
-      const { data, error } = await supabase
+      let query = supabase
         .from('scholarships_raw')
-        .select('id, title, url, quality_score, quality_flags, blocked, requires_login, unreachable')
-        .eq('review_status', 'needs_review')
+        .select('id, title, url, quality_score, quality_flags, review_status')
         .order('quality_score', { ascending: true })
-        .limit(200);
+        .limit(300);
+
+      if (filter === 'needs_review') {
+        query = query.in('review_status', ['pending_review', 'needs_review']);
+      } else if (filter !== 'all') {
+        query = query.eq('review_status', filter);
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         content.innerHTML = `<div class="review-error">Error: ${error.message}</div>`;
         return;
       }
 
-      countEl.textContent = `${data.length} item${data.length !== 1 ? 's' : ''} pending`;
-      content.innerHTML = renderTable(data);
+      const filterLabel = filter === 'needs_review' ? 'unlabeled' : filter === 'approved' ? 'usable' : filter === 'rejected' ? 'not usable' : 'total';
+      countEl.textContent = `${data.length} ${filterLabel}`;
+      content.innerHTML = renderTable(data, filter);
 
-      // Action handlers
       content.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', async () => {
+          if (btn.style.cursor === 'default') return;
           const id = btn.dataset.id;
           const action = btn.dataset.action;
           const newStatus = action === 'approve' ? 'approved' : 'rejected';
           const row = document.getElementById(`row-${id}`);
 
-          btn.closest('.review-actions').querySelectorAll('button').forEach(b => b.disabled = true);
+          btn.closest('.review-actions').querySelectorAll('button').forEach(b => {
+            b.disabled = true;
+            b.style.opacity = '0.4';
+          });
 
           const { error: updateErr } = await supabase
             .from('scholarships_raw')
@@ -689,17 +815,42 @@
             .eq('id', id);
 
           if (updateErr) {
-            btn.closest('.review-actions').querySelectorAll('button').forEach(b => b.disabled = false);
+            btn.closest('.review-actions').querySelectorAll('button').forEach(b => {
+              b.disabled = false;
+              b.style.opacity = '';
+            });
             alert(`Update failed: ${updateErr.message}`);
             return;
           }
 
-          row.style.transition = 'opacity 0.3s';
-          row.style.opacity = '0';
-          setTimeout(() => row.remove(), 300);
+          // In "All" view keep row but update visual; in filtered views remove row
+          if (filter === 'all') {
+            row.dataset.status = newStatus;
+            row.querySelectorAll('.status-dot').forEach(d => {
+              d.className = `status-dot ${newStatus}`;
+              d.title = statusLabel(newStatus);
+            });
+            btn.closest('.review-actions').querySelectorAll('button').forEach(b => {
+              b.disabled = false;
+              b.style.opacity = b.dataset.action === action ? '0.5' : '';
+              b.style.cursor = b.dataset.action === action ? 'default' : '';
+            });
+          } else {
+            row.style.transition = 'opacity 0.25s';
+            row.style.opacity = '0';
+            setTimeout(() => row.remove(), 280);
+          }
 
-          const remaining = content.querySelectorAll('tbody tr:not([style*="opacity: 0"])').length - 1;
-          countEl.textContent = `${Math.max(0, remaining)} item${remaining !== 1 ? 's' : ''} pending`;
+          // Update counts
+          const prevStatus = row.dataset.status || 'needs_review';
+          if (prevStatus !== newStatus) {
+            counts[prevStatus] = Math.max(0, (counts[prevStatus] || 0) - 1);
+            counts[newStatus] = (counts[newStatus] || 0) + 1;
+            ['needs_review', 'approved', 'rejected', 'all'].forEach(k => {
+              const el = document.getElementById(`cnt-${k}`);
+              if (el) el.textContent = counts[k];
+            });
+          }
         });
       });
     }

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMotive — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --indigo: #160a5e;
+    --purple: #6c3aff;
+    --yellow: #ffd83d;
+    --cream: #fdfbf7;
+    --ink: #0d0826;
+    --muted: #5a4e8a;
+    --border: 2.5px solid var(--ink);
+  }
+  html, body { min-height: 100vh; }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--cream); color: var(--ink); }
+
+  /* Nav */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; border-bottom: var(--border); background: var(--cream);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .nav-logo-mark {
+    width: 40px; height: 40px; background: var(--yellow); border: var(--border);
+    display: grid; place-items: center; box-shadow: 3px 3px 0 var(--ink);
+    font-family: 'Archivo Black', sans-serif; font-size: 18px; color: var(--ink);
+  }
+  .nav-logo-text { font-family: 'Archivo Black', sans-serif; font-size: 18px; letter-spacing: -0.3px; }
+  .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; }
+  .nav-link:hover { color: var(--ink); }
+
+  /* Page */
+  .page {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 73px);
+  }
+
+  /* Left */
+  .left {
+    background: var(--indigo);
+    border-right: var(--border);
+    padding: 64px 52px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .left::after {
+    content: 'iM';
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 220px; color: rgba(255,255,255,0.04);
+    position: absolute; bottom: -20px; right: -10px; line-height: 1;
+    pointer-events: none;
+  }
+  .left-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 2.5px solid var(--yellow); padding: 4px 14px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--yellow); width: fit-content;
+    box-shadow: 3px 3px 0 var(--yellow);
+    margin-bottom: 36px;
+  }
+  .left h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(38px, 4vw, 60px); color: #fff; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 20px;
+  }
+  .left h2 mark { background: var(--yellow); color: var(--ink); padding: 0 4px; }
+  .left p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.65; max-width: 320px; }
+
+  .left-perks { display: flex; flex-direction: column; gap: 14px; padding-top: 40px; }
+  .perk { display: flex; align-items: flex-start; gap: 12px; }
+  .perk-bullet {
+    width: 22px; height: 22px; flex-shrink: 0; background: var(--yellow);
+    border: 2px solid var(--ink); display: grid; place-items: center;
+    font-size: 11px; font-weight: 900; color: var(--ink);
+    box-shadow: 2px 2px 0 rgba(255,255,255,0.3);
+  }
+  .perk-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; font-weight: 500; }
+
+  .left-stats { display: flex; gap: 32px; padding-top: 48px; border-top: 1.5px solid rgba(255,255,255,0.12); }
+  .stat .num { font-family: 'Archivo Black', sans-serif; font-size: 32px; color: var(--yellow); letter-spacing: -1px; }
+  .stat .lbl { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* Right */
+  .right { padding: 64px 52px; display: flex; flex-direction: column; justify-content: center; }
+  .form-wrap { max-width: 420px; width: 100%; margin: 0 auto; }
+
+  .tabs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: var(--border); box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 32px; overflow: hidden;
+  }
+  .tab-btn {
+    padding: 13px 0; font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    border: none; cursor: pointer; background: transparent; color: var(--muted);
+    transition: all 0.12s;
+  }
+  .tab-btn:first-child { border-right: var(--border); }
+  .tab-btn.active { background: var(--purple); color: #fff; }
+
+  .form-head { margin-bottom: 28px; }
+  .form-head h1 { font-family: 'Archivo Black', sans-serif; font-size: 32px; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .form-head p { font-size: 14px; color: var(--muted); }
+
+  .social-row { display: flex; gap: 12px; margin-bottom: 22px; }
+  .social-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 16px; border: var(--border); background: #fff;
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .social-btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+  .social-btn:active { transform: translate(1px,1px); box-shadow: 2px 2px 0 var(--ink); }
+  .social-btn svg { width: 16px; height: 16px; }
+
+  .divider { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 2px; background: var(--ink); }
+  .divider span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; color: var(--ink); }
+  .field input {
+    width: 100%; padding: 12px 14px; border: var(--border);
+    background: #fff; font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; color: var(--ink); outline: none;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .field input:focus { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+  .field input::placeholder { color: #bbb; }
+
+  .field-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .remember { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .remember input { accent-color: var(--purple); }
+  .forgot { font-size: 13px; font-weight: 700; color: var(--purple); text-decoration: none; }
+
+  .submit-btn {
+    width: 100%; padding: 15px; background: var(--yellow); color: var(--ink);
+    border: var(--border); font-family: 'Archivo Black', sans-serif;
+    font-size: 16px; cursor: pointer; letter-spacing: -0.2px;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .submit-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+  .submit-btn:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+
+  .terms { font-size: 12px; color: var(--muted); text-align: center; margin-top: 18px; line-height: 1.5; }
+  .terms a { color: var(--purple); font-weight: 600; text-decoration: none; }
+
+  .signup-field { display: none; }
+
+  @media (max-width: 860px) {
+    .page { grid-template-columns: 1fr; }
+    .left { display: none; }
+    .right { padding: 40px 24px; }
+    nav { padding: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark">i</div>
+    <span class="nav-logo-text">iMotive</span>
+  </a>
+  <a href="imotive-forum.html" class="nav-link">Community →</a>
+</nav>
+
+<div class="page">
+  <!-- Left -->
+  <div class="left">
+    <div>
+      <div class="left-badge">✦ Free platform</div>
+      <h2>Your funding,<br><mark>found</mark> fast.</h2>
+      <p>AI-powered scholarship matching that actually works. We scan 12,000+ opportunities and surface only the ones built for you.</p>
+    </div>
+
+    <div class="left-perks">
+      <div class="perk">
+        <div class="perk-bullet">✓</div>
+        <div class="perk-text">Matched by GPA, major, background — not just keywords</div>
+      </div>
+      <div class="perk">
+        <div class="perk-bullet">✓</div>
+        <div class="perk-text">Real deadlines, updated daily</div>
+      </div>
+      <div class="perk">
+        <div class="perk-bullet">✓</div>
+        <div class="perk-text">Application checklist + deadline reminders</div>
+      </div>
+    </div>
+
+    <div class="left-stats">
+      <div class="stat">
+        <div class="num">12k+</div>
+        <div class="lbl">Scholarships</div>
+      </div>
+      <div class="stat">
+        <div class="num">$2.4M</div>
+        <div class="lbl">Awarded</div>
+      </div>
+      <div class="stat">
+        <div class="num">94%</div>
+        <div class="lbl">Match rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right -->
+  <div class="right">
+    <div class="form-wrap">
+      <div class="form-head">
+        <h1 id="form-title">Welcome back</h1>
+        <p id="form-sub">New here? <a href="#" onclick="switchTab('signup'); return false;" style="color:var(--purple);font-weight:700;text-decoration:none;">Create a free account</a></p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+        <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+
+      <div class="social-row">
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </button>
+      </div>
+
+      <div class="divider"><span>or email</span></div>
+
+      <form onsubmit="return false;">
+        <div class="field signup-field" id="field-name">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Alex Johnson">
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@university.edu">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <div class="field-row" id="row-remember">
+          <label class="remember">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot">Forgot?</a>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Sign In →</button>
+
+        <p class="terms">
+          By continuing you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(mode) {
+    const isSignup = mode === 'signup';
+    document.getElementById('tab-signin').classList.toggle('active', !isSignup);
+    document.getElementById('tab-signup').classList.toggle('active', isSignup);
+    document.getElementById('field-name').style.display = isSignup ? 'block' : 'none';
+    document.getElementById('row-remember').style.display = isSignup ? 'none' : 'flex';
+    document.getElementById('submit-btn').textContent = isSignup ? 'Create Account →' : 'Sign In →';
+    document.getElementById('form-title').textContent = isSignup ? 'Create account' : 'Welcome back';
+    document.getElementById('form-sub').innerHTML = isSignup
+      ? 'Already have one? <a href="#" onclick="switchTab(\'signin\'); return false;" style="color:var(--purple);font-weight:700;text-decoration:none;">Sign in</a>'
+      : 'New here? <a href="#" onclick="switchTab(\'signup\'); return false;" style="color:var(--purple);font-weight:700;text-decoration:none;">Create a free account</a>';
+  }
+  if (window.location.hash === '#signup') switchTab('signup');
+</script>
+</body>
+</html>
