@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'imotive-active-layout';
+const PREVIEW_BUTTON_HIDDEN_KEY = 'imotive-layout-preview-button-hidden';
 
 async function loadActiveLayout() {
   const activeId = localStorage.getItem(STORAGE_KEY) || 'original';
@@ -58,30 +59,36 @@ function injectLayoutPreviewButton() {
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
-      .imotive-layout-preview-button {
+      .imotive-layout-preview-bar {
         position: fixed;
         right: 18px;
         bottom: 18px;
         z-index: 9999;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
+        gap: 4px;
+        padding: 4px;
         border-radius: 999px;
         border: 1px solid rgba(255, 255, 255, 0.18);
         background: rgba(15, 17, 23, 0.86);
-        color: #fff;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
         backdrop-filter: blur(10px);
+      }
+
+      .imotive-layout-preview-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        color: #fff;
         font: 600 13px/1.2 Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         text-decoration: none;
-        transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+        transition: background 0.16s ease;
       }
 
       .imotive-layout-preview-button:hover {
-        transform: translateY(-1px);
-        background: rgba(15, 17, 23, 0.94);
-        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.26);
+        background: rgba(255, 255, 255, 0.1);
       }
 
       .imotive-layout-preview-button-dot {
@@ -92,27 +99,103 @@ function injectLayoutPreviewButton() {
         box-shadow: 0 0 0 4px rgba(79, 126, 255, 0.18);
       }
 
+      .imotive-layout-preview-toggle {
+        width: 26px;
+        height: 26px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.82);
+        cursor: pointer;
+        font: 700 15px/1 Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        transition: background 0.16s ease, color 0.16s ease;
+      }
+
+      .imotive-layout-preview-toggle:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+
+      .imotive-layout-preview-restore {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 9999;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        background: rgba(15, 17, 23, 0.86);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+      }
+
+      .imotive-layout-preview-restore::after {
+        content: "";
+        position: absolute;
+        inset: 10px;
+        border-radius: 50%;
+        background: #4F7EFF;
+        box-shadow: 0 0 0 4px rgba(79, 126, 255, 0.18);
+      }
+
       @media (max-width: 640px) {
-        .imotive-layout-preview-button {
+        .imotive-layout-preview-bar {
           right: 12px;
           bottom: 12px;
-          padding: 9px 12px;
+        }
+
+        .imotive-layout-preview-button {
           font-size: 12px;
+        }
+
+        .imotive-layout-preview-restore {
+          right: 12px;
+          bottom: 12px;
         }
       }
     `;
     document.head.appendChild(style);
   }
 
-  const existing = document.querySelector('.imotive-layout-preview-button');
-  if (existing) existing.remove();
+  document.querySelector('.imotive-layout-preview-bar')?.remove();
+  document.querySelector('.imotive-layout-preview-restore')?.remove();
 
-  const button = document.createElement('a');
-  button.className = 'imotive-layout-preview-button';
-  button.href = new URL('layouts-admin.html', window.location.href).toString();
-  button.setAttribute('aria-label', 'Open layout preview panel');
-  button.innerHTML = '<span class="imotive-layout-preview-button-dot" aria-hidden="true"></span><span>Preview looks</span>';
-  document.body.appendChild(button);
+  if (localStorage.getItem(PREVIEW_BUTTON_HIDDEN_KEY) === 'true') {
+    const restore = document.createElement('button');
+    restore.type = 'button';
+    restore.className = 'imotive-layout-preview-restore';
+    restore.setAttribute('aria-label', 'Show layout preview button');
+    restore.addEventListener('click', () => {
+      localStorage.removeItem(PREVIEW_BUTTON_HIDDEN_KEY);
+      injectLayoutPreviewButton();
+    });
+    document.body.appendChild(restore);
+    return;
+  }
+
+  const bar = document.createElement('div');
+  bar.className = 'imotive-layout-preview-bar';
+
+  const link = document.createElement('a');
+  link.className = 'imotive-layout-preview-button';
+  link.href = new URL('layouts-admin.html', window.location.href).toString();
+  link.setAttribute('aria-label', 'Open layout preview panel');
+  link.innerHTML = '<span class="imotive-layout-preview-button-dot" aria-hidden="true"></span><span>Preview looks</span>';
+
+  const hide = document.createElement('button');
+  hide.type = 'button';
+  hide.className = 'imotive-layout-preview-toggle';
+  hide.textContent = '×';
+  hide.setAttribute('aria-label', 'Hide layout preview button');
+  hide.addEventListener('click', () => {
+    localStorage.setItem(PREVIEW_BUTTON_HIDDEN_KEY, 'true');
+    injectLayoutPreviewButton();
+  });
+
+  bar.append(link, hide);
+  document.body.appendChild(bar);
 }
 
 loadActiveLayout();
