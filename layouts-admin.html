@@ -248,6 +248,163 @@
       color: #A0A3B8;
       display: none;
     }
+
+    /* Tabs */
+    .topbar-tabs {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+    .topbar-tab {
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #6B6E85;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .topbar-tab:hover { color: #E8EAF0; }
+    .topbar-tab.active {
+      background: #1E2130;
+      border-color: #2A2D3A;
+      color: #F1F3F5;
+    }
+
+    /* Review panel */
+    .review-panel {
+      grid-column: 1 / -1;
+      display: none;
+      overflow-y: auto;
+      padding: 24px;
+      background: #0F1117;
+    }
+    body.view-review .review-panel { display: block; }
+    body.view-review .sidebar,
+    body.view-review .sidebar-toggle,
+    body.view-review .preview-pane { display: none; }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+    .review-title { font-size: 16px; font-weight: 600; color: #E8EAF0; margin-bottom: 4px; }
+    .review-count { font-size: 13px; color: #6B6E85; }
+    .review-table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid #2A2D3A;
+    }
+    .review-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .review-table th {
+      background: #1A1D27;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: #5A5D72;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #2A2D3A;
+      white-space: nowrap;
+    }
+    .review-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid #1E2130;
+      vertical-align: top;
+      color: #C8CAD8;
+    }
+    .review-table tr:last-child td { border-bottom: none; }
+    .review-table tr:hover td { background: #141622; }
+    .review-url {
+      color: #4F7EFF;
+      text-decoration: none;
+      word-break: break-all;
+      font-size: 12px;
+    }
+    .review-url:hover { text-decoration: underline; }
+    .review-title-cell { font-weight: 500; color: #E8EAF0; max-width: 280px; }
+    .review-score { font-weight: 600; white-space: nowrap; }
+    .score-low { color: #F87171; }
+    .score-mid { color: #FACC15; }
+    .score-high { color: #4ADE80; }
+    .review-flags { display: flex; flex-wrap: wrap; gap: 4px; max-width: 240px; }
+    .flag-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #2A1515;
+      color: #F87171;
+      border: 1px solid #3D1515;
+      white-space: nowrap;
+    }
+    .review-actions { display: flex; gap: 6px; white-space: nowrap; }
+    .btn-approve {
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 1px solid #166534;
+      background: #14532D;
+      color: #4ADE80;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-approve:hover { background: #1A6B38; }
+    .btn-approve:disabled { opacity: 0.4; cursor: default; }
+    .btn-reject {
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 1px solid #3D1515;
+      background: #2A1515;
+      color: #F87171;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-reject:hover { background: #3B1A1A; }
+    .btn-reject:disabled { opacity: 0.4; cursor: default; }
+    .review-loading, .review-empty {
+      padding: 60px 24px;
+      text-align: center;
+      color: #3A3D52;
+      font-size: 14px;
+    }
+    .review-error {
+      padding: 16px 20px;
+      background: #2A1515;
+      border: 1px solid #3D1515;
+      border-radius: 8px;
+      color: #F87171;
+      font-size: 13px;
+    }
+    .btn-refresh {
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid #2A2D3A;
+      background: transparent;
+      color: #A0A3B8;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .btn-refresh:hover { border-color: #4A4D62; color: #E8EAF0; }
   </style>
 </head>
 <body>
@@ -256,6 +413,10 @@
     <div class="topbar-brand">
       <div class="topbar-brand-dot"></div>
       iMotive — Layout Manager
+    </div>
+    <div class="topbar-tabs">
+      <button class="topbar-tab active" id="tabLayouts" type="button">Layouts</button>
+      <button class="topbar-tab" id="tabReview" type="button">Review Queue</button>
     </div>
     <div class="topbar-actions">
       <a href="index.html" class="topbar-link" target="_blank">
@@ -280,8 +441,20 @@
     <div class="preview-tag" id="previewTag"></div>
   </div>
 
+  <div class="review-panel" id="reviewPanel">
+    <div class="review-header">
+      <div>
+        <div class="review-title">Review Queue</div>
+        <div class="review-count" id="reviewCount">&nbsp;</div>
+      </div>
+      <button class="btn-refresh" id="refreshReview" type="button">&#8635; Refresh</button>
+    </div>
+    <div id="reviewContent"><div class="review-loading">Loading…</div></div>
+  </div>
+
   <script type="module">
     import { layoutRegistry } from './src/homepage-layouts/layoutRegistry.js';
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
 
     const STORAGE_KEY = 'imotive-active-layout';
     const SIDEBAR_STORAGE_KEY = 'imotive-layout-sidebar-collapsed';
@@ -407,6 +580,129 @@
     setSidebarCollapsed(isSidebarCollapsed());
     renderSidebar();
     previewLayout(getActiveId());
+
+    // ── Review Queue ──────────────────────────────────────────────────────────
+    const SUPA_URL = 'https://yltxrmvxqnptffsmrpyt.supabase.co';
+    const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsdHhybXZ4cW5wdGZmc21ycHl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMTIxMzMsImV4cCI6MjA5Mjg4ODEzM30.Dvb9Y4nuoDMxEyWm-4p1nbpjhyuAJzZ0cVSMoJXyZcM';
+    const supabase = createClient(SUPA_URL, SUPA_KEY);
+
+    let currentView = 'layouts';
+
+    function setView(view) {
+      currentView = view;
+      document.body.classList.toggle('view-review', view === 'review');
+      document.getElementById('tabLayouts').classList.toggle('active', view === 'layouts');
+      document.getElementById('tabReview').classList.toggle('active', view === 'review');
+      if (view === 'review') fetchReviewQueue();
+    }
+
+    document.getElementById('tabLayouts').addEventListener('click', () => setView('layouts'));
+    document.getElementById('tabReview').addEventListener('click', () => setView('review'));
+    document.getElementById('refreshReview').addEventListener('click', fetchReviewQueue);
+
+    function scoreClass(score) {
+      if (score == null) return '';
+      if (score < 40) return 'score-low';
+      if (score < 70) return 'score-mid';
+      return 'score-high';
+    }
+
+    function renderFlags(flags) {
+      if (!flags || !flags.length) return '<span style="color:#3A3D52;font-size:12px;">—</span>';
+      return `<div class="review-flags">${flags.map(f => `<span class="flag-badge">${f}</span>`).join('')}</div>`;
+    }
+
+    function renderTable(rows) {
+      if (!rows.length) {
+        return '<div class="review-empty">No items need review ✓</div>';
+      }
+      const rowsHtml = rows.map(r => {
+        const score = r.quality_score != null ? r.quality_score : '—';
+        const flags = Array.isArray(r.quality_flags) ? r.quality_flags
+          : (r.quality_flags ? [r.quality_flags] : []);
+        return `
+          <tr id="row-${r.id}">
+            <td><div class="review-title-cell">${r.title || '<em style="color:#5A5D72">untitled</em>'}</div></td>
+            <td><a href="${r.url}" target="_blank" rel="noopener" class="review-url">${r.url}</a></td>
+            <td><span class="review-score ${scoreClass(r.quality_score)}">${score}</span></td>
+            <td>${renderFlags(flags)}</td>
+            <td>
+              <div class="review-actions">
+                <button class="btn-approve" data-id="${r.id}" data-action="approve">Approve</button>
+                <button class="btn-reject" data-id="${r.id}" data-action="reject">Reject</button>
+              </div>
+            </td>
+          </tr>`;
+      }).join('');
+
+      return `
+        <div class="review-table-wrap">
+          <table class="review-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>URL</th>
+                <th>Score</th>
+                <th>Flags</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        </div>`;
+    }
+
+    async function fetchReviewQueue() {
+      const content = document.getElementById('reviewContent');
+      const countEl = document.getElementById('reviewCount');
+      content.innerHTML = '<div class="review-loading">Loading…</div>';
+      countEl.textContent = '';
+
+      const { data, error } = await supabase
+        .from('scholarships_raw')
+        .select('id, title, url, quality_score, quality_flags, blocked, requires_login, unreachable')
+        .eq('review_status', 'needs_review')
+        .order('quality_score', { ascending: true })
+        .limit(200);
+
+      if (error) {
+        content.innerHTML = `<div class="review-error">Error: ${error.message}</div>`;
+        return;
+      }
+
+      countEl.textContent = `${data.length} item${data.length !== 1 ? 's' : ''} pending`;
+      content.innerHTML = renderTable(data);
+
+      // Action handlers
+      content.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          const newStatus = action === 'approve' ? 'approved' : 'rejected';
+          const row = document.getElementById(`row-${id}`);
+
+          btn.closest('.review-actions').querySelectorAll('button').forEach(b => b.disabled = true);
+
+          const { error: updateErr } = await supabase
+            .from('scholarships_raw')
+            .update({ review_status: newStatus })
+            .eq('id', id);
+
+          if (updateErr) {
+            btn.closest('.review-actions').querySelectorAll('button').forEach(b => b.disabled = false);
+            alert(`Update failed: ${updateErr.message}`);
+            return;
+          }
+
+          row.style.transition = 'opacity 0.3s';
+          row.style.opacity = '0';
+          setTimeout(() => row.remove(), 300);
+
+          const remaining = content.querySelectorAll('tbody tr:not([style*="opacity: 0"])').length - 1;
+          countEl.textContent = `${Math.max(0, remaining)} item${remaining !== 1 ? 's' : ''} pending`;
+        });
+      });
+    }
   </script>
 
 </body>
