@@ -461,6 +461,9 @@
       flex-shrink: 0;
     }
     .status-dot.needs_review { background: #FACC15; }
+    .status-dot.pending_review { background: #FACC15; }
+    .status-dot.publishable { background: #60A5FA; }
+    .status-dot.hide { background: #9CA3AF; }
     .status-dot.approved { background: #4ADE80; }
     .status-dot.rejected { background: #F87171; }
   </style>
@@ -658,6 +661,9 @@
     if (!supabase) {
       document.getElementById('reviewContent').innerHTML =
         '<div class="review-error">Supabase not configured. Check src/lib/supabaseClient.js.</div>';
+    } else {
+      const { error } = await supabase.auth.refreshSession();
+      if (error) console.warn('Could not refresh review session:', error.message);
     }
 
     let currentView = 'layouts';
@@ -692,7 +698,7 @@
 
     async function fetchCounts() {
       const [pending, approved, rejected, total] = await Promise.all([
-        supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).in('review_status', ['pending_review', 'needs_review']),
+        supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).in('review_status', ['pending_review', 'needs_review', 'publishable', 'hide']),
         supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).eq('review_status', 'approved'),
         supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }).eq('review_status', 'rejected'),
         supabase.from('scholarships_raw').select('id', { count: 'exact', head: true }),
@@ -724,6 +730,8 @@
     function statusLabel(s) {
       if (s === 'approved') return 'Usable';
       if (s === 'rejected') return 'Not Usable';
+      if (s === 'publishable') return 'Publishable';
+      if (s === 'hide') return 'Hidden';
       return 'Unlabeled';
     }
 
@@ -798,7 +806,7 @@
         .limit(300);
 
       if (filter === 'needs_review') {
-        query = query.in('review_status', ['pending_review', 'needs_review']);
+        query = query.in('review_status', ['pending_review', 'needs_review', 'publishable', 'hide']);
       } else if (filter !== 'all') {
         query = query.eq('review_status', filter);
       }
@@ -821,6 +829,7 @@
           const action = btn.dataset.action;
           const newStatus = action === 'approve' ? 'approved' : 'rejected';
           const row = document.getElementById(`row-${id}`);
+          const prevStatus = row.dataset.status || 'needs_review';
 
           btn.closest('.review-actions').querySelectorAll('button').forEach(b => {
             b.disabled = true;
@@ -860,9 +869,11 @@
           }
 
           // Update counts
-          const prevStatus = row.dataset.status || 'needs_review';
-          if (prevStatus !== newStatus) {
-            counts[prevStatus] = Math.max(0, (counts[prevStatus] || 0) - 1);
+          const prevBucket = ['pending_review', 'needs_review', 'publishable', 'hide'].includes(prevStatus)
+            ? 'needs_review'
+            : prevStatus;
+          if (prevBucket !== newStatus) {
+            counts[prevBucket] = Math.max(0, (counts[prevBucket] || 0) - 1);
             counts[newStatus] = (counts[newStatus] || 0) + 1;
             ['needs_review', 'approved', 'rejected', 'all'].forEach(k => {
               const el = document.getElementById(`cnt-${k}`);

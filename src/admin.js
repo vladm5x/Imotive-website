@@ -1,6 +1,7 @@
 import React from "https://esm.sh/react@18.2.0";
 import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
 import { getSession, signOut } from "./lib/account.js";
+import { getSupabase } from "./lib/supabaseClient.js";
 import {
   PAGE_SIZE,
   getStats,
@@ -20,6 +21,21 @@ const ADMIN_EMAILS = ["muresanvlad123@gmail.com"];
 
 function isAdmin(user) {
   return Boolean(user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase()));
+}
+
+async function getFreshSession() {
+  const session = await getSession();
+  if (!session) return null;
+
+  const supabase = getSupabase();
+  if (!supabase) return session;
+
+  const { data, error } = await supabase.auth.refreshSession();
+  if (error) {
+    console.warn("Could not refresh admin session:", error.message);
+    return session;
+  }
+  return data.session || session;
 }
 
 function extractDomain(url) {
@@ -1190,7 +1206,7 @@ function AdminApp() {
 
   // Load session once on mount
   React.useEffect(() => {
-    getSession()
+    getFreshSession()
       .then((session) => setAuthState({ loading: false, session }))
       .catch(() => setAuthState({ loading: false, session: null }));
   }, []);
