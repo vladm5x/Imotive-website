@@ -8,6 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --adm-accent: #4F7EFF;
+      --adm-accent-hover: #3B6AE8;
+      --adm-accent-soft: #1C2240;
+      --adm-accent-muted: #263050;
+      --adm-accent-text: #A0B8FF;
+    }
+
     body {
       font-family: "Inter", sans-serif;
       background: #0F1117;
@@ -43,7 +52,8 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #4F7EFF;
+      background: var(--adm-accent);
+      transition: background 0.3s ease;
     }
     .topbar-actions {
       display: flex;
@@ -123,7 +133,7 @@
       position: relative;
     }
     .layout-card:hover { border-color: #4A4D62; background: #1E2130; }
-    .layout-card.selected { border-color: #4F7EFF; background: #1C2240; }
+    .layout-card.selected { border-color: var(--adm-accent); background: var(--adm-accent-soft); }
     .layout-card.active-layout { border-color: #22C55E; }
     .layout-card.active-layout.selected { border-color: #22C55E; background: #152820; }
 
@@ -195,13 +205,13 @@
       font-weight: 600;
       border-radius: 6px;
       border: 1px solid transparent;
-      background: #4F7EFF;
+      background: var(--adm-accent);
       color: #fff;
       cursor: pointer;
       transition: background 0.15s;
       font-family: inherit;
     }
-    .btn-activate:hover { background: #3B6AE8; }
+    .btn-activate:hover { background: var(--adm-accent-hover); }
     .btn-activate.is-active {
       background: #14532D;
       color: #4ADE80;
@@ -327,7 +337,7 @@
     .review-table tr:last-child td { border-bottom: none; }
     .review-table tr:hover td { background: #141622; }
     .review-url {
-      color: #4F7EFF;
+      color: var(--adm-accent);
       text-decoration: none;
       word-break: break-all;
       font-size: 12px;
@@ -429,7 +439,7 @@
       gap: 6px;
     }
     .filter-tab:hover { color: #E8EAF0; border-color: #4A4D62; }
-    .filter-tab.active { background: #1E2130; border-color: #4F7EFF; color: #F1F3F5; }
+    .filter-tab.active { background: #1E2130; border-color: var(--adm-accent); color: #F1F3F5; }
     .filter-count {
       font-size: 11px;
       background: #2A2D3A;
@@ -439,7 +449,7 @@
       min-width: 20px;
       text-align: center;
     }
-    .filter-tab.active .filter-count { background: #263050; color: #A0B8FF; }
+    .filter-tab.active .filter-count { background: var(--adm-accent-muted); color: var(--adm-accent-text); }
 
     /* Row status indicator */
     .status-dot {
@@ -513,6 +523,24 @@
     const STORAGE_KEY = 'imotive-active-layout';
     const SIDEBAR_STORAGE_KEY = 'imotive-layout-sidebar-collapsed';
     let currentPreviewId = null;
+
+    const ADMIN_THEMES = {
+      'original':        { accent: '#3B82F6', hover: '#2563EB', soft: '#1A2840', muted: '#1E3060', text: '#93C5FD' },
+      'saas-landing':    { accent: '#4A80E8', hover: '#2D5FC4', soft: '#1C2240', muted: '#1E2E55', text: '#93B8FF' },
+      'genz-landing':    { accent: '#7C3AED', hover: '#5B21B6', soft: '#1E1535', muted: '#2A1A50', text: '#C4B5FD' },
+      'imotive-landing': { accent: '#6C3AFF', hover: '#5520E0', soft: '#1A1040', muted: '#281A50', text: '#C0A8FF' },
+      'purple-landing':  { accent: '#7B40FF', hover: '#5B20E0', soft: '#180840', muted: '#220A55', text: '#B89BFF' },
+    };
+
+    function applyAdminTheme(layoutId) {
+      const t = ADMIN_THEMES[layoutId] || ADMIN_THEMES['original'];
+      const r = document.documentElement;
+      r.style.setProperty('--adm-accent',      t.accent);
+      r.style.setProperty('--adm-accent-hover', t.hover);
+      r.style.setProperty('--adm-accent-soft',  t.soft);
+      r.style.setProperty('--adm-accent-muted', t.muted);
+      r.style.setProperty('--adm-accent-text',  t.text);
+    }
 
     function isSidebarCollapsed() {
       return localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true';
@@ -595,6 +623,7 @@
       if (!layout) return;
 
       currentPreviewId = id;
+      applyAdminTheme(id);
 
       const frame = document.getElementById('previewFrame');
       const empty = document.getElementById('previewEmpty');
