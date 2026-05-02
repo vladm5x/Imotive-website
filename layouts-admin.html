@@ -642,18 +642,7 @@
 
     function activateLayout(id) {
       setActiveId(id);
-      const layout = layoutRegistry.find(l => l.id === id);
-      const tag = document.getElementById('previewTag');
-
-      if (currentPreviewId !== id) {
-        previewLayout(id);
-      } else {
-        renderSidebar();
-        if (layout) {
-          tag.textContent = `Active: ${layout.name}`;
-          tag.style.display = 'block';
-        }
-      }
+      previewLayout(id);
     }
 
     // Init: render sidebar, auto-preview active layout
