@@ -75,6 +75,8 @@ function StatusBadge({ status }) {
   const styles = {
     pending_review: "bg-yellow-100 text-yellow-800 border-yellow-200",
     needs_review: "bg-yellow-100 text-yellow-800 border-yellow-200",
+    publishable: "bg-blue-100 text-blue-800 border-blue-200",
+    hide: "bg-gray-100 text-gray-500 border-gray-200",
     approved: "bg-green-100 text-green-800 border-green-200",
     rejected: "bg-red-100 text-red-800 border-red-200",
     archived: "bg-gray-100 text-gray-500 border-gray-200",
@@ -82,6 +84,8 @@ function StatusBadge({ status }) {
   const labels = {
     pending_review: "Pending",
     needs_review: "Pending",
+    publishable: "Publishable",
+    hide: "Hidden",
     approved: "Approved",
     rejected: "Rejected",
     archived: "Archived",
@@ -113,6 +117,7 @@ function ScrapeFailedBadge({ success }) {
 function Sidebar({ view, setView, stats, onSignOut }) {
   const nav = [
     { key: "dashboard", label: "Dashboard", icon: "▦" },
+    { key: "all", label: "All Collected", icon: "≡", count: stats?.total },
     { key: "pending", label: "Pending Review", icon: "○", count: stats?.pending },
     { key: "approved", label: "Approved", icon: "✓", count: stats?.approved },
     { key: "rejected", label: "Rejected", icon: "✕", count: stats?.rejected },
@@ -204,7 +209,7 @@ function DashboardView({ stats, onNavigate }) {
   }
 
   const cards = [
-    { label: "Total in Database", value: stats.total, accent: "border-gray-300" },
+    { label: "Total in Database", value: stats.total, accent: "border-gray-300", nav: "all" },
     { label: "Pending Review", value: stats.pending, accent: "border-yellow-400", nav: "pending" },
     { label: "Approved", value: stats.approved, accent: "border-green-500", nav: "approved" },
     { label: "Rejected", value: stats.rejected, accent: "border-red-400", nav: "rejected" },
@@ -764,7 +769,7 @@ function RowActions({ scholarship, view, onApprove, onRejectRequest, onRestore, 
       },
       "Detail"
     ),
-    (view === "pending" || view === "rejected") &&
+    (view === "all" || view === "pending" || view === "rejected") &&
       e(
         "button",
         {
@@ -775,7 +780,7 @@ function RowActions({ scholarship, view, onApprove, onRejectRequest, onRestore, 
         },
         "Approve"
       ),
-    (view === "pending" || view === "approved") &&
+    (view === "all" || view === "pending" || view === "approved") &&
       e(
         "button",
         {
@@ -1029,10 +1034,11 @@ function ScholarshipsView({ view, adminEmail, showToast, refreshStats }) {
   const [archiveTarget, setArchiveTarget] = React.useState(null);
   const [detailId, setDetailId] = React.useState(null);
 
-  const statusByView = { pending: "pending_review", approved: "approved", rejected: "rejected" };
-  const status = statusByView[view] || "pending_review";
+  const statusByView = { all: "all", pending: "pending_review", approved: "approved", rejected: "rejected" };
+  const status = statusByView[view] || "all";
 
   const viewTitles = {
+    all: "All Collected",
     pending: "Pending Review",
     approved: "Approved",
     rejected: "Rejected",

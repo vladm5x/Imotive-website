@@ -13,7 +13,7 @@ export async function getStats() {
     supabase
       .from("scholarships_raw")
       .select("*", { count: "exact", head: true })
-      .in("review_status", ["pending_review", "needs_review"]),
+      .in("review_status", ["pending_review", "needs_review", "publishable", "hide"]),
     supabase
       .from("scholarships_raw")
       .select("*", { count: "exact", head: true })
@@ -60,7 +60,9 @@ export async function getScholarships(status, filters = {}) {
 
   // Pending maps to both old and new status value for smooth migration
   if (status === "pending_review") {
-    query = query.in("review_status", ["pending_review", "needs_review"]);
+    query = query.in("review_status", ["pending_review", "needs_review", "publishable", "hide"]);
+  } else if (status === "all") {
+    // No status filter: show every collected active row for admin inspection.
   } else {
     query = query.eq("review_status", status);
   }
