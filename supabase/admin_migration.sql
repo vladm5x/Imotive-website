@@ -7,14 +7,12 @@ ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS rejection_reason text;
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS reviewed_at      timestamptz;
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS reviewed_by      text;
 
--- Normalize all 'needs_review' rows to 'pending_review' so the admin panel
--- has one consistent status value for the queue.
+-- Normalize old rows so the admin panel has one consistent status value for
+-- the main review queue. Keep publishable/hide rows reviewable in the UI too.
 UPDATE scholarships_raw
 SET review_status = 'pending_review'
 WHERE review_status = 'needs_review' OR review_status IS NULL;
 
--- Change column default so new rows from the scraper land in the right bucket.
--- Also update functions/scraper.js if it hard-codes 'needs_review'.
 ALTER TABLE scholarships_raw
   ALTER COLUMN review_status SET DEFAULT 'pending_review';
 
@@ -25,22 +23,38 @@ CREATE INDEX IF NOT EXISTS idx_scholarships_raw_reviewed_at
 CREATE INDEX IF NOT EXISTS idx_scholarships_raw_source
   ON scholarships_raw (source);
 
--- ── RLS for admin write access ─────────────────────────────────────────────
--- scholarships_raw has no RLS today, so it is readable/writable by the anon
--- key. Enable RLS only when you are ready to lock it down. The policies below
--- are written but commented out — uncomment once you set app_metadata.role
--- on admin users via the Supabase dashboard (Auth → Users → Edit user →
--- app_metadata: { "role": "admin" }).
+-- Admin/API access
+-- Run this after setting the admin user's Auth app_metadata to:
+-- { "role": "admin" }
+--
+-- The browser admin panel uses the signed-in user's JWT, not the service key.
+-- Without these grants/policies, the dashboard can load but all counts show 0.
 
--- ALTER TABLE scholarships_raw ENABLE ROW LEVEL SECURITY;
+GRANT SELECT ON scholarships_raw TO anon;
+GRANT SELECT, UPDATE ON scholarships_raw TO authenticated;
 
--- DROP POLICY IF EXISTS "Public can read approved scholarships" ON scholarships_raw;
--- CREATE POLICY "Public can read approved scholarships"
---   ON scholarships_raw FOR SELECT
---   USING (review_status = 'approved');
+ALTER TABLE scholarships_raw ENABLE ROW LEVEL SECURITY;
 
--- DROP POLICY IF EXISTS "Admins have full access" ON scholarships_raw;
--- CREATE POLICY "Admins have full access"
---   ON scholarships_raw FOR ALL
---   USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin')
---   WITH CHECK ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+DROP POLICY IF EXISTS "Public can read publishable scholarships" ON scholarships_raw;
+CREATE POLICY "Public can read publishable scholarships"
+  ON scholarships_raw FOR SELECT
+  TO anon, authenticated
+  USING (
+    review_status IN ('approved', 'publishable')
+    AND COALESCE(expired, false) = false
+    AND COALESCE(blocked, false) = false
+    AND COALESCE(requires_login, false) = false
+  );
+
+DROP POLICY IF EXISTS "Admins can read all scholarships" ON scholarships_raw;
+CREATE POLICY "Admins can read all scholarships"
+  ON scholarships_raw FOR SELECT
+  TO authenticated
+  USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+
+DROP POLICY IF EXISTS "Admins can update scholarship reviews" ON scholarships_raw;
+CREATE POLICY "Admins can update scholarship reviews"
+  ON scholarships_raw FOR UPDATE
+  TO authenticated
+  USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin')
+  WITH CHECK ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
