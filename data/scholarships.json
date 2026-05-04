@@ -1742,159 +1742,6 @@
     "reviewStatus": "needs_review"
   },
   {
-    "url": "https://www.mastersportal.com/articles/3214/what-is-a-scholarship.html",
-    "applicationUrl": null,
-    "id": "mp-what-is-a-scholarship",
-    "title": "What is a Scholarship?",
-    "amount": "See scholarship page",
-    "deadline": "Unknown",
-    "category": "Tuition",
-    "level": [
-      "Master"
-    ],
-    "fields": [
-      "IT"
-    ],
-    "nationality": [
-      "Swedish",
-      "EU/EEA",
-      "International non-EU"
-    ],
-    "interests": [
-      "Any interest"
-    ],
-    "need": [
-      "Low",
-      "Medium",
-      "High"
-    ],
-    "source": "MastersPortal",
-    "eligibility": "Discover how scholarships provide financial aid based on merit or need, covering tuition and more.",
-    "documents": "See scholarship page for required documents.",
-    "instructions": "Apply via the scholarship provider directly.",
-    "requirementKeywords": [],
-    "requiredApplicantInfo": [
-      "first name",
-      "last name",
-      "email",
-      "proof of enrolment"
-    ],
-    "scrapeSuccess": false,
-    "unreachable": true,
-    "unreachableReason": "blocked",
-    "unreachableStatus": 403,
-    "qualityScore": 59,
-    "qualityFlags": [
-      "unknown_deadline",
-      "missing_application_url",
-      "unreachable_source"
-    ],
-    "reviewStatus": "needs_review"
-  },
-  {
-    "url": "https://www.mastersportal.com/articles/2850/all-you-need-to-know-about-how-to-apply-for-a-scholarship-to-study-abroad.html",
-    "applicationUrl": null,
-    "id": "mp-how-to-apply-for-scholarships",
-    "title": "How to Apply for Scholarships?",
-    "amount": "See scholarship page",
-    "deadline": "Unknown",
-    "category": "Living costs",
-    "level": [
-      "Master"
-    ],
-    "fields": [
-      "IT"
-    ],
-    "nationality": [
-      "Swedish",
-      "EU/EEA",
-      "International non-EU"
-    ],
-    "interests": [
-      "Any interest"
-    ],
-    "need": [
-      "Low",
-      "Medium",
-      "High"
-    ],
-    "source": "MastersPortal",
-    "eligibility": "Learn how to apply for scholarships effectively, including finding suitable ones and preparing documents.",
-    "documents": "See scholarship page for required documents.",
-    "instructions": "Apply via the scholarship provider directly.",
-    "requirementKeywords": [],
-    "requiredApplicantInfo": [
-      "first name",
-      "last name",
-      "email",
-      "proof of enrolment"
-    ],
-    "scrapeSuccess": false,
-    "unreachable": true,
-    "unreachableReason": "blocked",
-    "unreachableStatus": 403,
-    "qualityScore": 59,
-    "qualityFlags": [
-      "unknown_deadline",
-      "missing_application_url",
-      "unreachable_source"
-    ],
-    "reviewStatus": "needs_review"
-  },
-  {
-    "url": "https://www.mastersportal.com/articles/415/how-to-write-a-motivation-letter-for-a-scholarship.html",
-    "applicationUrl": null,
-    "id": "mp-how-to-write-a-scholarship-motivation-letter",
-    "title": "How to write a Scholarship Motivation Letter?",
-    "amount": "See scholarship page",
-    "deadline": "Unknown",
-    "category": "Living costs",
-    "level": [
-      "Master"
-    ],
-    "fields": [
-      "IT"
-    ],
-    "nationality": [
-      "Swedish",
-      "EU/EEA",
-      "International non-EU"
-    ],
-    "interests": [
-      "Any interest"
-    ],
-    "need": [
-      "Low",
-      "Medium",
-      "High"
-    ],
-    "source": "MastersPortal",
-    "eligibility": "Craft a compelling scholarship motivation letter using your story and unique writing style.",
-    "documents": "See scholarship page for required documents.",
-    "instructions": "Apply via the scholarship provider directly.",
-    "requirementKeywords": [
-      "motivation letter"
-    ],
-    "requiredApplicantInfo": [
-      "first name",
-      "last name",
-      "email",
-      "personal statement",
-      "proof of enrolment"
-    ],
-    "scrapeSuccess": false,
-    "unreachable": true,
-    "unreachableReason": "blocked",
-    "unreachableStatus": 403,
-    "qualityScore": 59,
-    "qualityFlags": [
-      "unknown_deadline",
-      "missing_application_url",
-      "unreachable_source"
-    ],
-    "reviewStatus": "needs_review"
-  },
-  {
     "url": "https://www.scholarshipportal.com/scholarships/search?destinationCountry=se",
     "applicationUrl": null,
     "id": "sp-mundus-mapp",
@@ -2617,9 +2464,8 @@
       "email",
       "proof of enrolment"
     ],
-    "qualityScore": 77,
+    "qualityScore": 92,
     "qualityFlags": [
-      "unknown_deadline",
       "missing_application_url"
     ],
     "reviewStatus": "publishable"
@@ -2672,12 +2518,13 @@
       "email",
       "proof of enrolment"
     ],
-    "qualityScore": 77,
+    "qualityScore": 59,
     "qualityFlags": [
       "unknown_deadline",
-      "missing_application_url"
+      "missing_application_url",
+      "unreachable_source"
     ],
-    "reviewStatus": "publishable",
+    "reviewStatus": "needs_review",
     "scrapeSuccess": false,
     "unreachable": true,
     "unreachableReason": "login_wall"
@@ -2715,7 +2562,7 @@
     ],
     "source": "DAAD",
     "eligibility": "Would you like to study, carry out research or learn German in Germany and are you looking for funding? Every year, the German Academic Exchange Service (DAAD) supports well over 100,000 German and international students and researchers around the globe – making it the world's largest funding organi",
-    "documents": "After registering on the DAAD portal, please complete the online application in full. Then upload the application documents listed below to the DAAD portal in the section ‘Attachments’.\nCertificates, proof of credits, certifications and translations may be scanned in non-certified form and up-loaded",
+    "documents": "After registering on the DAAD portal, please complete the online application in full. Then upload the application documents listed below to the DAAD portal in the section ‘Attachments’. Certificates, proof of credits, certifications and translations may be scanned in non-certified form and up-loaded",
     "instructions": "See the scholarship page for application instructions.",
     "requirementKeywords": [
       "research",
@@ -2733,5 +2580,849 @@
       "missing_application_url"
     ],
     "reviewStatus": "publishable"
+  },
+  {
+    "url": "https://education.ki.se/bachelors-masters-studies/scholarships/the-ki-global-masters-scholarships-for-fee-paying-students",
+    "applicationUrl": "https://education.ki.se/bachelors-masters-studies/apply/apply-for-a-masters-programme/cv-form-instructions",
+    "id": "ki-scholarships-provided-by-ki",
+    "title": "Scholarships provided by KI",
+    "amount": ", Eur",
+    "deadline": "2026-12-11",
+    "category": "Tuition",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Medicine",
+      "Humanities",
+      "IT"
+    ],
+    "nationality": [
+      "Swedish",
+      "International non-EU"
+    ],
+    "interests": [
+      "Research",
+      "Travel"
+    ],
+    "need": [
+      "Low",
+      "Medium"
+    ],
+    "source": "Karolinska Institutet",
+    "eligibility": "Find out about scholarship opportunities provided by Karolinska Institutet, the Swedish Institute and other scholarship providers.",
+    "documents": "You submit an In-School Deferment request form to Karolinska Institutet. After our certification, you submit the form to your servicer.",
+    "instructions": "Financial circumstances play an important part in planning for your studies at Karolinska Institutet (KI). Investing time and effort in researching and applying for scholarships and grants should therefor be part of your plan early on.",
+    "requirementKeywords": [
+      "research",
+      "international student",
+      "fee-paying",
+      "merit-based"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "reference letter",
+      "proof of enrolment"
+    ],
+    "qualityScore": 92,
+    "qualityFlags": [
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable"
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-fellowship-in-political-science-par-sweden/2026/01/05/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-fellowship-in-political-science-par-sweden",
+    "title": "Postdoctoral Fellowship in Political Science PAR, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Social sciences",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "The Department of Political Science at the University of Gothenburg invites applications for a 2-year Postdoctoral Fellowship in Political Science PAR funded by the ERC Starting Grant. The position is part of the ECONENGAGE project, studying how national economic improvement affects political engage",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "research"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/fully-funded-doctoral-positions-in-economics-sweden/2026/01/02/",
+    "applicationUrl": "https://web103.reachmee.com/ext/I005/1035/job?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=38590",
+    "id": "spos-fully-funded-doctoral-positions-in-economics-sweden",
+    "title": "Fully funded Doctoral Positions in Economics, Sweden",
+    "amount": "Fully funded",
+    "deadline": "2026-09-30",
+    "category": "Research",
+    "level": [
+      "Master",
+      "PhD"
+    ],
+    "fields": [
+      "Engineering",
+      "Medicine",
+      "Law",
+      "Natural sciences",
+      "Economics",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Research",
+      "Leadership"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "The University of Gothenburg welcomes international applications for its Fully funded Doctoral Positions in Economics. Successful candidates will join a diverse research community and pursue a PhD degree in Sweden starting in September 2026. Applicants must hold a master’s degree or equivalent in ec",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Applicants must submit their application through the University of Gothenburg’s online recruitment system before the deadline.",
+    "requirementKeywords": [
+      "research"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 92,
+    "qualityFlags": [
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable"
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-scholarship-in-ai-driven-computational-biology-sweden/2025/12/05/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-scholarship-in-ai-driven-computational-biology-sweden",
+    "title": "Postdoctoral Scholarship in AI-driven Computational Biology, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "PhD"
+    ],
+    "fields": [
+      "Natural sciences",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "Start your studies with support! Postdoctoral Scholarship in AI-driven Computational Biology at the Umeå University. The study award is open for the academic session 2026/2027. Eligibility for the scholarship is open to students applying for a bachelor’s degree at Modul University Vienna who demonst",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/lund-university-postdoctoral-position-in-biomedical-engineering-sweden/2025/11/14/",
+    "applicationUrl": null,
+    "id": "spos-lund-university-postdoctoral-position-in-biomedical-engineering-sweden",
+    "title": "Lund University Postdoctoral Position in Biomedical Engineering, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Engineering",
+      "Medicine",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "Lund University announces a Postdoctoral Position in Biomedical Engineering for the academic session 2025/2026. The selected candidate will contribute to pioneering research advancing microfluidic technologies and extracellular vesicle analysis. Eligibility for this postdoctoral position requires ap",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "research"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-fellowship-in-bioinformatics-sweden/2025/11/13/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-fellowship-in-bioinformatics-sweden",
+    "title": "Postdoctoral Fellowship in Bioinformatics, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Medicine",
+      "Natural sciences",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Sustainability",
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "Umeå University is inviting applications for a two-year post-doctoral fellowship in Bioinformatics at the Department of Clinical Microbiology. This full-time, tax-free fellowship begins in early 2026 and offers an excellent opportunity to work within world-class research environments such as MIMS, U",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "research"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-fellowship-in-signaling-of-mitochondrial-dna-instability-sweden/2025/10/31/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-fellowship-in-signaling-of-mitochondrial-dna-instability-sweden",
+    "title": "Postdoctoral Fellowship in Signaling of Mitochondrial DNA Instability, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Medicine",
+      "Natural sciences",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Sustainability",
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "Umeå University is inviting applications for a two-year Postdoctoral Fellowship in the Department of Medical Biochemistry and Biophysics to study proteins involved in maintaining mitochondrial DNA stability. This position offers an excellent opportunity to conduct cutting-edge research in a stimulat",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "research"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-position-in-natural-language-processing-sweden/2025/10/24/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-position-in-natural-language-processing-sweden",
+    "title": "Postdoctoral Position in Natural Language Processing, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Engineering",
+      "Social sciences",
+      "Humanities",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "Chalmers University of Technology is offering a Postdoc opportunity in Natural Language Processing. The position allows researchers to explore topics like model interpretability, AI evaluation, or computational social science. Successful candidates will work with Professor Richard Johansson and coll",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "research",
+      "technology"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-position-in-efficient-simulation-of-noisy-quantum-circuits-sweden/2025/10/04/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-position-in-efficient-simulation-of-noisy-quantum-circuits-sweden",
+    "title": "Postdoctoral Position in Efficient Simulation of Noisy Quantum Circuits, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Engineering",
+      "IT"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "Chalmers University of Technology invites applications for a Postdoctoral Position in Efficient Simulation of Noisy Quantum Circuits as part of the QuantumStack project in collaboration with the Wallenberg Centre for Quantum Technology (WACQT). The position focuses on developing scalable, hardware-a",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "technology"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://scholarship-positions.com/postdoctoral-position-in-biotechnology-protein-biochemistry-sweden/2025/09/30/",
+    "applicationUrl": null,
+    "id": "spos-postdoctoral-position-in-biotechnologyprotein-biochemistry-sweden",
+    "title": "Postdoctoral Position in Biotechnology/Protein Biochemistry, Sweden",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Engineering",
+      "Natural sciences",
+      "IT"
+    ],
+    "nationality": [
+      "Swedish",
+      "International non-EU"
+    ],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Scholarship Positions",
+    "eligibility": "The Swedish University of Agricultural Sciences (SLU), Department of Animal Biosciences, invites applications for a Postdoctoral Researcher in Biotechnology/Protein Biochemistry (Spider Silk) in Uppsala. The position focuses on developing novel methods for producing and characterizing recombinant sp",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "See the scholarship page for application instructions.",
+    "requirementKeywords": [
+      "research",
+      "technology"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable",
+    "scrapeSuccess": false,
+    "unreachable": true,
+    "unreachableReason": "rate_limited",
+    "unreachableStatus": 429
+  },
+  {
+    "url": "https://si.se/en/apply/scholarships/swedish-institute-scholarships-for-global-professionals/",
+    "applicationUrl": null,
+    "id": "si-global-professionals",
+    "title": "Global Professionals",
+    "amount": "fully funded",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Any field"
+    ],
+    "nationality": [],
+    "interests": [
+      "Sustainability"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Swedish Institute",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Swedish Institute application portal.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 65,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url",
+      "thin_eligibility"
+    ],
+    "reviewStatus": "needs_review"
+  },
+  {
+    "url": "https://si.se/en/apply/scholarships/pioneeringwomeninstem/",
+    "applicationUrl": null,
+    "id": "si-pioneering-women-in-stem",
+    "title": "Pioneering Women in STEM",
+    "amount": "fully funded",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Engineering"
+    ],
+    "nationality": [],
+    "interests": [
+      "Leadership"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Swedish Institute",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Swedish Institute application portal.",
+    "requirementKeywords": [
+      "leadership",
+      "technology"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 65,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url",
+      "thin_eligibility"
+    ],
+    "reviewStatus": "needs_review"
+  },
+  {
+    "url": "https://si.se/en/from-a-ten-year-old-coder-to-gaming-ceo-magdy-shehata/",
+    "applicationUrl": null,
+    "id": "si-from-a-ten-year-old-coder-to-gaming-ceo-magdy-shehata",
+    "title": "From a ten-year-old coder to gaming CEO: Magdy Shehata",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "IT"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Swedish Institute",
+    "eligibility": "From writing code at the age of ten in Alexandria to becoming a gaming CEO and angel investor, Magdy Shehata’s career has been shaped by curiosity, bold ideas and hard…",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Swedish Institute application portal.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 52,
+    "qualityFlags": [
+      "weak_scholarship_signal",
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "needs_review"
+  },
+  {
+    "url": "https://si.se/en/bangaly-danfakhas-move-to-sweden-marks-a-new-chapter-in-sustainable-marketing/",
+    "applicationUrl": null,
+    "id": "si-its-about-people-planet-and-profit-something-i-will-take-with-me-wherever-i-go",
+    "title": "“It’s about people, planet and profit – something I will take with me wherever I go”",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Economics",
+      "IT"
+    ],
+    "nationality": [
+      "Swedish"
+    ],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Swedish Institute",
+    "eligibility": "After more than a decade running a pharmaceutical business across Africa, Bangaly Danfakha from Senegal decided it was time for a new challenge. His decision to apply for the Swedish…",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Swedish Institute application portal.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 52,
+    "qualityFlags": [
+      "weak_scholarship_signal",
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "needs_review"
+  },
+  {
+    "url": "https://si.se/en/we-dont-need-perfect-conditions-to-start-just-purpose-and-courage/",
+    "applicationUrl": null,
+    "id": "si-we-dont-need-perfect-conditions-to-startjust-purpose-and-courage",
+    "title": "“We don’t need perfect conditions to start—just purpose and courage”",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "IT"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Swedish Institute",
+    "eligibility": "Damilola Hamid Balogun from Nigeria reflects on his journey as an SI scholarship holder, his work empowering youth across Africa, and what it means to be named one of Forbes…",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Swedish Institute application portal.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable"
+  },
+  {
+    "url": "https://si.se/en/i-want-to-foster-a-green-economic-diversification-of-ecuador/",
+    "applicationUrl": null,
+    "id": "si-i-want-to-foster-a-green-economic-diversification-of-ecuador",
+    "title": "“I want to foster a green economic diversification of Ecuador”",
+    "amount": "See scholarship page",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "IT"
+    ],
+    "nationality": [],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Swedish Institute",
+    "eligibility": "Sebastián Dávalos from Ecuador shares how the SI Scholarship opened the door to an academic journey in Sweden, new opportunities and connections that he plans to use in building bridges…",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Swedish Institute application portal.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 77,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "publishable"
+  },
+  {
+    "url": "https://www.fulbright.se/us-schuman-program/",
+    "applicationUrl": "https://apply.iie.org/fusc2024/",
+    "id": "fulbright-fulbright-schuman-us-program",
+    "title": "Fulbright Schuman - US Program",
+    "amount": "€",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "PhD"
+    ],
+    "fields": [
+      "Economics",
+      "IT"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Fulbright Sweden",
+    "eligibility": "Application is not open",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through the Fulbright Sweden application portal.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 65,
+    "qualityFlags": [
+      "unknown_deadline",
+      "missing_application_url",
+      "thin_eligibility"
+    ],
+    "reviewStatus": "needs_review"
+  },
+  {
+    "url": "https://erasmus-plus.ec.europa.eu/opportunities/opportunities-for-individuals/students/studying-abroad",
+    "applicationUrl": null,
+    "id": "erasmus-eu-official-languages",
+    "title": "EU official languages",
+    "amount": "Monthly grant (varies by country pair)",
+    "deadline": "Unknown",
+    "category": "Travel",
+    "level": [],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [
+      "EU/EEA",
+      "International non-EU"
+    ],
+    "interests": [
+      "Travel"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Erasmus+",
+    "eligibility": "EU/EEA students at participating institutions.",
+    "documents": "Learning agreement, transcript, enrolment certificate.",
+    "instructions": "Apply through your home university's international office.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "qualityScore": 52,
+    "qualityFlags": [
+      "weak_scholarship_signal",
+      "unknown_deadline",
+      "missing_application_url"
+    ],
+    "reviewStatus": "needs_review"
   }
 ]
