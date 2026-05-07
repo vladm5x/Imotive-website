@@ -47,7 +47,14 @@
       "PowerShell(Get-Content *)",
       "mcp__plugin_playwright_playwright__browser_navigate",
       "mcp__plugin_playwright_playwright__browser_take_screenshot",
-      "mcp__plugin_playwright_playwright__browser_evaluate"
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "Bash(awk -F',' '{print $2, $11}')",
+      "Bash(awk -F',' '{print $2, $15, $16}')",
+      "Bash(curl -sI \"https://www.kau.se/en/education/explore-student-life/application-admission/scholarships\")",
+      "Bash(curl -sIL \"https://www.kau.se/en/education/scholarships\")",
+      "Bash(curl -sIL \"https://www.kau.se/en/scholarships\")",
+      "Bash(curl -sIL \"https://www.kau.se/en/education/fee-paying-students\")",
+      "Bash(curl -sIL \"https://www.kau.se/en/study-at-kau/application-and-admission/fee-paying-students\")"
     ]
   }
 }

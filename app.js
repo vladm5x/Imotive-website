@@ -1,11 +1,14 @@
 ﻿import { daysUntil, rankScholarships } from "./src/lib/matching.js";
 import { fetchScholarships, saveScholarshipForUser } from "./src/lib/scholarships.js";
+import { getSupabase } from "./src/lib/supabaseClient.js";
+import { getSession } from "./src/lib/account.js";
 
 let scholarships = [];
 
 const SIGNUP_KEY = "imotive_signup_answers";
 const LEGACY_PROFILE_KEY = "grantlyProfile";
 const SAVED_KEY = "imotive_saved";
+const APP_STATUS_KEY = "imotive_app_status";
 const feedbackStorageKey = "grantlyFeedback";
 const state = {
   activeRank: 0
@@ -136,6 +139,25 @@ function getSavedIds() {
   } catch {
     return new Set();
   }
+}
+
+function getAppStatuses() {
+  try {
+    return JSON.parse(localStorage.getItem(APP_STATUS_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function setAppStatus(id, status) {
+  const statuses = getAppStatuses();
+  if (status) {
+    statuses[id] = status;
+  } else {
+    delete statuses[id];
+  }
+  localStorage.setItem(APP_STATUS_KEY, JSON.stringify(statuses));
+  saveScholarshipForUser(id, status || "saved").catch(() => {});
 }
 
 function getRankedScholarships(profile) {
@@ -281,6 +303,15 @@ function openDetail(id) {
   const item = scholarships.find((entry) => entry.id === id);
   if (!dialog || !detailContent || !item) return;
 
+  const currentStatus = getAppStatuses()[id] || "";
+  const statusOptions = [
+    ["", "— Not started —"],
+    ["saved", "Saved"],
+    ["in_progress", "In progress"],
+    ["submitted", "Submitted"],
+    ["not_a_fit", "Not a fit"]
+  ];
+
   detailContent.innerHTML = `
     <div class="detail-inner">
       <div class="detail-header">
@@ -290,6 +321,14 @@ function openDetail(id) {
           <p>${item.eligibility}</p>
         </div>
         <button class="small-button" type="button" data-close>Close</button>
+      </div>
+      <div class="detail-status-row">
+        <label class="status-label" for="detailStatus">Application status</label>
+        <select class="status-select" id="detailStatus" data-status-id="${item.id}">
+          ${statusOptions.map(([val, label]) =>
+            `<option value="${val}"${currentStatus === val ? " selected" : ""}>${label}</option>`
+          ).join("")}
+        </select>
       </div>
       <dl class="detail-list">
         <div><dt>Amount</dt><dd>${item.amount}</dd></div>
@@ -327,6 +366,13 @@ function attachDialogHandlers() {
 
     if (clickedBackdrop || event.target.closest("[data-close]")) {
       dialog.close();
+    }
+  });
+
+  dialog.addEventListener("change", (event) => {
+    const select = event.target.closest("[data-status-id]");
+    if (select) {
+      setAppStatus(select.dataset.statusId, select.value);
     }
   });
 
@@ -486,14 +532,33 @@ function initFeedbackForm() {
   const note = document.querySelector("#feedbackNote");
   if (!form || !note) return;
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const entries = JSON.parse(localStorage.getItem(feedbackStorageKey) || "[]");
-    entries.push({
+    const payload = {
       ...Object.fromEntries(new FormData(form).entries()),
       createdAt: new Date().toISOString()
-    });
+    };
+
+    const entries = JSON.parse(localStorage.getItem(feedbackStorageKey) || "[]");
+    entries.push(payload);
     localStorage.setItem(feedbackStorageKey, JSON.stringify(entries));
+
+    try {
+      const supabase = getSupabase();
+      if (supabase) {
+        const session = await getSession();
+        await supabase.from("user_feedback").insert({
+          user_id: session?.user?.id || null,
+          rating: Number(payload.rating) || null,
+          return_intent: payload.returnIntent || null,
+          comment: payload.comment || null,
+          created_at: payload.createdAt
+        });
+      }
+    } catch {
+      // local save already done above
+    }
+
     form.reset();
     note.textContent = "Thank you for the feedback!";
   });

@@ -2,7 +2,7 @@ const STORAGE_KEY = 'imotive-active-layout';
 const PREVIEW_BUTTON_HIDDEN_KEY = 'imotive-layout-preview-button-hidden';
 
 async function loadActiveLayout() {
-  const activeId = localStorage.getItem(STORAGE_KEY) || 'original';
+  const activeId = localStorage.getItem(STORAGE_KEY) || 'purple-landing';
 
   const { layoutRegistry } = await import('./layoutRegistry.js');
   const entry = layoutRegistry.find(l => l.id === activeId) || layoutRegistry[0];

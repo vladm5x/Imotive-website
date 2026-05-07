@@ -1,7 +1,7 @@
 import React from "https://esm.sh/react@18.2.0";
 import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
 import { getSession, getUserProfile, isSupabaseConfigured, signOut } from "./lib/account.js";
-import { fetchScholarships } from "./lib/scholarships.js";
+import { fetchScholarships, saveScholarshipForUser, loadUserSavedFromSupabase, syncLocalSavedToSupabase } from "./lib/scholarships.js";
 import { rankScholarships, daysUntil } from "./lib/matching.js";
 
 const e = React.createElement;
@@ -9,8 +9,9 @@ const e = React.createElement;
 const SIGNUP_KEY = "imotive_signup_answers";
 const LEGACY_KEY = "grantlyProfile";
 const SAVED_KEY = "imotive_saved";
+const PAGE_SIZE = 30;
 
-const FIELD_OPTIONS = ["All fields", "Engineering", "IT", "Computer Science", "Business", "Economics", "Medicine", "Natural sciences", "Humanities", "Social sciences", "Law", "Architecture"];
+const FIELD_OPTIONS = ["All fields", "Engineering", "IT", "Computer Science", "Business", "Economics", "Medicine", "Natural sciences", "Humanities", "Social sciences", "Law", "Architecture", "Agriculture", "Arts", "Education"];
 const LEVEL_OPTIONS = ["Any level", "Bachelor", "Master", "PhD"];
 
 function getLocalProfile() {
@@ -22,12 +23,16 @@ function getLocalProfile() {
   }
 }
 
-function getSavedIds() {
+function getLocalSavedIds() {
   try {
     return new Set(JSON.parse(localStorage.getItem(SAVED_KEY) || "[]"));
   } catch {
     return new Set();
   }
+}
+
+function persistSavedIds(ids) {
+  localStorage.setItem(SAVED_KEY, JSON.stringify([...ids]));
 }
 
 function AccountPage() {
@@ -39,7 +44,11 @@ function AccountPage() {
   const [filterField, setFilterField] = React.useState("All fields");
   const [filterLevel, setFilterLevel] = React.useState("Any level");
   const [sortBy, setSortBy] = React.useState("match");
-  const [savedIds, setSavedIds] = React.useState(() => getSavedIds());
+  const [showSaved, setShowSaved] = React.useState(false);
+  const [savedIds, setSavedIds] = React.useState(() => getLocalSavedIds());
+  const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
+
+  React.useEffect(() => { setVisibleCount(PAGE_SIZE); }, [search, filterField, filterLevel, sortBy, showSaved]);
 
   React.useEffect(() => {
     let active = true;
@@ -50,6 +59,16 @@ function AccountPage() {
           let profile = null;
           if (session) {
             try { profile = await getUserProfile(); } catch {}
+            const localIds = getLocalSavedIds();
+            try {
+              await syncLocalSavedToSupabase(localIds);
+              const remoteIds = await loadUserSavedFromSupabase();
+              const merged = new Set([...localIds, ...remoteIds]);
+              persistSavedIds(merged);
+              if (active) setSavedIds(merged);
+            } catch {
+              // offline — local saved state is fine
+            }
           }
           if (active) setAuthState({ loading: false, session, profile });
         } else {
@@ -72,7 +91,9 @@ function AccountPage() {
         const data = await fetchScholarships();
         if (!active) return;
         const localProfile = authState.profile?.answers || getLocalProfile();
-        const ranked = localProfile ? rankScholarships(data, localProfile, { includeIneligible: true }) : data;
+        const ranked = localProfile
+          ? rankScholarships(data, localProfile, { includeIneligible: true })
+          : data;
         setAllScholarships(ranked);
       } catch (err) {
         if (active) setLoadError("Could not load scholarships. Check your connection.");
@@ -86,6 +107,10 @@ function AccountPage() {
 
   const filtered = React.useMemo(() => {
     let items = [...allScholarships];
+
+    if (showSaved) {
+      items = items.filter((item) => savedIds.has(item.id));
+    }
 
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -105,9 +130,7 @@ function AccountPage() {
     }
 
     if (filterLevel !== "Any level") {
-      items = items.filter((item) =>
-        (item.level || []).includes(filterLevel)
-      );
+      items = items.filter((item) => (item.level || []).includes(filterLevel));
     }
 
     if (sortBy === "deadline") {
@@ -116,26 +139,39 @@ function AccountPage() {
         if (!b.deadline || b.deadline === "Unknown") return -1;
         return new Date(a.deadline) - new Date(b.deadline);
       });
+    } else if (sortBy === "amount") {
+      items = [...items].sort((a, b) => {
+        const extract = (s) => {
+          const m = String(s || "").match(/[\d,]+/);
+          return m ? parseInt(m[0].replace(/,/g, ""), 10) : 0;
+        };
+        return extract(b.amount) - extract(a.amount);
+      });
     }
 
     return items;
-  }, [allScholarships, search, filterField, filterLevel, sortBy]);
+  }, [allScholarships, search, filterField, filterLevel, sortBy, showSaved, savedIds]);
 
   async function handleSignOut() {
     try { await signOut(); } catch {}
     window.location.href = "index.html";
   }
 
-  function handleSave(id) {
+  async function handleSave(id) {
     const next = new Set(savedIds);
-    if (next.has(id)) {
+    const wasSaved = next.has(id);
+    if (wasSaved) {
       next.delete(id);
     } else {
       next.add(id);
     }
-    const arr = [...next];
-    localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+    persistSavedIds(next);
     setSavedIds(next);
+    try {
+      await saveScholarshipForUser(id, wasSaved ? "not_a_fit" : "saved");
+    } catch {
+      // offline — local state persists
+    }
   }
 
   const localProfile = authState.profile?.answers || getLocalProfile();
@@ -144,6 +180,8 @@ function AccountPage() {
     authState.session?.user?.email || "";
   const firstName = name.split(" ")[0];
   const university = authState.profile?.university || localProfile?.university || "";
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = filtered.length > visibleCount;
 
   return e(
     React.Fragment,
@@ -155,36 +193,58 @@ function AccountPage() {
       loadError ? e("p", { className: "signup-error browse-error" }, loadError) : null,
       e(HeroSearch, { firstName, university, search, onSearch: setSearch }),
       e(FilterBar, {
-        filterField,
-        filterLevel,
-        sortBy,
+        filterField, filterLevel, sortBy, showSaved,
         onFilterField: setFilterField,
         onFilterLevel: setFilterLevel,
         onSortBy: setSortBy,
+        onToggleSaved: () => setShowSaved((v) => !v),
         count: filtered.length,
+        savedCount: savedIds.size,
         loading: scholarLoading
       }),
       scholarLoading
         ? e("div", { className: "browse-loading" }, "Loading scholarships...")
         : filtered.length === 0
-          ? e("div", { className: "browse-empty-state" },
-              e("h3", null, search || filterField !== "All fields" || filterLevel !== "Any level"
-                ? "No matches for these filters."
-                : "No scholarships available."),
-              e("p", null, "Try adjusting your search or filters.")
+          ? e(
+              "div",
+              { className: "browse-empty-state" },
+              e("h3", null, showSaved
+                ? "No saved scholarships yet."
+                : search || filterField !== "All fields" || filterLevel !== "Any level"
+                  ? "No matches for these filters."
+                  : "No scholarships available."),
+              e("p", null, showSaved
+                ? "Save scholarships from browse or your matches page."
+                : "Try adjusting your search or filters.")
             )
           : e(
-              "section",
-              { className: "browse-grid", "aria-label": "Scholarship results" },
-              filtered.slice(0, 30).map((item, i) =>
-                e(ScholarshipCard, { key: item.id || i, item, saved: savedIds.has(item.id), onSave: handleSave })
-              )
-            ),
-      filtered.length > 30
-        ? e("div", { className: "browse-load-row" },
-            e("p", null, `Showing 30 of ${filtered.length} results`)
-          )
-        : null
+              React.Fragment,
+              null,
+              e(
+                "section",
+                { className: "browse-grid", "aria-label": "Scholarship results" },
+                visible.map((item, i) =>
+                  e(ScholarshipCard, { key: item.id || i, item, saved: savedIds.has(item.id), onSave: handleSave })
+                )
+              ),
+              hasMore
+                ? e(
+                    "div",
+                    { className: "browse-load-row" },
+                    e(
+                      "button",
+                      {
+                        type: "button",
+                        className: "browse-load-btn",
+                        onClick: () => setVisibleCount((n) => n + PAGE_SIZE)
+                      },
+                      `Load more — ${filtered.length - visibleCount} remaining`
+                    )
+                  )
+                : filtered.length > PAGE_SIZE
+                  ? e("p", { className: "browse-load-row browse-all-shown" }, `All ${filtered.length} results shown.`)
+                  : null
+            )
     )
   );
 }
@@ -255,14 +315,26 @@ function HeroSearch({ firstName, university, search, onSearch }) {
   );
 }
 
-function FilterBar({ filterField, filterLevel, sortBy, onFilterField, onFilterLevel, onSortBy, count, loading }) {
+function FilterBar({ filterField, filterLevel, sortBy, showSaved, onFilterField, onFilterLevel, onSortBy, onToggleSaved, count, savedCount, loading }) {
   return e(
     "section",
     { className: "filter-zone" },
     e(
       "div",
       { className: "filter-row" },
-      e("div", { className: "filter-left" },
+      e(
+        "div",
+        { className: "filter-left" },
+        e(
+          "button",
+          {
+            type: "button",
+            className: `filter-saved-btn${showSaved ? " is-active" : ""}`,
+            onClick: onToggleSaved,
+            "aria-pressed": showSaved
+          },
+          `Saved${savedCount ? ` (${savedCount})` : ""}`
+        ),
         e("span", { className: "filter-label" }, "Filter:"),
         e(
           "select",
@@ -275,14 +347,17 @@ function FilterBar({ filterField, filterLevel, sortBy, onFilterField, onFilterLe
           LEVEL_OPTIONS.map((l) => e("option", { key: l, value: l }, l))
         )
       ),
-      e("div", { className: "filter-right" },
+      e(
+        "div",
+        { className: "filter-right" },
         loading ? null : e("span", { className: "filter-count" }, `${count} results`),
         e("span", { className: "filter-label" }, "Sort:"),
         e(
           "select",
           { className: "filter-pill", value: sortBy, onChange: (ev) => onSortBy(ev.target.value), "aria-label": "Sort results" },
           e("option", { value: "match" }, "Best match"),
-          e("option", { value: "deadline" }, "Deadline")
+          e("option", { value: "deadline" }, "Deadline"),
+          e("option", { value: "amount" }, "Amount")
         )
       )
     )
@@ -300,7 +375,9 @@ function ScholarshipCard({ item, saved, onSave }) {
   return e(
     "article",
     { className: `browse-card${saved ? " is-saved" : ""}` },
-    e("div", { className: "browse-card-top" },
+    e(
+      "div",
+      { className: "browse-card-top" },
       hasScore ? e("span", { className: "match-pill" }, `${item.score}% match`) : null,
       e("strong", { className: "hand-title" }, item.amount || "Amount TBD")
     ),
@@ -310,16 +387,22 @@ function ScholarshipCard({ item, saved, onSave }) {
         ? (item.eligibility.length > 110 ? item.eligibility.slice(0, 110) + "..." : item.eligibility)
         : ""
     ),
-    e("div", { className: "deadline-row browse-deadline" },
+    e(
+      "div",
+      { className: "deadline-row browse-deadline" },
       e("span", null, "Deadline"),
       e("strong", { style: { color: urgent ? "#B45309" : "#555555" } }, deadlineText)
     ),
-    e("div", { className: "pill-row" },
+    e(
+      "div",
+      { className: "pill-row" },
       level ? e("span", { className: "pill" }, level) : null,
       field ? e("span", { className: "pill" }, field) : null,
       item.category ? e("span", { className: "pill" }, item.category) : null
     ),
-    e("div", { className: "card-actions" },
+    e(
+      "div",
+      { className: "card-actions" },
       e("a", {
         href: item.applicationUrl || item.url || "#",
         target: "_blank",

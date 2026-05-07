@@ -48,11 +48,15 @@ const GENERIC_TITLE_PATTERNS = [
   /^learn more$/i,
   /^search/i,
   /^browse/i,
+  /^find\b/i,
+  /^explore\b/i,
+  /^discover\b/i,
   /^list of/i,
   /^(top|best) \d+/i,
   /scholarship (guide|tips|advice|essay|interview)/i,
   /^how to /i,
-  /^what is /i
+  /^what is /i,
+  /^(funding|scholarships?|grants?|opportunities?|programs?|courses?)$/i
 ];
 
 const BLOG_ONLY_PATTERNS = /\b(blog|news|press release|article|guide|tips|essay writing|interview tips|seo)\b/i;
@@ -60,7 +64,7 @@ const NEGATIVE_PAGE_PATTERNS = /\b(page not found|404 not found|access denied|fo
 const SOCIAL_OR_SHARE_DOMAINS = /\b(facebook\.com|twitter\.com|x\.com|instagram\.com|linkedin\.com|youtube\.com|tiktok\.com|pinterest\.com|reddit\.com|t\.co|bit\.ly|addtoany|sharethis|sharer)\b/i;
 const SUSPICIOUS_DOMAINS = /\b(coupon|casino|betting|loan|payday|essaywriter|write-my|telegram|whatsapp|bit\.ly|tinyurl|goo\.gl)\b/i;
 const AGGREGATOR_DOMAINS = /\b(scholarship-positions\.com|afterschoolafrica\.com|opportunitydesk\.org|scholarshipportal\.com|mastersportal\.eu|phdportal\.eu|findamasters\.com|findaphd\.com|academicpositions\.com|scholarshipdb\.net|inomics\.com|bidragsguiden\.se|stipendier\.se)\b/i;
-const OFFICIAL_DOMAIN_HINTS = /\b(\.edu|\.ac\.|\.gov|\.gouv|\.gc\.ca|\.europa\.eu|\.eu\.int|\.org|\.se|\.dk|\.no|\.fi|\.is|university|universitet|college|research|council|foundation|stiftelse|kommun|region)\b/i;
+const OFFICIAL_DOMAIN_HINTS = /\b(\.edu|\.ac\.|\.gov|\.gouv|\.gc\.ca|\.go\.jp|\.gov\.au|\.gov\.uk|\.govt\.nz|\.bund\.de|\.europa\.eu|\.eu\.int|\.org|\.se|\.dk|\.no|\.fi|\.is|university|universitet|college|research|council|foundation|stiftelse|kommun|region|daad|fulbright|chevening|commonwealth|rhodeshouse|gatescambridge|vanier|jsps|vinnova|formas|forte|nordforsk|stint|kaw\.wallenberg|kks\.se)\b/i;
 
 function cleanText(value) {
   return String(value || '')
@@ -195,8 +199,11 @@ function isSpecificTitle(title) {
   const clean = cleanText(title);
   if (clean.length < 10) return false;
   if (GENERIC_TITLE_PATTERNS.some(pattern => pattern.test(clean))) return false;
-  return /\b(scholarship|grant|stipend|stipendium|stipendier|award|bursary|fellowship|studentship|funding|tuition|waiver|phd|doctoral|master|research|travel|mobility)\b/i.test(clean)
-    || clean.split(/\s+/).length >= 4;
+  // Word-boundary match for English terms
+  const hasEnglishTerm = /\b(scholarship|grant|stipend|award|bursary|fellowship|studentship|funding|tuition|waiver|phd|doctoral|master|research|travel|mobility)\b/i.test(clean);
+  // Substring match for Swedish compound words (e.g. "journaliststipendier", "rehabiliteringsstipendium")
+  const hasSwedishTerm = /(stipend|stipendi|bidrag|anslag|understöd|praktik|forskning|resestipend|doktorand|studiefond|studiemedel|stiftelse|fond\b)/i.test(clean);
+  return hasEnglishTerm || hasSwedishTerm || clean.split(/\s+/).length >= 4;
 }
 
 function isRecurringDeadline(entry = {}) {
@@ -233,7 +240,7 @@ function hasClearApplicationInstructions(entry = {}) {
   const text = cleanText(`${entry.instructions || ''} ${entry.application_instructions || ''} ${entry.eligibility || ''}`);
   if (GENERIC_PLACEHOLDERS.has(text)) return false;
   if (text.length < 45) return false;
-  return APPLICATION_TERMS.test(text) && /\b(deadline|submit|form|portal|email|documents?|cv|transcript|motivation|statement|nomination|prisma|universityadmissions)\b/i.test(text);
+  return APPLICATION_TERMS.test(text) && /\b(deadline|submit|form|portal|email|documents?|cv|transcript|motivation|statement|nomination|prisma|universityadmissions|system|process|website|online|via|through|at\s+\w+\.\w+)\b/i.test(text);
 }
 
 function hasUsableApplicationPath(entry = {}) {
@@ -330,8 +337,8 @@ function assessScholarshipQuality(entry = {}) {
     missing_amount: 3,
     missing_eligibility: 12,
     missing_documents: 2,
-    missing_application_url: 12,
-    no_application_path: 35,
+    missing_application_url: 8,
+    no_application_path: 28,
     expired: 60,
     duplicate: 80,
     broken_source_url: 60,
@@ -367,16 +374,16 @@ function determineReviewStatus(entry = {}) {
   if (!hasUsableApplicationPath(entry)) return 'no_application_path';
   const qualityScore = entry.qualityScore ?? entry.quality_score ?? 0;
   const trustScore = entry.trustScore ?? entry.trust_score ?? 0;
-  if (qualityScore >= 85 && trustScore >= 85 && isPublishableScholarship({ ...entry, reviewStatus: 'approved' }, { allowStatus: true })) return 'approved';
-  if (trustScore < 50 || qualityScore < 50) return 'low_trust';
+  if (qualityScore >= 75 && trustScore >= 75 && isPublishableScholarship({ ...entry, reviewStatus: 'approved' }, { allowStatus: true })) return 'approved';
+  if (trustScore < 45 || qualityScore < 45) return 'low_trust';
   return 'needs_review';
 }
 
 function isPublishableScholarship(entry = {}, options = {}) {
   const status = entry.reviewStatus || entry.review_status;
   if (!options.allowStatus && status !== 'approved') return false;
-  if ((entry.qualityScore ?? entry.quality_score ?? 0) < 85) return false;
-  if ((entry.trustScore ?? entry.trust_score ?? 0) < 85) return false;
+  if ((entry.qualityScore ?? entry.quality_score ?? 0) < 75) return false;
+  if ((entry.trustScore ?? entry.trust_score ?? 0) < 75) return false;
   if (!isStatusOk(entry.source_url_status || entry.sourceUrlStatus)) return false;
   if (isExpiredEntry(entry)) return false;
   if (entry.duplicateOf || entry.duplicate_of) return false;
@@ -444,6 +451,15 @@ function normalizeScholarshipEntry(entry = {}) {
     requirementKeywords: uniqueList(entry.requirementKeywords || entry.requirement_keywords || []),
     requiredApplicantInfo: uniqueList(entry.requiredApplicantInfo || entry.required_applicant_info || [])
   };
+
+  // Clear cached scores so assessScholarshipQuality always recalculates with current URL statuses.
+  // Stale trustScore/qualityScore from a prior normalizeScholarshipEntry call (e.g. inside buildEntry,
+  // before validateEntries sets application_url_status) would otherwise suppress recalculation and
+  // cause low_trust rejections on entries whose applicationUrl is only validated later.
+  delete normalized.trustScore;
+  delete normalized.trust_score;
+  delete normalized.qualityScore;
+  delete normalized.quality_score;
 
   const quality = assessScholarshipQuality(normalized);
   normalized.qualityScore = quality.score;

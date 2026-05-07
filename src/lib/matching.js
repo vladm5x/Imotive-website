@@ -68,7 +68,11 @@ export function scoreScholarship(item, profileInput, options = {}) {
     reasons.push(fields.includes("Any field") ? "Any field eligible" : profile.field);
   }
 
-  if (profile.nationality && nationalities.length && !matchesAny(nationalities, profile.nationality) && profile.nationality !== "Any nationality") {
+  const allNationalitiesOpen = nationalities.includes("Swedish") && nationalities.includes("EU/EEA") && nationalities.includes("International non-EU");
+  if (allNationalitiesOpen) {
+    score += 20;
+    reasons.push("Open to all nationalities");
+  } else if (profile.nationality && nationalities.length && !matchesAny(nationalities, profile.nationality) && profile.nationality !== "Any nationality") {
     blockers.push(`Nationality: ${nationalities.join(" / ")}`);
   } else if (profile.nationality && matchesAny(nationalities, profile.nationality)) {
     score += 20;
@@ -92,8 +96,29 @@ export function scoreScholarship(item, profileInput, options = {}) {
   }
 
   if (deadlineDays !== null && deadlineDays >= 0) {
-    score += deadlineDays <= 21 ? 4 : 6;
-    reasons.push(deadlineDays <= 21 ? "Deadline soon" : "Open deadline");
+    if (deadlineDays <= 7) {
+      score += 8;
+      reasons.push("Closing this week");
+    } else if (deadlineDays <= 30) {
+      score += 6;
+      reasons.push("Deadline soon");
+    } else {
+      score += 4;
+      reasons.push("Open deadline");
+    }
+  }
+
+  const meritTerms = ["academic merit", "academic excellence", "high academic", "top student", "outstanding", "merit-based", "merit based", "academic achievement"];
+  const meritText = [item.eligibility, item.requirements, item.instructions, (item.requirementKeywords || []).join(" ")].filter(Boolean).join(" ").toLowerCase();
+  const hasMeritFocus = meritTerms.some((mt) => meritText.includes(mt));
+  if (profile.gpa) {
+    if (profile.gpa === "Top 10%") {
+      score += hasMeritFocus ? 10 : 5;
+      reasons.push("Strong academic record");
+    } else if (profile.gpa === "Top 25%" && hasMeritFocus) {
+      score += 4;
+      reasons.push("Good academic fit");
+    }
   }
 
   const qualityScore = item.qualityScore ?? item.quality_score;
@@ -121,10 +146,51 @@ export function rankScholarships(items, profile, options = {}) {
 }
 
 function normalizeField(field) {
-  if (field === "Computer Science") return "IT";
-  if (field === "Business") return "Economics";
-  if (field === "Natural Sciences") return "Natural sciences";
-  return field || null;
+  const map = {
+    "Computer Science": "IT",
+    "Data Science": "IT",
+    "Software Engineering": "IT",
+    "Information Technology": "IT",
+    "Cybersecurity": "IT",
+    "Business": "Economics",
+    "Business Administration": "Economics",
+    "Finance": "Economics",
+    "Accounting": "Economics",
+    "Marketing": "Economics",
+    "Management": "Economics",
+    "Natural Sciences": "Natural sciences",
+    "Biology": "Natural sciences",
+    "Chemistry": "Natural sciences",
+    "Physics": "Natural sciences",
+    "Environmental Science": "Natural sciences",
+    "Mathematics": "Natural sciences",
+    "Psychology": "Social sciences",
+    "Political Science": "Social sciences",
+    "International Relations": "Social sciences",
+    "Sociology": "Social sciences",
+    "Anthropology": "Social sciences",
+    "Communication": "Social sciences",
+    "Journalism": "Humanities",
+    "History": "Humanities",
+    "Philosophy": "Humanities",
+    "Linguistics": "Humanities",
+    "Literature": "Humanities",
+    "Languages": "Humanities",
+    "Fine Arts": "Humanities",
+    "Mechanical Engineering": "Engineering",
+    "Electrical Engineering": "Engineering",
+    "Civil Engineering": "Engineering",
+    "Chemical Engineering": "Engineering",
+    "Biomedical Engineering": "Engineering",
+    "Nursing": "Medicine",
+    "Public Health": "Medicine",
+    "Dentistry": "Medicine",
+    "Pharmacy": "Medicine",
+    "Urban Planning": "Architecture",
+    "Interior Design": "Architecture",
+    "Graphic Design": "Architecture",
+  };
+  return map[field] || field || null;
 }
 
 function normalizeInterests(value) {

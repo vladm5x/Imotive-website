@@ -7,67 +7,167 @@
   <meta name="description" content="Privacy information for iMotive scholarship discovery.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="src/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --off: #f6f6f8;
+      --line: #e7e7ec;
+      --ink: #111111;
+      --ink-2: #2a2a2e;
+      --muted: #6b6b73;
+      --muted-2: #9a9aa3;
+      --purple-900: #2b007a;
+      --purple-700: #4b00d8;
+      --purple-500: #6a00ff;
+      --purple-300: #b88cff;
+      --purple-100: #efe6ff;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; font-size: 16px; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+    p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 720px) { .wrap { padding: 0 20px; } }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,.88); backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid rgba(17,17,17,.06); }
+    .nav-inner { display: flex; align-items: center; gap: 40px; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk'; font-weight: 600; font-size: 19px; letter-spacing: -0.02em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--purple-500) 0%, var(--purple-700) 60%, var(--purple-900) 100%); position: relative; flex-shrink: 0; }
+    .logo-mark::after { content: ""; position: absolute; inset: 6px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%); border-radius: 4px; }
+    .nav-links { display: flex; gap: 28px; flex: 1; font-size: 14.5px; color: var(--ink-2); }
+    .nav-links a:hover { color: var(--purple-700); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 999px; font-size: 14.5px; font-weight: 500; transition: background .15s; }
+    .btn-ghost { color: var(--ink); }
+    .btn-ghost:hover { background: var(--off); }
+    .btn-primary { background: var(--ink); color: var(--white); }
+    .btn-primary:hover { background: var(--purple-700); }
+    @media (max-width: 880px) { .nav-links { display: none; } }
+
+    /* PAGE LAYOUT */
+    .page-hero { padding: 80px 0 64px; }
+    .eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--purple-700); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .eyebrow::before { content: ""; display: inline-block; width: 20px; height: 1.5px; background: var(--purple-700); }
+    .page-hero h1 { font-size: clamp(32px, 4.5vw, 56px); line-height: 1.08; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: 16px; }
+    .page-hero p { color: var(--muted); font-size: 17px; max-width: 54ch; line-height: 1.6; }
+
+    .policy-date { font-size: 13px; color: var(--muted-2); margin-bottom: 32px; }
+
+    .policy-grid { display: grid; grid-template-columns: 240px 1fr; gap: 64px; padding: 64px 0; border-top: 1px solid var(--line); }
+    @media (max-width: 720px) { .policy-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .policy-sidebar { position: sticky; top: 88px; align-self: start; }
+    .policy-sidebar h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-2); margin-bottom: 16px; font-weight: 600; }
+    .policy-sidebar a { display: block; font-size: 14px; color: var(--muted); padding: 6px 0; border-left: 2px solid var(--line); padding-left: 14px; }
+    .policy-sidebar a:hover { color: var(--purple-700); border-color: var(--purple-700); }
+    .policy-content { max-width: 640px; }
+    .policy-section { margin-bottom: 48px; }
+    .policy-section h2 { font-size: 22px; margin-bottom: 12px; }
+    .policy-section p { color: var(--ink-2); font-size: 15px; line-height: 1.7; }
+    .policy-section p + p { margin-top: 12px; }
+    .policy-section a { color: var(--purple-700); }
+    .policy-section a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer { padding: 80px 0 40px; border-top: 1px solid var(--line); margin-top: 40px; }
+    .foot { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+    @media (max-width: 720px) { .foot { grid-template-columns: 1fr 1fr; } }
+    .foot-brand p { color: var(--muted); font-size: 13.5px; margin-top: 14px; line-height: 1.55; }
+    .foot-col h5 { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); font-weight: 600; margin-bottom: 14px; }
+    .foot-col a { display: block; padding: 5px 0; color: var(--ink-2); font-size: 14px; }
+    .foot-col a:hover { color: var(--purple-700); }
+    .foot-bot { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: 12.5px; color: var(--muted); }
+  </style>
 </head>
 <body>
-  <header class="site-nav">
-    <div class="home-shell nav-inner">
-      <a href="index.html#home" class="brand-mark"><span></span><strong>iMotive</strong></a>
-      <nav class="nav-links">
-        <a href="index.html#scholarships">Browse</a>
-        <a href="index.html#how-it-works">How it works</a>
-        <a href="index.html#universities">For universities</a>
-      </nav>
-      <div class="nav-actions">
-        <a href="signup.html">Log in</a>
-        <a href="signup.html" class="nav-signup">Sign up</a>
-      </div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span> iMotive</a>
+    <nav class="nav-links">
+      <a href="homepage-layouts/purple-browse.html">Browse</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="signup.html" class="btn btn-ghost">Sign in</a>
+      <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main class="page-main">
-    <section class="page-hero">
-      <div class="home-shell">
-        <p class="hand-note page-label">/ privacy</p>
-        <h1 class="hand-title">Plain-language privacy for the prototype.</h1>
-        <p>This page describes the current prototype setup. It should be reviewed by counsel before a public production launch.</p>
-      </div>
-    </section>
+<main>
+  <div class="wrap">
+    <div class="page-hero">
+      <div class="eyebrow">Legal</div>
+      <h1>Plain-language privacy.</h1>
+      <p>This page describes the current prototype setup. It should be reviewed by counsel before a public production launch.</p>
+    </div>
 
-    <section class="page-section">
-      <div class="home-shell page-grid">
-        <p class="hand-note page-label">current policy</p>
-        <div>
-          <p class="policy-date">Last updated: April 28, 2026</p>
-          <article class="page-panel">
-            <h2>What we collect</h2>
-            <p>When you sign up, we may store your email, basic profile answers, saved scholarships, and application progress so the product can show relevant matches.</p>
-          </article>
-          <article class="page-panel">
-            <h2>How we use it</h2>
-            <p>We use profile data to rank scholarships, improve filters, debug product issues, and understand what funding students are trying to find.</p>
-          </article>
-          <article class="page-panel">
-            <h2>Your choices</h2>
-            <p>You can contact us at hello@imotive.se to request access, correction, or deletion of prototype account data.</p>
-          </article>
+    <div class="policy-grid">
+      <aside class="policy-sidebar">
+        <h4>On this page</h4>
+        <a href="#collect">What we collect</a>
+        <a href="#use">How we use it</a>
+        <a href="#choices">Your choices</a>
+      </aside>
+      <div class="policy-content">
+        <p class="policy-date">Last updated: April 28, 2026</p>
+
+        <div class="policy-section" id="collect">
+          <h2>What we collect</h2>
+          <p>When you sign up, we may store your email, basic profile answers, saved scholarships, and application progress so the product can show relevant matches.</p>
+          <p>We use Supabase for authentication and data storage. Scholarship interaction data (saves, status updates) is associated with your account and stored securely.</p>
+        </div>
+
+        <div class="policy-section" id="use">
+          <h2>How we use it</h2>
+          <p>We use profile data to rank scholarships, improve filters, debug product issues, and understand what funding students are trying to find.</p>
+          <p>We do not sell your data, share it with third parties for advertising, or use it for any purpose beyond improving the scholarship matching experience.</p>
+        </div>
+
+        <div class="policy-section" id="choices">
+          <h2>Your choices</h2>
+          <p>You can contact us at <a href="mailto:hello@imotive.se">hello@imotive.se</a> to request access, correction, or deletion of your prototype account data.</p>
+          <p>You can also clear your local profile data at any time through your browser settings — local storage data is separate from your Supabase account data.</p>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><div></div><span>iMotive</span></div>
-        <p>Scholarship discovery for university students in Sweden.</p>
-      </div>
-      <div class="footer-col"><p>Product</p><div><a href="signup.html">Browse scholarships</a><a href="index.html#how-it-works">How it works</a><a href="signup.html">Sign up free</a></div></div>
-      <div class="footer-col"><p>Company</p><div><a href="about.html">About</a><a href="index.html#universities">For universities</a><a href="contact.html">Contact</a></div></div>
-      <div class="footer-col"><p>Legal</p><div><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div>
     </div>
-    <div class="footer-bottom">&copy; 2026 iMotive. All rights reserved.</div>
-  </footer>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a href="index.html" class="logo"><span class="logo-mark"></span> iMotive</a>
+        <p>Scholarship discovery for university students in Sweden. Find verified opportunities matched to your study path.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="homepage-layouts/purple-browse.html">Browse scholarships</a>
+        <a href="signup.html">Sign up free</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 iMotive</span>
+      <span>Profile-driven scholarship matching.</span>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>

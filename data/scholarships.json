@@ -40,7 +40,6 @@
       "email",
       "proof of enrolment"
     ],
-    "qualityScore": 98,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -91,12 +90,9 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:23.082Z",
+    "lastVerifiedAt": "2026-05-07T18:03:39.295Z",
     "scrapedAt": "2026-05-07T11:19:35.226Z",
-    "trustScore": 90,
     "review_status": "approved",
-    "quality_score": 98,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -105,10 +101,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:23.082Z",
-    "last_verified_at": "2026-05-07T11:52:23.082Z",
+    "url_verified_at": "2026-05-07T18:03:39.295Z",
+    "last_verified_at": "2026-05-07T18:03:39.295Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 3
+    "duplicateCount": 3,
+    "qualityScore": 98,
+    "trustScore": 100,
+    "quality_score": 98,
+    "trust_score": 100
   },
   {
     "id": "uu-tuition-waiver",
@@ -155,7 +155,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -209,11 +208,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:23.153Z",
+    "lastVerifiedAt": "2026-05-07T18:03:39.584Z",
     "scrapedAt": "2026-05-07T11:19:35.229Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -221,10 +217,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:23.153Z",
-    "last_verified_at": "2026-05-07T11:52:23.153Z",
+    "url_verified_at": "2026-05-07T18:03:39.584Z",
+    "last_verified_at": "2026-05-07T18:03:39.584Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 1
+    "duplicateCount": 1,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "su-master-scholarship",
@@ -281,7 +281,6 @@
       "reference letter"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -335,11 +334,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:23.347Z",
+    "lastVerifiedAt": "2026-05-07T18:03:39.365Z",
     "scrapedAt": "2026-05-07T11:19:35.229Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -347,10 +343,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:23.347Z",
-    "last_verified_at": "2026-05-07T11:52:23.347Z",
+    "url_verified_at": "2026-05-07T18:03:39.365Z",
+    "last_verified_at": "2026-05-07T18:03:39.365Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 8
+    "duplicateCount": 8,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "umu-scholarship",
@@ -397,7 +397,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -452,11 +451,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:23.429Z",
+    "lastVerifiedAt": "2026-05-07T18:03:39.430Z",
     "scrapedAt": "2026-05-07T11:19:35.229Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -465,10 +461,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:23.429Z",
-    "last_verified_at": "2026-05-07T11:52:23.429Z",
+    "url_verified_at": "2026-05-07T18:03:39.430Z",
+    "last_verified_at": "2026-05-07T18:03:39.430Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 1
+    "duplicateCount": 1,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "oru-scholarship",
@@ -519,7 +519,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -573,11 +572,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:24.593Z",
+    "lastVerifiedAt": "2026-05-07T18:03:40.529Z",
     "scrapedAt": "2026-05-07T11:19:35.230Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -585,133 +581,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:24.593Z",
-    "last_verified_at": "2026-05-07T11:52:24.593Z",
+    "url_verified_at": "2026-05-07T18:03:40.529Z",
+    "last_verified_at": "2026-05-07T18:03:40.529Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 2
-  },
-  {
-    "id": "kau-scholarship",
-    "title": "Karlstad University Scholarship",
-    "url": "https://www.kau.se/en/education/explore-student-life/application-admission/scholarships",
-    "source": "Karlstad University",
-    "amount": "Tuition fee waiver",
-    "deadline": "2027-01-15",
-    "category": "Tuition",
-    "level": [
-      "Bachelor",
-      "Master"
-    ],
-    "fields": [
-      "Engineering",
-      "Humanities",
-      "Economics",
-      "Architecture",
-      "IT"
-    ],
-    "nationality": [
-      "International non-EU"
-    ],
-    "interests": [
-      "Any interest"
-    ],
-    "need": [
-      "Low",
-      "Medium",
-      "High"
-    ],
-    "eligibility": "Non-EU/EEA fee-paying students applying to master's programmes at Karlstad University. Merit-based selection.",
-    "documents": "CV, academic transcripts, motivation letter. See scholarship page for full list.",
-    "instructions": "Apply through the Karlstad University scholarship portal during the programme application period.",
-    "requirementKeywords": [
-      "merit-based",
-      "academic merit",
-      "technology",
-      "sustainability"
-    ],
-    "requiredApplicantInfo": [
-      "first name",
-      "last name",
-      "email",
-      "CV",
-      "academic records",
-      "personal statement",
-      "proof of enrolment",
-      "budget"
-    ],
-    "review_status": "approved",
-    "qualityScore": 88,
-    "qualityFlags": [
-      "source_verified",
-      "official_provider",
-      "recurring_deadline",
-      "missing_application_url",
-      "has_application_instructions",
-      "approved_candidate"
-    ],
-    "reviewStatus": "approved",
-    "scholarship_name": "Karlstad University Scholarship",
-    "provider_name": "Karlstad University",
-    "provider_type": "university",
-    "source_url": "https://www.kau.se/en/education/explore-student-life/application-admission/scholarships",
-    "final_url": "https://www.kau.se/en/education/study-us/application-admission/scholarships",
-    "application_url": "",
-    "applicationUrl": "",
-    "application_final_url": "",
-    "country": "",
-    "region_or_city": "",
-    "eligible_nationalities": [
-      "International non-EU"
-    ],
-    "eligible_institutions": [],
-    "eligible_study_levels": [
-      "Master"
-    ],
-    "eligible_fields": [
-      "Engineering",
-      "Medicine",
-      "Social sciences",
-      "Law",
-      "Humanities",
-      "Natural sciences",
-      "Economics",
-      "Architecture",
-      "IT"
-    ],
-    "currency": "",
-    "deadline_type": "recurring",
-    "is_recurring": true,
-    "requirements": "",
-    "application_instructions": "Apply through the Karlstad University scholarship portal during the programme application period.",
-    "contact_email": "",
-    "language": "",
-    "page_type": "official_page",
-    "source_url_status": "ok:200",
-    "application_url_status": "instructions_only",
-    "validationStatus": "publishable",
-    "validationNotes": "passes final publishability gate",
-    "scrapeSuccess": true,
-    "blocked": false,
-    "requiresLogin": false,
-    "expired": false,
-    "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:24.542Z",
-    "scrapedAt": "2026-05-07T11:19:35.230Z",
-    "trustScore": 90,
-    "quality_score": 88,
-    "trust_score": 90,
-    "quality_flags": [
-      "source_verified",
-      "official_provider",
-      "recurring_deadline",
-      "missing_application_url",
-      "has_application_instructions",
-      "approved_candidate"
-    ],
-    "url_verified_at": "2026-05-07T11:52:24.542Z",
-    "last_verified_at": "2026-05-07T11:52:24.542Z",
-    "validation_notes": "passes final publishability gate",
-    "duplicateCount": 13
+    "duplicateCount": 2,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "mdu-scholarship",
@@ -757,7 +634,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -811,11 +687,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:24.502Z",
+    "lastVerifiedAt": "2026-05-07T18:03:40.570Z",
     "scrapedAt": "2026-05-07T11:19:35.230Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -823,9 +696,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:24.502Z",
-    "last_verified_at": "2026-05-07T11:52:24.502Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:40.570Z",
+    "last_verified_at": "2026-05-07T18:03:40.570Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "hh-scholarship",
@@ -876,7 +753,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -930,11 +806,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:24.513Z",
+    "lastVerifiedAt": "2026-05-07T18:03:40.628Z",
     "scrapedAt": "2026-05-07T11:19:35.230Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -942,10 +815,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:24.513Z",
-    "last_verified_at": "2026-05-07T11:52:24.513Z",
+    "url_verified_at": "2026-05-07T18:03:40.628Z",
+    "last_verified_at": "2026-05-07T18:03:40.628Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 8
+    "duplicateCount": 8,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "slu-scholarship",
@@ -996,7 +873,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1044,11 +920,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:25.630Z",
+    "lastVerifiedAt": "2026-05-07T18:03:41.529Z",
     "scrapedAt": "2026-05-07T11:19:35.230Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1057,10 +930,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:25.630Z",
-    "last_verified_at": "2026-05-07T11:52:25.630Z",
+    "url_verified_at": "2026-05-07T18:03:41.529Z",
+    "last_verified_at": "2026-05-07T18:03:41.529Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 3
+    "duplicateCount": 3,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "miun-scholarship",
@@ -1108,7 +985,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 88,
     "qualityFlags": [
       "source_verified",
       "official_provider",
@@ -1162,11 +1038,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:25.425Z",
+    "lastVerifiedAt": "2026-05-07T18:03:41.795Z",
     "scrapedAt": "2026-05-07T11:19:35.231Z",
-    "trustScore": 90,
-    "quality_score": 88,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "official_provider",
@@ -1174,10 +1047,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:25.425Z",
-    "last_verified_at": "2026-05-07T11:52:25.425Z",
+    "url_verified_at": "2026-05-07T18:03:41.795Z",
+    "last_verified_at": "2026-05-07T18:03:41.795Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 3
+    "duplicateCount": 3,
+    "qualityScore": 92,
+    "trustScore": 95,
+    "quality_score": 92,
+    "trust_score": 95
   },
   {
     "id": "hhs-sse-scholarship",
@@ -1228,7 +1105,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1275,11 +1151,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:25.879Z",
+    "lastVerifiedAt": "2026-05-07T18:03:41.686Z",
     "scrapedAt": "2026-05-07T11:19:35.232Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1287,10 +1160,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:25.879Z",
-    "last_verified_at": "2026-05-07T11:52:25.879Z",
+    "url_verified_at": "2026-05-07T18:03:41.686Z",
+    "last_verified_at": "2026-05-07T18:03:41.686Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 2
+    "duplicateCount": 2,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "erc-starting-grant",
@@ -1341,7 +1218,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1397,11 +1273,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:25.653Z",
+    "lastVerifiedAt": "2026-05-07T18:03:41.531Z",
     "scrapedAt": "2026-05-07T11:19:35.234Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1409,10 +1282,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:25.653Z",
-    "last_verified_at": "2026-05-07T11:52:25.653Z",
+    "url_verified_at": "2026-05-07T18:03:41.531Z",
+    "last_verified_at": "2026-05-07T18:03:41.531Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 1
+    "duplicateCount": 1,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "marshall-scholarship",
@@ -1457,7 +1334,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1512,11 +1388,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:26.893Z",
+    "lastVerifiedAt": "2026-05-07T18:03:42.592Z",
     "scrapedAt": "2026-05-07T11:19:35.238Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1524,9 +1397,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:26.893Z",
-    "last_verified_at": "2026-05-07T11:52:26.893Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:42.592Z",
+    "last_verified_at": "2026-05-07T18:03:42.592Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "forte-research",
@@ -1574,7 +1451,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1624,11 +1500,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:26.787Z",
+    "lastVerifiedAt": "2026-05-07T18:03:42.790Z",
     "scrapedAt": "2026-05-07T11:19:35.241Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1636,9 +1509,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:26.787Z",
-    "last_verified_at": "2026-05-07T11:52:26.787Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:42.790Z",
+    "last_verified_at": "2026-05-07T18:03:42.790Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "kk-research",
@@ -1689,7 +1566,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1739,11 +1615,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:26.819Z",
+    "lastVerifiedAt": "2026-05-07T18:03:43.104Z",
     "scrapedAt": "2026-05-07T11:19:35.242Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1751,10 +1624,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:26.819Z",
-    "last_verified_at": "2026-05-07T11:52:26.819Z",
+    "url_verified_at": "2026-05-07T18:03:43.104Z",
+    "last_verified_at": "2026-05-07T18:03:43.104Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 1
+    "duplicateCount": 1,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "lars-hiertas-minne-curated",
@@ -1798,7 +1675,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1855,11 +1731,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:27.209Z",
+    "lastVerifiedAt": "2026-05-07T18:03:42.916Z",
     "scrapedAt": "2026-05-07T11:19:35.243Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1867,10 +1740,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:27.209Z",
-    "last_verified_at": "2026-05-07T11:52:27.209Z",
+    "url_verified_at": "2026-05-07T18:03:42.916Z",
+    "last_verified_at": "2026-05-07T18:03:42.916Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 1
+    "duplicateCount": 2,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "cultural-foundation-finland",
@@ -1913,7 +1790,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -1965,11 +1841,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:28.878Z",
+    "lastVerifiedAt": "2026-05-07T18:03:44.420Z",
     "scrapedAt": "2026-05-07T11:19:35.245Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -1977,9 +1850,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:28.878Z",
-    "last_verified_at": "2026-05-07T11:52:28.878Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:44.420Z",
+    "last_verified_at": "2026-05-07T18:03:44.420Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "swedish-fulbright",
@@ -2021,7 +1898,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 88,
     "qualityFlags": [
       "source_verified",
       "official_provider",
@@ -2076,11 +1952,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:28.182Z",
+    "lastVerifiedAt": "2026-05-07T18:03:44.364Z",
     "scrapedAt": "2026-05-07T11:19:35.247Z",
-    "trustScore": 90,
-    "quality_score": 88,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "official_provider",
@@ -2088,10 +1961,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:28.182Z",
-    "last_verified_at": "2026-05-07T11:52:28.182Z",
+    "url_verified_at": "2026-05-07T18:03:44.364Z",
+    "last_verified_at": "2026-05-07T18:03:44.364Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 6
+    "duplicateCount": 6,
+    "qualityScore": 92,
+    "trustScore": 95,
+    "quality_score": 92,
+    "trust_score": 95
   },
   {
     "id": "journalistfonden",
@@ -2133,7 +2010,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -2180,11 +2056,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:28.538Z",
+    "lastVerifiedAt": "2026-05-07T18:03:44.373Z",
     "scrapedAt": "2026-05-07T11:19:35.248Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -2192,9 +2065,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:28.538Z",
-    "last_verified_at": "2026-05-07T11:52:28.538Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:44.373Z",
+    "last_verified_at": "2026-05-07T18:03:44.373Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "studyinsweden-scholarships",
@@ -2250,7 +2127,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -2308,11 +2184,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:28.536Z",
+    "lastVerifiedAt": "2026-05-07T18:03:44.159Z",
     "scrapedAt": "2026-05-07T11:19:35.250Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -2320,9 +2193,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:28.536Z",
-    "last_verified_at": "2026-05-07T11:52:28.536Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:44.159Z",
+    "last_verified_at": "2026-05-07T18:03:44.159Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "rise-scholarship",
@@ -2368,7 +2245,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 88,
     "qualityFlags": [
       "source_verified",
       "official_provider",
@@ -2420,11 +2296,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:31.347Z",
+    "lastVerifiedAt": "2026-05-07T18:03:46.448Z",
     "scrapedAt": "2026-05-07T11:19:35.252Z",
-    "trustScore": 90,
-    "quality_score": 88,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "official_provider",
@@ -2432,9 +2305,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:31.347Z",
-    "last_verified_at": "2026-05-07T11:52:31.347Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:46.448Z",
+    "last_verified_at": "2026-05-07T18:03:46.448Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 92,
+    "trustScore": 95,
+    "quality_score": 92,
+    "trust_score": 95
   },
   {
     "id": "ifpri-fellowship",
@@ -2480,7 +2357,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 88,
     "qualityFlags": [
       "source_verified",
       "official_provider",
@@ -2530,11 +2406,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:30.172Z",
+    "lastVerifiedAt": "2026-05-07T18:03:45.819Z",
     "scrapedAt": "2026-05-07T11:19:35.253Z",
-    "trustScore": 90,
-    "quality_score": 88,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "official_provider",
@@ -2542,9 +2415,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:30.172Z",
-    "last_verified_at": "2026-05-07T11:52:30.172Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:45.819Z",
+    "last_verified_at": "2026-05-07T18:03:45.819Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 92,
+    "trustScore": 95,
+    "quality_score": 92,
+    "trust_score": 95
   },
   {
     "id": "ssf-research",
@@ -2591,7 +2468,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -2642,11 +2518,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:31.518Z",
+    "lastVerifiedAt": "2026-05-07T18:03:47.269Z",
     "scrapedAt": "2026-05-07T11:19:35.255Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -2654,9 +2527,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:31.518Z",
-    "last_verified_at": "2026-05-07T11:52:31.518Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:47.269Z",
+    "last_verified_at": "2026-05-07T18:03:47.269Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "uhr-international",
@@ -2705,7 +2582,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -2763,11 +2639,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:30.563Z",
+    "lastVerifiedAt": "2026-05-07T18:03:46.120Z",
     "scrapedAt": "2026-05-07T11:19:35.256Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -2775,9 +2648,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:30.563Z",
-    "last_verified_at": "2026-05-07T11:52:30.563Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:46.120Z",
+    "last_verified_at": "2026-05-07T18:03:46.120Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
   },
   {
     "id": "carnegie-scholarship",
@@ -2827,7 +2704,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 88,
     "qualityFlags": [
       "source_verified",
       "official_provider",
@@ -2883,11 +2759,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:34.462Z",
+    "lastVerifiedAt": "2026-05-07T18:03:50.201Z",
     "scrapedAt": "2026-05-07T11:19:35.257Z",
-    "trustScore": 90,
-    "quality_score": 88,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "official_provider",
@@ -2895,9 +2768,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:34.462Z",
-    "last_verified_at": "2026-05-07T11:52:34.462Z",
-    "validation_notes": "passes final publishability gate"
+    "url_verified_at": "2026-05-07T18:03:50.201Z",
+    "last_verified_at": "2026-05-07T18:03:50.201Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 92,
+    "trustScore": 95,
+    "quality_score": 92,
+    "trust_score": 95
   },
   {
     "id": "kth-excellence-award",
@@ -2947,7 +2824,6 @@
       "proof of enrolment"
     ],
     "review_status": "approved",
-    "qualityScore": 100,
     "qualityFlags": [
       "source_verified",
       "application_url_verified",
@@ -2996,11 +2872,8 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-07T11:52:33.104Z",
+    "lastVerifiedAt": "2026-05-07T18:03:48.691Z",
     "scrapedAt": "2026-05-07T11:19:35.257Z",
-    "trustScore": 90,
-    "quality_score": 100,
-    "trust_score": 90,
     "quality_flags": [
       "source_verified",
       "application_url_verified",
@@ -3008,9 +2881,2034 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-07T11:52:33.104Z",
-    "last_verified_at": "2026-05-07T11:52:33.104Z",
+    "url_verified_at": "2026-05-07T18:03:48.691Z",
+    "last_verified_at": "2026-05-07T18:03:48.691Z",
     "validation_notes": "passes final publishability gate",
-    "duplicateCount": 2
+    "duplicateCount": 2,
+    "qualityScore": 100,
+    "trustScore": 100,
+    "quality_score": 100,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=78",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-november-bidrag-fr-vetenskaplig-forskning",
+    "title": "November / Bidrag för vetenskaplig forskning",
+    "amount": "See scholarship page",
+    "deadline": "2026-11-30",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Medicine",
+      "Social sciences",
+      "Humanities",
+      "Natural sciences",
+      "Economics",
+      "Education"
+    ],
+    "nationality": [],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "November / Bidrag för vetenskaplig forskning",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=78",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=78",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:49.108Z",
+    "scrapedAt": "2026-05-07T18:02:20.440Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_amount",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_amount",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:49.108Z",
+    "last_verified_at": "2026-05-07T18:03:49.108Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 83,
+    "trustScore": 95,
+    "quality_score": 83,
+    "trust_score": 95
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=11",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-november-arbetsstipendier",
+    "title": "November / Arbetsstipendier",
+    "amount": "kr",
+    "deadline": "2026-11-30",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "November / Arbetsstipendier",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=11",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=11",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:48.709Z",
+    "scrapedAt": "2026-05-07T18:02:20.440Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:48.709Z",
+    "last_verified_at": "2026-05-07T18:03:48.709Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 86,
+    "trustScore": 100,
+    "quality_score": 86,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=32",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-november-doktorandstipendier",
+    "title": "November / Doktorandstipendier",
+    "amount": "32 000 eur",
+    "deadline": "2026-11-30",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Medicine",
+      "Social sciences",
+      "Humanities",
+      "Natural sciences",
+      "Economics",
+      "Education"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "November / Doktorandstipendier",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=32",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=32",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [
+      "PhD"
+    ],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:51.718Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:51.718Z",
+    "last_verified_at": "2026-05-07T18:03:51.718Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 86,
+    "trustScore": 100,
+    "quality_score": 86,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=115",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-november-projektbidrag-fr-konstnrer-privatpersoner-och-arbetsgrupper",
+    "title": "November / Projektbidrag för konstnärer (privatpersoner och arbetsgrupper)",
+    "amount": "See scholarship page",
+    "deadline": "2026-11-30",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "November / Projektbidrag för konstnärer (privatpersoner och arbetsgrupper)",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=115",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=115",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Humanities"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:51.532Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_amount",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_amount",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:51.532Z",
+    "last_verified_at": "2026-05-07T18:03:51.532Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 83,
+    "trustScore": 95,
+    "quality_score": 83,
+    "trust_score": 95
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=107",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-systrarna-standertskjlds-rehabiliteringsstipendium",
+    "title": "Systrarna Standertskjölds rehabiliteringsstipendium",
+    "amount": "30.9Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Medicine",
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Systrarna Standertskjölds rehabiliteringsstipendium",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=107",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=107",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:51.399Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:51.399Z",
+    "last_verified_at": "2026-05-07T18:03:51.399Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=38",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-residensstipendier",
+    "title": "Residensstipendier",
+    "amount": "€",
+    "deadline": "2027-01-31",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Social sciences",
+      "Humanities",
+      "Education"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Residensstipendier",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=38",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=38",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:51.777Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:51.777Z",
+    "last_verified_at": "2026-05-07T18:03:51.777Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 86,
+    "trustScore": 100,
+    "quality_score": 86,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=87",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-systrarna-standertskjlds-rekreationsstipendium",
+    "title": "Systrarna Standertskjölds rekreationsstipendium",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Systrarna Standertskjölds rekreationsstipendium",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=87",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=87",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:52.915Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:52.915Z",
+    "last_verified_at": "2026-05-07T18:03:52.915Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=18",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-internationell-praktik",
+    "title": "Internationell praktik",
+    "amount": ". Kr",
+    "deadline": "Unknown",
+    "category": "Travel",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Internationell praktik",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=18",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=18",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:53.471Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:53.471Z",
+    "last_verified_at": "2026-05-07T18:03:53.471Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=40",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-lrlingsstipendium",
+    "title": "Lärlingsstipendium",
+    "amount": ".Kr",
+    "deadline": "2027-03-31",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Lärlingsstipendium",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=40",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=40",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:53.352Z",
+    "scrapedAt": "2026-05-07T18:02:20.441Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:53.352Z",
+    "last_verified_at": "2026-05-07T18:03:53.352Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 86,
+    "trustScore": 100,
+    "quality_score": 86,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=2",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-studiefonden-studerande",
+    "title": "Studiefonden - studerande",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Studiefonden - studerande",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=2",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=2",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [
+      "Bachelor",
+      "Master"
+    ],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:53.273Z",
+    "scrapedAt": "2026-05-07T18:02:20.442Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:53.273Z",
+    "last_verified_at": "2026-05-07T18:03:53.273Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=34",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-journalistpraktikanter",
+    "title": "Journalistpraktikanter",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Travel",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Journalistpraktikanter",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=34",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=34",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:54.862Z",
+    "scrapedAt": "2026-05-07T18:02:20.442Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:54.862Z",
+    "last_verified_at": "2026-05-07T18:03:54.862Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=21",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-journaliststipendier",
+    "title": "Journaliststipendier",
+    "amount": "kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Journaliststipendier",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=21",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=21",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:55.122Z",
+    "scrapedAt": "2026-05-07T18:02:20.442Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:55.122Z",
+    "last_verified_at": "2026-05-07T18:03:55.122Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=96",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-inga-valdemar-anna-lisa-och-inga-brita-westbergs-fond-akademisk-forskning",
+    "title": "Inga, Valdemar, Anna-Lisa och Inga-Brita Westbergs fond - akademisk forskning",
+    "amount": ".Kr",
+    "deadline": "2027-01-01",
+    "category": "Research",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Research"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Inga, Valdemar, Anna-Lisa och Inga-Brita Westbergs fond - akademisk forskning",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=96",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=96",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:54.664Z",
+    "scrapedAt": "2026-05-07T18:02:20.442Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:54.664Z",
+    "last_verified_at": "2026-05-07T18:03:54.664Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 86,
+    "trustScore": 100,
+    "quality_score": 86,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=95",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-inga-valdemar-anna-lisa-och-inga-brita-westbergs-fond-akademiska-studier",
+    "title": "Inga, Valdemar, Anna-Lisa och Inga-Brita Westbergs fond - akademiska studier",
+    "amount": ".Kr",
+    "deadline": "2027-01-01",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Inga, Valdemar, Anna-Lisa och Inga-Brita Westbergs fond - akademiska studier",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=95",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=95",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:55.066Z",
+    "scrapedAt": "2026-05-07T18:02:20.442Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:55.066Z",
+    "last_verified_at": "2026-05-07T18:03:55.066Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 86,
+    "trustScore": 100,
+    "quality_score": 86,
+    "trust_score": 100
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=72",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-studieresor-i-grupp-inom-utbildningssektorn",
+    "title": "Studieresor i grupp inom utbildningssektorn",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Medicine",
+      "Social sciences",
+      "Humanities",
+      "Natural sciences",
+      "Education"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Studieresor i grupp inom utbildningssektorn",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=72",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=72",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:56.824Z",
+    "scrapedAt": "2026-05-07T18:02:20.442Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:56.824Z",
+    "last_verified_at": "2026-05-07T18:03:56.824Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=73",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-stipendier-fr-fortbildning-och-behrighetsgivande-studier-utbildning",
+    "title": "Stipendier för fortbildning och behörighetsgivande studier - utbildning",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Humanities",
+      "Education"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Stipendier för fortbildning och behörighetsgivande studier - utbildning",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=73",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=73",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:56.697Z",
+    "scrapedAt": "2026-05-07T18:02:20.443Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:56.697Z",
+    "last_verified_at": "2026-05-07T18:03:56.697Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=108",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-systrarna-standertskjlds-friskvrdsstipendium",
+    "title": "Systrarna Standertskjölds friskvårdsstipendium",
+    "amount": "1 000 eur",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [
+      "Bachelor",
+      "Master"
+    ],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Systrarna Standertskjölds friskvårdsstipendium",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=108",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=108",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:56.338Z",
+    "scrapedAt": "2026-05-07T18:02:20.444Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:56.338Z",
+    "last_verified_at": "2026-05-07T18:03:56.338Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=104",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-lromedelsstipendier-fr-yrkesutbildningen",
+    "title": "Läromedelsstipendier för yrkesutbildningen",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Läromedelsstipendier för yrkesutbildningen",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=104",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=104",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:56.547Z",
+    "scrapedAt": "2026-05-07T18:02:20.444Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:56.547Z",
+    "last_verified_at": "2026-05-07T18:03:56.547Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=5",
+    "applicationUrl": "https://ansokan.kulturfonden.fi/",
+    "id": "skf-lromedelsstipendier-fr-grundlggande-utbildningen-och-gymnasiet",
+    "title": "Läromedelsstipendier för grundläggande utbildningen och gymnasiet",
+    "amount": ".Kr",
+    "deadline": "Unknown",
+    "category": "Living costs",
+    "level": [],
+    "fields": [
+      "Humanities"
+    ],
+    "nationality": [],
+    "interests": [
+      "Any interest"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "Svenska kulturfonden",
+    "eligibility": "See scholarship page for eligibility.",
+    "documents": "See scholarship page for required documents.",
+    "instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "requirementKeywords": [],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "Läromedelsstipendier för grundläggande utbildningen och gymnasiet",
+    "provider_name": "Svenska kulturfonden",
+    "provider_type": "foundation",
+    "source_url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=5",
+    "final_url": "https://www.kulturfonden.fi/alla-stipendier-bidrag/?omgong=5",
+    "application_url": "https://ansokan.kulturfonden.fi/",
+    "application_final_url": "https://ansokan.kulturfonden.fi/",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [],
+    "eligible_institutions": [],
+    "eligible_study_levels": [],
+    "eligible_fields": [
+      "Any field"
+    ],
+    "currency": "",
+    "deadline_type": "unknown",
+    "is_recurring": null,
+    "requirements": "",
+    "application_instructions": "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:57.994Z",
+    "scrapedAt": "2026-05-07T18:02:20.444Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "missing_deadline",
+      "missing_eligibility",
+      "missing_documents",
+      "has_application_instructions",
+      "approved_candidate"
+    ],
+    "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
+    "index_child": true,
+    "url_verified_at": "2026-05-07T18:03:57.994Z",
+    "last_verified_at": "2026-05-07T18:03:57.994Z",
+    "validation_notes": "passes final publishability gate",
+    "qualityScore": 78,
+    "trustScore": 90,
+    "quality_score": 78,
+    "trust_score": 90
+  },
+  {
+    "url": "https://www.jsps.go.jp/english/e-inv/index.html",
+    "applicationUrl": "https://www-shinsei.jsps.go.jp/topkokusai/top_kokusai.html",
+    "id": "stint-jsps-invitational-fellowship-long-term-l",
+    "title": "JSPS Invitational Fellowship Long-term [L]",
+    "amount": "See scholarship page",
+    "deadline": "2025-08-29",
+    "category": "Travel",
+    "level": [
+      "PhD"
+    ],
+    "fields": [
+      "Social sciences",
+      "Humanities",
+      "Natural sciences",
+      "Economics",
+      "Architecture",
+      "Education"
+    ],
+    "nationality": [
+      "International non-EU"
+    ],
+    "interests": [
+      "Research",
+      "Leadership",
+      "Travel"
+    ],
+    "need": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "source": "STINT",
+    "eligibility": "RESEARCH FIELD: Humanities, Social and Natural Sciences",
+    "documents": "Note: Application forms must be submitted via the Japanese host institutions to the JSPS Electronic Application System",
+    "instructions": "APPLICATION PERIOD AND DETAILS:",
+    "requirementKeywords": [
+      "research"
+    ],
+    "requiredApplicantInfo": [
+      "first name",
+      "last name",
+      "email",
+      "budget",
+      "proof of enrolment"
+    ],
+    "scholarship_name": "JSPS Invitational Fellowship Long-term [L]",
+    "provider_name": "STINT",
+    "provider_type": "foundation",
+    "source_url": "https://www.jsps.go.jp/english/e-inv/index.html",
+    "final_url": "https://www.jsps.go.jp/english/e-inv/index.html",
+    "application_url": "https://www-shinsei.jsps.go.jp/topkokusai/top_kokusai.html",
+    "application_final_url": "https://www-shinsei.jsps.go.jp/topkokusai/top_kokusai.html",
+    "country": "",
+    "region_or_city": "",
+    "eligible_nationalities": [
+      "International non-EU"
+    ],
+    "eligible_institutions": [],
+    "eligible_study_levels": [
+      "PhD"
+    ],
+    "eligible_fields": [
+      "Humanities",
+      "Natural sciences"
+    ],
+    "currency": "",
+    "deadline_type": "recurring",
+    "is_recurring": true,
+    "requirements": "",
+    "application_instructions": "APPLICATION PERIOD AND DETAILS:",
+    "contact_email": "",
+    "language": "",
+    "page_type": "official_page",
+    "source_url_status": "ok:200",
+    "application_url_status": "ok:200",
+    "validationStatus": "publishable",
+    "validationNotes": "passes final publishability gate",
+    "scrapeSuccess": true,
+    "blocked": false,
+    "requiresLogin": false,
+    "expired": false,
+    "duplicateOf": "",
+    "lastVerifiedAt": "2026-05-07T18:03:57.889Z",
+    "scrapedAt": "2026-05-07T18:03:34.881Z",
+    "qualityFlags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "recurring_deadline",
+      "missing_amount",
+      "approved_candidate"
+    ],
+    "reviewStatus": "approved",
+    "review_status": "approved",
+    "quality_flags": [
+      "source_verified",
+      "application_url_verified",
+      "official_provider",
+      "recurring_deadline",
+      "missing_amount",
+      "approved_candidate"
+    ],
+    "duplicateCount": 1,
+    "url_verified_at": "2026-05-07T18:03:57.889Z",
+    "last_verified_at": "2026-05-07T18:03:57.889Z",
+    "qualityScore": 97,
+    "trustScore": 93,
+    "quality_score": 97,
+    "trust_score": 93,
+    "validation_notes": "passes final publishability gate"
   }
 ]

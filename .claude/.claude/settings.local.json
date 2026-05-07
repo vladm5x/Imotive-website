@@ -3,7 +3,14 @@
     "allow": [
       "mcp__plugin_playwright_playwright__browser_evaluate",
       "mcp__plugin_playwright_playwright__browser_navigate",
-      "mcp__plugin_playwright_playwright__browser_snapshot"
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mures\\\\Documents\\\\GitHub\\\\Imotive-website\" -Force)",
+      "Bash(Select-Object -Property Name, PSIsContainer)",
+      "Bash(Sort-Object -Property PSIsContainer -Descending)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mures\\\\Documents\\\\GitHub\\\\Imotive-website\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(Head -100)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\mures\\\\Documents\\\\GitHub\\\\Imotive-website\" -Recurse -Force | Select-Object FullName | ForEach-Object { $_.FullName })"
     ]
   }
 }

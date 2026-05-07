@@ -1000,7 +1000,7 @@ textarea:focus {
 
 .rank-actions {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto auto;
   gap: 10px;
   align-items: center;
   margin-top: 24px;
@@ -1010,6 +1010,40 @@ textarea:focus {
   background: #22C55E;
   border-color: #16a34a;
   color: #fff;
+}
+
+.detail-status-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.status-label {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+  white-space: nowrap;
+  min-width: 140px;
+}
+
+.status-select {
+  min-height: 38px;
+  max-width: 220px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.84);
+  font-size: 0.9rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.status-select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0, 127, 115, 0.12);
 }
 
 .detail-link-row {
@@ -1044,6 +1078,8 @@ textarea:focus {
 
 .detail-dialog {
   width: min(760px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   padding: 0;
   border: 0;
   border-radius: var(--radius-xl);
@@ -1152,7 +1188,7 @@ textarea:focus {
   }
 
   .rank-actions {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .editorial-visual {
@@ -1332,9 +1368,25 @@ textarea:focus {
 
   .detail-dialog {
     width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
   }
 
   .detail-inner {
     padding: 18px;
+  }
+
+  .detail-status-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .status-label {
+    min-width: unset;
+  }
+
+  .status-select {
+    max-width: 100%;
+    width: 100%;
   }
 }

@@ -3,29 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Profile | imotive</title>
+  <title>Create Profile | iMotive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --purple-900: #2b007a;
+      --purple-700: #4b00d8;
+      --purple-500: #6a00ff;
+      --purple-300: #b88cff;
+      --purple-100: #efe6ff;
+    }
+
+    /* ── Purple nav ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 60;
+      background: rgba(255,255,255,.88) !important;
+      backdrop-filter: saturate(180%) blur(14px) !important;
+      border-bottom: 1px solid rgba(17,17,17,.06) !important;
+      box-shadow: none !important;
+      display: flex; align-items: center;
+      height: 72px; padding: 0 32px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px;
+      letter-spacing: -0.02em; color: #111; text-decoration: none;
+    }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--purple-500) 0%, var(--purple-700) 60%, var(--purple-900) 100%);
+      display: grid; place-items: center;
+      font-size: 13px; font-weight: 700; color: white;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 14px -4px rgba(75,0,216,.6);
+    }
+    .nav {
+      display: flex; gap: 28px; flex: 1; margin-left: 40px;
+      font-size: 14.5px; color: #2a2a2e;
+    }
+    .nav a { color: #2a2a2e; text-decoration: none; }
+    .nav a:hover { color: var(--purple-700); }
+    .nav-actions {
+      margin-left: auto; display: flex; align-items: center; gap: 12px;
+    }
+    .nav-actions a {
+      display: inline-flex; align-items: center; height: 40px; padding: 0 18px;
+      border-radius: 999px; font-size: 14.5px; font-weight: 500; text-decoration: none; color: #111;
+      transition: background .15s;
+    }
+    .nav-actions a:hover { background: #f6f6f8; }
+    .nav-actions a.nav-cta { background: #111; color: white; }
+    .nav-actions a.nav-cta:hover { background: var(--purple-700); }
+
+    /* ── Purple accents ── */
+    .eyebrow { color: var(--purple-700) !important; }
+    .eyebrow::before { background: var(--purple-700) !important; }
+    .button.primary, .profile-submit {
+      background: var(--purple-700) !important;
+      box-shadow: 0 6px 20px -6px rgba(75,0,216,.5) !important;
+    }
+    .button.primary:hover, .profile-submit:hover { background: var(--purple-500) !important; }
+
+    /* ── Form purple styles ── */
+    .profile-builder label span,
+    .profile-page-form label span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+    }
+    .profile-builder input:focus,
+    .profile-builder select:focus,
+    .profile-builder textarea:focus,
+    .profile-page-form input:focus,
+    .profile-page-form select:focus,
+    .profile-page-form textarea:focus {
+      outline: none;
+      border-color: var(--purple-500) !important;
+      box-shadow: 0 0 0 3px rgba(106,0,255,.12) !important;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 80px; padding: 40px 32px;
+      border-top: 1px solid #e7e7ec;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+      font-size: 14px; color: #6b6b73;
+      background: white;
+    }
+    @media (max-width: 720px) { .footer { grid-template-columns: 1fr 1fr; } }
+    .footer-brand a { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; color: #111; text-decoration: none; margin-bottom: 10px; }
+    .footer-brand p { font-size: 13.5px; line-height: 1.55; }
+    .footer-col h5 { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: #9a9aa3; font-weight: 600; margin: 0 0 14px; }
+    .footer-col a { display: block; padding: 5px 0; color: #2a2a2e; text-decoration: none; }
+    .footer-col a:hover { color: var(--purple-700); }
+    .footer-bottom { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid #e7e7ec; font-size: 12.5px; color: #9a9aa3; display: flex; justify-content: space-between; }
+  </style>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="imotive home">
       <span class="brand-mark">i</span>
-      <span>imotive</span>
+      <span>iMotive</span>
     </a>
     <nav class="nav" aria-label="Primary navigation">
       <a href="index.html">Home</a>
-      <a href="results.html">Results</a>
+      <a href="results.html">My results</a>
     </nav>
+    <div class="nav-actions">
+      <a href="signup.html">Sign in</a>
+      <a href="signup.html" class="nav-cta">Sign Up Free</a>
+    </div>
   </header>
 
   <main>
     <section class="profile-page">
       <div class="section-heading center-heading">
         <p class="eyebrow">Create your profile</p>
-        <h1 class="page-title">Give imotive the basics.</h1>
+        <h1 class="page-title">Give iMotive the basics.</h1>
         <p class="hero-text narrow-text">A quick profile helps the ranking focus on scholarships that fit your study path, background, and funding need.</p>
       </div>
 
@@ -60,11 +155,17 @@
         <label>
           <span>Field of study</span>
           <select name="field" required>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Arts">Arts</option>
+            <option value="Business">Business</option>
+            <option value="Education">Education</option>
             <option value="Engineering">Engineering</option>
-            <option value="Social sciences">Social sciences</option>
-            <option value="Medicine">Medicine</option>
-            <option value="Law">Law</option>
             <option value="Humanities">Humanities</option>
+            <option value="IT">IT</option>
+            <option value="Law">Law</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Natural sciences">Natural sciences</option>
+            <option value="Social sciences">Social sciences</option>
             <option value="Any field">Any field</option>
           </select>
         </label>
@@ -121,8 +222,32 @@
   </main>
 
   <footer class="footer">
-    <span>iMotive</span>
-    <span>Profile-driven scholarship matching.</span>
+    <div class="footer-brand">
+      <a href="index.html">
+        <span class="brand-mark" style="width:24px;height:24px;border-radius:6px;font-size:11px;">i</span>
+        iMotive
+      </a>
+      <p>Scholarship discovery for university students in Sweden.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Product</h5>
+      <a href="homepage-layouts/purple-browse.html">Browse scholarships</a>
+      <a href="signup.html">Sign up free</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 iMotive</span>
+      <span>Profile-driven scholarship matching.</span>
+    </div>
   </footer>
 
   <script type="module" src="app.js"></script>

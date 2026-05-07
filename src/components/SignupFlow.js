@@ -2,11 +2,15 @@ import React from "https://esm.sh/react@18.2.0";
 import {
   getSession,
   isSupabaseConfigured,
+  resetPasswordForEmail,
   saveUserProfile,
   signInWithEmail,
   signInWithGoogle,
-  signUpWithEmail
+  signUpWithEmail,
+  updatePassword
 } from "../lib/account.js";
+import { fetchScholarships } from "../lib/scholarships.js";
+import { rankScholarships } from "../lib/matching.js";
 
 const e = React.createElement;
 
@@ -179,7 +183,25 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [needsConfirmation, setNeedsConfirmation] = React.useState(false);
+  const [showForgot, setShowForgot] = React.useState(false);
+  const [forgotEmail, setForgotEmail] = React.useState("");
+  const [forgotSent, setForgotSent] = React.useState(false);
   const authReady = isSupabaseConfigured();
+
+  async function submitForgot(ev) {
+    ev.preventDefault();
+    if (!forgotEmail.includes("@")) { setError("Enter a valid email."); return; }
+    setLoading(true); setError("");
+    try {
+      await resetPasswordForEmail(forgotEmail);
+      setForgotSent(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function submit(ev) {
     ev.preventDefault();
@@ -196,7 +218,7 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
     try {
       const session = mode === "login" ? await signInWithEmail(email, password) : await signUpWithEmail(email, password);
       if (!session && mode === "signup") {
-        setError("Check your email to confirm your account, then come back to continue.");
+        setNeedsConfirmation(true);
         return;
       }
       onAdvance();
@@ -242,7 +264,19 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
         e("p", { className: "signup-eyebrow" }, mode === "login" ? "welcome back" : "welcome +"),
         e("h1", null, mode === "login" ? "Log in to your account." : "Create your account."),
         e("p", { className: "signup-subhead" }, mode === "login" ? "Pick up where you left off." : "Free forever. We'll match you to scholarships next."),
-        !authReady
+        needsConfirmation
+          ? e(
+              React.Fragment,
+              null,
+              e("p", { className: "auth-setup-note" }, "Check your email and click the confirmation link to activate your account."),
+              e(
+                "button",
+                { type: "button", className: "signup-primary", onClick: onAdvance },
+                "Continue to profile ->"
+              ),
+              e("p", { className: "fine-print" }, "Your answers are saved locally. They'll sync to your account once you confirm your email.")
+            )
+          : !authReady
           ? e(
               React.Fragment,
               null,
@@ -253,6 +287,22 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
                 "Continue without account ->"
               ),
               e("p", { className: "fine-print" }, "Your answers stay in your browser only.")
+            )
+          : showForgot
+          ? e(
+              React.Fragment,
+              null,
+              e("p", { className: "signup-subhead" }, "Enter your email and we'll send a reset link."),
+              forgotSent
+                ? e("p", { className: "auth-setup-note" }, "Reset link sent — check your inbox.")
+                : e(
+                    "form",
+                    { onSubmit: submitForgot, className: "email-form" },
+                    e("label", null, "Email", e("input", { type: "email", value: forgotEmail, onChange: (ev) => setForgotEmail(ev.target.value), placeholder: "you@university.se", autoFocus: true })),
+                    error ? e("p", { className: "signup-error" }, error) : null,
+                    e("button", { type: "submit", className: "signup-primary", disabled: loading }, loading ? "Sending..." : "Send reset link ->")
+                  ),
+              e("p", { className: "fine-print" }, e("button", { type: "button", className: "link-btn", onClick: () => { setShowForgot(false); setForgotSent(false); setError(""); } }, "Back to log in"))
             )
           : e(
               React.Fragment,
@@ -278,6 +328,9 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
                     e("button", { type: "button", onClick: () => setShowPassword(!showPassword) }, showPassword ? "Hide" : "Show")
                   )
                 ),
+                mode === "login"
+                  ? e("p", { className: "fine-print forgot-link" }, e("button", { type: "button", className: "link-btn", onClick: () => { setShowForgot(true); setForgotEmail(email); setError(""); } }, "Forgot password?"))
+                  : null,
                 error ? e("p", { className: "signup-error" }, error) : null,
                 e("button", { type: "submit", className: "signup-primary", disabled: loading }, loading ? "Working..." : mode === "login" ? "Log in ->" : "Create account ->")
               ),
@@ -305,7 +358,7 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
             )
           )
         ),
-        e("p", { className: "info-foot" }, "avg. student finds 12 matches +")
+        e("p", { className: "info-foot" }, "Matched to scholarships that fit your profile.")
       )
     )
   );
@@ -508,23 +561,35 @@ function Field({ question, value, setAnswer, pickCard, selectedFlash, onEnter })
 function Reveal({ answers }) {
   const [phase, setPhase] = React.useState("loading");
   const [count, setCount] = React.useState(0);
-  const target = 18;
+  const [target, setTarget] = React.useState(0);
 
   React.useEffect(() => {
-    const loadingTimer = window.setTimeout(() => setPhase("reveal"), 2700);
-    return () => window.clearTimeout(loadingTimer);
+    let cancelled = false;
+    async function computeMatches() {
+      try {
+        const scholarships = await fetchScholarships();
+        const ranked = rankScholarships(scholarships, answers, { includeIneligible: false });
+        if (!cancelled) setTarget(ranked.length);
+      } catch {
+        // keep target at 0, reveal phase will still show
+      }
+      if (!cancelled) window.setTimeout(() => setPhase("reveal"), 2700);
+    }
+    computeMatches();
+    return () => { cancelled = true; };
   }, []);
 
   React.useEffect(() => {
-    if (phase !== "reveal") return;
+    if (phase !== "reveal" || target === 0) return;
     let current = 0;
+    const step = Math.max(1, Math.ceil(target / 30));
     const timer = window.setInterval(() => {
-      current += 1;
+      current = Math.min(current + step, target);
       setCount(current);
       if (current >= target) window.clearInterval(timer);
-    }, 35);
+    }, 55);
     return () => window.clearInterval(timer);
-  }, [phase]);
+  }, [phase, target]);
 
   return e(
     "main",
@@ -540,10 +605,12 @@ function Reveal({ answers }) {
       : e(
           "section",
           { className: "match-reveal" },
-          e(Confetti),
-          e("p", { className: "question-eyebrow" }, "you have +"),
-          e("div", { className: "match-number" }, e("strong", null, count), e("span", null, "matches!")),
-          e("h1", null, "scholarships you qualify for."),
+          target > 0 ? e(Confetti) : null,
+          e("p", { className: "question-eyebrow" }, target > 0 ? "you have +" : "results ready"),
+          target > 0
+            ? e("div", { className: "match-number" }, e("strong", null, count), e("span", null, "matches!"))
+            : null,
+          e("h1", null, target > 0 ? "scholarships you qualify for." : "Your profile is ready."),
           e("p", null, answers.university ? `Ranked and filtered for students at ${answers.university}.` : "Ranked and filtered for your profile."),
           e(
             "div",
@@ -571,6 +638,68 @@ function Confetti() {
     "div",
     { className: "confetti", "aria-hidden": "true" },
     pieces.map((piece, index) => e("span", { key: index, style: { "--x": piece.left, "--delay": piece.delay, "--duration": piece.duration, "--color": piece.color, "--rotate": piece.rotate } }))
+  );
+}
+
+function UpdatePassword() {
+  const [newPassword, setNewPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [done, setDone] = React.useState(false);
+
+  async function submit(ev) {
+    ev.preventDefault();
+    if (newPassword.length < 8) { setError("Password must be at least 8 characters."); return; }
+    setLoading(true); setError("");
+    try {
+      await updatePassword(newPassword);
+      setDone(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return e(
+    "main",
+    { className: "signup-shell" },
+    e(
+      "section",
+      { className: "signup-pane signup-form-pane" },
+      e("header", { className: "signup-topbar" }, e(Logo)),
+      e(
+        "div",
+        { className: "signup-form-wrap" },
+        e("p", { className: "signup-eyebrow" }, "reset password"),
+        e("h1", null, "Choose a new password."),
+        done
+          ? e(
+              React.Fragment,
+              null,
+              e("p", { className: "auth-setup-note" }, "Password updated. You're now signed in."),
+              e("a", { href: "account.html", className: "signup-primary" }, "Go to browse ->")
+            )
+          : e(
+              "form",
+              { onSubmit: submit, className: "email-form" },
+              e(
+                "label",
+                null,
+                "New password",
+                e(
+                  "div",
+                  { className: "password-field" },
+                  e("input", { type: showPassword ? "text" : "password", value: newPassword, onChange: (ev) => setNewPassword(ev.target.value), placeholder: "8+ characters", autoFocus: true }),
+                  e("button", { type: "button", onClick: () => setShowPassword(!showPassword) }, showPassword ? "Hide" : "Show")
+                )
+              ),
+              error ? e("p", { className: "signup-error" }, error) : null,
+              e("button", { type: "submit", className: "signup-primary", disabled: loading }, loading ? "Saving..." : "Set new password ->")
+            )
+      )
+    )
   );
 }
 
@@ -614,6 +743,7 @@ export function SignupFlow() {
     setStage("reveal");
   }
 
+  if (mode === "update-password") return e(UpdatePassword);
   if (!authChecked) return e("main", { className: "signup-shell" }, e("p", { className: "account-status" }, "Loading sign in..."));
   if (stage === "wizard") return e(Wizard, { onComplete: complete });
   if (stage === "reveal") return e(Reveal, { answers });

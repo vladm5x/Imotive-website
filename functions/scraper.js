@@ -334,7 +334,9 @@ function parseDeadline(text) {
     may: '05', june: '06', july: '07', august: '08',
     september: '09', october: '10', november: '11', december: '12',
     jan: '01', feb: '02', mar: '03', apr: '04',
-    jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12'
+    jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12',
+    januari: '01', februari: '02', mars: '03', maj: '05',
+    juni: '06', juli: '07', augusti: '08', oktober: '10'
   };
   const monthPattern = Object.keys(months).join('|');
 
@@ -352,6 +354,12 @@ function parseDeadline(text) {
 
   const dmy2 = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   if (dmy2) return `${dmy2[3]}-${dmy2[2].padStart(2, '0')}-${dmy2[1].padStart(2, '0')}`;
+
+  const dmyDotRange = text.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})\s*[-–]\s*(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+  if (dmyDotRange) return `${dmyDotRange[6]}-${dmyDotRange[5].padStart(2, '0')}-${dmyDotRange[4].padStart(2, '0')}`;
+
+  const dmyDot = text.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+  if (dmyDot) return `${dmyDot[3]}-${dmyDot[2].padStart(2, '0')}-${dmyDot[1].padStart(2, '0')}`;
 
   // "31 March 2026" / "closes 31 March" (no year — assume current or next year)
   const dmNoYear = text.match(new RegExp(`(\\d{1,2})(?:st|nd|rd|th)?\\s+(${monthPattern})(?:\\b|\\.)`, 'i'));
@@ -379,17 +387,18 @@ function parseDeadline(text) {
 function inferCategory(text) {
   const t = text.toLowerCase();
   if (t.includes('tuition') || t.includes('fee waiver') || t.includes('fee reduction')) return 'Tuition';
-  if (t.includes('travel') || t.includes('exchange') || t.includes('abroad') || t.includes('conference')) return 'Travel';
-  if (t.includes('research') || t.includes('thesis') || t.includes('dissertation') || t.includes('lab')) return 'Research';
+  if (t.includes('travel') || t.includes('exchange') || t.includes('abroad') || t.includes('conference') || t.includes('praktik') || t.includes('utbyte') || t.includes('resa')) return 'Travel';
+  if (t.includes('research') || t.includes('thesis') || t.includes('dissertation') || t.includes('lab') || t.includes('forskning') || t.includes('doktorand')) return 'Research';
   return 'Living costs';
 }
 
 function inferLevels(text) {
   const t = text.toLowerCase();
   const levels = [];
-  if (t.includes('bachelor') || t.includes('undergraduate') || t.includes('first cycle') || t.includes("bachelor's")) levels.push('Bachelor');
-  if (t.includes('master') || t.includes('postgraduate') || t.includes('second cycle') || t.includes("master's")) levels.push('Master');
-  if (t.includes('phd') || t.includes('doctoral') || t.includes('third cycle') || t.includes('doctorate')) levels.push('PhD');
+  if (t.includes('bachelor') || t.includes('undergraduate') || t.includes('first cycle') || t.includes("bachelor's") || t.includes('kandidat')) levels.push('Bachelor');
+  if (t.includes('master') || t.includes('postgraduate') || t.includes('second cycle') || t.includes("master's") || t.includes('magister')) levels.push('Master');
+  if (t.includes('phd') || t.includes('doctoral') || t.includes('third cycle') || t.includes('doctorate') || t.includes('doktorand') || t.includes('doktor')) levels.push('PhD');
+  if (!levels.length && (t.includes('högskola') || t.includes('universitet') || t.includes('studerande'))) levels.push('Bachelor', 'Master');
   return levels;
 }
 
@@ -399,6 +408,7 @@ function inferNationality(text) {
   if (t.includes('swedish citizen') || t.includes('swedish national') || /\bswedish\b/.test(t)) nat.push('Swedish');
   if (t.includes('eu/eea') || t.includes('european union') || t.includes('eea student') || t.includes('eu student')) nat.push('EU/EEA');
   if (t.includes('international') || t.includes('non-eu') || t.includes('outside europe') || t.includes('fee-paying')) nat.push('International non-EU');
+  if (t.includes('finsk medborgare') || t.includes('fast bosatt i finland') || t.includes('finland')) nat.push('EU/EEA');
   return nat;
 }
 
@@ -413,7 +423,7 @@ function inferInterests(text) {
   const t = text.toLowerCase();
   const interests = [];
   if (t.includes('sustainab') || t.includes('environment') || t.includes('climate') || t.includes('green energy')) interests.push('Sustainability');
-  if (t.includes('research') || t.includes('academic') || t.includes('thesis') || t.includes('scientific')) interests.push('Research');
+  if (t.includes('research') || t.includes('academic') || t.includes('thesis') || t.includes('scientific') || t.includes('forskning') || t.includes('vetenskap')) interests.push('Research');
   if (t.includes('leadership') || t.includes('community') || t.includes('social impact') || t.includes('civil society')) interests.push('Leadership');
   if (t.includes('travel') || t.includes('exchange') || t.includes('international mobility')) interests.push('Travel');
   return interests.length ? interests : ['Any interest'];
@@ -422,16 +432,17 @@ function inferInterests(text) {
 function inferFields(text) {
   const t = text.toLowerCase();
   const fields = [];
-  if (t.includes('engineering') || t.includes('lth') || t.includes('technology') || t.includes('computer science')) fields.push('Engineering');
-  if (t.includes('medicine') || t.includes('medical') || t.includes('health') || t.includes('clinical') || t.includes('nursing')) fields.push('Medicine');
-  if (t.includes('social science') || t.includes('sociology') || t.includes('political science')) fields.push('Social sciences');
-  if (t.includes('law') || t.includes('legal') || t.includes('jurisprudence')) fields.push('Law');
-  if (t.includes('humanities') || t.includes('arts') || t.includes('language') || t.includes('literature') || t.includes('history')) fields.push('Humanities');
-  if (t.includes('natural science') || t.includes('physics') || t.includes('chemistry') || t.includes('biology')) fields.push('Natural sciences');
-  if (t.includes('economics') || t.includes('business') || t.includes('management') || t.includes('finance')) fields.push('Economics');
-  if (t.includes('architecture') || t.includes('design') || t.includes('urban planning')) fields.push('Architecture');
-  if (t.includes('it') || t.includes('information technology') || t.includes('data science') || t.includes('software')) fields.push('IT');
-  return fields.length ? fields : ['Any field'];
+  if (t.includes('engineering') || t.includes('lth') || t.includes('technology') || t.includes('computer science') || t.includes('teknik')) fields.push('Engineering');
+  if (t.includes('medicine') || t.includes('medical') || t.includes('health') || t.includes('clinical') || t.includes('nursing') || t.includes('medicin')) fields.push('Medicine');
+  if (t.includes('social science') || t.includes('sociology') || t.includes('political science') || t.includes('samhällsvetenskap')) fields.push('Social sciences');
+  if (t.includes('law') || t.includes('legal') || t.includes('jurisprudence') || t.includes('juridik')) fields.push('Law');
+  if (t.includes('humanities') || t.includes('arts') || t.includes('language') || t.includes('literature') || t.includes('history') || t.includes('humaniora') || t.includes('konst') || t.includes('kultur') || t.includes('språk')) fields.push('Humanities');
+  if (t.includes('natural science') || t.includes('physics') || t.includes('chemistry') || t.includes('biology') || t.includes('naturvetenskap')) fields.push('Natural sciences');
+  if (t.includes('economics') || t.includes('business') || t.includes('management') || t.includes('finance') || t.includes('ekonomi')) fields.push('Economics');
+  if (t.includes('architecture') || t.includes('design') || t.includes('urban planning') || t.includes('arkitektur')) fields.push('Architecture');
+  if (/\bit\b/.test(t) || t.includes('information technology') || t.includes('data science') || t.includes('software') || t.includes('digital')) fields.push('IT');
+  if (t.includes('education') || t.includes('pedagogik')) fields.push('Education');
+  return fields.length ? [...new Set(fields)] : ['Any field'];
 }
 
 function extractKeywords(text) {
@@ -471,7 +482,7 @@ function extractAmount(text) {
     // Swedish kr shorthand: 50 000 kr / 10 000kr
     text.match(/[\d\s]+kr\.?/i) ||
     // Spelled: 10,000 dollars/euros/kronor
-    text.match(/[\d,]+\s*(?:dollars?|euros?|kronor|pounds?)/i) ||
+    text.match(/[\d\s,.]+\s*(?:dollars?|euros?|euro|kronor|pounds?)/i) ||
     // Full waiver / stipend descriptor
     text.match(/(?:full(?:y)?\s*(?:funded|tuition\s*waiver|scholarship)|tuition\s*fee\s*waiver)/i);
   if (!m) return null;
@@ -1845,11 +1856,27 @@ function deduplicate(entries) {
   const groups = [];
 
   for (const raw of entries.filter(Boolean).map(normalizeScholarshipEntry)) {
+    // Index-page children (e.g. 20 scholarships from one Kulturfonden listing page) share the
+    // same provider portal / nav URL as their applicationUrl — do NOT use it as a dedup key or
+    // they will all collapse into one group.  For all other entries, only use applicationUrl if
+    // it has a non-trivial path (not a bare root like https://ansokan.kulturfonden.fi/).
+    const rawAppUrl = raw.application_final_url || raw.application_url || raw.applicationUrl;
+    const isIndexChild = !!raw.index_child;
+    let appUrlKey = null;
+    if (!isIndexChild && rawAppUrl) {
+      try {
+        const parsed = new URL(rawAppUrl);
+        if (parsed.pathname && parsed.pathname.replace(/\/$/, '').length > 1) {
+          appUrlKey = normalizeUrl(rawAppUrl);
+        }
+      } catch { /* ignore invalid URLs */ }
+    }
+
     const keys = [
       raw.id,
       normalizeUrl(raw.final_url || raw.url || raw.source_url),
       normalizeUrl(raw.source_url),
-      normalizeUrl(raw.application_final_url || raw.application_url || raw.applicationUrl),
+      appUrlKey,
       `${normalizeTitleForDedup(raw.scholarship_name || raw.title)}::${cleanText(raw.provider_name || raw.source).toLowerCase()}`
     ].filter(Boolean);
 
@@ -2987,7 +3014,282 @@ async function scrapeLarsHiertas() {
   });
 }
 
+// ─── Scholarship index page — generic deep extractor ─────────────────────────
+// For foundation/university/government pages where one landing page lists many
+// scholarships as cards, links, or sections. Use scrapeScholarshipIndexPage().
+
+const INDEX_OPPORTUNITY_RE = /scholarship|scholarships|grant|grants|bursary|award|fellowship|funding|funded|stipend|studentship|stipendium|stipendier|bidrag|anslag|understöd|forskningsbidrag|resestipendium|doktorandstipendium|praktik|studiefond|fond|apuraha|apurahat|avustus|stipendi|säätiö/i;
+
+const INDEX_NAV_REJECT_RE = /^(aktuellt|om\s.{2,40}|kontakt|contact|about|publications?|publikationer|pris\s*[&och]+\s*tävlingar|beviljade bidrag|när du ansöker|vad händer med ansökan|när du har beviljats bidrag|suomeksi|eng|lättläst|svenska|english|deutsch|norsk|suomi|start|home|hem|search|sitemap|privacy policy|cookie policy|terms|follow us|rss|share|print|läs mer|read more|visa alla|see all|fler|more)$/i;
+
+const INDEX_SOCIAL_RE = /\b(facebook\.com|twitter\.com|x\.com|instagram\.com|linkedin\.com|youtube\.com|tiktok\.com|pinterest\.com|reddit\.com|t\.co|bit\.ly|sharer|google\.com\/maps)\b/i;
+
+function isBadIndexLink(url, text) {
+  if (!url) return true;
+  if (INDEX_SOCIAL_RE.test(url)) return true;
+  if (/^(mailto:|tel:|javascript:)/.test(url)) return true;
+  if (text && INDEX_NAV_REJECT_RE.test(text.trim())) return true;
+  if (text && text.trim().length <= 2) return true;
+  return false;
+}
+
+function isScholarshipIndexPage($, pageUrl) {
+  let opportunityLinkCount = 0;
+  $('a[href]').each((_, el) => {
+    const href = $(el).attr('href') || '';
+    const text = $(el).text().trim();
+    if (!href || href === '#' || /^(mailto:|tel:|javascript:)/.test(href)) return;
+    if (isBadIndexLink(href, text)) return;
+    if (INDEX_OPPORTUNITY_RE.test(text) && text.length > 5 && text.length < 150) opportunityLinkCount++;
+  });
+  const repeatedContainers = Math.max(
+    $('[class*="application-zebra"]').length,
+    $('article').length,
+    $('[class*="card"]').length,
+    $('[class*="grant"]').length,
+    $('[class*="stipend"]').length
+  );
+  const bodyText = $('body').text().toLowerCase();
+  const bodyKeywords = (bodyText.match(INDEX_OPPORTUNITY_RE) || []).length;
+  return opportunityLinkCount >= 5 || (repeatedContainers >= 3 && bodyKeywords >= 5);
+}
+
+function extractScholarshipChildLinks($, pageUrl, options = {}) {
+  const { allowedInternalOnly = true, maxChildLinks = 100, childLinkFilter = null } = options;
+  let origin;
+  try { origin = new URL(pageUrl).origin; } catch { return []; }
+
+  const candidates = [];
+  const seenUrls = new Set();
+
+  const containerSelectors = [
+    '.application-zebra-header', '.application-zebra', '.inner-wrap',
+    'article', '[class*="card"]', '[class*="grant-item"]',
+    '[class*="stipend-item"]', 'li[class*="item"]',
+    '[class*="listing-item"]', '[class*="opportunity"]'
+  ];
+
+  let foundViaContainers = false;
+
+  for (const sel of containerSelectors) {
+    let elements;
+    try { elements = $(sel); } catch { continue; }
+    if (elements.length < 2) continue;
+    const prevCount = candidates.length;
+
+    elements.each((_, el) => {
+      if (candidates.length >= maxChildLinks) return;
+      const $el = $(el);
+      const links = $el.find('a[href]');
+      let primaryLink = null;
+      let primaryText = '';
+
+      links.each((_, a) => {
+        const href = $(a).attr('href') || '';
+        const text = $(a).text().trim();
+        if (!href || href === '#') return;
+        const abs = resolveUrl(href, pageUrl);
+        if (!abs) return;
+        if (allowedInternalOnly && !abs.startsWith(origin)) return;
+        if (isBadIndexLink(abs, text)) return;
+        if (text.length > 3 && (!primaryLink || text.length > primaryText.length)) {
+          primaryLink = abs;
+          primaryText = text;
+        }
+      });
+
+      if (!primaryLink || seenUrls.has(primaryLink) || primaryLink === pageUrl) return;
+      if (childLinkFilter && !childLinkFilter(primaryLink, primaryText, $el.text())) return;
+      seenUrls.add(primaryLink);
+
+      const contextText = cleanText($el.text()).slice(0, 600);
+      const description = $el.find('p').first().text().trim().slice(0, 300);
+
+      const deadlineMatch = contextText.match(/(?:nästa ansökningstid|deadline|sista ansökningsdag|ansökningstid)\s*:?\s*([^\n.]{5,60})/i);
+      const deadline = parseDeadline((deadlineMatch || [])[1] || contextText);
+
+      const audienceTags = [];
+      $el.find('span, [class*="tag"], [class*="badge"]').each((_, tag) => {
+        const t = $(tag).text().trim();
+        if (/^(studerande|doktorand|forskare|journalist|lärling|pedagog|konstnär|privatperson|organisation)$/i.test(t)) {
+          audienceTags.push(t);
+        }
+      });
+
+      let applicationUrlCandidate = null;
+      links.each((_, a) => {
+        const href = $(a).attr('href') || '';
+        const text = $(a).text().trim();
+        if (/till ansökan|ansök nu|apply now|application form/i.test(text)) {
+          const abs = resolveUrl(href, pageUrl);
+          if (abs && abs !== primaryLink) applicationUrlCandidate = abs;
+        }
+      });
+
+      candidates.push({ title: primaryText, url: primaryLink, description, contextText, deadline, audienceTags, applicationUrlCandidate, pageUrl });
+    });
+
+    if (candidates.length > prevCount + 1) { foundViaContainers = true; break; }
+  }
+
+  // Fallback: scan all links on page for opportunity-keyword text
+  if (!foundViaContainers) {
+    $('a[href]').each((_, el) => {
+      if (candidates.length >= maxChildLinks) return;
+      const href = $(el).attr('href') || '';
+      const text = $(el).text().trim();
+      if (!href || href === '#' || !text || text.length < 5 || text.length > 150) return;
+      const absUrl = resolveUrl(href, pageUrl);
+      if (!absUrl || absUrl === pageUrl) return;
+      if (allowedInternalOnly && !absUrl.startsWith(origin)) return;
+      if (seenUrls.has(absUrl)) return;
+      if (isBadIndexLink(absUrl, text)) return;
+      if (!INDEX_OPPORTUNITY_RE.test(text)) return;
+      if (childLinkFilter && !childLinkFilter(absUrl, text, text)) return;
+      seenUrls.add(absUrl);
+      const $parent = $(el).closest('li, div, section').first();
+      const contextText = cleanText($parent.text()).slice(0, 300);
+      candidates.push({ title: text, url: absUrl, description: '', contextText, deadline: parseDeadline(contextText), audienceTags: [], applicationUrlCandidate: null, pageUrl });
+    });
+  }
+
+  return candidates.slice(0, maxChildLinks);
+}
+
+async function scrapeScholarshipIndexPage({
+  name,
+  prefix,
+  pageUrl,
+  source,
+  providerName,
+  providerType = 'foundation',
+  defaultInstructions,
+  defaultApplicationUrl = null,
+  usePuppeteer = false,
+  allowedInternalOnly = true,
+  maxChildLinks = 100,
+  childLinkFilter = null
+}) {
+  console.log(`Scraping ${name} (index deep extraction)...`);
+  const $ = usePuppeteer
+    ? await fetchPageJS(pageUrl, 'article, .card, h2, h3, h4')
+    : await fetchPage(pageUrl);
+  if (!$) return [];
+
+  if (isScholarshipIndexPage($, pageUrl)) {
+    console.log(`  [index] Detected scholarship index page: ${pageUrl}`);
+  }
+
+  const rawChildren = extractScholarshipChildLinks($, pageUrl, { allowedInternalOnly, maxChildLinks, childLinkFilter });
+
+  let rejectedCount = 0;
+  $('a[href]').each((_, el) => {
+    const href = $(el).attr('href') || '';
+    const text = $(el).text().trim();
+    if (!href || href === '#') return;
+    const absUrl = resolveUrl(href, pageUrl);
+    if (absUrl && isBadIndexLink(absUrl, text)) rejectedCount++;
+  });
+
+  console.log(`  [index] Extracted ${rawChildren.length} child opportunities from ${name}`);
+  console.log(`  [index] Rejected ~${rejectedCount} navigation/social/application links`);
+  if (!rawChildren.length) return [];
+
+  const childEntries = rawChildren.map(child => {
+    const fullText = [child.title, child.description, child.contextText, child.audienceTags.join(' '), 'scholarship grant stipend foundation'].filter(Boolean).join(' ');
+    const rawAmount = extractAmount(child.contextText);
+    const entry = buildEntry({
+      id: `${prefix}-${slugify(child.title)}`,
+      title: child.title,
+      amount: rawAmount && /\d/.test(rawAmount) ? rawAmount : null,
+      deadline: child.deadline,
+      fullText,
+      source: source || name,
+      url: child.url,
+      applicationUrl: child.applicationUrlCandidate || defaultApplicationUrl || null,
+      eligibility: child.description || 'See scholarship page for eligibility.',
+      documents: 'See scholarship page for required documents.',
+      instructions: defaultInstructions || 'Apply via the scholarship provider.'
+    });
+    if (!entry) return null;
+    entry.provider_name = providerName || name;
+    entry.provider_type = providerType;
+    entry.index_page_url = child.pageUrl; // parent index page — do NOT use as source_url (causes dedup collision)
+    entry.index_child = true; // survives normalizeScholarshipEntry — used by deduplicate to skip appUrl key
+    entry.qualityFlags = [...(entry.qualityFlags || []), 'index_child_extracted', 'parent_index_page_verified', 'needs_detail_enrichment'];
+    entry.reviewStatus = 'needs_review';
+    entry.review_status = 'needs_review';
+    return entry;
+  }).filter(Boolean);
+
+  console.log(`  [index] Created ${childEntries.length} child entries from ${name}`);
+
+  if (childEntries.length > 0) {
+    await enrichEntries(childEntries, { label: name, concurrency: 3 });
+
+    let enrichedCount = 0;
+    for (const entry of childEntries) {
+      const flags = new Set(entry.qualityFlags || []);
+      flags.delete('needs_detail_enrichment');
+      if (!entry.unreachable && entry.scrapeSuccess !== false) {
+        flags.add('child_detail_verified');
+        enrichedCount++;
+      } else {
+        flags.add('weak_child_detail');
+      }
+      entry.qualityFlags = [...flags];
+    }
+    console.log(`  [index] Enriched ${enrichedCount} child opportunities from ${name}`);
+  }
+
+  return childEntries;
+}
+
 // ─── Bidragsguiden (Swedish grants guide) ────────────────────────────────────
+
+// Svenska kulturfonden
+// The listing page exposes each grant as an .application-zebra-header link, with
+// deadlines and eligibility in the surrounding .inner-wrap block.
+
+function isKulturfondenStudentRelevant(title, text) {
+  const t = `${title} ${text}`.toLowerCase();
+  const personOrStudy =
+    /studerande|doktorand|forskare|högskola|universitet|studier|praktik|praktikanter|stipendi|akademisk|vetenskaplig|journalistik|konstnär|kulturarbetare|pedagog/.test(t);
+  const organizationOnly =
+    /föreningshus|vårdinrättning|föreningar och organisationer|utbildningsanordnare|läroinrättningar|skola, småbarnsfostran|bibliotek/.test(t);
+  return personOrStudy && (!organizationOnly || /studerande|doktorand|forskare|privatperson/.test(t));
+}
+
+async function scrapeKulturfonden() {
+  const PORTAL = 'https://ansokan.kulturfonden.fi';
+  const NAV_TEXTS = new Set([
+    'aktuellt', 'om svenska kulturfonden', 'kontakt', 'publikationer',
+    'pris & tävlingar', 'beviljade bidrag', 'när du ansöker',
+    'vad händer med ansökan?', 'när du har beviljats bidrag',
+    'suomeksi', 'eng', 'lättläst', 'till ansökan'
+  ]);
+
+  return scrapeScholarshipIndexPage({
+    name: 'Svenska kulturfonden',
+    prefix: 'skf',
+    pageUrl: 'https://www.kulturfonden.fi/stipendierobidrag/',
+    source: 'Svenska kulturfonden',
+    providerName: 'Svenska kulturfonden',
+    providerType: 'foundation',
+    defaultInstructions: "Apply through Svenska kulturfonden's application system at ansokan.kulturfonden.fi.",
+    defaultApplicationUrl: 'https://ansokan.kulturfonden.fi/',
+    usePuppeteer: false,
+    allowedInternalOnly: true,
+    maxChildLinks: 100,
+    childLinkFilter: (url, text, contextText) => {
+      const lowerText = text.toLowerCase().trim();
+      if (NAV_TEXTS.has(lowerText)) return false;
+      if (url.includes('ansokan.kulturfonden')) return false;
+      if (url === 'https://www.kulturfonden.fi/stipendierobidrag/' || url === 'https://www.kulturfonden.fi/') return false;
+      return isKulturfondenStudentRelevant(text, contextText);
+    }
+  });
+}
 
 async function scrapeBidragsguiden() {
   // /stipendier/ sub-paths return 404 as of 2026-05; use root domain which loads correctly
@@ -3048,6 +3350,7 @@ async function main() {
     scrapeFindAMasters,
     scrapeInomics,
     scrapeAcademicPositionsSE,
+    scrapeKulturfonden,
     scrapeBidragsguiden,
     scrapeLarsHiertas,
     scrapeStipendier,  // stipendier.se — gracefully returns 0 if site is down
@@ -3247,5 +3550,10 @@ module.exports = {
   isSuspiciousDomain,
   normalizeUrl,
   parseDeadline,
-  routeCli
+  routeCli,
+  scrapeKulturfonden,
+  scrapeScholarshipIndexPage,
+  isScholarshipIndexPage,
+  extractScholarshipChildLinks,
+  isBadIndexLink
 };

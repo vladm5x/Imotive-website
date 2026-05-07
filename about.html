@@ -7,66 +7,262 @@
   <meta name="description" content="iMotive helps students find scholarships that match their studies, needs, and application readiness.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="src/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --off: #f6f6f8;
+      --off-2: #eeeef2;
+      --line: #e7e7ec;
+      --ink: #111111;
+      --ink-2: #2a2a2e;
+      --muted: #6b6b73;
+      --muted-2: #9a9aa3;
+      --purple-900: #2b007a;
+      --purple-700: #4b00d8;
+      --purple-500: #6a00ff;
+      --purple-300: #b88cff;
+      --purple-100: #efe6ff;
+      --yellow: #ffd84d;
+      --pink: #ff4fd8;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+    p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 720px) { .wrap { padding: 0 20px; } }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,.88); backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid rgba(17,17,17,.06); }
+    .nav-inner { display: flex; align-items: center; gap: 40px; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk'; font-weight: 600; font-size: 19px; letter-spacing: -0.02em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--purple-500) 0%, var(--purple-700) 60%, var(--purple-900) 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 14px -4px rgba(75,0,216,.6); position: relative; flex-shrink: 0; }
+    .logo-mark::after { content: ""; position: absolute; inset: 6px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%); border-radius: 4px; }
+    .nav-links { display: flex; gap: 28px; flex: 1; font-size: 14.5px; color: var(--ink-2); }
+    .nav-links a:hover { color: var(--purple-700); }
+    .nav-links a.active { color: var(--purple-700); font-weight: 500; }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 999px; font-size: 14.5px; font-weight: 500; transition: transform .15s, box-shadow .2s, background .2s; }
+    .btn-ghost { color: var(--ink); }
+    .btn-ghost:hover { background: var(--off); }
+    .btn-primary { background: var(--ink); color: var(--white); }
+    .btn-primary:hover { background: var(--purple-700); }
+    @media (max-width: 880px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero { padding: 100px 0 80px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--purple-700); margin-bottom: 20px;
+    }
+    .eyebrow::before { content: ""; display: inline-block; width: 20px; height: 1.5px; background: var(--purple-700); }
+    .hero h1 { font-size: clamp(36px, 5vw, 64px); line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; margin: 0 auto 20px; }
+    .hero h1 em { font-style: normal; background: linear-gradient(120deg, var(--purple-700), var(--purple-500) 50%, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-sub { color: var(--muted); font-size: clamp(16px, 1.3vw, 18px); max-width: 54ch; margin: 0 auto 40px; line-height: 1.6; }
+    .hero-actions { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-purple { background: var(--purple-700); color: white; box-shadow: 0 8px 24px -8px rgba(75,0,216,.55), inset 0 1px 0 rgba(255,255,255,.18); }
+    .btn-purple:hover { background: var(--purple-500); transform: translateY(-1px); }
+    .btn-lg { height: 52px; padding: 0 26px; font-size: 16px; border-radius: 14px; }
+    .btn-outline { background: white; color: var(--ink); border: 1px solid var(--line); }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    /* CONTENT SECTION */
+    .section { padding: 64px 0; }
+    .section + .section { border-top: 1px solid var(--line); }
+    .section-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); margin-bottom: 40px; }
+
+    /* TWO-COL GRID */
+    .panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 720px) { .panel-grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--off);
+      border-radius: 24px;
+      padding: 36px;
+      border: 1px solid var(--line);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .panel:hover { transform: translateY(-3px); box-shadow: 0 20px 48px -16px rgba(17,17,17,.12); }
+    .panel h2 { font-size: 22px; margin-bottom: 14px; }
+    .panel p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+    .panel ul { color: var(--muted); font-size: 15px; line-height: 1.65; padding-left: 18px; margin: 0; }
+    .panel ul li { margin-bottom: 6px; }
+    .panel-accent { background: linear-gradient(140deg, var(--purple-100), #f8f0ff); border-color: var(--purple-300); }
+    .panel-dark { background: var(--ink); color: white; border-color: var(--ink); }
+    .panel-dark h2 { color: white; }
+    .panel-dark p { color: rgba(255,255,255,.65); }
+    .panel-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--purple-700); color: white; display: grid; place-items: center; font-size: 18px; margin-bottom: 20px; box-shadow: 0 6px 16px -6px rgba(75,0,216,.5); }
+
+    /* VALUES */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 720px) { .values-grid { grid-template-columns: 1fr; } }
+    .value { padding: 28px; border: 1px solid var(--line); border-radius: 20px; }
+    .value h3 { font-size: 17px; margin-bottom: 8px; }
+    .value p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .value-num { font-family: 'Space Grotesk'; font-weight: 600; font-size: 13px; color: var(--purple-700); margin-bottom: 12px; }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: var(--ink); border-radius: 28px; overflow: hidden; padding: 60px; color: white; }
+    @media (max-width: 720px) { .stats-row { grid-template-columns: 1fr 1fr; gap: 40px; padding: 40px; } }
+    .stat-item { padding: 0 24px 0 0; border-right: 1px solid rgba(255,255,255,.1); }
+    .stat-item:last-child { border: 0; }
+    .stat-n { font-family: 'Space Grotesk'; font-size: clamp(40px, 5vw, 64px); font-weight: 600; letter-spacing: -0.04em; color: var(--purple-300); line-height: 1; }
+    .stat-l { font-size: 14px; color: rgba(255,255,255,.6); margin-top: 8px; }
+
+    /* FOOTER */
+    footer { padding: 80px 0 40px; border-top: 1px solid var(--line); margin-top: 80px; }
+    .foot { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+    @media (max-width: 720px) { .foot { grid-template-columns: 1fr 1fr; } }
+    .foot-brand p { color: var(--muted); font-size: 13.5px; margin-top: 14px; line-height: 1.55; }
+    .foot-col h5 { font-family: 'Inter'; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-2); font-weight: 600; margin-bottom: 14px; }
+    .foot-col a { display: block; padding: 5px 0; color: var(--ink-2); font-size: 14px; }
+    .foot-col a:hover { color: var(--purple-700); }
+    .foot-bot { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: 12.5px; color: var(--muted); }
+  </style>
 </head>
 <body>
-  <header class="site-nav">
-    <div class="home-shell nav-inner">
-      <a href="index.html#home" class="brand-mark"><span></span><strong>iMotive</strong></a>
-      <nav class="nav-links">
-        <a href="index.html#scholarships">Browse</a>
-        <a href="index.html#how-it-works">How it works</a>
-        <a href="index.html#universities">For universities</a>
-      </nav>
-      <div class="nav-actions">
-        <a href="signup.html">Log in</a>
-        <a href="signup.html" class="nav-signup">Sign up</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span> iMotive</a>
+    <nav class="nav-links">
+      <a href="homepage-layouts/purple-browse.html">Browse</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="signup.html" class="btn btn-ghost">Sign in</a>
+      <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Our mission</div>
+      <h1>Scholarship discovery should feel less like <em>detective work.</em></h1>
+      <p class="hero-sub">iMotive is built for students who know funding exists somewhere, but don't have hours to dig through scattered university pages, PDFs, and foundation websites.</p>
+      <div class="hero-actions">
+        <a href="signup.html" class="btn btn-purple btn-lg">Start Searching Free →</a>
+        <a href="homepage-layouts/purple-browse.html" class="btn btn-outline btn-lg">Browse Scholarships</a>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main class="page-main">
-    <section class="page-hero">
-      <div class="home-shell">
-        <p class="hand-note page-label">/ about</p>
-        <h1 class="hand-title">Scholarship discovery should feel less like detective work.</h1>
-        <p>iMotive is built for students who know funding exists somewhere, but do not have hours to dig through scattered university pages, PDFs, and foundation websites.</p>
+  <!-- STATS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-n">500+</div><div class="stat-l">Verified scholarships</div></div>
+        <div class="stat-item"><div class="stat-n">12+</div><div class="stat-l">Source categories</div></div>
+        <div class="stat-item"><div class="stat-n">Free</div><div class="stat-l">Always for students</div></div>
+        <div class="stat-item"><div class="stat-n">1</div><div class="stat-l">Platform to rule them all</div></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="page-section">
-      <div class="home-shell page-grid">
-        <p class="hand-note page-label">what we are building</p>
-        <div>
-          <article class="page-panel">
-            <h2>A cleaner route from search to application</h2>
-            <p>We collect scholarship data, normalize the important details, and help students understand which opportunities fit their profile before they spend time applying.</p>
-          </article>
-          <article class="page-panel">
-            <h2>Built around real student friction</h2>
-            <ul class="page-list">
-              <li>Search by programme, level, field, nationality, funding need, amount, deadline, and effort.</li>
-              <li>Save opportunities and track what information each application still needs.</li>
-              <li>Give universities better visibility into what students are trying to find.</li>
-            </ul>
-          </article>
+  <!-- WHAT WE BUILD -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-label">What we're building</div>
+      <div class="panel-grid">
+        <div class="panel panel-accent">
+          <div class="panel-icon">🔍</div>
+          <h2>A cleaner route from search to application</h2>
+          <p>We collect scholarship data, normalize the important details, and help students understand which opportunities fit their profile before they spend time applying.</p>
+        </div>
+        <div class="panel">
+          <div class="panel-icon" style="background: var(--purple-900);">⚡</div>
+          <h2>Built around real student friction</h2>
+          <ul>
+            <li>Search by programme, level, field, nationality, funding need, amount, deadline, and effort.</li>
+            <li>Save opportunities and track what information each application still needs.</li>
+            <li>Give universities better visibility into what students are trying to find.</li>
+          </ul>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><div></div><span>iMotive</span></div>
-        <p>Scholarship discovery for university students in Sweden.</p>
-      </div>
-      <div class="footer-col"><p>Product</p><div><a href="signup.html">Browse scholarships</a><a href="index.html#how-it-works">How it works</a><a href="signup.html">Sign up free</a></div></div>
-      <div class="footer-col"><p>Company</p><div><a href="about.html">About</a><a href="index.html#universities">For universities</a><a href="contact.html">Contact</a></div></div>
-      <div class="footer-col"><p>Legal</p><div><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div>
     </div>
-    <div class="footer-bottom">&copy; 2026 iMotive. All rights reserved.</div>
-  </footer>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-label">Our principles</div>
+      <div class="values-grid">
+        <div class="value">
+          <div class="value-num">01 — Accuracy</div>
+          <h3>Verified data only</h3>
+          <p>Every scholarship in our database is checked against the official source. We cross-reference deadlines, amounts, and eligibility requirements before showing them to students.</p>
+        </div>
+        <div class="value">
+          <div class="value-num">02 — Relevance</div>
+          <h3>Matched to your profile</h3>
+          <p>A scholarship list 500 items long is useless. We rank opportunities by how well they match your field, level, nationality, and funding situation — so you see what matters first.</p>
+        </div>
+        <div class="value">
+          <div class="value-num">03 — Transparency</div>
+          <h3>No hidden agenda</h3>
+          <p>We don't charge for access, promote paid listings, or hide opportunities. iMotive's goal is to surface all relevant funding — not just the ones that pay to be found.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align: center;">
+    <div class="wrap">
+      <h2 style="font-size: clamp(28px, 4vw, 48px); margin-bottom: 16px;">Ready to find your scholarship?</h2>
+      <p style="color: var(--muted); margin-bottom: 32px; font-size: 17px;">Create a free profile in two minutes and see which scholarships match your studies.</p>
+      <a href="signup.html" class="btn btn-purple btn-lg">Get Started Free →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a href="index.html" class="logo"><span class="logo-mark"></span> iMotive</a>
+        <p>Scholarship discovery for university students in Sweden. Find verified opportunities matched to your study path.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="homepage-layouts/purple-browse.html">Browse scholarships</a>
+        <a href="signup.html">Sign up free</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 iMotive</span>
+      <span>Profile-driven scholarship matching.</span>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>

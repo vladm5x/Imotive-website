@@ -10,6 +10,7 @@ export async function fetchScholarships() {
       .eq("expired", false)
       .eq("blocked", false)
       .eq("requires_login", false)
+      .eq("review_status", "publishable")
       .gte("quality_score", 50)
       .order("quality_score", { ascending: false });
 
@@ -24,6 +25,42 @@ export async function fetchScholarships() {
     const qs = item.qualityScore ?? item.quality_score;
     return qs === undefined || qs >= 50;
   });
+}
+
+export async function loadUserSavedFromSupabase() {
+  const supabase = getSupabase();
+  const session = await getSession();
+  if (!supabase || !session?.user) return new Set();
+
+  const { data, error } = await supabase
+    .from("saved_scholarships")
+    .select("scholarship_id")
+    .eq("user_id", session.user.id);
+
+  if (error) {
+    console.warn("Could not load saved scholarships:", error.message);
+    return new Set();
+  }
+  return new Set(data.map((row) => row.scholarship_id));
+}
+
+export async function syncLocalSavedToSupabase(localIds) {
+  const supabase = getSupabase();
+  const session = await getSession();
+  if (!supabase || !session?.user || !localIds.size) return;
+
+  const rows = [...localIds].map((id) => ({
+    user_id: session.user.id,
+    scholarship_id: id,
+    status: "saved",
+    updated_at: new Date().toISOString()
+  }));
+
+  const { error } = await supabase
+    .from("saved_scholarships")
+    .upsert(rows, { onConflict: "user_id,scholarship_id" });
+
+  if (error) console.warn("Could not sync saved scholarships:", error.message);
 }
 
 export async function saveScholarshipForUser(scholarshipId, status = "saved") {
