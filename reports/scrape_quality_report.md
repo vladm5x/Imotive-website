@@ -1,31 +1,29 @@
 # Scrape Quality Report
 
-Generated: 2026-05-07T18:03:58.875Z
+Generated: 2026-05-07T18:15:44.208Z
 
 ## Totals
-- Total URLs discovered: 50
-- Total URLs successfully fetched: 46
-- Total failed: 1
+- Total URLs discovered: 47
+- Total URLs successfully fetched: 45
+- Total failed: 0
 - Approved count: 45
 - Manual review count: 0
-- Rejected count: 1
-- Stale approved count: 1
-- Broken approved count: 1
-- Expired count: 1
-- Duplicate count: 57
+- Rejected count: 0
+- Stale approved count: 0
+- Broken approved count: 0
+- Expired count: 0
+- Duplicate count: 44
 - Low trust count: 0
-- Source URLs verified: 46
+- Source URLs verified: 45
 - Application URLs verified: 40
-- Duplicates removed: 57
+- Duplicates removed: 44
 
 ## Top Manual Review Reasons
 
 ## Top Rejection Reasons
-- expired: 1
 
 ## Sources With Highest Success Count
 - Svenska kulturfonden: 19
-- STINT: 2
 - Blekinge Institute of Technology: 1
 - Uppsala University: 1
 - Stockholm University: 1
@@ -36,9 +34,9 @@ Generated: 2026-05-07T18:03:58.875Z
 - Swedish University of Agricultural Sciences (SLU): 1
 - Mid Sweden University: 1
 - Stockholm School of Economics: 1
+- European Research Council: 1
 
 ## Sources With Most Failures
-- Karlstad University: 1
 
 ## Domains With Most Approved Scholarships
 - kulturfonden.fi: 20

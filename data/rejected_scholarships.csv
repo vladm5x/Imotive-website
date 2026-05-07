@@ -1,2 +1,1 @@
 id,title,source,source_url,application_url,source_url_status,application_url_status,qualityScore,trustScore,reviewStatus,rejection_reason,qualityFlags
-stint-the-moonshot-program-various-funding-agencies,The Moonshot Program (various funding agencies),STINT,https://www8.cao.go.jp/cstp/english/moonshot/top.html,,ok:200,missing_url,,,rejected,expired,source_verified; official_provider; missing_amount; missing_application_url; no_application_path; expired; weak_content; reject_candidate

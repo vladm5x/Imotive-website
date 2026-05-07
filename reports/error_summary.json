@@ -1,24 +1,12 @@
 {
-  "generated_at": "2026-05-07T18:03:58.876Z",
-  "failure_reasons": {
-    "not_found": 1
-  },
-  "failure_examples": [
-    {
-      "reason": "not_found",
-      "source": null,
-      "url": "https://www.kau.se/en/education/explore-student-life/application-admission/scholarships",
-      "status": 404,
-      "message": "",
-      "phase": "source_url_validation",
-      "timestamp": "2026-05-07T18:03:40.738Z"
-    }
-  ],
+  "generated_at": "2026-05-07T18:15:44.208Z",
+  "failure_reasons": {},
+  "failure_examples": [],
   "counts": {
-    "reviewed": 47,
+    "reviewed": 45,
     "approved": 45,
     "manual_review": 0,
-    "rejected": 1,
-    "approved_needs_recheck": 1
+    "rejected": 0,
+    "approved_needs_recheck": 0
   }
 }

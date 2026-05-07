@@ -54,7 +54,9 @@
       "Bash(curl -sIL \"https://www.kau.se/en/education/scholarships\")",
       "Bash(curl -sIL \"https://www.kau.se/en/scholarships\")",
       "Bash(curl -sIL \"https://www.kau.se/en/education/fee-paying-students\")",
-      "Bash(curl -sIL \"https://www.kau.se/en/study-at-kau/application-and-admission/fee-paying-students\")"
+      "Bash(curl -sIL \"https://www.kau.se/en/study-at-kau/application-and-admission/fee-paying-students\")",
+      "Bash(curl -sIL \"https://www.kau.se/en/education\")",
+      "Bash(curl -s \"https://www.kau.se/en/education\")"
     ]
   }
 }
