@@ -1115,11 +1115,11 @@ const UNIVERSITY_SOURCES = [
 // ─── Blog aggregator sources (all use scrapeBlogAggregator) ───────────────────
 
 const BLOG_SOURCES = [
-  // Only scrape recent pages (older posts get 403 on enrichment)
-  { name: 'Scholarship Positions', prefix: 'spos', baseUrl: 'https://scholarship-positions.com/category/sweden-scholarships/', source: 'Scholarship Positions', maxPages: 8, enrichAfter: true },
-  { name: 'AfterSchoolAfrica Blog', prefix: 'asa2', baseUrl: 'https://www.afterschoolafrica.com/category/scholarships/europe/sweden/', source: 'AfterSchoolAfrica', maxPages: 10, enrichAfter: true },
-  { name: 'Opportunity Desk Sweden', prefix: 'od', baseUrl: 'https://opportunitydesk.org/category/scholarships/europe/sweden/', source: 'Opportunity Desk', maxPages: 6, enrichAfter: true },
-  { name: 'Scholarship Positions EU', prefix: 'speu2', baseUrl: 'https://scholarship-positions.com/category/europe-scholarships/', source: 'Scholarship Positions', maxPages: 4, enrichAfter: true, titleFilter: title => /sweden|nordic|scandinavian/i.test(title) },
+  // Reduced to 2 pages each — older posts are expired or 403 during enrichment
+  { name: 'Scholarship Positions', prefix: 'spos', baseUrl: 'https://scholarship-positions.com/category/sweden-scholarships/', source: 'Scholarship Positions', maxPages: 2, enrichAfter: true },
+  { name: 'AfterSchoolAfrica Blog', prefix: 'asa2', baseUrl: 'https://www.afterschoolafrica.com/category/scholarships/europe/sweden/', source: 'AfterSchoolAfrica', maxPages: 2, enrichAfter: true },
+  { name: 'Opportunity Desk Sweden', prefix: 'od', baseUrl: 'https://opportunitydesk.org/category/scholarships/europe/sweden/', source: 'Opportunity Desk', maxPages: 2, enrichAfter: true },
+  { name: 'Scholarship Positions EU', prefix: 'speu2', baseUrl: 'https://scholarship-positions.com/category/europe-scholarships/', source: 'Scholarship Positions', maxPages: 2, enrichAfter: true, titleFilter: title => /sweden|nordic|scandinavian/i.test(title) },
 ];
 
 // ─── Puppeteer portal sources (all use scrapePuppeteerPortal) ─────────────────

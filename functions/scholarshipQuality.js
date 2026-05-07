@@ -370,7 +370,7 @@ function determineReviewStatus(entry = {}) {
   if (entry.duplicateOf || entry.duplicate_of || flags.has('duplicate')) return 'duplicate';
   if (isExpiredEntry(entry) || flags.has('expired')) return 'expired';
   if (flags.has('broken_source_url')) return 'broken_link';
-  if (flags.has('login_wall') || flags.has('captcha_or_bot_wall') || flags.has('suspicious_domain') || flags.has('weak_content')) return 'rejected';
+  if (flags.has('login_wall') || flags.has('captcha_or_bot_wall') || flags.has('suspicious_domain') || flags.has('weak_content') || flags.has('generic_title')) return 'rejected';
   if (!hasUsableApplicationPath(entry)) return 'no_application_path';
   const qualityScore = entry.qualityScore ?? entry.quality_score ?? 0;
   const trustScore = entry.trustScore ?? entry.trust_score ?? 0;

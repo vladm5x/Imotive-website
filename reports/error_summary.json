@@ -1,12 +1,742 @@
 {
-  "generated_at": "2026-05-07T18:15:44.208Z",
-  "failure_reasons": {},
-  "failure_examples": [],
+  "generated_at": "2026-05-07T18:41:23.139Z",
+  "failure_reasons": {
+    "not_found": 34,
+    "network_error": 1,
+    "blocked": 7,
+    "ssl_error": 1,
+    "dns_error": 5,
+    "soft_404": 14,
+    "captcha": 134,
+    "login_wall": 9
+  },
+  "failure_examples": [
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.ltu.se/en/education/be-a-student/application-and-admission/",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:35:53.890Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.sh.se/english/study-at-sodertorn/apply.html",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:02.725Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.hig.se/en/educational/apply/",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:02.781Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.du.se/en/study/",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:02.808Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://lnu.se/en/study-at-lnu/application-and-admission/fees-and-scholarships/",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:08.852Z"
+    },
+    {
+      "reason": "network_error",
+      "source": null,
+      "url": "https://www.his.se/en/prospective-student/apply/",
+      "status": null,
+      "message": "Parse Error: Unexpected whitespace after header value",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:08.890Z"
+    },
+    {
+      "reason": "blocked",
+      "source": null,
+      "url": "https://www.ox.ac.uk/admissions/graduate",
+      "status": 403,
+      "message": "Request failed with status code 403",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:22.983Z"
+    },
+    {
+      "reason": "ssl_error",
+      "source": null,
+      "url": "https://vanier.gc.ca/en/home-accueil.html",
+      "status": null,
+      "message": "unable to verify the first certificate; if the root CA is installed locally, try running Node.js with --use-system-ca",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:26.988Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://opportunitydesk.org/category/scholarships/europe/sweden/",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:36:50.755Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.afterschoolafrica.com/tag/sweden-scholarships/page/2/",
+      "status": 404,
+      "message": "Request failed with status code 404",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:38:07.576Z"
+    },
+    {
+      "reason": "dns_error",
+      "source": null,
+      "url": "https://www.stipendier.se/",
+      "status": null,
+      "message": "getaddrinfo ENOTFOUND www.stipendier.se",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:39:21.019Z"
+    },
+    {
+      "reason": "dns_error",
+      "source": null,
+      "url": "https://www.stipendier.se/stipendier-for-studenter/",
+      "status": null,
+      "message": "getaddrinfo ENOTFOUND www.stipendier.se",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:39:33.459Z"
+    },
+    {
+      "reason": "dns_error",
+      "source": null,
+      "url": "https://www.stipendier.se/stipendier-for-doktorander/",
+      "status": null,
+      "message": "getaddrinfo ENOTFOUND www.stipendier.se",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:39:45.780Z"
+    },
+    {
+      "reason": "dns_error",
+      "source": null,
+      "url": "https://www.stipendier.se/resestipendier/",
+      "status": null,
+      "message": "getaddrinfo ENOTFOUND www.stipendier.se",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:39:58.049Z"
+    },
+    {
+      "reason": "dns_error",
+      "source": null,
+      "url": "https://www.stipendier.se/internationella-stipendier/",
+      "status": null,
+      "message": "getaddrinfo ENOTFOUND www.stipendier.se",
+      "phase": "fetch",
+      "timestamp": "2026-05-07T18:40:09.129Z"
+    },
+    {
+      "reason": "soft_404",
+      "source": null,
+      "url": "https://www.chalmers.se/en/education/application-and-admission/scholarships-for-fee-paying-students/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:28.588Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://education.ki.se/bachelors-masters-studies/scholarships/the-ki-global-masters-scholarships-for-fee-paying-students",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:31.677Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://kaw.wallenberg.org/en/wallenberg-academy-fellows-prolongation-grants-2024",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:32.681Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://www.hb.se/en/international-student/fees-and-scholarships/scholarships/#173427_0",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:32.782Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://www.hb.se/en/research/research-portal/research-areas/business-and-it/",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:33.293Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://kaw.wallenberg.org/en/scholarship-programs-20242025",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:33.717Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://kaw.wallenberg.org/en/wallenberg-clinical-scholars-prolongation-grants-2025",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:33.817Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://kaw.wallenberg.org/en/strategic-grants",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:33.871Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://kaw.wallenberg.org/en/awarded-proof-concept-grants-2025-calls",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:33.907Z"
+    },
+    {
+      "reason": "blocked",
+      "source": null,
+      "url": "https://www.ox.ac.uk/admissions/graduate",
+      "status": 403,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:36.301Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://erasmus-plus.ec.europa.eu/opportunities/opportunities-for-individuals/students/erasmus-mundus-joint-masters",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:36.656Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://education.ec.europa.eu/news/why-choose-erasmus-mundus-as-an-international-student",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:37.157Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-fellowship-in-political-science-par-sweden/2026/01/05/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:39.670Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/doctoral-student-position-in-natural-sciences-specializing-in-physical-geography-sweden/2026/01/07/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:39.698Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-migration-medicine-and-health-sweden-2/2026/01/02/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:39.790Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:39.849Z"
+    },
+    {
+      "reason": "login_wall",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/apply?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=38805",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:40.143Z"
+    },
+    {
+      "reason": "login_wall",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/apply?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=38890",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:40.180Z"
+    },
+    {
+      "reason": "login_wall",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/apply?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=39070",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:40.270Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/fully-funded-doctoral-positions-in-economics-sweden/2026/01/02/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:40.625Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-scholarship-in-cell-and-molecular-biology-sweden/2025/12/21/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:40.707Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-free-space-optical-communications-sweden/2025/12/24/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:40.739Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/phd-positions-in-arabic-english-japanese-latin-and-or-sinology-sweden/2025/12/16/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:40.904Z"
+    },
+    {
+      "reason": "soft_404",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/job?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=38590",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:40.943Z"
+    },
+    {
+      "reason": "login_wall",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/apply?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=39091",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:41.161Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.swansea.ac.uk/postgraduate/scholarships/research/mathematics-epsrc-gsk-phd-rs911.php",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:41.221Z"
+    },
+    {
+      "reason": "blocked",
+      "source": null,
+      "url": "https://www.gu.se/en/chemistry-molecular-biology/postdoctoral-scholarship-in-cell-and-molecular-biology",
+      "status": 403,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:41.890Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/phd-student-position-in-energy-and-environmental-engineering-sweden/2025/12/07/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:42.320Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/doctoral-candidate-positions-in-performance-practices-sweden/2025/12/08/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:42.351Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/karlstad-university-eh-international-programme-scholarships-sweden/2025/12/10/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:42.402Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-computational-mathematics-and-data-science-sweden/2025/12/07/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:42.592Z"
+    },
+    {
+      "reason": "soft_404",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I018/1151/job?site=8&lang=UK&validator=2efd9e54ee423d53334ac7960e3b4e03&job_id=3504",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:42.695Z"
+    },
+    {
+      "reason": "soft_404",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/job?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=38892",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:42.731Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://liu.se/en/work-at-liu/vacancies/27747",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:43.154Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/lund-university-postdoctoral-position-in-biomedical-engineering-sweden/2025/11/14/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:43.568Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-aquatic-biodiversity-and-ecosystem-function-sweden/2025/11/30/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:43.651Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/international-postdoctoral-position-in-neuroscience-sweden/2025/12/07/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:43.780Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-scholarship-in-ai-driven-computational-biology-sweden/2025/12/05/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:43.860Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.slu.se/en/about-slu/work-at-slu/jobs-and-vacancies/postdoktor8/",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:44.163Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.umu.se/en/work-with-us/postdoctoral-scholarships/postdoctoral-scholarship-2-years-in-ai-driven-computational-biology_882625/",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:44.281Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-fellowship-in-bioinformatics-sweden/2025/11/13/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:44.883Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-fellowship-in-signaling-of-mitochondrial-dna-instability-sweden/2025/10/31/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:44.911Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/hirsch-fellowship-in-sweden/2025/11/10/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:44.952Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-natural-language-processing-sweden/2025/10/24/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:45.022Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.umu.se/jobba-hos-oss/stipendier/post-doctoral-fellowship-scholarship-in-bioinformatics-umea-university_874395/",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:45.234Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.umu.se/en/work-with-us/postdoctoral-scholarships/postdoctoral-fellowship-2-years-to-study-proteins-that-maintain-mitochondrial-dna_868026/",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:45.444Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://staff.ki.se/research-support/research-funding-economy/ki-research-grants-awards/hirsch-fellowship-spring",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:45.551Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I003/304/apply?site=5&lang=UK&validator=a72aeedd63ec10de71e46f8d91d0d57c&ref=https%3A%2F%2Fwww.chalmers.se%2Fen%2Fdepartments%2Fphysics%2Fresearch%2Fchemical-physics%2Fvacancies-at-chemical-physics%2F&job_id=14311",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:45.580Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-efficient-simulation-of-noisy-quantum-circuits-sweden/2025/10/04/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:46.042Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-scholarships-within-arctic-climate-change-research-sweden/2025/10/04/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:46.068Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/umea-university-phd-positions-in-medical-science-with-orientation-to-molecular-biology-sweden/2025/10/15/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:46.104Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-biotechnology-protein-biochemistry-sweden/2025/09/30/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:46.382Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.umu.se/en/work-with-us/postdoctoral-scholarships/postdoctoral-scholarship-2-years-within-arctic-climate-change-research_862467/",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:46.539Z"
+    },
+    {
+      "reason": "not_found",
+      "source": null,
+      "url": "https://www.umu.se/en/work-with-us/open-positions/two-phd-positions-in-medical-science-with-orientation-to-molecular-biology_857832/",
+      "status": 404,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:46.543Z"
+    },
+    {
+      "reason": "soft_404",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I017/1114/job?site=7&validator=87e4b706891e51f731ed44be28da8352&lang=UK&job_id=13736",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:46.771Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-researcher-position-in-plant-evolutionary-genomics-sweden/2025/09/17/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:47.315Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/international-postdoctoral-position-in-hydrogen-mixing-and-combustion-sweden/2025/09/18/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:47.347Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/phd-positions-in-the-department-of-economic-history-sweden/2025/09/07/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:47.513Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/lkab-scholarship-for-mineral-resource-engineering-sweden/2025/09/23/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:47.525Z"
+    },
+    {
+      "reason": "login_wall",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I005/1035/apply?site=7&lang=UK&validator=9b89bead79bb7258ad55c8d75228e5b7&job_id=38333",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:47.634Z"
+    },
+    {
+      "reason": "soft_404",
+      "source": null,
+      "url": "https://web103.reachmee.com/ext/I003/304/job?site=5&lang=UK&validator=a72aeedd63ec10de71e46f8d91d0d57c&job_id=13994",
+      "status": 200,
+      "message": "",
+      "phase": "application_url_validation",
+      "timestamp": "2026-05-07T18:40:47.739Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/university-of-gothenburg-adlerbert-scholarships-in-sweden/2025/08/29/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:48.516Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/seth-m-kempe-scholarship-fund-sweden/2025/09/06/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:48.565Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/postdoctoral-position-in-discrete-event-systems-for-automation-sweden/2025/08/30/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:48.626Z"
+    },
+    {
+      "reason": "captcha",
+      "source": null,
+      "url": "https://scholarship-positions.com/anna-ahrenberg-postdoctoral-position-in-political-challenges-in-todays-world-sweden/2025/09/05/",
+      "status": 200,
+      "message": "",
+      "phase": "source_url_validation",
+      "timestamp": "2026-05-07T18:40:48.868Z"
+    }
+  ],
   "counts": {
-    "reviewed": 45,
-    "approved": 45,
-    "manual_review": 0,
-    "rejected": 0,
+    "reviewed": 208,
+    "approved": 55,
+    "manual_review": 1,
+    "rejected": 152,
     "approved_needs_recheck": 0
   }
 }
