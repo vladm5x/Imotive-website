@@ -1,0 +1,290 @@
+{
+  "version": "1.0",
+  "generatedFrom": "204 scholarship entries in scholarships.json",
+  "sections": [
+    {
+      "id": "personal",
+      "label": "Personal Information",
+      "description": "Required by all 204 scholarships",
+      "fields": [
+        {
+          "id": "firstName",
+          "label": "First Name",
+          "type": "text",
+          "required": true,
+          "frequency": 204,
+          "placeholder": "e.g. Emma",
+          "mapTo": "requiredApplicantInfo:first name"
+        },
+        {
+          "id": "lastName",
+          "label": "Last Name",
+          "type": "text",
+          "required": true,
+          "frequency": 204,
+          "placeholder": "e.g. Lindqvist",
+          "mapTo": "requiredApplicantInfo:last name"
+        },
+        {
+          "id": "email",
+          "label": "Email Address",
+          "type": "email",
+          "required": true,
+          "frequency": 202,
+          "placeholder": "you@example.com",
+          "mapTo": "requiredApplicantInfo:email"
+        },
+        {
+          "id": "nationality",
+          "label": "Nationality / Citizenship",
+          "type": "select",
+          "required": true,
+          "frequency": 88,
+          "options": [
+            { "value": "Swedish", "label": "Swedish" },
+            { "value": "EU/EEA", "label": "EU/EEA (non-Swedish)" },
+            { "value": "International non-EU", "label": "International (non-EU/EEA)" }
+          ],
+          "mapTo": "nationality",
+          "note": "Used to filter fee-paying vs. non-fee scholarships"
+        },
+        {
+          "id": "dateOfBirth",
+          "label": "Date of Birth",
+          "type": "date",
+          "required": false,
+          "frequency": 30,
+          "note": "30 scholarships have an age limit (e.g. under 30, under 35)"
+        }
+      ]
+    },
+    {
+      "id": "academic",
+      "label": "Academic Profile",
+      "description": "Used to match study level, field, and enrollment requirements",
+      "fields": [
+        {
+          "id": "studyLevel",
+          "label": "Current / Target Study Level",
+          "type": "select",
+          "required": true,
+          "frequency": 89,
+          "options": [
+            { "value": "Bachelor", "label": "Bachelor's" },
+            { "value": "Master", "label": "Master's" },
+            { "value": "PhD", "label": "PhD / Doctoral" },
+            { "value": "Postdoc", "label": "Postdoc / Researcher" }
+          ],
+          "mapTo": "level"
+        },
+        {
+          "id": "fieldOfStudy",
+          "label": "Field of Study",
+          "type": "multiselect",
+          "required": true,
+          "frequency": 92,
+          "options": [
+            { "value": "Engineering", "label": "Engineering & Technology" },
+            { "value": "IT", "label": "IT & Computer Science" },
+            { "value": "Medicine", "label": "Medicine & Health Sciences" },
+            { "value": "Natural sciences", "label": "Natural Sciences" },
+            { "value": "Social sciences", "label": "Social Sciences" },
+            { "value": "Economics", "label": "Economics & Business" },
+            { "value": "Humanities", "label": "Humanities & Arts" },
+            { "value": "Law", "label": "Law" },
+            { "value": "Architecture", "label": "Architecture & Design" }
+          ],
+          "mapTo": "fields"
+        },
+        {
+          "id": "university",
+          "label": "Current / Intended University in Sweden",
+          "type": "text",
+          "required": false,
+          "frequency": 95,
+          "placeholder": "e.g. KTH, Lund University, Uppsala University",
+          "note": "95 scholarships require enrollment at a Swedish university"
+        },
+        {
+          "id": "enrollmentStatus",
+          "label": "Enrollment Status",
+          "type": "select",
+          "required": true,
+          "frequency": 202,
+          "options": [
+            { "value": "accepted", "label": "Accepted / Enrolled" },
+            { "value": "applying", "label": "Currently applying to university" },
+            { "value": "alumni", "label": "Recently graduated (alumni)" }
+          ],
+          "mapTo": "requiredApplicantInfo:proof of enrolment"
+        },
+        {
+          "id": "gpa",
+          "label": "GPA / Academic Grade",
+          "type": "number",
+          "required": false,
+          "frequency": 33,
+          "placeholder": "e.g. 3.8 (out of 4.0) or 80 (out of 100)",
+          "note": "33 scholarships specify a minimum GPA or 'academic merit' requirement"
+        },
+        {
+          "id": "researchArea",
+          "label": "Research / Thesis Topic",
+          "type": "text",
+          "required": false,
+          "frequency": 80,
+          "placeholder": "e.g. Sustainable energy systems, Machine learning in healthcare",
+          "note": "80 scholarships are targeted at students with a research or thesis project"
+        }
+      ]
+    },
+    {
+      "id": "interests",
+      "label": "Interests & Motivations",
+      "description": "Helps match scholarships by category and theme",
+      "fields": [
+        {
+          "id": "scholarshipInterests",
+          "label": "Primary Interests",
+          "type": "multiselect",
+          "required": false,
+          "frequency": 204,
+          "options": [
+            { "value": "Research", "label": "Research" },
+            { "value": "Leadership", "label": "Leadership & Entrepreneurship" },
+            { "value": "Sustainability", "label": "Sustainability & Environment" },
+            { "value": "Cultural exchange", "label": "Cultural Exchange" },
+            { "value": "Travel", "label": "Study Abroad / Exchange" },
+            { "value": "Sports", "label": "Sports & Physical Activity" },
+            { "value": "Any interest", "label": "General / Open to all fields" }
+          ],
+          "mapTo": "interests"
+        },
+        {
+          "id": "financialNeed",
+          "label": "Financial Need Level",
+          "type": "select",
+          "required": false,
+          "frequency": 12,
+          "options": [
+            { "value": "Low", "label": "Low — I can cover most costs" },
+            { "value": "Medium", "label": "Medium — scholarship would help significantly" },
+            { "value": "High", "label": "High — I rely on funding to study" }
+          ],
+          "mapTo": "need",
+          "note": "12 scholarships are means-tested or prioritize financial need"
+        }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "Documents You Have Ready",
+      "description": "Tell us which documents you can upload or attach — improves match accuracy",
+      "fields": [
+        {
+          "id": "hasCV",
+          "label": "CV / Résumé",
+          "type": "checkbox",
+          "required": false,
+          "frequency": 172,
+          "mapTo": "requiredApplicantInfo:cv",
+          "note": "Required by 172 of 204 scholarships"
+        },
+        {
+          "id": "hasPersonalStatement",
+          "label": "Personal Statement / Motivation Letter",
+          "type": "checkbox",
+          "required": false,
+          "frequency": 170,
+          "mapTo": "requiredApplicantInfo:personal statement",
+          "note": "Required by 170 of 204 scholarships"
+        },
+        {
+          "id": "hasTranscripts",
+          "label": "Academic Transcripts / Grade Records",
+          "type": "checkbox",
+          "required": false,
+          "frequency": 171,
+          "mapTo": "requiredApplicantInfo:academic records",
+          "note": "Required by 171 of 204 scholarships"
+        },
+        {
+          "id": "hasReferenceLetter",
+          "label": "Reference / Recommendation Letter",
+          "type": "checkbox",
+          "required": false,
+          "frequency": 2,
+          "mapTo": "requiredApplicantInfo:reference letter"
+        },
+        {
+          "id": "hasResearchProposal",
+          "label": "Research Proposal / Project Plan",
+          "type": "checkbox",
+          "required": false,
+          "frequency": 2,
+          "mapTo": "requiredApplicantInfo:research plan"
+        },
+        {
+          "id": "hasFinancialDocs",
+          "label": "Financial Documents / Bank Statement",
+          "type": "checkbox",
+          "required": false,
+          "frequency": 12,
+          "mapTo": "requiredApplicantInfo:financial documents"
+        }
+      ]
+    }
+  ],
+  "matchingLogic": {
+    "description": "How profile fields map to scholarship filter criteria",
+    "rules": [
+      {
+        "profileField": "nationality",
+        "scholarshipField": "nationality",
+        "match": "value must appear in scholarship nationality array"
+      },
+      {
+        "profileField": "studyLevel",
+        "scholarshipField": "level",
+        "match": "value must appear in scholarship level array"
+      },
+      {
+        "profileField": "fieldOfStudy",
+        "scholarshipField": "fields",
+        "match": "at least one selected field must appear in scholarship fields array"
+      },
+      {
+        "profileField": "financialNeed",
+        "scholarshipField": "need",
+        "match": "value must appear in scholarship need array"
+      },
+      {
+        "profileField": "scholarshipInterests",
+        "scholarshipField": "interests",
+        "match": "at least one selected interest must appear in scholarship interests array"
+      },
+      {
+        "profileField": "hasCV + hasPersonalStatement + hasTranscripts",
+        "scholarshipField": "requiredApplicantInfo",
+        "match": "scholarships requiring only documents the user has ready rank higher"
+      }
+    ]
+  },
+  "stats": {
+    "totalScholarships": 204,
+    "fieldsCoveredByTopThreeDocuments": 172,
+    "universalFields": ["firstName", "lastName", "email", "enrollmentStatus"],
+    "topDocumentRequirements": [
+      { "name": "CV / Resume", "count": 172 },
+      { "name": "Academic Transcripts", "count": 171 },
+      { "name": "Personal Statement", "count": 170 }
+    ],
+    "topEligibilityCriteria": [
+      { "name": "Enrolled at Swedish university", "count": 95 },
+      { "name": "Field of study", "count": 92 },
+      { "name": "Study level", "count": 89 },
+      { "name": "Nationality", "count": 88 },
+      { "name": "Research / Thesis topic", "count": 80 }
+    ]
+  }
+}

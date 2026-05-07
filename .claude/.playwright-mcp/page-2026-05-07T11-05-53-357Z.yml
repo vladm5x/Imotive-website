@@ -1,0 +1,89 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "imotive home" [ref=e3] [cursor=pointer]:
+      - /url: index.html
+      - generic [ref=e4]: i
+      - generic [ref=e5]: imotive
+    - navigation "Primary navigation" [ref=e6]:
+      - link "Home" [ref=e7] [cursor=pointer]:
+        - /url: index.html
+      - link "Results" [ref=e8] [cursor=pointer]:
+        - /url: results.html
+  - main [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - paragraph [ref=e12]: Create your profile
+        - heading "Give imotive the basics." [level=1] [ref=e13]
+        - paragraph [ref=e14]: A quick profile helps the ranking focus on scholarships that fit your study path, background, and funding need.
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: First name
+          - textbox "First name" [ref=e18]
+        - generic [ref=e19]:
+          - generic [ref=e20]: Last name
+          - textbox "Last name" [ref=e21]
+        - generic [ref=e22]:
+          - generic [ref=e23]: Email
+          - textbox "Email" [ref=e24]:
+            - /placeholder: name@example.com
+        - generic [ref=e25]:
+          - generic [ref=e26]: University
+          - combobox "University" [ref=e27]:
+            - option "Lund University" [selected]
+            - option "Other Swedish university"
+        - generic [ref=e28]:
+          - generic [ref=e29]: Study level
+          - combobox "Study level" [ref=e30]:
+            - option "Master" [selected]
+            - option "Bachelor"
+            - option "PhD"
+        - generic [ref=e31]:
+          - generic [ref=e32]: Field of study
+          - combobox "Field of study" [ref=e33]:
+            - option "Engineering" [selected]
+            - option "Social sciences"
+            - option "Medicine"
+            - option "Law"
+            - option "Humanities"
+            - option "Any field"
+        - generic [ref=e34]:
+          - generic [ref=e35]: Nationality
+          - combobox "Nationality" [ref=e36]:
+            - option "International non-EU" [selected]
+            - option "EU/EEA"
+            - option "Swedish"
+            - option "Any nationality"
+        - generic [ref=e37]:
+          - generic [ref=e38]: Year of study
+          - combobox "Year of study" [ref=e39]:
+            - option "Year 1" [selected]
+            - option "Year 2"
+            - option "Year 3"
+            - option "Year 4+"
+        - generic [ref=e40]:
+          - generic [ref=e41]: Funding need
+          - combobox "Funding need" [ref=e42]:
+            - option "High" [selected]
+            - option "Medium"
+            - option "Low"
+        - generic [ref=e43]:
+          - generic [ref=e44]: Main interest
+          - combobox "Main interest" [ref=e45]:
+            - option "Sustainability" [selected]
+            - option "Research"
+            - option "Leadership"
+            - option "Travel"
+            - option "Any interest"
+        - generic [ref=e46]:
+          - generic [ref=e47]: Need tuition support?
+          - combobox "Need tuition support?" [ref=e48]:
+            - option "Yes" [selected]
+            - option "No"
+        - generic [ref=e49]:
+          - generic [ref=e50]: Extra notes
+          - textbox "Extra notes" [ref=e51]:
+            - /placeholder: Optional context about your situation, goals, or constraints
+        - button "Build my ranking" [ref=e52] [cursor=pointer]
+  - contentinfo [ref=e53]:
+    - generic [ref=e54]: iMotive
+    - generic [ref=e55]: Profile-driven scholarship matching.

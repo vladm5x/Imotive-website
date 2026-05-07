@@ -1,0 +1,53 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - link "iMotive home" [ref=e6] [cursor=pointer]:
+        - /url: index.html
+        - text: iMotive
+      - paragraph [ref=e8]:
+        - text: Already have an account?
+        - link "Log in" [ref=e9] [cursor=pointer]:
+          - /url: signup.html?mode=login
+    - generic [ref=e10]:
+      - paragraph [ref=e11]: welcome +
+      - heading "Create your account." [level=1] [ref=e12]
+      - paragraph [ref=e13]: Free forever. We'll match you to scholarships next.
+      - button "G Continue with Google" [ref=e15] [cursor=pointer]:
+        - generic [ref=e16]: G
+        - text: Continue with Google
+      - generic [ref=e18]: or with email
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - text: Email
+          - textbox "Email" [ref=e21]:
+            - /placeholder: you@university.se
+        - generic [ref=e22]:
+          - text: Password
+          - generic [ref=e23]:
+            - textbox "Password Show" [ref=e24]:
+              - /placeholder: 8+ characters
+            - button "Show" [ref=e25] [cursor=pointer]
+        - button "Create account ->" [ref=e26] [cursor=pointer]
+      - paragraph [ref=e27]:
+        - text: By continuing you agree to our
+        - link "Terms" [ref=e28] [cursor=pointer]:
+          - /url: "#"
+        - text: and
+        - link "Privacy Policy" [ref=e29] [cursor=pointer]:
+          - /url: "#"
+        - text: . GDPR-compliant.
+  - complementary [ref=e30]:
+    - generic [ref=e31]:
+      - paragraph [ref=e32]: next up v
+      - heading "After this, a 2-min form unlocks your matches." [level=2] [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]: "1"
+          - strong [ref=e37]: Create your account
+        - generic [ref=e38]:
+          - generic [ref=e39]: "2"
+          - strong [ref=e40]: Tell us about you (10 quick questions)
+        - generic [ref=e41]:
+          - generic [ref=e42]: "3"
+          - strong [ref=e43]: See your scholarship matches
+      - paragraph [ref=e44]: avg. student finds 12 matches +

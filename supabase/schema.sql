@@ -81,6 +81,23 @@ ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS expired boolean DEFAULT fa
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS quality_score integer DEFAULT 50;
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS quality_flags text[] DEFAULT '{}';
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS review_status text DEFAULT 'needs_review';
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS scholarship_name text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS provider_name text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS provider_type text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS source_url text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS final_url text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS application_final_url text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS source_url_status text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS application_url_status text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS url_verified_at timestamptz;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS last_verified_at timestamptz;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS trust_score integer DEFAULT 0;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS validation_status text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS validation_notes text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS deadline_type text DEFAULT 'unknown';
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS is_recurring boolean;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS duplicate_of text;
+ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS page_type text;
 
 -- Add application_url — direct link to the application form/portal (safe to run on existing table)
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS application_url text;
@@ -88,6 +105,23 @@ ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS application_url text;
 ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS quality_score integer DEFAULT 50;
 ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS quality_flags text[] DEFAULT '{}';
 ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS review_status text DEFAULT 'needs_review';
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS scholarship_name text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS provider_name text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS provider_type text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS source_url text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS final_url text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS application_final_url text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS source_url_status text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS application_url_status text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS url_verified_at timestamptz;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS last_verified_at timestamptz;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS trust_score integer DEFAULT 0;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS validation_status text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS validation_notes text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS deadline_type text DEFAULT 'unknown';
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS is_recurring boolean;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS duplicate_of text;
+ALTER TABLE scholarships_expired ADD COLUMN IF NOT EXISTS page_type text;
 
 -- Admin review columns (added for the admin panel)
 ALTER TABLE scholarships_raw ADD COLUMN IF NOT EXISTS admin_notes      text;

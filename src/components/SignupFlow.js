@@ -14,6 +14,13 @@ const STORAGE_KEY = "imotive_signup_answers";
 
 const questions = [
   {
+    id: "name",
+    required: true,
+    type: "name",
+    title: "What's your name?",
+    helper: "Used to pre-fill scholarship applications on your behalf."
+  },
+  {
     id: "university",
     required: true,
     type: "text",
@@ -118,11 +125,33 @@ const questions = [
     ]
   },
   {
+    id: "enrollmentStatus",
+    required: true,
+    type: "cards",
+    title: "Where are you in the process?",
+    helper: "Helps us surface scholarships you can apply to right now.",
+    columns: "two",
+    options: [
+      ["Enrolled", "Currently studying at a university"],
+      ["Accepted", "Admitted, starting soon"],
+      ["Applying", "Sending applications now"],
+      ["Alumni", "Recently graduated"]
+    ]
+  },
+  {
+    id: "docs",
+    required: false,
+    type: "multi",
+    title: "Which documents do you have ready?",
+    helper: "We'll flag how application-ready you are for each scholarship.",
+    options: ["CV / Résumé", "Personal Statement", "Academic Transcripts", "Reference Letter", "Research Proposal", "Financial Documents"]
+  },
+  {
     id: "goals",
     required: false,
     type: "textarea",
     title: "What are you working toward?",
-    helper: "A sentence gives us better project and essay matches.",
+    helper: "A sentence gives us better project and essay matches. This becomes your draft personal statement.",
     placeholder: "Build sustainable robotics for agriculture in the EU."
   }
 ];
@@ -214,33 +243,46 @@ function SignupScreen({ onAdvance, mode = "signup" }) {
         e("h1", null, mode === "login" ? "Log in to your account." : "Create your account."),
         e("p", { className: "signup-subhead" }, mode === "login" ? "Pick up where you left off." : "Free forever. We'll match you to scholarships next."),
         !authReady
-          ? e("p", { className: "auth-setup-note" }, "Developer setup: add your public Supabase URL and anon key in src/lib/supabaseClient.js to activate login.")
-          : null,
-        e(
-          "div",
-          { className: "sso-stack" },
-          e("button", { type: "button", className: "sso-btn", disabled: loading, onClick: continueWithGoogle }, e("span", null, "G"), "Continue with Google")
-        ),
-        e("div", { className: "signup-divider" }, e("span", null, "or with email")),
-        e(
-          "form",
-          { onSubmit: submit, className: "email-form" },
-          e("label", null, "Email", e("input", { type: "email", value: email, onChange: (ev) => setEmail(ev.target.value), placeholder: "you@university.se" })),
-          e(
-            "label",
-            null,
-            "Password",
-            e(
-              "div",
-              { className: "password-field" },
-              e("input", { type: showPassword ? "text" : "password", value: password, onChange: (ev) => setPassword(ev.target.value), placeholder: "8+ characters" }),
-              e("button", { type: "button", onClick: () => setShowPassword(!showPassword) }, showPassword ? "Hide" : "Show")
+          ? e(
+              React.Fragment,
+              null,
+              e("p", { className: "auth-setup-note" }, "Supabase not configured. Use local mode below."),
+              e(
+                "button",
+                { type: "button", className: "signup-primary", onClick: onAdvance },
+                "Continue without account ->"
+              ),
+              e("p", { className: "fine-print" }, "Your answers stay in your browser only.")
             )
-          ),
-          error ? e("p", { className: "signup-error" }, error) : null,
-          e("button", { type: "submit", className: "signup-primary", disabled: loading }, loading ? "Working..." : mode === "login" ? "Log in ->" : "Create account ->")
-        ),
-        e("p", { className: "fine-print" }, "By continuing you agree to our ", e("a", { href: "#" }, "Terms"), " and ", e("a", { href: "#" }, "Privacy Policy"), ". GDPR-compliant.")
+          : e(
+              React.Fragment,
+              null,
+              e(
+                "div",
+                { className: "sso-stack" },
+                e("button", { type: "button", className: "sso-btn", disabled: loading, onClick: continueWithGoogle }, e("span", null, "G"), "Continue with Google")
+              ),
+              e("div", { className: "signup-divider" }, e("span", null, "or with email")),
+              e(
+                "form",
+                { onSubmit: submit, className: "email-form" },
+                e("label", null, "Email", e("input", { type: "email", value: email, onChange: (ev) => setEmail(ev.target.value), placeholder: "you@university.se" })),
+                e(
+                  "label",
+                  null,
+                  "Password",
+                  e(
+                    "div",
+                    { className: "password-field" },
+                    e("input", { type: showPassword ? "text" : "password", value: password, onChange: (ev) => setPassword(ev.target.value), placeholder: "8+ characters" }),
+                    e("button", { type: "button", onClick: () => setShowPassword(!showPassword) }, showPassword ? "Hide" : "Show")
+                  )
+                ),
+                error ? e("p", { className: "signup-error" }, error) : null,
+                e("button", { type: "submit", className: "signup-primary", disabled: loading }, loading ? "Working..." : mode === "login" ? "Log in ->" : "Create account ->")
+              ),
+              e("p", { className: "fine-print" }, "By continuing you agree to our ", e("a", { href: "#" }, "Terms"), " and ", e("a", { href: "#" }, "Privacy Policy"), ". GDPR-compliant.")
+            )
       )
     ),
     e(
@@ -275,7 +317,11 @@ function Wizard({ onComplete }) {
   const [selectedFlash, setSelectedFlash] = React.useState("");
   const question = questions[index];
   const value = answers[question.id];
-  const requiredValid = !question.required || (Array.isArray(value) ? value.length > 0 : Boolean(String(value || "").trim()));
+  const requiredValid = !question.required || (
+    question.type === "name"
+      ? Boolean(String(value?.first || "").trim()) && Boolean(String(value?.last || "").trim())
+      : Array.isArray(value) ? value.length > 0 : Boolean(String(value || "").trim())
+  );
 
   React.useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
@@ -348,6 +394,29 @@ function Wizard({ onComplete }) {
 }
 
 function Field({ question, value, setAnswer, pickCard, selectedFlash, onEnter }) {
+  if (question.type === "name") {
+    const name = (value && typeof value === "object") ? value : { first: "", last: "" };
+    return e(
+      "div",
+      { className: "field-area name-fields" },
+      e("input", {
+        className: "wizard-input",
+        autoFocus: true,
+        value: name.first,
+        placeholder: "First name",
+        onChange: (ev) => setAnswer(question.id, { ...name, first: ev.target.value }),
+        onKeyDown: (ev) => { if (ev.key === "Tab") ev.preventDefault(); if (ev.key === "Enter") onEnter(); }
+      }),
+      e("input", {
+        className: "wizard-input",
+        value: name.last,
+        placeholder: "Last name",
+        onChange: (ev) => setAnswer(question.id, { ...name, last: ev.target.value }),
+        onKeyDown: (ev) => { if (ev.key === "Enter") onEnter(); }
+      })
+    );
+  }
+
   if (question.type === "text") {
     return e(
       "div",
@@ -439,7 +508,7 @@ function Field({ question, value, setAnswer, pickCard, selectedFlash, onEnter })
 function Reveal({ answers }) {
   const [phase, setPhase] = React.useState("loading");
   const [count, setCount] = React.useState(0);
-  const target = 24;
+  const target = 18;
 
   React.useEffect(() => {
     const loadingTimer = window.setTimeout(() => setPhase("reveal"), 2700);
@@ -466,7 +535,7 @@ function Reveal({ answers }) {
           "section",
           { className: "loading-match" },
           e("div", { className: "bounce-dots" }, e("span"), e("span"), e("span")),
-          e("p", null, "scanning 2,431 scholarships...")
+          e("p", null, "scanning scholarships...")
         )
       : e(
           "section",
@@ -475,12 +544,12 @@ function Reveal({ answers }) {
           e("p", { className: "question-eyebrow" }, "you have +"),
           e("div", { className: "match-number" }, e("strong", null, count), e("span", null, "matches!")),
           e("h1", null, "scholarships you qualify for."),
-          e("p", null, `Your top 3 are worth 115,000 kr combined${answers.university ? ` for students like you at ${answers.university}` : ""}.`),
+          e("p", null, answers.university ? `Ranked and filtered for students at ${answers.university}.` : "Ranked and filtered for your profile."),
           e(
             "div",
             { className: "reveal-actions" },
             e("a", { href: "results.html", className: "green-btn" }, "See my matches ->"),
-            e("a", { href: "index.html#scholarships", className: "ghost-btn" }, "Browse all")
+            e("a", { href: "account.html", className: "ghost-btn" }, "Browse all")
           )
         )
   );

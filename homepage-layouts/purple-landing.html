@@ -1023,6 +1023,32 @@
   }
   @media (max-width: 720px) { .final-deco-l, .final-deco-r { display: none; } }
 
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .72s cubic-bezier(.22,1,.36,1), transform .72s cubic-bezier(.22,1,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .rv1 { transition-delay: .1s; } .rv2 { transition-delay: .2s; } .rv3 { transition-delay: .32s; }
+  .rv4 { transition-delay: .44s; }
+
+  /* ─── SOURCE NODE HOVER ─── */
+  .src { transition: transform .18s ease, box-shadow .18s ease; }
+  .src:hover { transform: translateY(-4px); box-shadow: 0 16px 36px -12px rgba(17,17,17,.18); }
+
+  /* ─── QUOTE HOVER ─── */
+  .quote { transition: transform .18s ease; }
+  .quote:hover { transform: translateY(-3px); }
+
+  /* ─── STEP HOVER ─── */
+  .step { transition: transform .2s ease, box-shadow .2s ease; }
+  .step:hover { transform: translateY(-5px); box-shadow: 0 24px 56px -20px rgba(17,17,17,.22); }
+
+  /* ─── PANEL HOVER ─── */
+  .panel { transition: transform .18s ease, box-shadow .18s ease; }
+  .panel:hover { transform: translateY(-3px); box-shadow: 0 20px 48px -16px rgba(17,17,17,.12); }
+
+  /* ─── STAT HOVER ─── */
+  .stat-grid .stat { transition: transform .18s ease; }
+  .stat-grid .stat:hover { transform: translateY(-3px); }
+
   /* ============ FOOTER ============ */
   footer {
     padding: 80px 0 40px;
@@ -1191,7 +1217,7 @@
 </section>
 
 <!-- =================== DASHBOARD =================== -->
-<section class="section" id="dash">
+<section class="section reveal" id="dash">
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -1353,7 +1379,7 @@
 </section>
 
 <!-- =================== TRACKING =================== -->
-<section class="section section-tight" style="background:var(--off); border-radius: 36px; margin: 0 24px;">
+<section class="section section-tight reveal" style="background:var(--off); border-radius: 36px; margin: 0 24px;">
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -1522,7 +1548,7 @@
 </section>
 
 <!-- =================== HOW IT WORKS =================== -->
-<section class="section" id="how">
+<section class="section reveal" id="how">
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -1532,7 +1558,7 @@
       <p>iMotive replaces the search-bookmark-forget loop with a clean three-step rhythm. Most students find their first match in under 10 minutes.</p>
     </div>
     <div class="steps">
-      <div class="step s-orange">
+      <div class="step s-orange reveal rv1">
         <div>
           <div class="num">01 / Search</div>
           <h3>Browse verified sources.</h3>
@@ -1540,7 +1566,7 @@
         </div>
         <div class="step-vis"><div class="vs-doc"><i></i><i></i><i></i></div></div>
       </div>
-      <div class="step s-pink">
+      <div class="step s-pink reveal rv2">
         <div>
           <div class="num">02 / Filter</div>
           <h3>Match your profile.</h3>
@@ -1548,7 +1574,7 @@
         </div>
         <div class="step-vis"><div class="vs-coin"></div><div class="vs-cube"></div></div>
       </div>
-      <div class="step s-purple">
+      <div class="step s-purple reveal rv3">
         <div>
           <div class="num">03 / Apply</div>
           <h3>Save &amp; apply on time.</h3>
@@ -1561,7 +1587,7 @@
 </section>
 
 <!-- =================== STATS =================== -->
-<section class="section" id="stats">
+<section class="section reveal" id="stats">
   <div class="wrap">
     <div class="stats">
       <div class="stats-head">
@@ -1579,7 +1605,7 @@
 </section>
 
 <!-- =================== TESTIMONIALS =================== -->
-<section class="section section-tight">
+<section class="section section-tight reveal">
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -1589,21 +1615,21 @@
       <p>From first-gen undergrads to grad researchers — students use iMotive to stop guessing what's out there and start applying.</p>
     </div>
     <div class="quote-grid">
-      <div class="quote">
+      <div class="quote reveal rv1">
         <p>"I didn't know half of these scholarships existed. I found three matches in my first session and applied to two of them that weekend."</p>
         <div class="quoter">
           <div class="avatar a-pink">MR</div>
           <div><b>Maya R.</b><span>CS Undergrad · Year 3</span></div>
         </div>
       </div>
-      <div class="quote dark">
+      <div class="quote dark reveal rv2">
         <p>"This made scholarship searching feel manageable for the first time. Deadlines, documents, status — all in one place."</p>
         <div class="quoter">
           <div class="avatar a-yellow">JT</div>
           <div><b>Jordan T.</b><span>Public Health · Grad</span></div>
         </div>
       </div>
-      <div class="quote bright">
+      <div class="quote bright reveal rv3">
         <p>"I saved all my deadlines in one place and stopped missing them. Won my first $5k grant in week 2."</p>
         <div class="quoter">
           <div class="avatar a-purple">AK</div>
@@ -1615,7 +1641,7 @@
 </section>
 
 <!-- =================== FAQ =================== -->
-<section class="section" id="faq">
+<section class="section reveal" id="faq">
   <div class="wrap">
     <div class="faq-grid">
       <div>
@@ -1650,7 +1676,7 @@
 </section>
 
 <!-- =================== FINAL CTA =================== -->
-<section class="section" id="cta">
+<section class="section reveal" id="cta">
   <div class="wrap">
     <div class="final">
       <div class="final-deco-l"></div>
@@ -1700,6 +1726,13 @@
       btn.parentElement.classList.toggle('open');
     });
   });
+
+  (function(){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+  })();
 </script>
 
 </body>

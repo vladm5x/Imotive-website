@@ -1,0 +1,92 @@
+=== Grantly Scholarship Scraper ===
+
+Loaded 24 seed scholarships
+
+Running 53 sources in batches of 6...
+
+Scraping Lund University...
+Scraping KTH Royal Institute of Technology...
+Scraping Uppsala University...
+Scraping Stockholm University...
+Scraping Chalmers University of Technology...
+Scraping University of Gothenburg...
+  University of Gothenburg (scholarships-for-fee-paying-students): 2 so far
+  Chalmers University of Technology (root): 12 so far
+  Uppsala University (scholarships): 2 so far
+  Lund University (scholarships-and-awards): 1 so far
+  KTH Royal Institute of Technology (kth-scholarship-1.72827): 2 so far
+  Stockholm University (scholarships): 6 so far
+  [deep] 2 entries need enrichment (University of Gothenburg) (0 already done, skipping 0 already-rich)
+  [deep] 2 entries need enrichment (KTH Royal Institute of Technology) (0 already done, skipping 0 already-rich)
+  [deep] 11 entries need enrichment (Chalmers University of Technology) (0 already done, skipping 1 already-rich)
+  [deep] 2 entries need enrichment (Uppsala University) (0 already done, skipping 0 already-rich)
+  [deep] 2/2 enriched
+  [deep] 6 entries need enrichment (Stockholm University) (0 already done, skipping 0 already-rich)
+  Lund University (root): 9 so far
+  [deep] 2/2 enriched
+  [deep] 2/2 enriched
+  [deep] 6/6 enriched
+  Lund University (summer-scholarships): 9 so far
+  [deep] 11/11 enriched
+  [deep] 8 entries need enrichment (Lund University) (0 already done, skipping 1 already-rich)
+  [deep] 8/8 enriched
+  -> 9 scholarships
+
+  -> 2 scholarships
+
+  -> 2 scholarships
+
+  -> 6 scholarships
+
+  -> 12 scholarships
+
+  -> 2 scholarships
+
+Scraping Linköping University...
+Scraping Umeå University...
+Scraping Malmö University...
+Scraping Örebro University...
+Scraping Jönköping University...
+Scraping Karlstad University...
+  Karlstad University (scholarships): 13 so far
+  Umeå University (root): 1 so far
+  Linköping University (scholarships): 1 so far
+  Jönköping University (scholarships-and-funding.html): 11 so far
+  Malmö University (root): 5 so far
+  Örebro University (root): 2 so far
+  [deep] 1 entries need enrichment (Umeå University) (0 already done, skipping 0 already-rich)
+  [deep] 1 entries need enrichment (Linköping University) (0 already done, skipping 0 already-rich)
+  [deep] 11 entries need enrichment (Jönköping University) (0 already done, skipping 0 already-rich)
+  [deep] 13 entries need enrichment (Karlstad University) (0 already done, skipping 0 already-rich)
+  [deep] 1/1 enriched
+  [deep] 1/1 enriched
+  [deep] 5 entries need enrichment (Malmö University) (0 already done, skipping 0 already-rich)
+  [deep] 1 entries need enrichment (Örebro University) (0 already done, skipping 1 already-rich)
+  [deep] 1/1 enriched
+  [deep] 5/5 enriched
+  [deep] 11/11 enriched
+  [deep] 13/13 enriched
+  -> 1 scholarships
+
+  -> 1 scholarships
+
+  -> 5 scholarships
+
+  -> 2 scholarships
+
+  -> 11 scholarships
+
+  -> 13 scholarships
+
+Scraping Mälardalen University...
+Scraping Halmstad University...
+Scraping Karolinska Institutet...
+Scraping Swedish University of Agricultural Sciences...
+Scraping Blekinge Institute of Technology...
+Scraping Mid Sweden University...
+  Mälardalen University (malardalen-university-scholarship-programme): 0 so far
+  Swedish University of Agricultural Sciences (root): 3 so far
+  Mid Sweden University (root): 3 so far
+  Blekinge Institute of Technology (scholarships): 4 so far
+  Halmstad University (scholarships.html): 8 so far
+  Karolinska Institutet (scholarships): 1 so far

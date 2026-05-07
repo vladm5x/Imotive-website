@@ -1,0 +1,91 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "iMotive" [ref=e5] [cursor=pointer]:
+      - /url: index.html
+      - text: iMotive
+    - link "← Back to results" [ref=e7] [cursor=pointer]:
+      - /url: results.html
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - paragraph [ref=e11]: Lund University
+        - heading "Lund University Global Scholarship" [level=1] [ref=e12]
+        - generic [ref=e13]:
+          - generic [ref=e14]: Full tuition fee waiver
+          - generic [ref=e15]: 253d left — 15 Jan 2027
+          - generic [ref=e16]: Check eligibility
+        - paragraph [ref=e17]: "Note: Nationality: International non-EU"
+      - generic [ref=e18]:
+        - heading "Pre-filled Application Fields" [level=2] [ref=e19]
+        - paragraph [ref=e20]: Hi Emma — here's what we know about you. Copy each field straight into the form.
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - generic [ref=e25]: first name
+            - generic [ref=e27]: Emma
+            - button "Copy" [ref=e28] [cursor=pointer]
+          - generic [ref=e29]:
+            - generic [ref=e32]: last name
+            - generic [ref=e34]: Lindqvist
+            - button "Copy" [ref=e35] [cursor=pointer]
+          - generic [ref=e36]:
+            - generic [ref=e39]: email
+            - generic [ref=e40]: Not in profile — add via quiz
+          - generic [ref=e41]:
+            - generic [ref=e44]: CV
+            - generic [ref=e45]: Ready to attach
+          - generic [ref=e46]:
+            - generic [ref=e49]: academic records
+            - generic [ref=e50]: Ready to attach
+          - generic [ref=e51]:
+            - generic [ref=e54]: personal statement
+            - generic [ref=e55]: I aim to develop sustainable AI systems for energy optimization in Nordic cities, combining my engineering background with real-world climate impact.
+          - generic [ref=e56]:
+            - generic [ref=e59]: proof of enrolment
+            - generic [ref=e61]: Confirmed — letter available on request
+            - button "Copy" [ref=e62] [cursor=pointer]
+        - generic [ref=e64]:
+          - generic [ref=e65]: Profile completeness
+          - strong [ref=e66]: 86%
+      - generic [ref=e69]:
+        - heading "Documents Required" [level=2] [ref=e70]
+        - list [ref=e71]:
+          - listitem [ref=e72]:
+            - generic [ref=e73]: ✓
+            - generic [ref=e74]: CV / Résumé
+            - generic [ref=e75]: Ready
+          - listitem [ref=e76]:
+            - generic [ref=e77]: ✓
+            - generic [ref=e78]: Personal Statement
+            - generic [ref=e79]: Ready
+          - listitem [ref=e80]:
+            - generic [ref=e81]: ✓
+            - generic [ref=e82]: Academic Transcripts
+            - generic [ref=e83]: Ready
+        - generic [ref=e85]:
+          - generic [ref=e86]: Documents ready
+          - strong [ref=e87]: 100%
+      - generic [ref=e90]:
+        - link "Apply Now →" [ref=e91] [cursor=pointer]:
+          - /url: https://www.lunduniversity.lu.se/international-admissions/fees-funding/scholarships/lund-university-global-scholarship
+        - link "Update my profile" [ref=e92] [cursor=pointer]:
+          - /url: signup.html
+    - complementary [ref=e93]:
+      - heading "About this scholarship" [level=3] [ref=e94]
+      - generic [ref=e95]:
+        - paragraph [ref=e96]: Eligibility
+        - paragraph [ref=e97]: Non-EU/EEA fee-paying students who have been admitted to a master's programme at Lund University. Selection based on academic excellence.
+      - generic [ref=e98]:
+        - paragraph [ref=e99]: How to apply
+        - paragraph [ref=e100]: Apply through the Lund University scholarship portal during the admissions period.
+      - generic [ref=e101]:
+        - paragraph [ref=e102]: Required documents
+        - paragraph [ref=e103]: CV, academic transcripts, motivation letter. See scholarship page for full list.
+      - generic [ref=e104]:
+        - paragraph [ref=e105]: Match score
+        - paragraph [ref=e106]: 49 / 100
+        - list [ref=e107]:
+          - listitem [ref=e108]: Master
+          - listitem [ref=e109]: Engineering
+          - listitem [ref=e110]: Medium funding need
+          - listitem [ref=e111]: Broad interest fit
+          - listitem [ref=e112]: Open deadline

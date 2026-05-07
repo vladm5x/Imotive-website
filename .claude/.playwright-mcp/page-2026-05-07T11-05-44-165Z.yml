@@ -1,0 +1,226 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "iMotive" [ref=e4] [cursor=pointer]:
+        - /url: "#home"
+        - strong [ref=e6]: iMotive
+      - navigation [ref=e7]:
+        - link "Browse" [ref=e8] [cursor=pointer]:
+          - /url: "#scholarships"
+        - link "How it works" [ref=e9] [cursor=pointer]:
+          - /url: "#how-it-works"
+        - link "For universities" [ref=e10] [cursor=pointer]:
+          - /url: "#universities"
+        - link "Community" [ref=e11] [cursor=pointer]:
+          - /url: homepage-layouts/original-forum.html
+        - link "Dashboard" [ref=e12] [cursor=pointer]:
+          - /url: homepage-layouts/original-account.html
+        - link "Profile" [ref=e13] [cursor=pointer]:
+          - /url: homepage-layouts/original-profile.html
+      - generic [ref=e14]:
+        - link "Log in" [ref=e15] [cursor=pointer]:
+          - /url: http://localhost:4173/signup.html?mode=login
+        - link "Sign up" [ref=e16] [cursor=pointer]:
+          - /url: http://localhost:4173/signup.html
+  - main [ref=e17]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - paragraph [ref=e21]:
+          - text: hi there
+          - img [ref=e22]
+        - heading "Scholarships that actually fit you." [level=1] [ref=e24]:
+          - generic [ref=e25]: Scholarships that
+          - generic [ref=e26]: actually fit you.
+        - paragraph [ref=e27]: We collect every scholarship for university students in one place - so you stop scrolling and start applying.
+        - generic [ref=e28]:
+          - img [ref=e29]
+          - textbox "Try \"engineering, masters, Lund\"" [ref=e32]
+          - button "Search" [ref=e33] [cursor=pointer]
+        - generic [ref=e34]:
+          - link "Browse all 2,400+ ->" [ref=e35] [cursor=pointer]:
+            - /url: http://localhost:4173/signup.html
+          - generic [ref=e36]: or, sign up to get matches
+        - paragraph [ref=e43]: Joined this week by 312 students
+      - generic [ref=e44]:
+        - paragraph [ref=e45]:
+          - text: matching unlocks
+          - text: after sign-up
+        - generic [ref=e47]:
+          - paragraph [ref=e48]: v search results preview
+          - generic [ref=e50]:
+            - generic [ref=e51]: Wallenberg Engineering Grant
+            - strong [ref=e52]: 50,000 kr
+          - generic [ref=e56]:
+            - generic [ref=e57]: Lund Sustainability Fund
+            - strong [ref=e58]: 40,000 kr
+          - generic [ref=e62]:
+            - generic [ref=e63]: KTH Robotics Grant
+            - strong [ref=e64]: 60,000 kr
+          - link "locklock Sign up to see your match score on every result." [ref=e67] [cursor=pointer]:
+            - /url: http://localhost:4173/signup.html
+            - generic [ref=e68]: locklock
+            - strong [ref=e69]: Sign up
+            - text: to see your match score on every result.
+    - generic [ref=e71]:
+      - paragraph [ref=e72]: trusted by students at
+      - generic [ref=e73]:
+        - generic [ref=e74]: Lund University
+        - generic [ref=e75]: KTH
+        - generic [ref=e76]: Uppsala
+        - generic [ref=e77]: Chalmers
+        - generic [ref=e78]: Stockholm
+        - generic [ref=e79]: Goteborg
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - paragraph [ref=e84]: / a peek at what's inside
+          - heading "Featured scholarships this week." [level=2] [ref=e85]
+          - paragraph [ref=e86]: Sign up to see which ones fit you.
+        - link "browse all 2,400+ ->" [ref=e87] [cursor=pointer]:
+          - /url: http://localhost:4173/signup.html
+      - generic [ref=e88]:
+        - link "View scholarship signup" [ref=e89] [cursor=pointer]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: Engineering - Masters
+            - strong [ref=e92]: 40,000 kr
+          - heading "Sustainable Engineering Fund" [level=3] [ref=e93]
+          - paragraph [ref=e94]: For master's students researching sustainability.
+          - generic [ref=e95]:
+            - generic [ref=e96]: Deadline
+            - strong [ref=e97]: 9 days left
+          - generic [ref=e100]: Easy apply
+          - link "Apply ->" [ref=e101]:
+            - /url: http://localhost:4173/signup.html
+        - link "View scholarship signup" [ref=e102] [cursor=pointer]:
+          - generic [ref=e103]:
+            - generic [ref=e104]: Engineering - Masters
+            - strong [ref=e105]: 60,000 kr
+          - heading "Wallenberg Robotics Grant" [level=3] [ref=e106]
+          - paragraph [ref=e107]: Supports robotics research projects.
+          - generic [ref=e108]:
+            - generic [ref=e109]: Deadline
+            - strong [ref=e110]: 33 days left
+          - generic [ref=e113]: Medium apply
+          - link "Apply ->" [ref=e114]:
+            - /url: http://localhost:4173/signup.html
+        - link "View scholarship signup" [ref=e115] [cursor=pointer]:
+          - generic [ref=e116]:
+            - generic [ref=e117]: Engineering - Masters
+            - strong [ref=e118]: 15,000 kr
+          - heading "Lund Women in STEM" [level=3] [ref=e119]
+          - paragraph [ref=e120]: Open application, short essay required.
+          - generic [ref=e121]:
+            - generic [ref=e122]: Deadline
+            - strong [ref=e123]: 21 days left
+          - generic [ref=e126]: Easy apply
+          - link "Apply ->" [ref=e127]:
+            - /url: http://localhost:4173/signup.html
+    - generic [ref=e129]:
+      - generic [ref=e130]:
+        - heading "From confused to confident in 3 steps." [level=2] [ref=e131]
+        - paragraph [ref=e132]: No friction. No hidden steps.
+      - generic [ref=e133]:
+        - article [ref=e134]:
+          - generic [ref=e135]: "1"
+          - heading "Search or build a profile" [level=3] [ref=e136]
+          - paragraph [ref=e137]: Tell us your field, level, and a few interests.
+        - article [ref=e138]:
+          - generic [ref=e139]: "2"
+          - heading "Filter by what matters" [level=3] [ref=e140]
+          - paragraph [ref=e141]: Match score, amount, deadline, or effort.
+        - article [ref=e142]:
+          - generic [ref=e143]: "3"
+          - heading "Apply and track" [level=3] [ref=e144]
+          - paragraph [ref=e145]: Save drafts, set reminders, see status.
+    - generic [ref=e147]:
+      - generic [ref=e148]:
+        - paragraph [ref=e149]: / why students like it
+        - heading "Less time hunting, more time applying." [level=2] [ref=e150]
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - generic [ref=e153]: OK
+            - generic [ref=e154]:
+              - heading "Save 6+ hours a month" [level=3] [ref=e155]
+              - paragraph [ref=e156]: No more bouncing between university pages.
+          - generic [ref=e157]:
+            - generic [ref=e158]: OK
+            - generic [ref=e159]:
+              - heading "Discover what you didn't know" [level=3] [ref=e160]
+              - paragraph [ref=e161]: Niche & private grants surface automatically.
+          - generic [ref=e162]:
+            - generic [ref=e163]: OK
+            - generic [ref=e164]:
+              - heading "Personalized matches" [level=3] [ref=e165]
+              - paragraph [ref=e166]: The more you tell us, the better it gets.
+      - generic [ref=e167]:
+        - generic [ref=e168]: "\""
+        - blockquote [ref=e169]: I found 4 scholarships I qualified for in my first session. Got 2 of them. Paid my whole semester.
+        - generic [ref=e170]:
+          - generic [ref=e171]: SL
+          - generic [ref=e172]:
+            - paragraph [ref=e173]: Sara L.
+            - paragraph [ref=e174]: MSc Engineering, Lund
+    - generic [ref=e176]:
+      - generic [ref=e177]:
+        - paragraph [ref=e178]: / for universities
+        - heading "Make funding easier to find before students ask." [level=2] [ref=e179]
+        - paragraph [ref=e180]: iMotive helps scholarship teams turn scattered funding pages into a student-friendly discovery layer, with cleaner matching data and clearer application signals.
+        - link "Talk to us ->" [ref=e181] [cursor=pointer]:
+          - /url: contact.html
+      - generic "University partner support" [ref=e182]:
+        - article [ref=e183]:
+          - generic [ref=e184]: "01"
+          - heading "Clean scholarship listings" [level=3] [ref=e185]
+          - paragraph [ref=e186]: Turn deadlines, requirements, amounts, and eligibility notes into consistent records students can search.
+        - article [ref=e187]:
+          - generic [ref=e188]: "02"
+          - heading "Better student matching" [level=3] [ref=e189]
+          - paragraph [ref=e190]: Help students understand what fits their programme, level, nationality, and funding needs.
+        - article [ref=e191]:
+          - generic [ref=e192]: "03"
+          - heading "Demand signals" [level=3] [ref=e193]
+          - paragraph [ref=e194]: See what students are searching for, where they drop off, and which grants need clearer instructions.
+    - generic [ref=e196]:
+      - paragraph [ref=e197]: 2 minutes. that's all.
+      - heading "Start finding your scholarships." [level=2] [ref=e198]
+      - generic [ref=e199]:
+        - link "Start searching ->" [ref=e200] [cursor=pointer]:
+          - /url: http://localhost:4173/signup.html
+        - link "Browse instead" [ref=e201] [cursor=pointer]:
+          - /url: http://localhost:4173/signup.html
+  - contentinfo [ref=e202]:
+    - generic [ref=e203]:
+      - generic [ref=e204]:
+        - generic [ref=e207]: iMotive
+        - paragraph [ref=e208]: Scholarship discovery for university students in Sweden.
+      - generic [ref=e209]:
+        - paragraph [ref=e210]: Product
+        - generic [ref=e211]:
+          - link "Browse scholarships" [ref=e212] [cursor=pointer]:
+            - /url: http://localhost:4173/signup.html
+          - link "How it works" [ref=e213] [cursor=pointer]:
+            - /url: "#how-it-works"
+          - link "Sign up free" [ref=e214] [cursor=pointer]:
+            - /url: http://localhost:4173/signup.html
+      - generic [ref=e215]:
+        - paragraph [ref=e216]: Company
+        - generic [ref=e217]:
+          - link "About" [ref=e218] [cursor=pointer]:
+            - /url: about.html
+          - link "For universities" [ref=e219] [cursor=pointer]:
+            - /url: "#universities"
+          - link "Contact" [ref=e220] [cursor=pointer]:
+            - /url: contact.html
+      - generic [ref=e221]:
+        - paragraph [ref=e222]: Legal
+        - generic [ref=e223]:
+          - link "Privacy" [ref=e224] [cursor=pointer]:
+            - /url: privacy.html
+          - link "Terms" [ref=e225] [cursor=pointer]:
+            - /url: terms.html
+    - generic [ref=e226]: © 2026 iMotive. All rights reserved.
+  - generic [ref=e227]:
+    - link "Open layout preview panel" [ref=e228] [cursor=pointer]:
+      - /url: http://localhost:4173/layouts-admin.html
+      - generic [ref=e230]: Preview looks
+    - button "Hide layout preview button" [ref=e231] [cursor=pointer]: ×

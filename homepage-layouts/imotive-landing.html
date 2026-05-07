@@ -248,6 +248,13 @@
     .final h2{font-size:clamp(48px,12vw,180px)}
     .foot-mark{font-size:clamp(56px,14vw,260px)}
   }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  .rv1{transition-delay:.1s} .rv2{transition-delay:.2s} .rv3{transition-delay:.32s}
+  /* ─── MARQUEE PAUSE ─── */
+  .marquee .track:hover{animation-play-state:paused;cursor:default}
 </style>
 </head>
 <body>
@@ -342,7 +349,7 @@
 </div>
 
 <!-- FEATURES -->
-<section class="features">
+<section class="features reveal">
   <div class="features-inner">
     <div class="eyebrow">Why iMotive</div>
     <h2 class="display">Built to make funding<br/><em>actually findable.</em></h2>
@@ -405,7 +412,7 @@
 </section>
 
 <!-- DISCOVERY DASHBOARD PREVIEW -->
-<section class="dash" id="discover">
+<section class="dash reveal" id="discover">
   <svg class="doodle" style="left:5%;top:8%;width:120px;height:120px" viewBox="0 0 120 120" aria-hidden="true">
     <circle cx="60" cy="60" r="40"/><path d="M60 30 V90 M30 60 H90"/>
   </svg>
@@ -487,7 +494,7 @@
 </section>
 
 <!-- BIG VALUE BLOCK -->
-<section class="value">
+<section class="value reveal">
   <svg class="doodle" style="left:3%;top:8%;width:160px;height:120px" viewBox="0 0 160 120" aria-hidden="true">
     <path d="M10 100 H150"/><path d="M30 100 V60 H50 V100"/><path d="M70 100 V40 H90 V100"/><path d="M110 100 V70 H130 V100"/>
   </svg>
@@ -556,7 +563,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="how">
+<section class="how reveal" id="how">
   <div class="how-inner">
     <div class="eyebrow">From signup to award</div>
     <h2 class="display">Three steps. Real money.<br/><em>Zero busywork.</em></h2>
@@ -646,7 +653,7 @@
 </section>
 
 <!-- SOCIAL PROOF -->
-<section class="proof" id="proof">
+<section class="proof reveal" id="proof">
   <div class="proof-inner">
     <div class="eyebrow">Built for students. Designed to save time.</div>
     <h2 class="display">Funding shouldn't<br/>feel like a <em>part-time job.</em></h2>
@@ -714,7 +721,7 @@
 </section>
 
 <!-- FINAL CTA -->
-<section class="final">
+<section class="final reveal">
   <svg class="doodle" style="left:6%;top:18%;width:80px;height:80px" viewBox="0 0 80 80" aria-hidden="true"><path d="M10 70 L40 10 L70 70 Z"/></svg>
   <svg class="doodle" style="right:8%;top:14%;width:90px;height:90px" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="32"/><path d="M45 14 V76 M14 45 H76"/></svg>
   <svg class="doodle" style="left:14%;bottom:14%;width:120px;height:60px" viewBox="0 0 120 60" aria-hidden="true"><path d="M2 50 Q30 4 60 28 Q90 52 118 12"/></svg>
@@ -808,6 +815,14 @@
       if (el) { ev.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
+</script>
+<script>
+  (function(){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+  })();
 </script>
 
 </body>

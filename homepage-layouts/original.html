@@ -10,6 +10,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/styles.css" />
+  <style>
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .72s cubic-bezier(.22,1,.36,1), transform .72s cubic-bezier(.22,1,.36,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    .rv1 { transition-delay: .1s; } .rv2 { transition-delay: .2s; } .rv3 { transition-delay: .32s; }
+
+    /* ─── SCHOLARSHIP CARD HOVER ─── */
+    article.scholarship-card { transition: transform .18s ease, box-shadow .18s ease; }
+    article.scholarship-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px -12px rgba(0,0,0,.15); }
+
+    /* ─── STEP CARD HOVER ─── */
+    article.step-card { transition: transform .18s ease; }
+    article.step-card:hover { transform: translateY(-3px); }
+
+    /* ─── PARTNER ARTICLES ─── */
+    .partner-stack article { transition: transform .18s ease; }
+    .partner-stack article:hover { transform: translateX(4px); }
+
+    /* ─── CTA HOVER ─── */
+    .cta-primary, .cta-secondary, .pill-btn { transition: transform .15s ease !important; }
+    .cta-primary:hover, .pill-btn:hover { transform: translateY(-2px) !important; }
+  </style>
 </head>
 <body>
 
@@ -121,7 +143,7 @@
       </div>
     </section>
 
-    <section id="scholarships" class="featured-section">
+    <section id="scholarships" class="featured-section reveal">
       <div class="home-shell">
         <div class="section-heading-row">
           <div>
@@ -133,7 +155,7 @@
         </div>
         <div class="scholarship-grid">
 
-          <article class="scholarship-card" data-signup-card tabindex="0" role="link" aria-label="View scholarship signup">
+          <article class="scholarship-card reveal rv1" data-signup-card tabindex="0" role="link" aria-label="View scholarship signup">
             <div class="scholarship-card-top">
               <span class="tiny-pill">Engineering - Masters</span>
               <strong>40,000 kr</strong>
@@ -149,7 +171,7 @@
             <a href="homepage-layouts/original-signup.html" class="apply-btn">Apply -&gt;</a>
           </article>
 
-          <article class="scholarship-card" data-signup-card tabindex="0" role="link" aria-label="View scholarship signup">
+          <article class="scholarship-card reveal rv2" data-signup-card tabindex="0" role="link" aria-label="View scholarship signup">
             <div class="scholarship-card-top">
               <span class="tiny-pill">Engineering - Masters</span>
               <strong>60,000 kr</strong>
@@ -165,7 +187,7 @@
             <a href="homepage-layouts/original-signup.html" class="apply-btn">Apply -&gt;</a>
           </article>
 
-          <article class="scholarship-card" data-signup-card tabindex="0" role="link" aria-label="View scholarship signup">
+          <article class="scholarship-card reveal rv3" data-signup-card tabindex="0" role="link" aria-label="View scholarship signup">
             <div class="scholarship-card-top">
               <span class="tiny-pill">Engineering - Masters</span>
               <strong>15,000 kr</strong>
@@ -185,24 +207,24 @@
       </div>
     </section>
 
-    <section id="how-it-works" class="how-section">
+    <section id="how-it-works" class="how-section reveal">
       <div class="home-shell">
         <div class="how-heading">
           <h2 class="hand-title">From confused to confident in 3 steps.</h2>
           <p>No friction. No hidden steps.</p>
         </div>
         <div class="how-grid">
-          <article class="step-card">
+          <article class="step-card reveal rv1">
             <span>1</span>
             <h3 class="hand-title">Search or build a profile</h3>
             <p>Tell us your field, level, and a few interests.</p>
           </article>
-          <article class="step-card">
+          <article class="step-card reveal rv2">
             <span>2</span>
             <h3 class="hand-title">Filter by what matters</h3>
             <p>Match score, amount, deadline, or effort.</p>
           </article>
-          <article class="step-card">
+          <article class="step-card reveal rv3">
             <span>3</span>
             <h3 class="hand-title">Apply and track</h3>
             <p>Save drafts, set reminders, see status.</p>
@@ -211,7 +233,7 @@
       </div>
     </section>
 
-    <section class="benefits-section">
+    <section class="benefits-section reveal">
       <div class="home-shell benefits-grid">
         <div class="benefits-copy">
           <p class="benefits-eyebrow">/ why students like it</p>
@@ -254,7 +276,7 @@
       </div>
     </section>
 
-    <section id="universities" class="universities-section">
+    <section id="universities" class="universities-section reveal">
       <div class="home-shell universities-grid">
         <div class="universities-copy">
           <p class="hand-note slash-note">/ for universities</p>
@@ -282,7 +304,7 @@
       </div>
     </section>
 
-    <section class="cta-section">
+    <section class="cta-section reveal">
       <div class="cta-inner">
         <p>2 minutes. that's all.</p>
         <h2>Start finding your scholarships.</h2>
@@ -332,6 +354,14 @@
   </footer>
 
   <script type="module" src="src/home.js"></script>
+  <script>
+    (function(){
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+      }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+    })();
+  </script>
 
 </body>
 </html>

@@ -8,7 +8,8 @@
     "audit:data": "node functions/audit-data.js",
     "scrape:debug": "node functions/scraper.js --debug-scrape",
     "scrape:status": "node functions/scraper.js --status",
-    "push-json": "node functions/scraper.js --push-json"
+    "push-json": "node functions/scraper.js --push-json",
+    "test:scraper": "node functions/scraper.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

@@ -1,0 +1,53 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "iMotive home" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - strong [ref=e7]: iMotive
+      - navigation [ref=e8]:
+        - link "Browse" [ref=e9] [cursor=pointer]:
+          - /url: account.html
+        - link "My matches" [ref=e10] [cursor=pointer]:
+          - /url: results.html
+        - link "How it works" [ref=e11] [cursor=pointer]:
+          - /url: index.html#how-it-works
+      - generic [ref=e12]:
+        - link "Log in" [ref=e13] [cursor=pointer]:
+          - /url: signup.html?mode=login
+        - link "Sign up" [ref=e14] [cursor=pointer]:
+          - /url: signup.html
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - heading "Find scholarships, Anna." [level=1] [ref=e18]
+        - paragraph [ref=e19]: Matches are tuned for Lund University.
+      - generic "Search scholarships" [ref=e21]:
+        - generic [ref=e22]: Q
+        - searchbox "Search scholarships" [ref=e23]
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]: "Filter:"
+        - combobox "Filter by field" [ref=e28] [cursor=pointer]:
+          - option "All fields" [selected]
+          - option "Engineering"
+          - option "IT"
+          - option "Computer Science"
+          - option "Business"
+          - option "Economics"
+          - option "Medicine"
+          - option "Natural sciences"
+          - option "Humanities"
+          - option "Social sciences"
+          - option "Law"
+          - option "Architecture"
+        - combobox "Filter by level" [ref=e29] [cursor=pointer]:
+          - option "Any level" [selected]
+          - option "Bachelor"
+          - option "Master"
+          - option "PhD"
+      - generic [ref=e30]:
+        - generic [ref=e31]: "Sort:"
+        - combobox "Sort results" [ref=e32] [cursor=pointer]:
+          - option "Best match" [selected]
+          - option "Deadline"
+    - generic [ref=e33]: Loading scholarships...

@@ -1,203 +1,241 @@
 import React from "https://esm.sh/react@18.2.0";
 import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
 import { getSession, getUserProfile, isSupabaseConfigured, signOut } from "./lib/account.js";
+import { fetchScholarships } from "./lib/scholarships.js";
+import { rankScholarships, daysUntil } from "./lib/matching.js";
 
 const e = React.createElement;
 
-const scholarships = [
-  {
-    title: "Wallenberg Engineering",
-    amount: "50,000 kr",
-    match: 94,
-    description: "Open to all engineering masters.",
-    daysLeft: 12,
-    progress: 75,
-    effort: "Easy apply"
-  },
-  {
-    title: "Lund Sustainability Fund",
-    amount: "40,000 kr",
-    match: 91,
-    description: "For students researching climate.",
-    daysLeft: 9,
-    progress: 82,
-    effort: "Easy apply"
-  },
-  {
-    title: "KTH Robotics Grant",
-    amount: "60,000 kr",
-    match: 88,
-    description: "Robotics research projects.",
-    daysLeft: 33,
-    progress: 38,
-    effort: "Medium apply"
-  },
-  {
-    title: "Erasmus+ Mobility",
-    amount: "EUR 3,200",
-    match: 81,
-    description: "Exchange semester EU-wide.",
-    daysLeft: 64,
-    progress: 18,
-    effort: "Easy apply"
-  },
-  {
-    title: "Women in STEM Fund",
-    amount: "15,000 kr",
-    match: 77,
-    description: "Short essay, open eligibility.",
-    daysLeft: 21,
-    progress: 47,
-    effort: "Easy apply"
-  },
-  {
-    title: "Nordic Research Award",
-    amount: "25,000 kr",
-    match: 72,
-    description: "For published research only.",
-    daysLeft: 47,
-    progress: 28,
-    effort: "Hard apply"
-  }
-];
+const SIGNUP_KEY = "imotive_signup_answers";
+const LEGACY_KEY = "grantlyProfile";
+const SAVED_KEY = "imotive_saved";
 
-const filters = ["All fields", "Any level", "Any deadline", "Any amount", "Effort: any"];
-const universities = ["Lund", "KTH", "Uppsala", "Chalmers", "Stockholm Univ.", "Goteborg"];
+const FIELD_OPTIONS = ["All fields", "Engineering", "IT", "Computer Science", "Business", "Economics", "Medicine", "Natural sciences", "Humanities", "Social sciences", "Law", "Architecture"];
+const LEVEL_OPTIONS = ["Any level", "Bachelor", "Master", "PhD"];
+
+function getLocalProfile() {
+  try {
+    const raw = localStorage.getItem(SIGNUP_KEY) || localStorage.getItem(LEGACY_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function getSavedIds() {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(SAVED_KEY) || "[]"));
+  } catch {
+    return new Set();
+  }
+}
 
 function AccountPage() {
-  const [state, setState] = React.useState({ loading: true, session: null, profile: null, error: "" });
+  const [authState, setAuthState] = React.useState({ loading: true, session: null, profile: null });
+  const [allScholarships, setAllScholarships] = React.useState([]);
+  const [scholarLoading, setScholarLoading] = React.useState(true);
+  const [loadError, setLoadError] = React.useState("");
+  const [search, setSearch] = React.useState("");
+  const [filterField, setFilterField] = React.useState("All fields");
+  const [filterLevel, setFilterLevel] = React.useState("Any level");
+  const [sortBy, setSortBy] = React.useState("match");
+  const [savedIds, setSavedIds] = React.useState(() => getSavedIds());
 
   React.useEffect(() => {
     let active = true;
-    async function load() {
+    async function loadAuth() {
       try {
-        if (!isSupabaseConfigured()) {
-          setState({ loading: false, session: null, profile: null, error: "" });
-          return;
-        }
-        const session = await getSession();
-        let profile = null;
-        if (session) {
-          try {
-            profile = await getUserProfile();
-          } catch (error) {
-            console.warn("Could not load profile:", error);
+        if (isSupabaseConfigured()) {
+          const session = await getSession();
+          let profile = null;
+          if (session) {
+            try { profile = await getUserProfile(); } catch {}
           }
+          if (active) setAuthState({ loading: false, session, profile });
+        } else {
+          if (active) setAuthState({ loading: false, session: null, profile: null });
         }
-        if (active) setState({ loading: false, session, profile, error: "" });
-      } catch (error) {
-        if (active) setState({ loading: false, session: null, profile: null, error: error.message });
+      } catch {
+        if (active) setAuthState({ loading: false, session: null, profile: null });
       }
     }
-    load();
-    return () => {
-      active = false;
-    };
+    loadAuth();
+    return () => { active = false; };
   }, []);
 
+  React.useEffect(() => {
+    if (authState.loading) return;
+    let active = true;
+    async function loadScholarships() {
+      setScholarLoading(true);
+      try {
+        const data = await fetchScholarships();
+        if (!active) return;
+        const localProfile = authState.profile?.answers || getLocalProfile();
+        const ranked = localProfile ? rankScholarships(data, localProfile, { includeIneligible: true }) : data;
+        setAllScholarships(ranked);
+      } catch (err) {
+        if (active) setLoadError("Could not load scholarships. Check your connection.");
+      } finally {
+        if (active) setScholarLoading(false);
+      }
+    }
+    loadScholarships();
+    return () => { active = false; };
+  }, [authState.loading, authState.profile]);
+
+  const filtered = React.useMemo(() => {
+    let items = [...allScholarships];
+
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      items = items.filter((item) =>
+        (item.title || "").toLowerCase().includes(q) ||
+        (item.source || "").toLowerCase().includes(q) ||
+        (item.category || "").toLowerCase().includes(q) ||
+        (item.fields || []).join(" ").toLowerCase().includes(q) ||
+        (item.eligibility || "").toLowerCase().includes(q)
+      );
+    }
+
+    if (filterField !== "All fields") {
+      items = items.filter((item) =>
+        (item.fields || []).some((f) => f.toLowerCase() === filterField.toLowerCase() || f === "Any field")
+      );
+    }
+
+    if (filterLevel !== "Any level") {
+      items = items.filter((item) =>
+        (item.level || []).includes(filterLevel)
+      );
+    }
+
+    if (sortBy === "deadline") {
+      items = [...items].sort((a, b) => {
+        if (!a.deadline || a.deadline === "Unknown") return 1;
+        if (!b.deadline || b.deadline === "Unknown") return -1;
+        return new Date(a.deadline) - new Date(b.deadline);
+      });
+    }
+
+    return items;
+  }, [allScholarships, search, filterField, filterLevel, sortBy]);
+
   async function handleSignOut() {
-    await signOut();
+    try { await signOut(); } catch {}
     window.location.href = "index.html";
   }
 
-  if (state.loading) {
-    return e(Layout, { onSignOut: handleSignOut, signedOut: true }, e("main", { className: "browse-loading" }, "Loading scholarships..."));
+  function handleSave(id) {
+    const next = new Set(savedIds);
+    if (next.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
+    const arr = [...next];
+    localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+    setSavedIds(next);
   }
 
-  if (!isSupabaseConfigured()) {
-    return e(
-      Layout,
-      { onSignOut: handleSignOut, signedOut: true },
-      e("main", { className: "browse-empty" },
-        e("p", { className: "signup-eyebrow" }, "setup needed"),
-        e("h1", null, "Connect Supabase to enable accounts."),
-        e("p", null, "Add your public Supabase URL and anon key in src/lib/supabaseClient.js, then enable Google in Supabase Auth.")
-      )
-    );
-  }
-
-  if (!state.session) {
-    return e(
-      Layout,
-      { onSignOut: handleSignOut, signedOut: true },
-      e("main", { className: "browse-empty" },
-        e("p", { className: "signup-eyebrow" }, "signed out"),
-        e("h1", null, "Sign in to browse your scholarship matches."),
-        e("a", { href: "signup.html?mode=login", className: "browse-primary-link" }, "Log in")
-      )
-    );
-  }
+  const localProfile = authState.profile?.answers || getLocalProfile();
+  const name = authState.profile?.full_name ||
+    (localProfile?.name ? `${localProfile.name.first || ""}`.trim() : `${localProfile?.firstName || ""}`.trim()) ||
+    authState.session?.user?.email || "";
+  const firstName = name.split(" ")[0];
+  const university = authState.profile?.university || localProfile?.university || "";
 
   return e(
     React.Fragment,
     null,
-    e(Layout, { onSignOut: handleSignOut }),
+    e(NavHeader, { onSignOut: handleSignOut, signedOut: !authState.session }),
     e(
       "main",
       { className: "browse-page" },
-      state.error ? e("p", { className: "signup-error browse-error" }, state.error) : null,
-      e(HeroSearch, { profile: state.profile, user: state.session.user }),
-      e(FilterBar),
-      e(
-        "section",
-        { className: "browse-grid", "aria-label": "Scholarship results" },
-        scholarships.map((item) => e(ScholarshipCard, { key: item.title, item }))
-      ),
-      e("div", { className: "browse-load-row" }, e("button", { type: "button", className: "browse-load" }, "Load more (2,425 remaining) ->"))
-    ),
-    e(TrustedBand)
+      loadError ? e("p", { className: "signup-error browse-error" }, loadError) : null,
+      e(HeroSearch, { firstName, university, search, onSearch: setSearch }),
+      e(FilterBar, {
+        filterField,
+        filterLevel,
+        sortBy,
+        onFilterField: setFilterField,
+        onFilterLevel: setFilterLevel,
+        onSortBy: setSortBy,
+        count: filtered.length,
+        loading: scholarLoading
+      }),
+      scholarLoading
+        ? e("div", { className: "browse-loading" }, "Loading scholarships...")
+        : filtered.length === 0
+          ? e("div", { className: "browse-empty-state" },
+              e("h3", null, search || filterField !== "All fields" || filterLevel !== "Any level"
+                ? "No matches for these filters."
+                : "No scholarships available."),
+              e("p", null, "Try adjusting your search or filters.")
+            )
+          : e(
+              "section",
+              { className: "browse-grid", "aria-label": "Scholarship results" },
+              filtered.slice(0, 30).map((item, i) =>
+                e(ScholarshipCard, { key: item.id || i, item, saved: savedIds.has(item.id), onSave: handleSave })
+              )
+            ),
+      filtered.length > 30
+        ? e("div", { className: "browse-load-row" },
+            e("p", null, `Showing 30 of ${filtered.length} results`)
+          )
+        : null
+    )
   );
 }
 
-function Layout({ children, onSignOut, signedOut = false }) {
+function NavHeader({ onSignOut, signedOut = false }) {
   return e(
-    React.Fragment,
-    null,
+    "header",
+    { className: "site-nav" },
     e(
-      "header",
-      { className: "site-nav" },
+      "div",
+      { className: "home-shell nav-inner" },
+      e(
+        "a",
+        { href: "index.html", className: "brand-mark", "aria-label": "iMotive home" },
+        e("span", null),
+        e("strong", null, "iMotive")
+      ),
+      e(
+        "nav",
+        { className: "nav-links" },
+        e("a", { href: "account.html" }, "Browse"),
+        e("a", { href: "results.html" }, "My matches"),
+        e("a", { href: "index.html#how-it-works" }, "How it works")
+      ),
       e(
         "div",
-        { className: "home-shell nav-inner" },
-        e(
-          "a",
-          { href: "index.html", className: "brand-mark", "aria-label": "iMotive home" },
-          e("span", null),
-          e("strong", null, "iMotive")
-        ),
-        e(
-          "nav",
-          { className: "nav-links" },
-          e("a", { href: "account.html" }, "Browse"),
-          e("a", { href: "index.html#how-it-works" }, "How it works"),
-          e("a", { href: "index.html#universities" }, "For universities")
-        ),
-        e(
-          "div",
-          { className: "nav-actions" },
-          signedOut ? e("a", { href: "signup.html?mode=login" }, "Log in") : e("button", { type: "button", className: "browse-nav-button", onClick: onSignOut }, "Log out"),
-          e("a", { href: "signup.html", className: "nav-signup" }, "Sign up")
-        )
+        { className: "nav-actions" },
+        signedOut
+          ? e("a", { href: "signup.html?mode=login" }, "Log in")
+          : e("button", { type: "button", className: "browse-nav-button", onClick: onSignOut }, "Log out"),
+        e("a", { href: "signup.html", className: "nav-signup" }, "Sign up")
       )
-    ),
-    children
+    )
   );
 }
 
-function HeroSearch({ profile, user }) {
-  const answers = profile?.answers || {};
-  const name = profile?.full_name || user.user_metadata?.full_name || user.email || "";
-  const firstName = name.split(" ")[0];
-
+function HeroSearch({ firstName, university, search, onSearch }) {
   return e(
     "section",
     { className: "browse-hero" },
     e(
       "div",
       { className: "browse-hero-copy" },
-      e("p", { className: "hand-note browse-kicker" }, e("span", { "aria-hidden": "true" }, "+"), " 2,431 scholarships, indexed weekly"),
-      e("h1", { className: "hand-title" }, firstName ? `Find scholarships, ${firstName}.` : "Find scholarships in seconds."),
-      e("p", { className: "browse-subhead" }, profile?.university || answers.university ? `Matches are tuned for ${profile?.university || answers.university}. Start scanning right away.` : "We collect and match scholarships for students in one place - start scanning right away.")
+      e("h1", { className: "hand-title" },
+        firstName ? `Find scholarships, ${firstName}.` : "Find scholarships in seconds."
+      ),
+      e("p", { className: "browse-subhead" },
+        university
+          ? `Matches are tuned for ${university}.`
+          : "We collect and match scholarships for students in one place."
+      )
     ),
     e(
       "div",
@@ -206,20 +244,18 @@ function HeroSearch({ profile, user }) {
         "label",
         { className: "browse-search", "aria-label": "Search scholarships" },
         e("span", { "aria-hidden": "true" }, "Q"),
-        e("input", { placeholder: "Search scholarships, fields, universities..." })
-      ),
-      e(
-        "div",
-        { className: "browse-actions-row" },
-        e("button", { type: "button", className: "browse-primary" }, "Start searching"),
-        e("button", { type: "button", className: "browse-secondary" }, "Browse all")
-      ),
-      e("p", { className: "hand-note browse-hint" }, "both equal weight, side by side")
+        e("input", {
+          type: "search",
+          placeholder: "Search by title, field, source...",
+          value: search,
+          onChange: (ev) => onSearch(ev.target.value)
+        })
+      )
     )
   );
 }
 
-function FilterBar() {
+function FilterBar({ filterField, filterLevel, sortBy, onFilterField, onFilterLevel, onSortBy, count, loading }) {
   return e(
     "section",
     { className: "filter-zone" },
@@ -227,36 +263,76 @@ function FilterBar() {
       "div",
       { className: "filter-row" },
       e("div", { className: "filter-left" },
-        e("span", { className: "hand-note filter-label" }, "Filter:"),
-        filters.map((filter) => e("button", { key: filter, type: "button", className: "filter-pill" }, filter, " v"))
+        e("span", { className: "filter-label" }, "Filter:"),
+        e(
+          "select",
+          { className: "filter-pill", value: filterField, onChange: (ev) => onFilterField(ev.target.value), "aria-label": "Filter by field" },
+          FIELD_OPTIONS.map((f) => e("option", { key: f, value: f }, f))
+        ),
+        e(
+          "select",
+          { className: "filter-pill", value: filterLevel, onChange: (ev) => onFilterLevel(ev.target.value), "aria-label": "Filter by level" },
+          LEVEL_OPTIONS.map((l) => e("option", { key: l, value: l }, l))
+        )
       ),
-      e("p", { className: "sort-copy" }, "Sort by: ", e("a", { href: "#" }, "Best match"))
-    ),
-    e("p", { className: "hand-note landing-note" }, "results show on landing")
+      e("div", { className: "filter-right" },
+        loading ? null : e("span", { className: "filter-count" }, `${count} results`),
+        e("span", { className: "filter-label" }, "Sort:"),
+        e(
+          "select",
+          { className: "filter-pill", value: sortBy, onChange: (ev) => onSortBy(ev.target.value), "aria-label": "Sort results" },
+          e("option", { value: "match" }, "Best match"),
+          e("option", { value: "deadline" }, "Deadline")
+        )
+      )
+    )
   );
 }
 
-function ScholarshipCard({ item }) {
-  const urgent = item.daysLeft <= 14;
+function ScholarshipCard({ item, saved, onSave }) {
+  const days = daysUntil(item.deadline);
+  const deadlineText = days === null ? "Rolling" : days < 0 ? "Closed" : `${days}d left`;
+  const urgent = days !== null && days >= 0 && days <= 14;
+  const hasScore = typeof item.score === "number";
+  const level = Array.isArray(item.level) ? item.level.join(" / ") : item.level || "";
+  const field = Array.isArray(item.fields) ? item.fields[0] : item.fields || "";
+
   return e(
     "article",
-    { className: "browse-card" },
-    e("div", { className: "browse-card-top" }, e("span", { className: "match-pill" }, `${item.match}% match`), e("strong", { className: "hand-title" }, item.amount)),
+    { className: `browse-card${saved ? " is-saved" : ""}` },
+    e("div", { className: "browse-card-top" },
+      hasScore ? e("span", { className: "match-pill" }, `${item.score}% match`) : null,
+      e("strong", { className: "hand-title" }, item.amount || "Amount TBD")
+    ),
     e("h2", { className: "hand-title" }, item.title),
-    e("p", { className: "card-desc" }, item.description),
-    e("div", { className: "deadline-row browse-deadline" }, e("span", null, "Deadline"), e("strong", { style: { color: urgent ? "#B45309" : "#555555" } }, `${item.daysLeft} days left`)),
-    e("div", { className: "progress-track" }, e("span", { className: "progress-fill", style: { width: `${item.progress}%`, background: urgent ? "#FACC15" : "#22C55E" } })),
-    e("span", { className: "effort-pill" }, item.effort),
-    e("a", { href: "#", className: "apply-btn" }, "Apply ->")
-  );
-}
-
-function TrustedBand() {
-  return e(
-    "footer",
-    { className: "browse-trusted" },
-    e("p", { className: "hand-note" }, "Used by 12,000+ students at"),
-    universities.map((university) => e("span", { key: university, className: "hand-note" }, university))
+    e("p", { className: "card-desc" },
+      item.eligibility
+        ? (item.eligibility.length > 110 ? item.eligibility.slice(0, 110) + "..." : item.eligibility)
+        : ""
+    ),
+    e("div", { className: "deadline-row browse-deadline" },
+      e("span", null, "Deadline"),
+      e("strong", { style: { color: urgent ? "#B45309" : "#555555" } }, deadlineText)
+    ),
+    e("div", { className: "pill-row" },
+      level ? e("span", { className: "pill" }, level) : null,
+      field ? e("span", { className: "pill" }, field) : null,
+      item.category ? e("span", { className: "pill" }, item.category) : null
+    ),
+    e("div", { className: "card-actions" },
+      e("a", {
+        href: item.applicationUrl || item.url || "#",
+        target: "_blank",
+        rel: "noreferrer",
+        className: "apply-btn"
+      }, "Apply ->"),
+      e("button", {
+        type: "button",
+        className: `save-btn${saved ? " is-saved" : ""}`,
+        onClick: () => onSave(item.id),
+        "aria-label": saved ? "Unsave scholarship" : "Save scholarship"
+      }, saved ? "Saved ✓" : "Save")
+    )
   );
 }
 

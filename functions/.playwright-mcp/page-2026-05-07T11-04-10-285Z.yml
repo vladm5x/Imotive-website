@@ -1,0 +1,91 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "iMotive" [ref=e5] [cursor=pointer]:
+      - /url: index.html
+      - text: iMotive
+    - link "← Back to results" [ref=e7] [cursor=pointer]:
+      - /url: results.html
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - paragraph [ref=e11]: Lund University - LTH
+        - heading "Engineering Advancement Foundation Award" [level=1] [ref=e12]
+        - generic [ref=e13]:
+          - generic [ref=e14]: SEK 15,000
+          - generic [ref=e15]: 25d left — 1 Jun 2026
+          - generic [ref=e16]: You're eligible
+      - generic [ref=e17]:
+        - heading "Pre-filled Application Fields" [level=2] [ref=e18]
+        - paragraph [ref=e19]: Hi Emma — here's what we know about you. Copy each field straight into the form.
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e24]: first name
+            - generic [ref=e26]: Emma
+            - button "Copy" [ref=e27] [cursor=pointer]
+          - generic [ref=e28]:
+            - generic [ref=e31]: last name
+            - generic [ref=e33]: Lindqvist
+            - button "Copy" [ref=e34] [cursor=pointer]
+          - generic [ref=e35]:
+            - generic [ref=e38]: faculty
+            - generic [ref=e40]: KTH Royal Institute of Technology
+            - button "Copy" [ref=e41] [cursor=pointer]
+          - generic [ref=e42]:
+            - generic [ref=e45]: subject
+            - generic [ref=e47]: Engineering
+            - button "Copy" [ref=e48] [cursor=pointer]
+          - generic [ref=e49]:
+            - generic [ref=e52]: project title
+            - generic [ref=e53]: Not in profile — add via quiz
+          - generic [ref=e54]:
+            - generic [ref=e57]: supervisor
+            - generic [ref=e58]: Not in profile — add via quiz
+          - generic [ref=e59]:
+            - generic [ref=e62]: CV
+            - generic [ref=e63]: Ready to attach
+          - generic [ref=e64]:
+            - generic [ref=e67]: budget
+            - generic [ref=e68]: Not yet prepared
+        - generic [ref=e70]:
+          - generic [ref=e71]: Profile completeness
+          - strong [ref=e72]: 63%
+      - generic [ref=e75]:
+        - heading "Documents Required" [level=2] [ref=e76]
+        - list [ref=e77]:
+          - listitem [ref=e78]:
+            - generic [ref=e79]: ✓
+            - generic [ref=e80]: CV / Résumé
+            - generic [ref=e81]: Ready
+          - listitem [ref=e82]:
+            - generic [ref=e83]: ○
+            - generic [ref=e84]: Financial Documents
+            - generic [ref=e85]: Prepare this
+        - generic [ref=e87]:
+          - generic [ref=e88]: Documents ready
+          - strong [ref=e89]: 50%
+      - generic [ref=e92]:
+        - link "Apply Now →" [ref=e93] [cursor=pointer]:
+          - /url: https://www.lth.se
+        - link "Update my profile" [ref=e94] [cursor=pointer]:
+          - /url: signup.html
+    - complementary [ref=e95]:
+      - heading "About this scholarship" [level=3] [ref=e96]
+      - generic [ref=e97]:
+        - paragraph [ref=e98]: Eligibility
+        - paragraph [ref=e99]: LTH students with a research or thesis project connected to technology, energy, or sustainability.
+      - generic [ref=e100]:
+        - paragraph [ref=e101]: How to apply
+        - paragraph [ref=e102]: Submit a project proposal and budget to the foundation contact listed by the faculty.
+      - generic [ref=e103]:
+        - paragraph [ref=e104]: Required documents
+        - paragraph [ref=e105]: Project summary, CV, budget, supervisor statement.
+      - generic [ref=e106]:
+        - paragraph [ref=e107]: Match score
+        - paragraph [ref=e108]: 96 / 100
+        - list [ref=e109]:
+          - listitem [ref=e110]: Master
+          - listitem [ref=e111]: Engineering
+          - listitem [ref=e112]: EU/EEA
+          - listitem [ref=e113]: Medium funding need
+          - listitem [ref=e114]: Research
+          - listitem [ref=e115]: Open deadline

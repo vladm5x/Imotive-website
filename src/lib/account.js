@@ -87,10 +87,13 @@ export async function saveUserProfile(answers) {
 
 function profileFromAnswers(user, answers) {
   const metadata = user.user_metadata || {};
+  const name = answers.name || {};
   return {
     id: user.id,
     email: user.email || metadata.email || null,
-    full_name: metadata.full_name || metadata.name || null,
+    first_name: name.first || metadata.given_name || null,
+    last_name: name.last || metadata.family_name || null,
+    full_name: (name.first && name.last) ? `${name.first} ${name.last}` : metadata.full_name || metadata.name || null,
     avatar_url: metadata.avatar_url || metadata.picture || null,
     university: answers.university || null,
     field: answers.field || null,
@@ -101,6 +104,8 @@ function profileFromAnswers(user, answers) {
     interests: Array.isArray(answers.interests) ? answers.interests : [],
     gpa: answers.gpa || null,
     financial_need: answers.need || null,
+    enrollment_status: answers.enrollmentStatus || null,
+    docs_ready: Array.isArray(answers.docs) ? answers.docs : [],
     goals: answers.goals || null,
     answers,
     onboarding_completed: true,

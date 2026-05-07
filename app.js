@@ -1,9 +1,11 @@
-import { daysUntil, rankScholarships } from "./src/lib/matching.js";
+﻿import { daysUntil, rankScholarships } from "./src/lib/matching.js";
 import { fetchScholarships, saveScholarshipForUser } from "./src/lib/scholarships.js";
 
 let scholarships = [];
 
-const profileStorageKey = "grantlyProfile";
+const SIGNUP_KEY = "imotive_signup_answers";
+const LEGACY_PROFILE_KEY = "grantlyProfile";
+const SAVED_KEY = "imotive_saved";
 const feedbackStorageKey = "grantlyFeedback";
 const state = {
   activeRank: 0
@@ -93,23 +95,57 @@ function formatDeadline(dateString) {
 
 function getStoredProfile() {
   try {
-    return { ...defaultProfile, ...JSON.parse(localStorage.getItem(profileStorageKey) || "null") };
+    const signupRaw = localStorage.getItem(SIGNUP_KEY);
+    if (signupRaw) return JSON.parse(signupRaw);
+    const legacy = JSON.parse(localStorage.getItem(LEGACY_PROFILE_KEY) || "null");
+    if (legacy) return { ...defaultProfile, ...legacy };
   } catch {
-    return { ...defaultProfile };
+    // fall through
   }
+  return { ...defaultProfile };
+}
+
+function hasAnyProfile() {
+  return Boolean(localStorage.getItem(SIGNUP_KEY) || localStorage.getItem(LEGACY_PROFILE_KEY));
 }
 
 function saveProfile(profile) {
-  localStorage.setItem(profileStorageKey, JSON.stringify(profile));
+  localStorage.setItem(LEGACY_PROFILE_KEY, JSON.stringify(profile));
+  const existing = (() => {
+    try { return JSON.parse(localStorage.getItem(SIGNUP_KEY) || "null"); } catch { return null; }
+  })();
+  if (existing) {
+    const merged = {
+      ...existing,
+      university: profile.university || existing.university,
+      level: profile.level || existing.level,
+      field: profile.field || existing.field,
+      nationality: profile.nationality || existing.nationality,
+      need: profile.need || existing.need,
+      interest: profile.interest || existing.interest
+    };
+    localStorage.setItem(SIGNUP_KEY, JSON.stringify(merged));
+  } else {
+    localStorage.setItem(SIGNUP_KEY, JSON.stringify(profile));
+  }
+}
+
+function getSavedIds() {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(SAVED_KEY) || "[]"));
+  } catch {
+    return new Set();
+  }
 }
 
 function getRankedScholarships(profile) {
   return rankScholarships(scholarships, profile, { includeIneligible: false });
 }
 
-function scholarshipCard(item, index, total) {
+function scholarshipCard(item, index, total, savedIds = new Set()) {
+  const saved = savedIds.has(item.id);
   const days = daysUntil(item.deadline);
-  const deadlineText = days === null ? "Rolling deadline" : days < 0 ? "Past pilot date" : `${days} days left`;
+  const deadlineText = days === null ? "Rolling deadline" : days < 0 ? "Past deadline" : `${days} days left`;
   return `
     <article class="rank-card">
       <div class="rank-kicker">
@@ -147,7 +183,8 @@ function scholarshipCard(item, index, total) {
       <div class="rank-actions">
         <button class="small-button" type="button" data-rank-prev>Previous</button>
         <button class="button primary" type="button" data-detail="${item.id}">View details</button>
-        <button class="small-button" type="button" data-save="${item.id}">Save</button>
+        <a class="button primary apply-link" href="apply.html?id=${item.id}">Apply →</a>
+        <button class="small-button ${saved ? "is-saved" : ""}" type="button" data-save="${item.id}">${saved ? "Saved ✓" : "Save"}</button>
         <button class="small-button" type="button" data-rank-next>Next</button>
       </div>
     </article>
@@ -264,7 +301,12 @@ function openDetail(id) {
         <div><dt>Requirement keywords</dt><dd>${item.requirementKeywords.join(", ")}</dd></div>
         <div><dt>Needed applicant info</dt><dd>${item.requiredApplicantInfo.join(", ")}</dd></div>
       </dl>
-      <a class="button primary" href="${item.url}" target="_blank" rel="noreferrer">Open source</a>
+      <div class="detail-link-row">
+        ${item.applicationUrl && item.applicationUrl !== item.url
+          ? `<a class="button primary" href="${item.applicationUrl}" target="_blank" rel="noreferrer">Apply now</a>
+             <a class="button" href="${item.url}" target="_blank" rel="noreferrer">Source page</a>`
+          : `<a class="button primary" href="${item.url}" target="_blank" rel="noreferrer">Open source</a>`}
+      </div>
     </div>
   `;
   dialog.showModal();
@@ -294,10 +336,10 @@ function attachDialogHandlers() {
 }
 
 async function saveScholarship(id) {
-  const saved = JSON.parse(localStorage.getItem("grantlySaved") || "[]");
+  const saved = JSON.parse(localStorage.getItem(SAVED_KEY) || "[]");
   if (!saved.includes(id)) {
     saved.push(id);
-    localStorage.setItem("grantlySaved", JSON.stringify(saved));
+    localStorage.setItem(SAVED_KEY, JSON.stringify(saved));
   }
   try {
     await saveScholarshipForUser(id);
@@ -310,16 +352,22 @@ function renderProfileSummary(profile) {
   const container = document.querySelector("#profileSummary");
   if (!container) return;
 
+  const name = profile.name
+    ? `${profile.name.first || ""} ${profile.name.last || ""}`.trim()
+    : `${profile.firstName || ""} ${profile.lastName || ""}`.trim();
+  const university = profile.university || "";
+  const level = profile.level || profile.degree_level || "";
+  const field = profile.field || "";
+  const citizenship = profile.citizenship || profile.nationality || "";
+  const need = profile.need || profile.financial_need || "";
+
+  const pills = [name, university, level, field, citizenship, need].filter(Boolean);
+
   container.innerHTML = `
     <div class="summary-card">
       <span class="summary-title">Current profile</span>
       <div class="pill-row">
-        <span class="pill">${profile.university}</span>
-        <span class="pill">${profile.level}</span>
-        <span class="pill">${profile.field}</span>
-        <span class="pill">${profile.nationality}</span>
-        <span class="pill">${profile.need} need</span>
-        <span class="pill">${profile.interest}</span>
+        ${pills.map((p) => `<span class="pill">${p}</span>`).join("")}
       </div>
     </div>
   `;
@@ -331,6 +379,7 @@ function renderResultsPage(profile) {
   if (!grid || !resultCount) return;
 
   const ranked = getRankedScholarships(profile);
+  const savedIds = getSavedIds();
   if (state.activeRank >= ranked.length) state.activeRank = 0;
 
   resultCount.textContent = ranked.length
@@ -338,8 +387,8 @@ function renderResultsPage(profile) {
     : "0 ranked scholarships";
 
   grid.innerHTML = ranked.length
-    ? scholarshipCard(ranked[state.activeRank], state.activeRank, ranked.length)
-    : `<div class="empty-state"><h3>No scholarships available yet.</h3><p>Add scholarship data to start ranking results.</p></div>`;
+    ? scholarshipCard(ranked[state.activeRank], state.activeRank, ranked.length, savedIds)
+    : `<div class="empty-state"><h3>No matches found.</h3><p>Update your profile to broaden results, or check back as new scholarships are added.</p><a class="button primary" href="profile.html" style="margin-top:1rem;display:inline-block">Update profile</a></div>`;
 
   grid.onclick = (event) => {
     const detailButton = event.target.closest("[data-detail]");
@@ -351,7 +400,8 @@ function renderResultsPage(profile) {
 
     if (saveButton) {
       saveScholarship(saveButton.dataset.save);
-      saveButton.textContent = "Saved";
+      saveButton.textContent = "Saved ✓";
+      saveButton.classList.add("is-saved");
     }
 
     if (nextButton && ranked.length) {
@@ -366,11 +416,40 @@ function renderResultsPage(profile) {
   };
 }
 
+function profileToFormValues(profile) {
+  if (profile.name || profile.citizenship) {
+    const name = profile.name || {};
+    const citizenshipMap = {
+      Sweden: "Swedish",
+      "EU / EEA": "EU/EEA",
+      "Nordic (non-EU)": "EU/EEA",
+      Other: "International non-EU"
+    };
+    const needMap = { High: "High", Some: "Medium", No: "Low" };
+    return {
+      firstName: name.first || "",
+      lastName: name.last || "",
+      email: "",
+      university: profile.university || defaultProfile.university,
+      level: profile.level || defaultProfile.level,
+      field: profile.field || defaultProfile.field,
+      nationality: citizenshipMap[profile.citizenship] || profile.citizenship || defaultProfile.nationality,
+      year: (profile.year || "Year 1").replace("Year ", "") || defaultProfile.year,
+      need: needMap[profile.need] || profile.need || defaultProfile.need,
+      interest: Array.isArray(profile.interests) && profile.interests[0] ? profile.interests[0] : defaultProfile.interest,
+      tuitionSupport: defaultProfile.tuitionSupport,
+      notes: profile.goals || ""
+    };
+  }
+  return profile;
+}
+
 function initProfileForm() {
   const form = document.querySelector("#profileForm");
   if (!form) return;
 
-  const profile = getStoredProfile();
+  const raw = getStoredProfile();
+  const profile = profileToFormValues(raw);
   Object.entries(profile).forEach(([key, value]) => {
     const field = form.elements.namedItem(key);
     if (field) field.value = value;
@@ -388,14 +467,16 @@ function initResultsPage() {
   const grid = document.querySelector("#scholarshipGrid");
   if (!grid) return;
 
-  const profile = getStoredProfile();
-  const hasMeaningfulProfile = Boolean(profile.firstName || profile.lastName || profile.email);
-
-  if (!hasMeaningfulProfile) {
-    window.location.href = "profile.html";
+  if (!hasAnyProfile()) {
+    grid.innerHTML = `<div class="empty-state">
+      <h3>No profile yet.</h3>
+      <p>Complete a quick setup to see your scholarship matches.</p>
+      <a class="button primary" href="signup.html" style="margin-top:1rem;display:inline-block">Get started</a>
+    </div>`;
     return;
   }
 
+  const profile = getStoredProfile();
   renderProfileSummary(profile);
   renderResultsPage(profile);
 }
@@ -414,7 +495,7 @@ function initFeedbackForm() {
     });
     localStorage.setItem(feedbackStorageKey, JSON.stringify(entries));
     form.reset();
-    note.textContent = "Feedback saved locally for this prototype.";
+    note.textContent = "Thank you for the feedback!";
   });
 }
 

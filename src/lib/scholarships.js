@@ -19,7 +19,11 @@ export async function fetchScholarships() {
 
   const response = await fetch("data/scholarships.json");
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  return response.json();
+  const all = await response.json();
+  return all.filter((item) => {
+    const qs = item.qualityScore ?? item.quality_score;
+    return qs === undefined || qs >= 50;
+  });
 }
 
 export async function saveScholarshipForUser(scholarshipId, status = "saved") {
