@@ -2,6 +2,7 @@ import React from "https://esm.sh/react@18.2.0";
 import ReactDOM from "https://esm.sh/react-dom@18.2.0/client";
 import { generateApplicationPack } from "./lib/autofill.js";
 import { scoreScholarship } from "./lib/matching.js";
+import { fetchScholarships } from "./lib/scholarships.js";
 
 const e = React.createElement;
 const STORAGE_KEY = "imotive_signup_answers";
@@ -11,9 +12,7 @@ function getProfile() {
 }
 
 async function loadScholarship(id) {
-  const res = await fetch("data/scholarships.json");
-  if (!res.ok) throw new Error("Could not load scholarships.");
-  const list = await res.json();
+  const list = await fetchScholarships();
   return list.find((s) => s.id === id) || null;
 }
 

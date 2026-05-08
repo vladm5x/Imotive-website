@@ -10,7 +10,7 @@ export async function fetchScholarships() {
       .eq("expired", false)
       .eq("blocked", false)
       .eq("requires_login", false)
-      .eq("review_status", "publishable")
+      .in("review_status", ["approved", "publishable"])
       .gte("quality_score", 50)
       .order("quality_score", { ascending: false });
 
@@ -23,7 +23,9 @@ export async function fetchScholarships() {
   const all = await response.json();
   return all.filter((item) => {
     const qs = item.qualityScore ?? item.quality_score;
-    return qs === undefined || qs >= 50;
+    const status = item.reviewStatus || item.review_status;
+    const publicStatus = !status || ["approved", "publishable"].includes(status);
+    return publicStatus && (qs === undefined || qs >= 50);
   });
 }
 

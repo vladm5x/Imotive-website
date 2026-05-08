@@ -16,11 +16,12 @@ import {
 
 const e = React.createElement;
 
-// Add admin email addresses here to grant access.
-const ADMIN_EMAILS = ["muresanvlad123@gmail.com"];
-
 function isAdmin(user) {
-  return Boolean(user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase()));
+  const appMetadata = user?.app_metadata || {};
+  const userMetadata = user?.user_metadata || {};
+  const role = appMetadata.role || userMetadata.role;
+  const roles = appMetadata.roles || userMetadata.roles || [];
+  return role === "admin" || (Array.isArray(roles) && roles.includes("admin"));
 }
 
 async function getFreshSession() {
@@ -1283,7 +1284,12 @@ function AdminApp() {
         e(
           "p",
           { className: "text-gray-500 mb-1" },
-          "Your account does not have admin access."
+          "Your account does not have the Supabase admin role."
+        ),
+        e(
+          "p",
+          { className: "text-sm text-gray-400 mb-3" },
+          "Set app_metadata.role to admin for this user, then sign in again."
         ),
         e(
           "p",

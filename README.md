@@ -4,11 +4,11 @@ Static scholarship finder prototype for validating demand with Lund University s
 
 ## Product Build Plan
 
-The larger scraper, Supabase, user profile, and application progress roadmap lives in `SCHOLARSHIP_PLATFORM_PLAN.md`.
+Current implementation notes and the next Claude Code task list live in `.claude/CLAUDE_CODE_NEXT_STEPS.md`.
 
 ## Open the Site
 
-Open `index.html` in a browser. No build step is required.
+Run `npm run dev`, then open the printed local URL. No build step is required.
 
 ## Site Architecture
 
@@ -52,11 +52,16 @@ For Netlify, this project uses `netlify.toml` and publishes directly from the pr
 3. Add these redirect URLs in Supabase Authentication > URL Configuration:
    - `http://localhost:4173/signup.html`
    - `https://your-domain.com/signup.html`
-4. Add your public Supabase URL and anon key in `src/lib/supabaseClient.js`, or set `window.IMOTIVE_SUPABASE_URL` and `window.IMOTIVE_SUPABASE_ANON_KEY` before loading the app scripts.
+4. Provide your public Supabase URL and anon key before the app scripts load. Supported options:
+   - Set `window.IMOTIVE_SUPABASE_URL` and `window.IMOTIVE_SUPABASE_ANON_KEY`.
+   - Or set `window.IMOTIVE_SUPABASE = { url, anonKey }`.
+   - Or add `<meta name="imotive:supabase-url" content="...">` and `<meta name="imotive:supabase-anon-key" content="...">`.
 
 Never put the Supabase service key in frontend code. The anon key is the only browser-safe key.
 
 To inspect all users and their onboarding data as an admin, paste `supabase/users_admin_view.sql` into the Supabase SQL Editor. The app itself only lets signed-in users read and update their own profile.
+
+For `admin.html`, run `supabase/admin_migration.sql` and set the admin user's Supabase Auth `app_metadata` to include `{ "role": "admin" }`.
 
 ## Updating Scholarship Data
 

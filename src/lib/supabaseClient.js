@@ -2,14 +2,18 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const PLACEHOLDER_URL = "YOUR_SUPABASE_URL";
 const PLACEHOLDER_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-const FALLBACK_URL = "https://yltxrmvxqnptffsmrpyt.supabase.co";
-const FALLBACK_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsdHhybXZ4cW5wdGZmc21ycHl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMTIxMzMsImV4cCI6MjA5Mjg4ODEzM30.Dvb9Y4nuoDMxEyWm-4p1nbpjhyuAJzZ0cVSMoJXyZcM";
 
 let client;
 
+function readMeta(name) {
+  return document.querySelector(`meta[name="${name}"]`)?.content?.trim() || "";
+}
+
+const runtimeConfig = window.IMOTIVE_SUPABASE || {};
+
 export const supabaseConfig = {
-  url: window.IMOTIVE_SUPABASE_URL || FALLBACK_URL,
-  anonKey: window.IMOTIVE_SUPABASE_ANON_KEY || FALLBACK_ANON_KEY
+  url: window.IMOTIVE_SUPABASE_URL || runtimeConfig.url || readMeta("imotive:supabase-url") || PLACEHOLDER_URL,
+  anonKey: window.IMOTIVE_SUPABASE_ANON_KEY || runtimeConfig.anonKey || readMeta("imotive:supabase-anon-key") || PLACEHOLDER_ANON_KEY
 };
 
 export function isSupabaseConfigured() {

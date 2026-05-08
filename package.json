@@ -9,7 +9,8 @@
     "scrape:debug": "node functions/scraper.js --debug-scrape",
     "scrape:status": "node functions/scraper.js --status",
     "push-json": "node functions/scraper.js --push-json",
-    "test:scraper": "node functions/scraper.test.js"
+    "test:scraper": "node functions/scraper.test.js",
+    "scrape:improve": "node functions/improve-scraper.js --no-supabase"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
