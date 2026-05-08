@@ -868,7 +868,13 @@ async function loadScholarships() {
   }
 
   try {
-    scholarships = await fetchScholarships();
+    if (document.querySelector("#scholarshipGrid")) {
+      const response = await fetch("data/scholarships.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      scholarships = await response.json();
+    } else {
+      scholarships = await fetchScholarships();
+    }
   } catch (err) {
     console.error("Could not load scholarship data:", err);
     scholarships = fallbackScholarships;
