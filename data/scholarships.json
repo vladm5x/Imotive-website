@@ -89,7 +89,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:22.414Z",
+    "lastVerifiedAt": "2026-05-18T10:09:30.296Z",
     "scrapedAt": "2026-05-11T09:38:58.981Z",
     "review_status": "approved",
     "quality_flags": [
@@ -100,13 +100,13 @@
       "approved_candidate"
     ],
     "duplicateCount": 1,
-    "url_verified_at": "2026-05-11T09:47:22.414Z",
-    "last_verified_at": "2026-05-11T09:47:22.414Z",
+    "url_verified_at": "2026-05-18T10:09:30.296Z",
+    "last_verified_at": "2026-05-18T10:09:30.296Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 98,
     "trustScore": 98,
     "quality_score": 98,
-    "trust_score": 98,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 98
   },
   {
     "id": "kth-julian-kth-scholarship",
@@ -204,7 +204,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:25.653Z",
+    "lastVerifiedAt": "2026-05-18T10:09:30.540Z",
     "scrapedAt": "2026-05-11T09:38:58.969Z",
     "review_status": "approved",
     "quality_flags": [
@@ -217,13 +217,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:25.653Z",
-    "last_verified_at": "2026-05-11T09:47:25.653Z",
+    "url_verified_at": "2026-05-18T10:09:30.540Z",
+    "last_verified_at": "2026-05-18T10:09:30.540Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 95,
     "trustScore": 100,
     "quality_score": 95,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "id": "su-stockholm-trio-scholarship",
@@ -314,7 +314,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:28.362Z",
+    "lastVerifiedAt": "2026-05-18T10:09:30.852Z",
     "scrapedAt": "2026-05-11T09:38:58.970Z",
     "review_status": "approved",
     "quality_flags": [
@@ -326,13 +326,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:28.362Z",
-    "last_verified_at": "2026-05-11T09:47:28.362Z",
+    "url_verified_at": "2026-05-18T10:09:30.852Z",
+    "last_verified_at": "2026-05-18T10:09:30.852Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 87,
     "trustScore": 90,
     "quality_score": 87,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.hhs.se/en/education/study-at-sse/tuition-and-fees/gels-scholarship/",
@@ -428,7 +428,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:34.771Z",
+    "lastVerifiedAt": "2026-05-18T10:09:30.877Z",
     "scrapedAt": "2026-05-11T09:38:58.979Z",
     "review_status": "approved",
     "quality_flags": [
@@ -440,13 +440,13 @@
       "missing_documents",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:34.771Z",
-    "last_verified_at": "2026-05-11T09:47:34.771Z",
+    "url_verified_at": "2026-05-18T10:09:30.877Z",
+    "last_verified_at": "2026-05-18T10:09:30.877Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 87,
     "trustScore": 83,
     "quality_score": 87,
-    "trust_score": 83,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 83
   },
   {
     "url": "https://www.hhs.se/en/education/study-at-sse/tuition-and-fees/minor-field-studies/",
@@ -540,7 +540,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:34.705Z",
+    "lastVerifiedAt": "2026-05-18T10:09:32.305Z",
     "scrapedAt": "2026-05-11T09:38:58.980Z",
     "review_status": "approved",
     "quality_flags": [
@@ -552,13 +552,13 @@
       "missing_documents",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:34.705Z",
-    "last_verified_at": "2026-05-11T09:47:34.705Z",
+    "url_verified_at": "2026-05-18T10:09:32.305Z",
+    "last_verified_at": "2026-05-18T10:09:32.305Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 87,
     "trustScore": 83,
     "quality_score": 87,
-    "trust_score": 83,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 83
   },
   {
     "url": "https://si.se/en/we-dont-need-perfect-conditions-to-start-just-purpose-and-courage/",
@@ -635,7 +635,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:56.183Z",
+    "lastVerifiedAt": "2026-05-18T10:09:32.214Z",
     "scrapedAt": "2026-05-11T09:38:58.999Z",
     "review_status": "approved",
     "quality_flags": [
@@ -648,13 +648,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:56.183Z",
-    "last_verified_at": "2026-05-11T09:47:56.183Z",
+    "url_verified_at": "2026-05-18T10:09:32.214Z",
+    "last_verified_at": "2026-05-18T10:09:32.214Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 79,
     "trustScore": 80,
     "quality_score": 79,
-    "trust_score": 80,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 80
   },
   {
     "url": "https://si.se/en/i-want-to-foster-a-green-economic-diversification-of-ecuador/",
@@ -731,7 +731,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:57.492Z",
+    "lastVerifiedAt": "2026-05-18T10:09:31.938Z",
     "scrapedAt": "2026-05-11T09:38:58.999Z",
     "review_status": "approved",
     "quality_flags": [
@@ -744,13 +744,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:57.492Z",
-    "last_verified_at": "2026-05-11T09:47:57.492Z",
+    "url_verified_at": "2026-05-18T10:09:31.938Z",
+    "last_verified_at": "2026-05-18T10:09:31.938Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 79,
     "trustScore": 80,
     "quality_score": 79,
-    "trust_score": 80,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 80
   },
   {
     "url": "https://www.kth.se/en/studies/master/admissions/scholarships/kth-scholarship-1.72827",
@@ -827,7 +827,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:47:59.431Z",
+    "lastVerifiedAt": "2026-05-18T10:09:32.264Z",
     "scrapedAt": "2026-05-11T09:39:00.007Z",
     "qualityFlags": [
       "source_verified",
@@ -851,13 +851,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:47:59.431Z",
-    "last_verified_at": "2026-05-11T09:47:59.431Z",
+    "url_verified_at": "2026-05-18T10:09:32.264Z",
+    "last_verified_at": "2026-05-18T10:09:32.264Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 95,
     "trustScore": 100,
     "quality_score": 95,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.vr.se/english/applying-for-funding/calls/2025-11-11-project-grant-for-planning-or-pilot-study-for-a-future-clinical-study-in-therapy-research.html",
@@ -927,7 +927,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:09.240Z",
+    "lastVerifiedAt": "2026-05-18T10:09:33.372Z",
     "scrapedAt": "2026-05-11T09:40:40.408Z",
     "qualityFlags": [
       "source_verified",
@@ -952,13 +952,13 @@
       "approved_candidate"
     ],
     "duplicateCount": 1,
-    "url_verified_at": "2026-05-11T09:48:09.240Z",
-    "last_verified_at": "2026-05-11T09:48:09.240Z",
+    "url_verified_at": "2026-05-18T10:09:33.372Z",
+    "last_verified_at": "2026-05-18T10:09:33.372Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 83,
     "trustScore": 95,
     "quality_score": 83,
-    "trust_score": 95,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 95
   },
   {
     "url": "https://www.jsps.go.jp/english/e-inv/index.html",
@@ -1043,7 +1043,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:08.881Z",
+    "lastVerifiedAt": "2026-05-18T10:09:33.485Z",
     "scrapedAt": "2026-05-11T09:41:14.940Z",
     "qualityFlags": [
       "source_verified",
@@ -1064,13 +1064,13 @@
       "approved_candidate"
     ],
     "duplicateCount": 1,
-    "url_verified_at": "2026-05-11T09:48:08.881Z",
-    "last_verified_at": "2026-05-11T09:48:08.881Z",
+    "url_verified_at": "2026-05-18T10:09:33.485Z",
+    "last_verified_at": "2026-05-18T10:09:33.485Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 97,
     "trustScore": 93,
     "quality_score": 97,
-    "trust_score": 93,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 93
   },
   {
     "url": "https://www.chevening.org/who-can-apply",
@@ -1140,7 +1140,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:12.819Z",
+    "lastVerifiedAt": "2026-05-18T10:09:34.870Z",
     "scrapedAt": "2026-05-11T09:41:33.033Z",
     "qualityFlags": [
       "source_verified",
@@ -1165,13 +1165,13 @@
       "approved_candidate"
     ],
     "duplicateCount": 1,
-    "url_verified_at": "2026-05-11T09:48:12.819Z",
-    "last_verified_at": "2026-05-11T09:48:12.819Z",
+    "url_verified_at": "2026-05-18T10:09:34.870Z",
+    "last_verified_at": "2026-05-18T10:09:34.870Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.daad.de/en/studying-in-germany/scholarships/daad-scholarships/",
@@ -1243,7 +1243,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:14.949Z",
+    "lastVerifiedAt": "2026-05-18T10:09:33.744Z",
     "scrapedAt": "2026-05-11T09:41:41.042Z",
     "qualityFlags": [
       "source_verified",
@@ -1263,13 +1263,14 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:48:14.949Z",
-    "last_verified_at": "2026-05-11T09:48:14.949Z",
+    "url_verified_at": "2026-05-18T10:09:33.744Z",
+    "last_verified_at": "2026-05-18T10:09:33.744Z",
+    "validation_notes": "passes final publishability gate",
+    "duplicateCount": 1,
     "qualityScore": 90,
     "trustScore": 95,
     "quality_score": 90,
-    "trust_score": 95,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 95
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=78",
@@ -1342,7 +1343,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:26.081Z",
+    "lastVerifiedAt": "2026-05-18T10:09:37.339Z",
     "scrapedAt": "2026-05-11T09:43:37.773Z",
     "qualityFlags": [
       "source_verified",
@@ -1368,13 +1369,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:26.081Z",
-    "last_verified_at": "2026-05-11T09:48:26.081Z",
+    "url_verified_at": "2026-05-18T10:09:37.339Z",
+    "last_verified_at": "2026-05-18T10:09:37.339Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 83,
     "trustScore": 95,
     "quality_score": 83,
-    "trust_score": 95,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 95
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=11",
@@ -1440,7 +1441,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:29.662Z",
+    "lastVerifiedAt": "2026-05-18T10:09:37.133Z",
     "scrapedAt": "2026-05-11T09:43:37.774Z",
     "qualityFlags": [
       "source_verified",
@@ -1464,13 +1465,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:29.662Z",
-    "last_verified_at": "2026-05-11T09:48:29.662Z",
+    "url_verified_at": "2026-05-18T10:09:37.133Z",
+    "last_verified_at": "2026-05-18T10:09:37.133Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 86,
     "trustScore": 100,
     "quality_score": 86,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=32",
@@ -1545,7 +1546,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:29.232Z",
+    "lastVerifiedAt": "2026-05-18T10:09:37.362Z",
     "scrapedAt": "2026-05-11T09:43:37.775Z",
     "qualityFlags": [
       "source_verified",
@@ -1569,13 +1570,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:29.232Z",
-    "last_verified_at": "2026-05-11T09:48:29.232Z",
+    "url_verified_at": "2026-05-18T10:09:37.362Z",
+    "last_verified_at": "2026-05-18T10:09:37.362Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 86,
     "trustScore": 100,
     "quality_score": 86,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=115",
@@ -1641,7 +1642,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:29.672Z",
+    "lastVerifiedAt": "2026-05-18T10:09:37.107Z",
     "scrapedAt": "2026-05-11T09:43:37.775Z",
     "qualityFlags": [
       "source_verified",
@@ -1667,13 +1668,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:29.672Z",
-    "last_verified_at": "2026-05-11T09:48:29.672Z",
+    "url_verified_at": "2026-05-18T10:09:37.107Z",
+    "last_verified_at": "2026-05-18T10:09:37.107Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 83,
     "trustScore": 95,
     "quality_score": 83,
-    "trust_score": 95,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 95
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=107",
@@ -1743,7 +1744,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:30.094Z",
+    "lastVerifiedAt": "2026-05-18T10:09:39.543Z",
     "scrapedAt": "2026-05-11T09:43:37.776Z",
     "qualityFlags": [
       "source_verified",
@@ -1769,13 +1770,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:30.094Z",
-    "last_verified_at": "2026-05-11T09:48:30.094Z",
+    "url_verified_at": "2026-05-18T10:09:39.543Z",
+    "last_verified_at": "2026-05-18T10:09:39.543Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=38",
@@ -1846,7 +1847,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:33.161Z",
+    "lastVerifiedAt": "2026-05-18T10:09:40.024Z",
     "scrapedAt": "2026-05-11T09:43:37.776Z",
     "qualityFlags": [
       "source_verified",
@@ -1870,13 +1871,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:33.161Z",
-    "last_verified_at": "2026-05-11T09:48:33.161Z",
+    "url_verified_at": "2026-05-18T10:09:40.024Z",
+    "last_verified_at": "2026-05-18T10:09:40.024Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 86,
     "trustScore": 100,
     "quality_score": 86,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=87",
@@ -1945,7 +1946,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:32.702Z",
+    "lastVerifiedAt": "2026-05-18T10:09:40.265Z",
     "scrapedAt": "2026-05-11T09:43:37.777Z",
     "qualityFlags": [
       "source_verified",
@@ -1971,13 +1972,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:32.702Z",
-    "last_verified_at": "2026-05-11T09:48:32.702Z",
+    "url_verified_at": "2026-05-18T10:09:40.265Z",
+    "last_verified_at": "2026-05-18T10:09:40.265Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=18",
@@ -2046,7 +2047,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:32.730Z",
+    "lastVerifiedAt": "2026-05-18T10:09:40.271Z",
     "scrapedAt": "2026-05-11T09:43:37.778Z",
     "qualityFlags": [
       "source_verified",
@@ -2072,13 +2073,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:32.730Z",
-    "last_verified_at": "2026-05-11T09:48:32.730Z",
+    "url_verified_at": "2026-05-18T10:09:40.271Z",
+    "last_verified_at": "2026-05-18T10:09:40.271Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=40",
@@ -2147,7 +2148,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:32.583Z",
+    "lastVerifiedAt": "2026-05-18T10:09:41.939Z",
     "scrapedAt": "2026-05-11T09:43:37.778Z",
     "qualityFlags": [
       "source_verified",
@@ -2171,13 +2172,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:32.583Z",
-    "last_verified_at": "2026-05-11T09:48:32.583Z",
+    "url_verified_at": "2026-05-18T10:09:41.939Z",
+    "last_verified_at": "2026-05-18T10:09:41.939Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 86,
     "trustScore": 100,
     "quality_score": 86,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=2",
@@ -2249,7 +2250,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:35.438Z",
+    "lastVerifiedAt": "2026-05-18T10:09:42.275Z",
     "scrapedAt": "2026-05-11T09:43:37.779Z",
     "qualityFlags": [
       "source_verified",
@@ -2275,13 +2276,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:35.438Z",
-    "last_verified_at": "2026-05-11T09:48:35.438Z",
+    "url_verified_at": "2026-05-18T10:09:42.275Z",
+    "last_verified_at": "2026-05-18T10:09:42.275Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=34",
@@ -2350,7 +2351,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:35.520Z",
+    "lastVerifiedAt": "2026-05-18T10:09:42.267Z",
     "scrapedAt": "2026-05-11T09:43:37.779Z",
     "qualityFlags": [
       "source_verified",
@@ -2376,13 +2377,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:35.520Z",
-    "last_verified_at": "2026-05-11T09:48:35.520Z",
+    "url_verified_at": "2026-05-18T10:09:42.267Z",
+    "last_verified_at": "2026-05-18T10:09:42.267Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=21",
@@ -2448,7 +2449,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:35.718Z",
+    "lastVerifiedAt": "2026-05-18T10:09:42.412Z",
     "scrapedAt": "2026-05-11T09:43:37.780Z",
     "qualityFlags": [
       "source_verified",
@@ -2474,13 +2475,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:35.718Z",
-    "last_verified_at": "2026-05-11T09:48:35.718Z",
+    "url_verified_at": "2026-05-18T10:09:42.412Z",
+    "last_verified_at": "2026-05-18T10:09:42.412Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=96",
@@ -2548,7 +2549,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:35.670Z",
+    "lastVerifiedAt": "2026-05-18T10:09:44.536Z",
     "scrapedAt": "2026-05-11T09:43:37.780Z",
     "qualityFlags": [
       "source_verified",
@@ -2572,13 +2573,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:35.670Z",
-    "last_verified_at": "2026-05-11T09:48:35.670Z",
+    "url_verified_at": "2026-05-18T10:09:44.536Z",
+    "last_verified_at": "2026-05-18T10:09:44.536Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 86,
     "trustScore": 100,
     "quality_score": 86,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=95",
@@ -2647,7 +2648,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:37.414Z",
+    "lastVerifiedAt": "2026-05-18T10:09:44.542Z",
     "scrapedAt": "2026-05-11T09:43:37.780Z",
     "qualityFlags": [
       "source_verified",
@@ -2671,13 +2672,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:37.414Z",
-    "last_verified_at": "2026-05-11T09:48:37.414Z",
+    "url_verified_at": "2026-05-18T10:09:44.542Z",
+    "last_verified_at": "2026-05-18T10:09:44.542Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 86,
     "trustScore": 100,
     "quality_score": 86,
-    "trust_score": 100,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 100
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=72",
@@ -2750,7 +2751,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:38.384Z",
+    "lastVerifiedAt": "2026-05-18T10:09:43.887Z",
     "scrapedAt": "2026-05-11T09:43:37.781Z",
     "qualityFlags": [
       "source_verified",
@@ -2776,13 +2777,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:38.384Z",
-    "last_verified_at": "2026-05-11T09:48:38.384Z",
+    "url_verified_at": "2026-05-18T10:09:43.887Z",
+    "last_verified_at": "2026-05-18T10:09:43.887Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=73",
@@ -2849,7 +2850,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:38.238Z",
+    "lastVerifiedAt": "2026-05-18T10:09:44.776Z",
     "scrapedAt": "2026-05-11T09:43:37.782Z",
     "qualityFlags": [
       "source_verified",
@@ -2875,13 +2876,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:38.238Z",
-    "last_verified_at": "2026-05-11T09:48:38.238Z",
+    "url_verified_at": "2026-05-18T10:09:44.776Z",
+    "last_verified_at": "2026-05-18T10:09:44.776Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=108",
@@ -2950,7 +2951,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:38.242Z",
+    "lastVerifiedAt": "2026-05-18T10:09:47.049Z",
     "scrapedAt": "2026-05-11T09:43:37.783Z",
     "qualityFlags": [
       "source_verified",
@@ -2976,13 +2977,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:38.242Z",
-    "last_verified_at": "2026-05-11T09:48:38.242Z",
+    "url_verified_at": "2026-05-18T10:09:47.049Z",
+    "last_verified_at": "2026-05-18T10:09:47.049Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=104",
@@ -3048,7 +3049,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:40.635Z",
+    "lastVerifiedAt": "2026-05-18T10:09:46.427Z",
     "scrapedAt": "2026-05-11T09:43:37.783Z",
     "qualityFlags": [
       "source_verified",
@@ -3074,13 +3075,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:40.635Z",
-    "last_verified_at": "2026-05-11T09:48:40.635Z",
+    "url_verified_at": "2026-05-18T10:09:46.427Z",
+    "last_verified_at": "2026-05-18T10:09:46.427Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.kulturfonden.fi/stipendierobidrag/alla-stipendier-bidrag/?omgong=5",
@@ -3146,7 +3147,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:40.654Z",
+    "lastVerifiedAt": "2026-05-18T10:09:46.825Z",
     "scrapedAt": "2026-05-11T09:43:37.784Z",
     "qualityFlags": [
       "source_verified",
@@ -3172,13 +3173,13 @@
     ],
     "index_page_url": "https://www.kulturfonden.fi/stipendierobidrag/",
     "index_child": true,
-    "url_verified_at": "2026-05-11T09:48:40.654Z",
-    "last_verified_at": "2026-05-11T09:48:40.654Z",
+    "url_verified_at": "2026-05-18T10:09:46.825Z",
+    "last_verified_at": "2026-05-18T10:09:46.825Z",
+    "validation_notes": "passes final publishability gate",
     "qualityScore": 78,
     "trustScore": 90,
     "quality_score": 78,
-    "trust_score": 90,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 90
   },
   {
     "url": "https://www.larshiertasminne.se/anslag/anslag-till-sociala-andamal-och-slojder",
@@ -3244,7 +3245,7 @@
     "requiresLogin": false,
     "expired": false,
     "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:40.764Z",
+    "lastVerifiedAt": "2026-05-18T10:09:47.421Z",
     "scrapedAt": "2026-05-11T09:44:28.518Z",
     "qualityFlags": [
       "source_verified",
@@ -3270,110 +3271,13 @@
       "has_application_instructions",
       "approved_candidate"
     ],
-    "url_verified_at": "2026-05-11T09:48:40.764Z",
-    "last_verified_at": "2026-05-11T09:48:40.764Z",
+    "url_verified_at": "2026-05-18T10:09:47.421Z",
+    "last_verified_at": "2026-05-18T10:09:47.421Z",
+    "validation_notes": "passes final publishability gate",
+    "duplicateCount": 1,
     "qualityScore": 75,
     "trustScore": 85,
     "quality_score": 75,
-    "trust_score": 85,
-    "validation_notes": "passes final publishability gate"
-  },
-  {
-    "url": "https://www.larshiertasminne.se/anslag/forskningsanslag-till-enskilda-forskare-och-organisationer",
-    "applicationUrl": "https://www.larshiertasminne.se/sv/ansokan",
-    "id": "lhm-forskningsanslag-till-enskilda-forskare-och-organisationer",
-    "title": "Forskningsanslag till enskilda forskare och organisationer",
-    "amount": "See scholarship page",
-    "deadline": "Unknown",
-    "category": "Research",
-    "level": [],
-    "fields": [
-      "Any field"
-    ],
-    "nationality": [],
-    "interests": [
-      "Research"
-    ],
-    "need": [
-      "Low",
-      "Medium",
-      "High"
-    ],
-    "source": "Lars Hiertas Minne",
-    "eligibility": "See scholarship page for eligibility.",
-    "documents": "See scholarship page for required documents.",
-    "instructions": "Apply through Lars Hiertas Minne foundation portal.",
-    "requirementKeywords": [],
-    "requiredApplicantInfo": [
-      "first name",
-      "last name",
-      "email",
-      "proof of enrolment"
-    ],
-    "scholarship_name": "Forskningsanslag till enskilda forskare och organisationer",
-    "provider_name": "Lars Hiertas Minne",
-    "provider_type": "other",
-    "source_url": "https://www.larshiertasminne.se/anslag/forskningsanslag-till-enskilda-forskare-och-organisationer",
-    "final_url": "https://www.larshiertasminne.se/sv/anslag/forskningsanslag-till-enskilda-forskare-och-organisationer",
-    "application_url": "https://www.larshiertasminne.se/sv/ansokan",
-    "application_final_url": "https://www.larshiertasminne.se/sv/ansokan",
-    "country": "",
-    "region_or_city": "",
-    "eligible_nationalities": [],
-    "eligible_institutions": [],
-    "eligible_study_levels": [],
-    "eligible_fields": [
-      "Any field"
-    ],
-    "currency": "",
-    "deadline_type": "unknown",
-    "is_recurring": null,
-    "requirements": "",
-    "application_instructions": "Apply through Lars Hiertas Minne foundation portal.",
-    "contact_email": "",
-    "language": "",
-    "page_type": "official_page",
-    "source_url_status": "ok:200",
-    "application_url_status": "ok:200",
-    "validationStatus": "publishable",
-    "validationNotes": "passes final publishability gate",
-    "scrapeSuccess": true,
-    "blocked": false,
-    "requiresLogin": false,
-    "expired": false,
-    "duplicateOf": "",
-    "lastVerifiedAt": "2026-05-11T09:48:42.986Z",
-    "scrapedAt": "2026-05-11T09:44:28.519Z",
-    "qualityFlags": [
-      "source_verified",
-      "application_url_verified",
-      "official_provider",
-      "missing_deadline",
-      "missing_amount",
-      "missing_eligibility",
-      "missing_documents",
-      "has_application_instructions",
-      "approved_candidate"
-    ],
-    "reviewStatus": "approved",
-    "review_status": "approved",
-    "quality_flags": [
-      "source_verified",
-      "application_url_verified",
-      "official_provider",
-      "missing_deadline",
-      "missing_amount",
-      "missing_eligibility",
-      "missing_documents",
-      "has_application_instructions",
-      "approved_candidate"
-    ],
-    "url_verified_at": "2026-05-11T09:48:42.986Z",
-    "last_verified_at": "2026-05-11T09:48:42.986Z",
-    "qualityScore": 75,
-    "trustScore": 85,
-    "quality_score": 75,
-    "trust_score": 85,
-    "validation_notes": "passes final publishability gate"
+    "trust_score": 85
   }
 ]
